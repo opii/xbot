@@ -56,9 +56,53 @@ def get_bots():
             "detectedAt": row[3].strftime("%Y-%m-%d %H:%M:%S")
         })
         
-    cur.close()
+        cur.close()
     conn.close()
     return bots
+
+# --- NEO4J GRAPH ENDPOINT ---
+from neo4j import GraphDatabase
+
+NEO4J_URI = "bolt://localhost:7687"
+NEO4J_AUTH = ("neo4j", "bot_password")
+
+@app.get("/api/graph")
+def get_graph():
+    driver = GraphDatabase.driver(NEO4J_URI, auth=NEO4J_AUTH)
+    
+    nodes_dict = {}
+    links = []
+    
+    query = """
+    MATCH (s:User)-[r:RETWEETED]->(t:User)
+    RETURN s.user_id AS source, s.bot_score AS source_score, t.user_id AS target, t.bot_score AS target_score
+    LIMIT 500
+    """
+    
+    try:
+        with driver.session() as session:
+            result = session.run(query)
+            for record in result:
+                s_id = record["source"]
+                t_id = record["target"]
+                s_score = record["source_score"] or 0
+                
+                # group 1 = Bot, group 0 = Normal, group 2 = Target Influencer
+                if s_id not in nodes_dict:
+                    nodes_dict[s_id] = {"id": s_id, "group": 1 if s_score >= 30 else 0, "val": 1}
+                if t_id not in nodes_dict:
+                    nodes_dict[t_id] = {"id": t_id, "group": 2, "val": 3}
+                    
+                links.append({"source": s_id, "target": t_id})
+    except Exception as e:
+        print(f"Neo4j Error: {e}")
+    finally:
+        driver.close()
+    
+    return {
+        "nodes": list(nodes_dict.values()),
+        "links": links
+    }
 
 if __name__ == "__main__":
     import uvicorn

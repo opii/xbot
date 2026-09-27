@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import './App.css'
+import GraphView from './GraphView'
 
 function App() {
   const [stats, setStats] = useState(null);
@@ -52,6 +53,9 @@ function App() {
           <div className="stat-value orange">{stats?.mediumRisk || 0}</div>
         </div>
       </div>
+      
+      <GraphView />
+      <br/>
 
       <div className="bots-table-container">
         <h2>Top 50 Detektovanih Botova</h2>
