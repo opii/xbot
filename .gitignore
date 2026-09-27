@@ -1,0 +1,5 @@
+bot_detector/venv/
+bot_detector/dashboard-ui/node_modules/
+__pycache__/
+*.pyc
+.DS_Store
