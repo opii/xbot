@@ -14,6 +14,10 @@ Nakon Maskovog preuzimanja i promene politike API-ja (prelazak na *Pay-per-use C
 
 Zbog ove prilično bezvezne situacije sa monopolizacijom javnih podataka, ovaj projekat funkcioniše kao **Proof of Concept (PoC)**. Opremljen je generatorom koji sintetiše ultra-realistične scenarije (hiljade tvitova, stotine botova, astroturfing kampanje i NLP spam) kako biste mogli da testirate i vizuelizujete detekciju na delu.
 
+### 🕵️ Gde nabaviti prave, aktuelne podatke (Workaround)?
+Ukoliko želite da koristite ovaj sistem na stvarnim podacima iz Srbije (ili bilo koje druge države) danas, bez plaćanja hiljada dolara Twitteru, trenutno jedina isplativa "siva zona" jeste korišćenje *Third-Party* cloud scraper-a (Data Brokera) kao što su **[Apify](https://apify.com/)** ili **[PhantomBuster](https://phantombuster.com/)**. 
+Ovi servisi poseduju infrastrukturu i proxy servere kojima zaobilaze limite. Preko njih možete zakupiti tzv. *Twitter Scraper Actor*, uneti željeni hashtag (npr. `#izbori`) ili profil, i za malu sumu (cca $10) dobiti eksportovane desetine hiljada pravih, svežih tvitova u obliku CSV ili JSON fajla, koji onda možete učitati u ovaj sistem.
+
 ---
 
 ## 🧠 Arhitektura Sistema (Ensemble Model)
