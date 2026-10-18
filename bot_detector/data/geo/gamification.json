@@ -1,0 +1,542 @@
+{
+  "generated": "2026-10-18T14:48:35",
+  "date_from": "2023-01-23",
+  "date_to": "2025-08-31",
+  "operators": 8746,
+  "points_per_action": [
+    {
+      "action": "quote",
+      "count": 4492454,
+      "points": 20608235,
+      "per_action": 4.587
+    },
+    {
+      "action": "reply",
+      "count": 1181924,
+      "points": 3764927,
+      "per_action": 3.185
+    },
+    {
+      "action": "komentar prijavljen",
+      "count": 14596291,
+      "points": 46195648,
+      "per_action": 3.165
+    },
+    {
+      "action": "deljenje vesti",
+      "count": 21316282,
+      "points": 39530683,
+      "per_action": 1.854
+    },
+    {
+      "action": "retvit",
+      "count": 11843579,
+      "points": 18806947,
+      "per_action": 1.588
+    },
+    {
+      "action": "lajk",
+      "count": 29679612,
+      "points": 44191788,
+      "per_action": 1.489
+    },
+    {
+      "action": "SNS link",
+      "count": 35077072,
+      "points": 46996059,
+      "per_action": 1.34
+    },
+    {
+      "action": "komentar objavljen",
+      "count": 4319501,
+      "points": 4228900,
+      "per_action": 0.979
+    }
+  ],
+  "leaderboard": [
+    {
+      "id": 1915,
+      "points": 1090827,
+      "quote": 3490,
+      "reply": 0,
+      "like": 57190,
+      "retweet": 12652,
+      "komentari": 11705,
+      "deljenje": 29485,
+      "ime": "Jasmina Ratković",
+      "okrug": "Raški okrug",
+      "opstina": "Kraljevo",
+      "role": "Mešovit",
+      "toxicity_level": "Netoksičan (Pojačivač)",
+      "shift_archetype": "Mešovit / 24-7"
+    },
+    {
+      "id": 68,
+      "points": 1082420,
+      "quote": 3103,
+      "reply": 15758,
+      "like": 24312,
+      "retweet": 4610,
+      "komentari": 39,
+      "deljenje": 40789,
+      "ime": "Mirko Osadkovski",
+      "okrug": "Južnobački okrug",
+      "opstina": "Žabalj",
+      "role": "Odgovarač",
+      "toxicity_level": "Ekstremna (Jurišnik)",
+      "shift_archetype": "Mešovit / 24-7"
+    },
+    {
+      "id": 4188,
+      "points": 1042202,
+      "quote": 32375,
+      "reply": 12778,
+      "like": 73938,
+      "retweet": 26466,
+      "komentari": 9218,
+      "deljenje": 46426,
+      "ime": "Jasmina Adamović",
+      "okrug": "Severnobanatski okrug",
+      "opstina": "Kikinda",
+      "role": "Odgovarač",
+      "toxicity_level": "Ekstremna (Jurišnik)",
+      "shift_archetype": "Mešovit / 24-7"
+    },
+    {
+      "id": 539,
+      "points": 874642,
+      "quote": 0,
+      "reply": 29,
+      "like": 53,
+      "retweet": 24,
+      "komentari": 7,
+      "deljenje": 31,
+      "ime": "Janko  Langura",
+      "okrug": "Moravički okrug",
+      "opstina": "Gornji Milanovac",
+      "role": "Mešovit",
+      "toxicity_level": "Netoksičan (Pojačivač)",
+      "shift_archetype": "Mešovit / 24-7"
+    },
+    {
+      "id": 824,
+      "points": 862982,
+      "quote": 4353,
+      "reply": 175,
+      "like": 28866,
+      "retweet": 4945,
+      "komentari": 6682,
+      "deljenje": 798,
+      "ime": "Ivana Raković",
+      "okrug": "Beograd",
+      "opstina": "Beograd-Novi Beograd",
+      "role": "Pojačivač",
+      "toxicity_level": "Ekstremna (Jurišnik)",
+      "shift_archetype": "Mešovit / 24-7"
+    },
+    {
+      "id": 1877,
+      "points": 787446,
+      "quote": 21331,
+      "reply": 30,
+      "like": 32031,
+      "retweet": 13554,
+      "komentari": 20305,
+      "deljenje": 83351,
+      "ime": "Nenad Jovanović",
+      "okrug": "Jablanički okrug",
+      "opstina": "Bojnik",
+      "role": "Mešovit",
+      "toxicity_level": "Ekstremna (Jurišnik)",
+      "shift_archetype": "Mešovit / 24-7"
+    },
+    {
+      "id": 6236,
+      "points": 786674,
+      "quote": 8,
+      "reply": 0,
+      "like": 1421,
+      "retweet": 940,
+      "komentari": 2502,
+      "deljenje": 165,
+      "ime": "Dragan Petković",
+      "okrug": "Beograd",
+      "opstina": "Beograd-Palilula",
+      "role": "Pojačivač",
+      "toxicity_level": "Ekstremna (Jurišnik)",
+      "shift_archetype": "Mešovit / 24-7"
+    },
+    {
+      "id": 1587,
+      "points": 746102,
+      "quote": 5948,
+      "reply": 6,
+      "like": 68661,
+      "retweet": 28713,
+      "komentari": 19877,
+      "deljenje": 35307,
+      "ime": "Željko Penev",
+      "okrug": "Podunavski okrug",
+      "opstina": "Smederevo",
+      "role": "Pojačivač",
+      "toxicity_level": "Ekstremna (Jurišnik)",
+      "shift_archetype": "Mešovit / 24-7"
+    },
+    {
+      "id": 2660,
+      "points": 742938,
+      "quote": 3534,
+      "reply": 3600,
+      "like": 33627,
+      "retweet": 9260,
+      "komentari": 18715,
+      "deljenje": 39355,
+      "ime": "Robert Ludanji",
+      "okrug": "Severnobanatski okrug",
+      "opstina": "Kikinda",
+      "role": "Mešovit",
+      "toxicity_level": "Netoksičan (Pojačivač)",
+      "shift_archetype": "Kancelarijski"
+    },
+    {
+      "id": 70,
+      "points": 733672,
+      "quote": 1483,
+      "reply": 6394,
+      "like": 1624,
+      "retweet": 3,
+      "komentari": 137,
+      "deljenje": 152,
+      "ime": "Marija Krulj",
+      "okrug": "Beograd",
+      "opstina": "Beograd-Rakovica",
+      "role": "Odgovarač",
+      "toxicity_level": "Ekstremna (Jurišnik)",
+      "shift_archetype": "Mešovit / 24-7"
+    },
+    {
+      "id": 973,
+      "points": 720287,
+      "quote": 396,
+      "reply": 15566,
+      "like": 29471,
+      "retweet": 40,
+      "komentari": 1084,
+      "deljenje": 3290,
+      "ime": "Boris   Davčik",
+      "okrug": "Južnobački okrug",
+      "opstina": "Novi Sad - grad",
+      "role": "Odgovarač",
+      "toxicity_level": "Ekstremna (Jurišnik)",
+      "shift_archetype": "Mešovit / 24-7"
+    },
+    {
+      "id": 207,
+      "points": 718795,
+      "quote": 1482,
+      "reply": 394,
+      "like": 78843,
+      "retweet": 30330,
+      "komentari": 4390,
+      "deljenje": 10474,
+      "ime": "Slavica Kostić",
+      "okrug": "Mačvanski okrug",
+      "opstina": "Šabac",
+      "role": null,
+      "toxicity_level": "Ekstremna (Jurišnik)",
+      "shift_archetype": null
+    },
+    {
+      "id": 2416,
+      "points": 705075,
+      "quote": 18973,
+      "reply": 9194,
+      "like": 69758,
+      "retweet": 24854,
+      "komentari": 16657,
+      "deljenje": 24941,
+      "ime": "Ozrenka Kapetanov",
+      "okrug": "Srednjobanatski okrug",
+      "opstina": "Novi Bečej",
+      "role": "Mešovit",
+      "toxicity_level": "Ekstremna (Jurišnik)",
+      "shift_archetype": "Mešovit / 24-7"
+    },
+    {
+      "id": 2422,
+      "points": 701784,
+      "quote": 9107,
+      "reply": 9677,
+      "like": 103488,
+      "retweet": 29668,
+      "komentari": 3548,
+      "deljenje": 46567,
+      "ime": "Sanja Atanackov",
+      "okrug": "Srednjobanatski okrug",
+      "opstina": "Novi Bečej",
+      "role": "Mešovit",
+      "toxicity_level": "Ekstremna (Jurišnik)",
+      "shift_archetype": "Mešovit / 24-7"
+    },
+    {
+      "id": 830,
+      "points": 698637,
+      "quote": 8878,
+      "reply": 0,
+      "like": 21369,
+      "retweet": 12440,
+      "komentari": 32946,
+      "deljenje": 350,
+      "ime": "Srđan Mitrović",
+      "okrug": "Beograd",
+      "opstina": "Beograd-Novi Beograd",
+      "role": "Mešovit",
+      "toxicity_level": "Ekstremna (Jurišnik)",
+      "shift_archetype": "Mešovit / 24-7"
+    },
+    {
+      "id": 868,
+      "points": 697000,
+      "quote": 691,
+      "reply": 58,
+      "like": 28349,
+      "retweet": 1196,
+      "komentari": 7898,
+      "deljenje": 20067,
+      "ime": "Srđan Martinović",
+      "okrug": "Južnobački okrug",
+      "opstina": "Bečej",
+      "role": "Mešovit",
+      "toxicity_level": "Ekstremna (Jurišnik)",
+      "shift_archetype": "Mešovit / 24-7"
+    },
+    {
+      "id": 2309,
+      "points": 678320,
+      "quote": 2224,
+      "reply": 13820,
+      "like": 18839,
+      "retweet": 601,
+      "komentari": 1484,
+      "deljenje": 2033,
+      "ime": "Aleksandra Munćan",
+      "okrug": "Južnobanatski okrug",
+      "opstina": "Vršac",
+      "role": "Mešovit",
+      "toxicity_level": "Ekstremna (Jurišnik)",
+      "shift_archetype": "Mešovit / 24-7"
+    },
+    {
+      "id": 65,
+      "points": 675909,
+      "quote": 15,
+      "reply": 653,
+      "like": 73,
+      "retweet": 0,
+      "komentari": 4,
+      "deljenje": 2,
+      "ime": "Nikola Radivojević",
+      "okrug": "Beograd",
+      "opstina": "Beograd-Rakovica",
+      "role": "Odgovarač",
+      "toxicity_level": "Visoka",
+      "shift_archetype": "Mešovit / 24-7"
+    },
+    {
+      "id": 1166,
+      "points": 652645,
+      "quote": 8607,
+      "reply": 15238,
+      "like": 16848,
+      "retweet": 105,
+      "komentari": 578,
+      "deljenje": 2662,
+      "ime": "Olivera Savićević",
+      "okrug": "Južnobački okrug",
+      "opstina": "Srbobran",
+      "role": "Odgovarač",
+      "toxicity_level": "Ekstremna (Jurišnik)",
+      "shift_archetype": "Mešovit / 24-7"
+    },
+    {
+      "id": 2895,
+      "points": 650404,
+      "quote": 253,
+      "reply": 1,
+      "like": 34043,
+      "retweet": 15668,
+      "komentari": 4466,
+      "deljenje": 90,
+      "ime": "Violeta Lapatanović",
+      "okrug": "Braničevski okrug",
+      "opstina": "Kučevo",
+      "role": "Pojačivač",
+      "toxicity_level": "Netoksičan (Pojačivač)",
+      "shift_archetype": "Mešovit / 24-7"
+    }
+  ],
+  "by_opstina": [
+    {
+      "opstina": "Šabac",
+      "okrug": "Mačvanski okrug",
+      "points": 10626224,
+      "operators": 228
+    },
+    {
+      "opstina": "Novi Bečej",
+      "okrug": "Srednjobanatski okrug",
+      "points": 6201365,
+      "operators": 93
+    },
+    {
+      "opstina": "Smederevo",
+      "okrug": "Podunavski okrug",
+      "points": 6094321,
+      "operators": 125
+    },
+    {
+      "opstina": "Kikinda",
+      "okrug": "Severnobanatski okrug",
+      "points": 5865527,
+      "operators": 203
+    },
+    {
+      "opstina": "Vranje",
+      "okrug": "Pčinjski okrug",
+      "points": 5460085,
+      "operators": 147
+    },
+    {
+      "opstina": "Leskovac",
+      "okrug": "Jablanički okrug",
+      "points": 5145157,
+      "operators": 209
+    },
+    {
+      "opstina": "Pančevo",
+      "okrug": "Južnobanatski okrug",
+      "points": 4716749,
+      "operators": 185
+    },
+    {
+      "opstina": "Kraljevo",
+      "okrug": "Raški okrug",
+      "points": 4504616,
+      "operators": 193
+    },
+    {
+      "opstina": "Kragujevac",
+      "okrug": "Šumadijski okrug",
+      "points": 4294502,
+      "operators": 175
+    },
+    {
+      "opstina": "Čačak",
+      "okrug": "Moravički okrug",
+      "points": 4204043,
+      "operators": 131
+    },
+    {
+      "opstina": "Bela Crkva",
+      "okrug": "Južnobanatski okrug",
+      "points": 4162472,
+      "operators": 109
+    },
+    {
+      "opstina": "Novi Sad - grad",
+      "okrug": "Južnobački okrug",
+      "points": 4150049,
+      "operators": 88
+    },
+    {
+      "opstina": "Vladimirci",
+      "okrug": "Mačvanski okrug",
+      "points": 4061917,
+      "operators": 42
+    },
+    {
+      "opstina": "Kruševac",
+      "okrug": "Rasinski okrug",
+      "points": 3799243,
+      "operators": 180
+    },
+    {
+      "opstina": "Beograd-Novi Beograd",
+      "okrug": "Beograd",
+      "points": 3792222,
+      "operators": 74
+    },
+    {
+      "opstina": "Vrnjačka Banja",
+      "okrug": "Raški okrug",
+      "points": 3725158,
+      "operators": 94
+    },
+    {
+      "opstina": "Zrenjanin",
+      "okrug": "Srednjobanatski okrug",
+      "points": 3653940,
+      "operators": 65
+    },
+    {
+      "opstina": "Žabalj",
+      "okrug": "Južnobački okrug",
+      "points": 3544145,
+      "operators": 62
+    },
+    {
+      "opstina": "Mali Zvornik",
+      "okrug": "Mačvanski okrug",
+      "points": 3503567,
+      "operators": 55
+    },
+    {
+      "opstina": "Sombor",
+      "okrug": "Zapadnobački okrug",
+      "points": 3481301,
+      "operators": 63
+    },
+    {
+      "opstina": "Beograd-Palilula",
+      "okrug": "Beograd",
+      "points": 3473967,
+      "operators": 159
+    },
+    {
+      "opstina": "Valjevo",
+      "okrug": "Kolubarski okrug",
+      "points": 3375419,
+      "operators": 119
+    },
+    {
+      "opstina": "Gornji Milanovac",
+      "okrug": "Moravički okrug",
+      "points": 3320637,
+      "operators": 51
+    },
+    {
+      "opstina": "Lajkovac",
+      "okrug": "Kolubarski okrug",
+      "points": 3236000,
+      "operators": 52
+    },
+    {
+      "opstina": "Beograd-Lazarevac",
+      "okrug": "Beograd",
+      "points": 3220812,
+      "operators": 65
+    }
+  ],
+  "team_points": {
+    "records": 264,
+    "distinct_leaders": 2,
+    "total_points": 145200,
+    "avg_activists": 6.0,
+    "procenat_values": [
+      30,
+      50
+    ],
+    "note": "tb_procenat ima samo fiksne vrednosti (30/50) i malo lidera → NIJE merilo realizacije kvote; tretira se kao težina/kategorija, ne „ispunjenost ≥100%“."
+  },
+  "fair_play": "Bodovi su interna partijska ekonomija (sistem ih sam dodeljuje). Vrednost po akciji = Σbodovi/Σcount. Uloga udarnika je iz grafa (role/toxicity). Ne izvlače se zaključci o pojedincu van onoga što je sistem zabeležio."
+}

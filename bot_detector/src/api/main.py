@@ -918,6 +918,8 @@ def _load_json_geo(fname):
 VOTER_GEOIP = _load_json_geo("voter_geoip.json")
 VOTER_TIMING = _load_json_geo("voter_timing.json")
 BETTING_CORP = _load_json_geo("betting_corporate.json")
+SHIFT_CHAT = _load_json_geo("shift_chat.json")
+GAMIFICATION = _load_json_geo("gamification.json")
 
 # ISO-2 kodovi afričkih država prisutnih u voter podacima (za udeo Afrike)
 _AFRICA = {"CM": "Kamerun", "CG": "Kongo (Brazavil)", "CD": "DR Kongo", "TZ": "Tanzanija",
@@ -1062,6 +1064,25 @@ def _build_dossier():
             a(f"  - {p.get('ime','?')}: {_fmt(p.get('votes_credited',0))} glasova"
               f"{' · koordinator' if p.get('coordinator') else ''}"
               f"{' · '+p['opstina'] if p.get('opstina') else ''}")
+    sc, gm = SHIFT_CHAT or {}, GAMIFICATION or {}
+    sup = sc.get("supervisors", [])
+    if sup:
+        tax = sc.get("taxonomy", {})
+        a(f"- **Dežurstva (operativni chat, {_fmt(sc.get('total_messages','?'))} poruka):** smene se "
+          f"vode i kontrolišu kroz interni chat (primopredaja {_fmt(tax.get('primopredaja','?'))}, "
+          f"kontrola {_fmt(tax.get('kontrola','?'))}, nalozi za brisanje {_fmt(tax.get('brisanje','?'))}). "
+          f"Vodeći supervizor: {sup[0].get('ime','?')}"
+          f"{' ('+sup[0]['pozicija']+')' if sup[0].get('pozicija') else ''}.")
+    lb = gm.get("leaderboard", [])
+    ppa = {p["action"]: p["per_action"] for p in gm.get("points_per_action", [])}
+    if ppa:
+        a(f"- **Partijska ekonomija (bodovi):** sistem najviše plaća quote (~{ppa.get('quote','?')}) i "
+          f"reply (~{ppa.get('reply','?')}) vs lajk (~{ppa.get('lajk','?')}) — podsticaj za napad/odgovor, "
+          f"ne za pasivan lajk.")
+    if lb:
+        juris = sum(1 for m in lb[:10] if (m.get("toxicity_level") or "").find("Jurišnik") >= 0 or (m.get("toxicity_level") or "").find("Ekstremna") >= 0)
+        a(f"  Među top 10 „udarnika“ po bodovima, {juris} su jurišnici (ekstremna toksičnost) — "
+          f"ekonomija nagrađuje napadače. Vrh: {lb[0].get('ime','?')} ({_fmt(lb[0].get('points',0))} bodova).")
     a("")
 
     # 3
@@ -1124,6 +1145,21 @@ def export_investigation_dossier():
     fname = f"cacix_dosije_{datetime.now().strftime('%Y%m%d')}.md"
     return Response(content=md, media_type="text/markdown; charset=utf-8",
                     headers={"Content-Disposition": f'attachment; filename="{fname}"'})
+
+
+@app.get("/api/shift_chat")
+def shift_chat():
+    """Operativni chat / dnevnik dežurstava: vodeći supervizori, taksonomija poruka
+    (primopredaja/kontrola/brisanje), satnica, verbatim raporti i nalozi za brisanje.
+    FER PLAY: interni operativni logovi realnih ljudi (operateri)."""
+    return SHIFT_CHAT or {"supervisors": [], "taxonomy": {}, "hours": [], "samples": {}}
+
+
+@app.get("/api/gamification")
+def gamification():
+    """Partijska ekonomija: vrednost bodova po akciji (quote/reply/lajk/komentar),
+    kvote/timski bodovi, i top „udarnici" po ukupnim bodovima + bihevioralna uloga."""
+    return GAMIFICATION or {"points_per_action": [], "leaderboard": [], "by_opstina": []}
 
 
 @app.get("/api/voter_timing")

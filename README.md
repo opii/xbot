@@ -68,6 +68,12 @@ koliko poena). Podaci pokazuju:
   ([`docs/vlasnicki_profil_kladionica.md`](docs/vlasnicki_profil_kladionica.md)).
 - **📑 Istraživački dosije:** jedan klik u „Alatke" generiše ceo formalni izveštaj
   (Markdown) sa fer-play granicama (`/api/export/investigation_dossier`).
+- **Dnevnik dežurstava:** interni chat (20.232 poruke) pokazuje smene (predaja oko
+  12/15/19h), kontrolu kvaliteta i krizna brisanja; vodeći supervizor je i #2
+  „udarnik" ([`docs/dnevnik_smena_i_kontrola.md`](docs/dnevnik_smena_i_kontrola.md)).
+- **Partijska ekonomija:** quote 4,59 > reply 3,19 > lajk 1,49 bodova — ekonomija
+  nagrađuje napad; **7 od 10 top „udarnika" su jurišnici**
+  ([`docs/gamifikacija_i_kvote.md`](docs/gamifikacija_i_kvote.md)).
 
 ## 🌍 Voter infrastruktura — GeoIP nalazi
 

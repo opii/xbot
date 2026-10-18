@@ -90,7 +90,8 @@ dup/lead/template/reg/farm/pseudonyms/toxicity/infiltrator; `template` koristi C
 (hijerarhija Region→Okrug→Opština + raspon kontrole), `/api/cascade` (SS prioritet
 + vrh koplja + ritam + izdavač→okrug), `/api/voter_geoip` (države/ASN voter mašina
 + udeo Afrike + tajming), `/api/voter_timing` (cirkadijalna analiza: satnica po
-državi), `/api/export/investigation_dossier` (ceo dosije, Markdown download).
+državi), `/api/export/investigation_dossier` (ceo dosije, Markdown download),
+`/api/shift_chat` (dnevnik dežurstava), `/api/gamification` (bodovi/kvote).
 Node id šema: `op:<id>`, `acc:<id>`, `tgt:<handle>`,
 `portal:<name>`, `news:<vid>`. Operater nosi `auto_score` (+komponente),
 `lead_score`, `template_frac`, `reg_score`, `dup_ratio`, `role`, `farm_ratio`/
@@ -99,8 +100,9 @@ Node id šema: `op:<id>`, `acc:<id>`, `tgt:<handle>`,
 FE: levi meni; pogledi Pregled/Geografija/Uloge/Smene/Portali/Organizatori/Master, bihevioralne
 metrike (…/farm), Kampanje, Komanda (Task-masteri / Komandna odgovornost & Voter /
 📋 Direktive / 🏛 Koordinatori / ⏱ Kaskada), Voter infrastruktura (🌍 Voter/GeoIP —
-Afrika, sa satnicom mašina Srbija vs strano); denoising klizač „min jačina veze"
-+ „sakrij izolovane"; u Alatkama dugme „📑 Istraživački dosije" (download).
+Afrika, sa satnicom mašina Srbija vs strano); Komanda uključuje i „💬 Dnevnik
+dežurstava" i „🎯 Kvote & Bodovanje"; denoising klizač „min jačina veze" + „sakrij
+izolovane"; u Alatkama dugme „📑 Istraživački dosije" (download).
 
 ## Kako pokrenuti
 ```bash
@@ -130,7 +132,9 @@ voter GeoIP, kladionice↔opštine, task-masteri, komandna odgovornost & voter,
 **analiza direktiva** (`directives.py` → „📋 Direktive"), **hijerarhija koordinatora**
 (`coordinators.py` → „🏛 Koordinatori"), **vremenska kaskada** (`cascade.py` → „⏱ Kaskada"),
 **cirkadijalni režim** (`voter_timing.py` → satnica u GeoIP pogledu), **korporativni
-tragovi** (`betting_corporate.py`) i **generator dosijea** (`/api/export/investigation_dossier`).
+tragovi** (`betting_corporate.py`), **generator dosijea** (`/api/export/investigation_dossier`),
+**dnevnik dežurstava** (`shift_chat.py` → „💬 Dnevnik") i **gamifikacija/bodovi**
+(`gamification_points.py` → „🎯 Kvote & Bodovanje").
 
 ## Ključni nalazi (zaključci)
 
@@ -215,6 +219,18 @@ ljudi koji rade u smenama — ali je koordinacija vrlo jaka i merljiva.** Dokazi
   otvaraju kampanju. SS direktive se izvršavaju **prekoregionalno** (izdavač u
   jednom okrugu, izvršenje u Beogradu/Vojvodini) = centralni kanal, ne lokalna
   stvar. Detalji: [`docs/analiza_kaskade.md`](docs/analiza_kaskade.md).
+- **Dnevnik dežurstava (operativni chat).** `chat_twitter_brisanje` (20.232 poruke)
+  = interni chat smena: primopredaja 8.811, kontrola 846, krizno brisanje 694. Smene
+  se predaju oko **12h/15h/19h** (+8h). Vodeći supervizor **Mirko Osadkovski**
+  (Tehnički sekretar Južnobački okrug — isti okrug = vrh koplja). Raporti potvrđuju
+  ljudski vođenu operaciju sa kontrolom kvaliteta i brisanjem razotkrivajućih tvitova.
+  `src/analysis/shift_chat.py`, [`docs/dnevnik_smena_i_kontrola.md`](docs/dnevnik_smena_i_kontrola.md).
+- **Partijska ekonomija bodova.** `izvestaj_dnevni` (2,22M): sistem plaća **quote
+  4,59 > reply 3,19 > retvit 1,59 > lajk 1,49** (citat ~3× lajk → podsticaj za
+  napad/odgovor). Top „udarnici": **7 od 10** su Jurišnici (ekstremna toksičnost) —
+  ekonomija nagrađuje napadače; #2 je Mirko Osadkovski (isti chat-supervizor).
+  `timski_bodovi` je uzak (2 lidera, tb_procenat∈{30,50} — NIJE realizacija kvote).
+  `src/analysis/gamification_points.py`, [`docs/gamifikacija_i_kvote.md`](docs/gamifikacija_i_kvote.md).
 - **Mete.** Masovne mete (npr. `@sns_srbija` — dira je 3.608 operatera) su šum za
   povezivanje; prava koordinacija se vidi na retkim, deljenim metama.
 

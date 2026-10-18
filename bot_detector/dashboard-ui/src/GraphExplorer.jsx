@@ -117,6 +117,8 @@ export default function GraphExplorer() {
   const [coExp, setCoExp] = useState({});
   const [casData, setCasData] = useState(null);
   const [geoipData, setGeoipData] = useState(null);
+  const [scData, setScData] = useState(null);
+  const [gmData, setGmData] = useState(null);
 
   const merge = useCallback((incoming) => {
     setData((prev) => {
@@ -161,11 +163,11 @@ export default function GraphExplorer() {
     setViewState(v); setMinShared(0);
     if (v === 'behav' && metric) setBehavMetric(metric);
     if (v === 'bursts') loadBursts();
-    else if (v === 'command' || v === 'command_voter' || v === 'directives' || v === 'coordinators' || v === 'cascade' || v === 'geoip') { setDetail(null); setPathInfo(null); setBurstInfo(null); }
+    else if (NO_GRAPH.includes(v)) { setDetail(null); setPathInfo(null); setBurstInfo(null); }
     else loadView(v, metric || behavMetric);
   };
 
-  const NO_GRAPH = ['command', 'command_voter', 'directives', 'coordinators', 'cascade', 'geoip'];
+  const NO_GRAPH = ['command', 'command_voter', 'directives', 'coordinators', 'cascade', 'geoip', 'shift_chat', 'gamification'];
   useEffect(() => { if (view === 'bursts') loadBursts(); else if (!NO_GRAPH.includes(view)) loadView(view); }, [layer]); // eslint-disable-line
   useEffect(() => { fetch(`${API}/api/regions`).then((r) => r.json()).then((d) => setOkruzi(d.okruzi || [])).catch(() => {}); }, []);
   useEffect(() => { fetch(`${API}/api/behavior_cohort`).then((r) => r.json()).then(setCohort).catch(() => {}); }, []);
@@ -176,6 +178,8 @@ export default function GraphExplorer() {
   useEffect(() => { fetch(`${API}/api/coordinators`).then((r) => r.json()).then(setCoData).catch(() => {}); }, []);
   useEffect(() => { fetch(`${API}/api/cascade`).then((r) => r.json()).then(setCasData).catch(() => {}); }, []);
   useEffect(() => { fetch(`${API}/api/voter_geoip`).then((r) => r.json()).then(setGeoipData).catch(() => {}); }, []);
+  useEffect(() => { fetch(`${API}/api/shift_chat`).then((r) => r.json()).then(setScData).catch(() => {}); }, []);
+  useEffect(() => { fetch(`${API}/api/gamification`).then((r) => r.json()).then(setGmData).catch(() => {}); }, []);
   // Otpornost: ako je pogled otvoren a podaci fale (npr. endpoint podignut posle
   // učitavanja stranice), dovuci ih na otvaranju pogleda.
   useEffect(() => {
@@ -183,6 +187,8 @@ export default function GraphExplorer() {
     if (view === 'cascade' && !casData) fetch(`${API}/api/cascade`).then((r) => r.json()).then(setCasData).catch(() => {});
     if (view === 'coordinators' && !coData) fetch(`${API}/api/coordinators`).then((r) => r.json()).then(setCoData).catch(() => {});
     if (view === 'directives' && !dirData) fetch(`${API}/api/directives?top=25`).then((r) => r.json()).then(setDirData).catch(() => {});
+    if (view === 'shift_chat' && !scData) fetch(`${API}/api/shift_chat`).then((r) => r.json()).then(setScData).catch(() => {});
+    if (view === 'gamification' && !gmData) fetch(`${API}/api/gamification`).then((r) => r.json()).then(setGmData).catch(() => {});
   }, [view]); // eslint-disable-line
   useEffect(() => {
     const upd = () => wrapRef.current && setDim({ w: wrapRef.current.offsetWidth, h: 640 });
@@ -417,6 +423,8 @@ export default function GraphExplorer() {
           <NavItem color="#a78bfa" active={view === 'directives'} onClick={() => setView('directives')}>📋 Direktive (šta se naređuje)</NavItem>
           <NavItem color="#38bdf8" active={view === 'coordinators'} onClick={() => setView('coordinators')}>🏛 Koordinatori (hijerarhija)</NavItem>
           <NavItem color="#2dd4bf" active={view === 'cascade'} onClick={() => setView('cascade')}>⏱ Kaskada (SS → teren)</NavItem>
+          <NavItem color="#c084fc" active={view === 'shift_chat'} onClick={() => setView('shift_chat')}>💬 Dnevnik dežurstava (Chat)</NavItem>
+          <NavItem color="#34d399" active={view === 'gamification'} onClick={() => setView('gamification')}>🎯 Kvote &amp; Bodovanje</NavItem>
         </Section>
 
         <Section title="Voter infrastruktura">
@@ -1089,6 +1097,111 @@ export default function GraphExplorer() {
 
           <div style={{ color: '#fbbf24', fontSize: '0.66rem', marginTop: '0.6rem', lineHeight: 1.45 }}>
             ⚠ Fer play: IP daje samo državu/ASN. „Kladionica" dolazi iz labele mašine (vr_naziv_ss: Scooorebet/Maxi/Joker + filijale) — inferencija, ne hard-dokaz. Mašine imaju verzionisan klijent (vr_verzija) = instaliran softver; mehanizam „srpski operater → daljinski terminal → glas" je VERODOSTOJNA HIPOTEZA (nema veze mašina↔operater u bazi), ne dokaz.
+          </div>
+        </div>
+      )}
+
+      {view === 'shift_chat' && !detail && !pathInfo && scData && scData.supervisors && (
+        <div style={widePanel}>
+          <div style={{ fontWeight: 600, color: 'var(--text-main)' }}>💬 Dnevnik dežurstava (operativni chat)</div>
+          <div style={{ color: 'var(--text-muted)', fontSize: '0.72rem', margin: '0.3rem 0 0.5rem', lineHeight: 1.4 }}>
+            {(scData.total_messages || 0).toLocaleString('sr-RS')} poruka internog chata — ko vodi smene, kontrola kvaliteta i krizni nalozi za brisanje.
+          </div>
+          {/* TAKSONOMIJA + SATNICA */}
+          <div style={{ display: 'flex', gap: '0.8rem', flexWrap: 'wrap', marginBottom: '0.4rem' }}>
+            {Object.entries(scData.taxonomy || {}).map(([k, v]) => (
+              <div key={k} style={{ fontSize: '0.74rem' }}>
+                <span style={{ color: k === 'brisanje' ? '#f87171' : k === 'kontrola' ? '#fbbf24' : '#c084fc', fontWeight: 600 }}>{v.toLocaleString('sr-RS')}</span>
+                <span style={{ color: 'var(--text-muted)' }}> {k}</span>
+              </div>
+            ))}
+          </div>
+          {scData.hours && (() => { const mx = Math.max(1, ...scData.hours); return (
+            <div style={{ marginBottom: '0.5rem' }}>
+              <div style={{ color: 'var(--text-muted)', fontSize: '0.64rem' }}>poruke po satu (pikovi = predaja smene)</div>
+              <div style={{ display: 'flex', alignItems: 'flex-end', gap: 1, height: 30 }}>
+                {scData.hours.map((v, h) => (
+                  <div key={h} title={`${h}h: ${v}`} style={{ flex: 1, height: `${Math.max(2, (v / mx) * 30)}px`, background: '#c084fc', opacity: [12, 15, 19, 23].includes(h) ? 1 : 0.55, borderRadius: 1 }} />
+                ))}
+              </div>
+            </div>
+          ); })()}
+          {/* SUPERVIZORI */}
+          <div style={{ fontWeight: 600, fontSize: '0.8rem', color: '#c084fc', margin: '0.3rem 0 0.2rem' }}>Vodeći dežurni / supervizori</div>
+          {scData.supervisors.slice(0, 10).map((s) => (
+            <div key={s.id} style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.76rem', padding: '0.15rem 0', borderBottom: '1px solid var(--glass-border)' }}>
+              <span style={{ color: 'var(--text-main)' }}>{s.ime}{s.pozicija && <span style={{ color: '#60a5fa', fontSize: '0.66rem' }}> · {s.pozicija}</span>}{!s.pozicija && s.okrug && <span style={{ color: 'var(--text-muted)', fontSize: '0.66rem' }}> · {s.okrug}</span>}</span>
+              <span style={{ color: '#c084fc' }}>{s.msgs.toLocaleString('sr-RS')}</span>
+            </div>
+          ))}
+          {/* FEED: PRIMOPREDAJE */}
+          <div style={{ fontWeight: 600, fontSize: '0.8rem', color: '#c084fc', margin: '0.5rem 0 0.2rem' }}>Raporti primopredaje (verbatim)</div>
+          {(scData.samples?.handover || []).slice(0, 5).map((m, i) => (
+            <div key={i} style={{ fontSize: '0.7rem', color: 'var(--text-muted)', padding: '0.25rem 0', borderBottom: '1px solid var(--glass-border)', lineHeight: 1.4 }}>
+              <span style={{ color: 'var(--text-main)' }}>{m.ime}</span> <span style={{ opacity: 0.6 }}>[{(m.vreme || '').slice(0, 16)}]</span><br />„{m.tekst}"
+            </div>
+          ))}
+          {/* FEED: NALOZI ZA BRISANJE */}
+          <div style={{ fontWeight: 600, fontSize: '0.8rem', color: '#f87171', margin: '0.5rem 0 0.2rem' }}>Krizni nalozi za brisanje</div>
+          {(scData.samples?.deletion || []).slice(0, 6).map((m, i) => (
+            <div key={i} style={{ fontSize: '0.7rem', color: 'var(--text-muted)', padding: '0.12rem 0' }}>⟲ „{m.tekst}"</div>
+          ))}
+          <div style={{ color: '#fbbf24', fontSize: '0.66rem', marginTop: '0.6rem', lineHeight: 1.4 }}>
+            ⚠ Fer play: {scData.fair_play}
+          </div>
+        </div>
+      )}
+
+      {view === 'gamification' && !detail && !pathInfo && gmData && gmData.points_per_action && (
+        <div style={widePanel}>
+          <div style={{ fontWeight: 600, color: 'var(--text-main)' }}>🎯 Kvote &amp; Bodovanje (partijska ekonomija)</div>
+          <div style={{ color: 'var(--text-muted)', fontSize: '0.72rem', margin: '0.3rem 0 0.5rem', lineHeight: 1.4 }}>
+            Koliko sistem plaća svaku akciju i ko nosi najviše bodova ({(gmData.operators || 0).toLocaleString('sr-RS')} operatera, {gmData.date_from}–{gmData.date_to}).
+          </div>
+          {/* VREDNOST PO AKCIJI */}
+          <div style={{ fontWeight: 600, fontSize: '0.8rem', color: '#34d399', margin: '0.2rem 0 0.2rem' }}>Vrednost po akciji (bodova)</div>
+          {(() => { const mx = Math.max(1, ...gmData.points_per_action.map((p) => p.per_action)); return gmData.points_per_action.map((p) => (
+            <div key={p.action} style={{ marginBottom: '0.18rem' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.72rem' }}>
+                <span style={{ color: 'var(--text-main)' }}>{p.action}</span><span style={{ color: '#34d399', fontWeight: 600 }}>{p.per_action}</span>
+              </div>
+              <div style={{ height: 4, background: 'var(--glass-border)', borderRadius: 2 }}>
+                <div style={{ width: `${(p.per_action / mx) * 100}%`, height: 4, background: '#34d399', borderRadius: 2 }} />
+              </div>
+            </div>
+          )); })()}
+          {/* TOP UDARNICI */}
+          <div style={{ fontWeight: 600, fontSize: '0.8rem', color: '#34d399', margin: '0.5rem 0 0.2rem' }}>Top „udarnici" (ukupni bodovi)</div>
+          <div style={{ color: 'var(--text-muted)', fontSize: '0.64rem', marginBottom: '0.2rem' }}>uloga + toksičnost iz grafa (jurišnik vs pojačivač)</div>
+          {gmData.leaderboard.slice(0, 12).map((m, i) => (
+            <div key={m.id} onClick={() => onNodeClick({ id: `op:${m.id}`, type: 'operator' })}
+              style={{ padding: '0.2rem 0', borderBottom: '1px solid var(--glass-border)', cursor: 'pointer' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.76rem' }}>
+                <span style={{ color: 'var(--text-main)' }}>{i + 1}. {m.ime}</span>
+                <span style={{ color: '#34d399', fontWeight: 600 }}>{m.points.toLocaleString('sr-RS')}</span>
+              </div>
+              <div style={{ fontSize: '0.66rem', color: 'var(--text-muted)' }}>
+                {m.role || '?'}{m.toxicity_level && <span style={{ color: (m.toxicity_level.includes('Ekstremna') || m.toxicity_level.includes('Jurišnik')) ? '#f87171' : 'var(--text-muted)' }}> · {m.toxicity_level}</span>}
+                {m.opstina && <span> · {m.opstina}</span>} · Q{m.quote.toLocaleString('sr-RS')}/R{m.reply.toLocaleString('sr-RS')}
+              </div>
+            </div>
+          ))}
+          {/* PO OPŠTINI */}
+          <div style={{ fontWeight: 600, fontSize: '0.8rem', color: '#34d399', margin: '0.5rem 0 0.2rem' }}>Bodovi po opštini (top)</div>
+          {gmData.by_opstina.slice(0, 10).map((o, i) => (
+            <div key={i} style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.72rem', padding: '0.12rem 0', borderBottom: '1px solid var(--glass-border)' }}>
+              <span style={{ color: 'var(--text-main)' }}>{o.opstina}<span style={{ color: 'var(--text-muted)', fontSize: '0.64rem' }}> · {o.operators} op</span></span>
+              <span style={{ color: 'var(--text-muted)' }}>{o.points.toLocaleString('sr-RS')}</span>
+            </div>
+          ))}
+          {/* TIMSKI BODOVI */}
+          {gmData.team_points && (
+            <div style={{ fontSize: '0.68rem', color: 'var(--text-muted)', marginTop: '0.5rem', lineHeight: 1.4 }}>
+              <b style={{ color: 'var(--text-main)' }}>Timski bodovi:</b> {gmData.team_points.records} zapisa, {gmData.team_points.distinct_leaders} lidera, procenat {JSON.stringify(gmData.team_points.procenat_values)}. {gmData.team_points.note}
+            </div>
+          )}
+          <div style={{ color: '#fbbf24', fontSize: '0.66rem', marginTop: '0.5rem', lineHeight: 1.4 }}>
+            ⚠ Fer play: {gmData.fair_play}
           </div>
         </div>
       )}

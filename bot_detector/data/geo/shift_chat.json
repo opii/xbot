@@ -1,0 +1,387 @@
+{
+  "generated": "2026-10-18T14:47:09",
+  "total_messages": 20232,
+  "supervisors": [
+    {
+      "id": 68,
+      "ime": "Mirko Osadkovski",
+      "msgs": 5045,
+      "pozicija": "Tehnički sekretar za Južnobački okrug",
+      "okrug": "Južnobački okrug",
+      "opstina": "Žabalj"
+    },
+    {
+      "id": 2309,
+      "ime": "Aleksandra Munćan",
+      "msgs": 3336,
+      "pozicija": "NULL",
+      "okrug": "Južnobanatski okrug",
+      "opstina": "Vršac"
+    },
+    {
+      "id": 1166,
+      "ime": "Olivera Savićević",
+      "msgs": 2159,
+      "pozicija": "NULL",
+      "okrug": "Južnobački okrug",
+      "opstina": "Srbobran"
+    },
+    {
+      "id": 4188,
+      "ime": "Jasmina Adamović",
+      "msgs": 1039,
+      "pozicija": "NULL",
+      "okrug": "Severnobanatski okrug",
+      "opstina": "Kikinda"
+    },
+    {
+      "id": 2649,
+      "ime": "Nataša Sušić",
+      "msgs": 869,
+      "pozicija": "NULL",
+      "okrug": "Severnobački okrug",
+      "opstina": "Bačka Topola"
+    },
+    {
+      "id": 304,
+      "ime": "Milenko Milinković",
+      "msgs": 819,
+      "pozicija": "NULL",
+      "okrug": "Mačvanski okrug",
+      "opstina": "Vladimirci"
+    },
+    {
+      "id": 1375,
+      "ime": "Biljana Kirov",
+      "msgs": 768,
+      "pozicija": "Koo opštine",
+      "okrug": "Šumadijski okrug",
+      "opstina": "Batočina"
+    },
+    {
+      "id": 2302,
+      "ime": "Dušanka Lapadat",
+      "msgs": 762,
+      "pozicija": "NULL",
+      "okrug": "Južnobanatski okrug",
+      "opstina": "Pančevo"
+    },
+    {
+      "id": 2709,
+      "ime": "Robert Santo",
+      "msgs": 742,
+      "pozicija": "NULL",
+      "okrug": "Severnobački okrug",
+      "opstina": "Subotica"
+    },
+    {
+      "id": 2637,
+      "ime": "Ivana Risojević",
+      "msgs": 740,
+      "pozicija": "NULL",
+      "okrug": "Južnobanatski okrug",
+      "opstina": "Vršac"
+    },
+    {
+      "id": 3402,
+      "ime": "Marija Stanojlović",
+      "msgs": 504,
+      "pozicija": "NULL",
+      "okrug": "Šumadijski okrug",
+      "opstina": "Lapovo"
+    },
+    {
+      "id": 539,
+      "ime": "Janko  Langura",
+      "msgs": 448,
+      "pozicija": "NULL",
+      "okrug": "Moravički okrug",
+      "opstina": "Gornji Milanovac"
+    },
+    {
+      "id": 203,
+      "ime": "Petar Lavrnić",
+      "msgs": 395,
+      "pozicija": "NULL",
+      "okrug": "Mačvanski okrug",
+      "opstina": "Šabac"
+    },
+    {
+      "id": 149,
+      "ime": "Mladen  Radivojević",
+      "msgs": 385,
+      "pozicija": "Koo opštine",
+      "okrug": "Mačvanski okrug",
+      "opstina": "Ljubovija"
+    },
+    {
+      "id": 191,
+      "ime": "Miloš Vićentić",
+      "msgs": 359,
+      "pozicija": "NULL",
+      "okrug": "Mačvanski okrug",
+      "opstina": "Šabac"
+    },
+    {
+      "id": 59,
+      "ime": "Lana Lana",
+      "msgs": 299,
+      "pozicija": "NULL",
+      "okrug": "Beograd",
+      "opstina": "Beograd-Čukarica"
+    },
+    {
+      "id": 2093,
+      "ime": "Jovana Stepanović",
+      "msgs": 280,
+      "pozicija": "NULL",
+      "okrug": "Sremski okrug",
+      "opstina": "Pećinci"
+    },
+    {
+      "id": 3666,
+      "ime": "Suzana Barmin",
+      "msgs": 276,
+      "pozicija": "NULL",
+      "okrug": "Sremski okrug",
+      "opstina": "Stara Pazova"
+    },
+    {
+      "id": 2878,
+      "ime": "Dejan Todorović",
+      "msgs": 253,
+      "pozicija": "NULL",
+      "okrug": "Borski okrug",
+      "opstina": "Bor"
+    },
+    {
+      "id": 1592,
+      "ime": "Iva Kiš",
+      "msgs": 191,
+      "pozicija": "NULL",
+      "okrug": "Južnobački okrug",
+      "opstina": "Bačka Palanka"
+    },
+    {
+      "id": 70,
+      "ime": "Marija Krulj",
+      "msgs": 188,
+      "pozicija": "Koo opštine",
+      "okrug": "Beograd",
+      "opstina": "Beograd-Rakovica"
+    },
+    {
+      "id": 3236,
+      "ime": "Zvezdana Dojić",
+      "msgs": 151,
+      "pozicija": "NULL",
+      "okrug": "Beograd",
+      "opstina": "Beograd-Lazarevac"
+    },
+    {
+      "id": 546,
+      "ime": "Nenad  Tomić",
+      "msgs": 112,
+      "pozicija": "Koo opštine",
+      "okrug": "Moravički okrug",
+      "opstina": "Gornji Milanovac"
+    },
+    {
+      "id": 4727,
+      "ime": "Vesna Huđec",
+      "msgs": 42,
+      "pozicija": "NULL",
+      "okrug": "Južnobanatski okrug",
+      "opstina": "Kovačica"
+    },
+    {
+      "id": 1,
+      "ime": "TEST ADMIN",
+      "msgs": 32,
+      "pozicija": "ADMIN",
+      "okrug": "TEST",
+      "opstina": "TEST"
+    }
+  ],
+  "taxonomy": {
+    "primopredaja": 8811,
+    "kontrola": 846,
+    "brisanje": 694
+  },
+  "hours": [
+    21,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    13,
+    1197,
+    739,
+    901,
+    997,
+    3521,
+    655,
+    433,
+    2055,
+    1332,
+    579,
+    949,
+    3084,
+    524,
+    867,
+    903,
+    1462
+  ],
+  "samples": {
+    "handover": [
+      {
+        "vreme": "2024-03-06 19:28:57",
+        "ime": "Miloš Vićentić",
+        "tekst": "Smena je protekla radno. Na pocetku smene kvotovalo se smanjenim intezitetom i to uglavnom tvitovi SNS Srbije i Detektora. Vesti sa portala su se povremeno delile, a najvise podela imamo sa portala Kurir i Novosti. Takodje opoziciji se solidno odgovaralo, a odgovori su bili uglavnom kvalitetni. Zadnjih sat vremena smene obelezilo je sefovo obracanje iz centrale SNS-a. Tvitovalo se umerenim intezit"
+      },
+      {
+        "vreme": "2024-02-27 12:27:01",
+        "ime": "Miloš Vićentić",
+        "tekst": "Smena je protekla radno. Pocetak smene obelezilo je uljucenje sefa, sa otvaranja nove fabrike Nestle u Surcinu. Pisalo se smanjenim intezitetom a tvitovi su bili uglavnom kvalitetni. Nije bilo tvitova sa pogresnim mensom @vucic. Tokom smene umereno se kvotovalo i to najvise tvitovi Detektora i SNS Srbija. Vesti sa portala su se slabije delile, uglavnom imamo par podela sa portala Novosti i Alo. Sl"
+      },
+      {
+        "vreme": "2024-05-15 19:28:02",
+        "ime": "Miloš Vićentić",
+        "tekst": "Smena je protekla mirno. Uglavnom su se kvotovali tvitovi SNS Srbije i Milosa Vucevica. Opoziciji se odgovaralo solidno, na sajtu skoro pa nema tvitova za odgovore. Vesti sa portala su se slabije delile, uglavnom imamo nekoliko podela sa portala Novosti. Smenu je obelezilo sefovo obracanje iz Ruskog doma. Tvitovalo se umereno a tvitovi su bili zadovoljavajuceg kvaliteta. Nije bilo tvitova sa pogre"
+      },
+      {
+        "vreme": "2024-04-08 12:28:49",
+        "ime": "Miloš Vićentić",
+        "tekst": "Smena je protekla radno. Kvorovali su se uglavnom tvitovi Detektora, SNS Srbije i Milenka Jovanova. Smenu je obelezilo sefovo ukljucenje iz posete Francuskoj. Tvitovalo se solidno a kvalitet tvitova je uglavnom bio dobar. Nije bilo tvitova sa pogresnim mensom @vucic. Opoziciji se umereno odgovaralo, a odgovori su bili uglavnom kvalitetni. Na sajtu ima jos nekoliko tvitova koji cekaju da budu pokri"
+      },
+      {
+        "vreme": "2024-04-12 12:30:07",
+        "ime": "Miloš Vićentić",
+        "tekst": "Smena je protekla mirno. Slabijim intezitetom se radilo, jer je bilo manji broj zadataka. Kvotovali su se uglavnom tvitovi SNS Srbije i Milenka Jovanova. Opoziciji se sporije odgovara, tamo gde ima nasih odgovora su uglavnom kvalitetni, dok na sajtu ima jos dosta tvitova koji cekaju nas odgovor. Vesti sa portala se takodje slabije dele, imamo samo po neku podelu sa portala Novosti i Alo. Delile su"
+      },
+      {
+        "vreme": "2024-04-23 19:26:41",
+        "ime": "Miloš Vićentić",
+        "tekst": "Smena je protekla radno. Kvotovali su se uglavnom tvitovi SNS Srbije, Vucevica, Brnabicke i Jovanova. Vesti sa portala su se delile umereno, najvise podela imamo sa portala Novosti. Opoziciji se odgovaralo smanjenim intezitetom. Na sajtu imamo jos dosta tvitova koji cekaju nas odgobor. Zadnji deo smene obelezilo je sefovo obracanje iz Njujorka, tvitovalo se solidno uz date smernice a tvitovi su ug"
+      },
+      {
+        "vreme": "2024-07-23 12:32:49",
+        "ime": "Petar Lavrnić",
+        "tekst": "Smena protekla u radnoj atmosferi, obelezilo ju je tri sefova uzivo ukljucenja koja su ispracena sa solidnim intezitom u pisanju komentara, a nastavaljno je sa pisanjem samostalnih stvitova uz zadatu smernicu iz skupstine. Deljena je grafika uz zadatu smernicu, kwotovao se SnS, detektror, Vucevic. Odgovoralo i opoziciji sa solidnim kvalitom komentara, a vesti su se delile slabijim intezitetom. Kol"
+      },
+      {
+        "vreme": "2024-12-12 19:30:18",
+        "ime": "Mladen  Radivojević",
+        "tekst": "Smena je protekla mirno. Kvotovali su se SNS Srbija, Detektor, Milos Terzic, Milica Nikolic i Sandra Bozic. Bilo je podele videa I grafika uz smernice kao I sporadicnih podela vesti. Odgovora opoziciji je bilo I bili su uglavnom dobrog kvaliteta. Ispratili smo ukljucenje sa konferencije povodom 30 godina od osnivanja SVM na kojoj su govorili Vucevic I Sef koje je bilo slabo ispraceno. Sve sto nije"
+      },
+      {
+        "vreme": "2024-03-19 12:28:03",
+        "ime": "Miloš Vićentić",
+        "tekst": "Smena je protekla mirno. Kvotovali su uglavnom tvitovi Detektora i SNS Srbije. Umereno se odgovaralo opoziciji, a odgovori su uglavnom bili kvalitetni. Pratila se sednica skupstine Republike Srbije i pisalo se po zadatoj smernici samostalni tvitovi uz potrebnu smernicu. Delili se video zapisi iz specija grupe po zadatoj smernici. Delile su se i po neke vesti sa portala, uglavnom sa portala Novosti"
+      },
+      {
+        "vreme": "2024-12-03 19:33:06",
+        "ime": "Jasmina Adamović",
+        "tekst": "Smena je protekla morno ,Imali smo ukljucenje SEFA u toku kojeg su se pisali samostalni tvitevi. Kvotovali su se SEFOV licni ,SNS i VUcevic. Odgovori opoziciji su bili solidni tamo gde ih je bilo. Video ,vesti i grafika se delila spordadicno. Koleginica i ja smo vratile sve sto smo smatrale da nije dovoljno kvalitetno napisano."
+      }
+    ],
+    "control": [
+      {
+        "vreme": "2024-03-17 19:27:52",
+        "ime": "Petar Lavrnić",
+        "tekst": "Smenu obelezilo direktan prenos komemorativne akademije povodom obeležavanja 17.marta, Dana sećanja na pogrom na Kosovu I Metohiji.koje je ispraceno sa solidnim intezitetom pisanja komentara, a komentari su bili dobro kvaliteta. Kwotovao se Detekor i SnS, po koja podela videa i grafike sa zadatom smernicom. Slabijeg inteziteta su deljene vesti i odgovaralo se i opoziciji, kvalitet komentara je bio"
+      },
+      {
+        "vreme": "2025-03-01 16:03:46",
+        "ime": "Mladen  Radivojević",
+        "tekst": "Smena je protekla radno. Na pocetku smene imali smo sefovo obracanje u Negotinu, potom u selu Kostol i na kraju u Donjem Milanovcu. Najvise se radilo ukljucenje iz Negotina dok su se druga dva dosta slabije radila. Takodje imali smo ukljucenje Milosa Vucevica na informeru koje se dosta slabo radilo. Najvise su se kvotovali SNS Srbija i Detektor lazi. Odgovori opoziciji su bili solidni tamo gde ih "
+      },
+      {
+        "vreme": "2024-04-07 21:19:00",
+        "ime": "Jasmina Adamović",
+        "tekst": "Radmila Radisavljević - Smederevska Palanka Uporno potvrdjuje da je uradila ,a nije. Vratila sam je ponovo."
+      },
+      {
+        "vreme": "2024-03-14 20:51:07",
+        "ime": "Jasmina Adamović",
+        "tekst": "Kaća Skandarski - Žabalj opet je potvrdjeno da je odradila ,a nije. Vratila sam ga opet"
+      },
+      {
+        "vreme": "2024-12-12 19:30:18",
+        "ime": "Mladen  Radivojević",
+        "tekst": "Smena je protekla mirno. Kvotovali su se SNS Srbija, Detektor, Milos Terzic, Milica Nikolic i Sandra Bozic. Bilo je podele videa I grafika uz smernice kao I sporadicnih podela vesti. Odgovora opoziciji je bilo I bili su uglavnom dobrog kvaliteta. Ispratili smo ukljucenje sa konferencije povodom 30 godina od osnivanja SVM na kojoj su govorili Vucevic I Sef koje je bilo slabo ispraceno. Sve sto nije"
+      },
+      {
+        "vreme": "2025-03-09 13:09:36",
+        "ime": "Mladen  Radivojević",
+        "tekst": "Smena je protekla radno. Smenu je obezila predsednikova poseta podunavskom i juznobanatskom okrugu tokom koje je posetio manastir Arhangela Gavrila u Kusadku, zatim Veliku Planu, Kovin i na kraju Belu Crkvu. Sva ukljucenja osim prvog su se solidno radila. Odgovori opoziciji su bili solidni tamo gde ih je bilo. Najvise su se kvotovali SNS Srbija i Detektor lazi. Podela vesti i grafika je bila spora"
+      },
+      {
+        "vreme": "2025-04-11 19:29:57",
+        "ime": "Mladen  Radivojević",
+        "tekst": "Smena je protekla uobicajeno. Kvotovali su se SNS Srbija, Ana Brnabic i Milos Vucevic. Tokom smene ispratili smo ukljucenja Ane Brnabic, Milosa Vucevica i predsednika Aleksandra Vucica sa pocetka svenarodnog skupa \\\"Ne damo Srbiju\\\". Ukljucenja su relativno slabo ispracena. Pisani su samostalni na temu skupa. Opoziciji je odgovarano slabijim intenzitetom dok je podela vesti bila nesto ucestalija. "
+      },
+      {
+        "vreme": "2024-09-10 12:31:02",
+        "ime": "Robert Santo",
+        "tekst": "Smena je protekla uz gostovanje Vucevica na tv Prva i direktno ukljucivanje Vucica iz predsednistva. Pisali su se samostalni komentari sa zadatim smernicama. Imali smo i podelu grafiku, takodje sa uobicajenim smernicama. Kvotovali su se Vucic, Vucevic, SNS, Brnabic i Detektor. Odgovora opoziciji je bilo u manjem broju. Vesti sa portala su se sporadicno delile. Sve sto nije bilo po standardima anal"
+      }
+    ],
+    "deletion": [
+      {
+        "vreme": "2024-02-27 19:17:22",
+        "ime": "Dušanka Lapadat",
+        "tekst": "Obrisano Stevan Spasojević - Beograd-Lazarevac"
+      },
+      {
+        "vreme": "2024-04-14 12:46:48",
+        "ime": "Dušanka Lapadat",
+        "tekst": "Ako moze da se ukloni postavljena Aleksandra Simonovic iz Bele Crkve. Posle refresa pokazalo da je tvit obrisan."
+      },
+      {
+        "vreme": "2024-02-26 12:53:27",
+        "ime": "Aleksandra Munćan",
+        "tekst": "pogrešan menšn, mnogo slovnih grešaka, nerazumljive komentare, link koji je ostao kada podele vest."
+      },
+      {
+        "vreme": "2024-03-08 09:22:11",
+        "ime": "Robert Santo",
+        "tekst": "Sefe, nije mi odmah otislo, pa sam vise puta kliknuo. Molim Vas obrisite zadnja dva"
+      },
+      {
+        "vreme": "2024-03-16 15:55:52",
+        "ime": "Petar Lavrnić",
+        "tekst": "Kod Ilone Milicic izbacilo da je odradjenjeno brisanje, ali prilikom provere nije nista obrisano"
+      },
+      {
+        "vreme": "2024-02-27 19:32:54",
+        "ime": "Dušanka Lapadat",
+        "tekst": "Proverila sve za svaki slucaj. Ima obrisanih koji nisu potvrdili. U pitanju je Stevan Spasojevic"
+      },
+      {
+        "vreme": "2024-07-08 09:00:15",
+        "ime": "Milenko Milinković",
+        "tekst": "greska ljudi mislio sam da dezuram danas izvinjenje nisam dobro video"
+      },
+      {
+        "vreme": "2024-02-14 12:45:33",
+        "ime": "Mirko Osadkovski",
+        "tekst": "Još ako sistem obrne krug i obriše bodove za obrisane zadatke, pa vi ste carevi"
+      },
+      {
+        "vreme": "2024-02-28 13:50:35",
+        "ime": "Aleksandra Munćan",
+        "tekst": "Izgleda da je moja greška bila znam za to ali sam opet pogrešila izvinjavam se"
+      },
+      {
+        "vreme": "2024-03-14 09:31:48",
+        "ime": "Olivera Savićević",
+        "tekst": "Prodanović Dušan Vrnjačka Banja dodati da povede računa o slovnim greškama."
+      }
+    ]
+  },
+  "note": "Interni operativni chat smene (dnevnik dežurstava). Vreme predaje smene se vidi kao pikovi po satu (oko 12h, 15h, 19h + jutarnja 8h).",
+  "fair_play": "Poruke su operativni logovi realnih ljudi; imena = operateri (isti tretman kao drugde). Iznosi se operativni sadržaj smene/kontrole/brisanja, ne privatni lični podaci."
+}
