@@ -978,9 +978,12 @@ def voter_geoip():
             "vote_hours": t.get("vote_hours", []),
             "vote_night_ratio": t.get("vote_night_ratio"),
         },
-        "note": ("Voter mašine su terminali u uplatnim mestima kladionica u Srbiji i "
-                 "Africi (vr_naziv_ss). Operateri NEMAJU IP — ovo je geografija VOTER "
-                 "mašina, ne operatera (vidi docs/voter_kladionice_infrastruktura.md)."),
+        "note": ("Velik deo voter mašina je OZNAČEN imenima uplatnih mesta/brendova "
+                 "kladionica (polje vr_naziv_ss: Scooorebet/Maxi/Joker + srpske "
+                 "filijale + afričke lokacije), potvrđeno IP geografijom — inferencija "
+                 "iz labele, ne hard-dokaz da je mašina baš terminal. IP daje samo "
+                 "državu/ASN; operateri NEMAJU IP (ovo je geografija VOTER mašina, ne "
+                 "operatera). Vidi docs/voter_kladionice_infrastruktura.md."),
     }
 
 

@@ -176,6 +176,14 @@ export default function GraphExplorer() {
   useEffect(() => { fetch(`${API}/api/coordinators`).then((r) => r.json()).then(setCoData).catch(() => {}); }, []);
   useEffect(() => { fetch(`${API}/api/cascade`).then((r) => r.json()).then(setCasData).catch(() => {}); }, []);
   useEffect(() => { fetch(`${API}/api/voter_geoip`).then((r) => r.json()).then(setGeoipData).catch(() => {}); }, []);
+  // Otpornost: ako je pogled otvoren a podaci fale (npr. endpoint podignut posle
+  // učitavanja stranice), dovuci ih na otvaranju pogleda.
+  useEffect(() => {
+    if (view === 'geoip' && !geoipData) fetch(`${API}/api/voter_geoip`).then((r) => r.json()).then(setGeoipData).catch(() => {});
+    if (view === 'cascade' && !casData) fetch(`${API}/api/cascade`).then((r) => r.json()).then(setCasData).catch(() => {});
+    if (view === 'coordinators' && !coData) fetch(`${API}/api/coordinators`).then((r) => r.json()).then(setCoData).catch(() => {});
+    if (view === 'directives' && !dirData) fetch(`${API}/api/directives?top=25`).then((r) => r.json()).then(setDirData).catch(() => {});
+  }, [view]); // eslint-disable-line
   useEffect(() => {
     const upd = () => wrapRef.current && setDim({ w: wrapRef.current.offsetWidth, h: 640 });
     upd(); window.addEventListener('resize', upd);
@@ -487,7 +495,7 @@ export default function GraphExplorer() {
       </aside>
 
       {/* ───────────────── GRAF ───────────────── */}
-      <div ref={wrapRef} style={{ flex: '1 1 520px', minWidth: 0, background: 'var(--glass-bg)', border: '1px solid var(--glass-border)', borderRadius: 16, overflow: 'hidden' }}>
+      <div ref={wrapRef} style={{ flex: '1 1 520px', minWidth: 0, background: 'var(--glass-bg)', border: '1px solid var(--glass-border)', borderRadius: 16, overflow: 'hidden', display: NO_GRAPH.includes(view) ? 'none' : 'block' }}>
         <div style={{ padding: '0.6rem 1rem', borderBottom: '1px solid var(--glass-border)', display: 'flex', gap: '1rem', alignItems: 'center', flexWrap: 'wrap', fontSize: '0.78rem', color: 'var(--text-muted)' }}>
           <strong style={{ color: 'var(--text-main)' }}>Graf</strong>
           <span>{colorLegend}</span>
@@ -704,7 +712,7 @@ export default function GraphExplorer() {
       )}
 
       {view === 'command' && !detail && !pathInfo && tmData && (
-        <div style={panelStyle}>
+        <div style={widePanel}>
           <div style={{ fontWeight: 600, color: 'var(--text-main)' }}>Komanda — task-masteri</div>
           <div style={{ color: 'var(--text-muted)', fontSize: '0.78rem', margin: '0.3rem 0 0.7rem' }}>
             {tmData.count} ljudi kreira SVE zadatke za portale; {tmData.coordinators} su koordinatori. Komandni sloj je IZNAD izvršnog (operatera). Klik = učitaj (ako je u grafu).
@@ -725,7 +733,7 @@ export default function GraphExplorer() {
       )}
 
       {view === 'command_voter' && !detail && !pathInfo && cvData && (
-        <div style={{ ...panelStyle, flex: '0 0 340px' }}>
+        <div style={widePanel}>
           <div style={{ fontWeight: 600, color: 'var(--text-main)' }}>⚖ Komandna odgovornost & Voter</div>
           <div style={{ color: 'var(--text-muted)', fontSize: '0.72rem', margin: '0.3rem 0 0.3rem', lineHeight: 1.4 }}>
             {cvData.count} nosilaca EKSPLICITNIH VOTER privilegija · {cvData.coordinators} koordinatora · {cvData.with_terminals} u opštini sa terminalima (🎰).
@@ -759,7 +767,7 @@ export default function GraphExplorer() {
       )}
 
       {view === 'directives' && !detail && !pathInfo && dirData && dirData.twitter && (
-        <div style={{ ...panelStyle, flex: '0 0 360px' }}>
+        <div style={widePanel}>
           <div style={{ fontWeight: 600, color: 'var(--text-main)' }}>📋 Direktive — šta se naređuje</div>
           <div style={{ color: 'var(--text-muted)', fontSize: '0.72rem', margin: '0.3rem 0 0.5rem', lineHeight: 1.4 }}>
             Taksonomija smernica (tviter + vesti), lanac direktiva→meta→reakcija i centralni komandni izvor.
@@ -867,7 +875,7 @@ export default function GraphExplorer() {
       )}
 
       {view === 'coordinators' && !detail && !pathInfo && coData && coData.tree && (
-        <div style={{ ...panelStyle, flex: '0 0 360px' }}>
+        <div style={widePanel}>
           <div style={{ fontWeight: 600, color: 'var(--text-main)' }}>🏛 Koordinatori — hijerarhija</div>
           <div style={{ color: 'var(--text-muted)', fontSize: '0.72rem', margin: '0.3rem 0 0.4rem', lineHeight: 1.4 }}>
             Komanda je geografska: Region → Okrug → Opština. {coData.levels?.region} region · {coData.levels?.okrug} okrug · {coData.levels?.opstina} opština koordinatora (+{coData.levels?.deputies} zamenika).
@@ -924,7 +932,7 @@ export default function GraphExplorer() {
       )}
 
       {view === 'cascade' && !detail && !pathInfo && casData && casData.ss_priority && (
-        <div style={{ ...panelStyle, flex: '0 0 360px' }}>
+        <div style={widePanel}>
           <div style={{ fontWeight: 600, color: 'var(--text-main)' }}>⏱ Kaskada — SS direktiva → teren</div>
           <div style={{ color: 'var(--text-muted)', fontSize: '0.72rem', margin: '0.3rem 0 0.5rem', lineHeight: 1.4 }}>
             Kako se centralni zadatak (SS/ČET) širi kroz vreme: prioritet, ko reaguje prvi, ritam i geografski tok.
@@ -989,7 +997,7 @@ export default function GraphExplorer() {
       )}
 
       {view === 'geoip' && !detail && !pathInfo && geoipData && geoipData.countries && (
-        <div style={{ ...panelStyle, flex: '0 0 360px' }}>
+        <div style={widePanel}>
           <div style={{ fontWeight: 600, color: 'var(--text-main)' }}>🌍 Voter / GeoIP — strana infrastruktura</div>
           <div style={{ color: 'var(--text-muted)', fontSize: '0.7rem', margin: '0.3rem 0 0.5rem', lineHeight: 1.4 }}>
             {geoipData.note}
@@ -1043,8 +1051,8 @@ export default function GraphExplorer() {
             <div style={{ fontSize: '0.6rem', color: 'var(--text-muted)' }}>glasovi po satu (0–23h)</div>
           </>}
 
-          <div style={{ color: '#fbbf24', fontSize: '0.66rem', marginTop: '0.6rem', lineHeight: 1.4 }}>
-            ⚠ Fer play: ovo je geografija VOTER MAŠINA (terminali kladionica), NE operatera. Veza mašina↔osoba ne postoji u bazi.
+          <div style={{ color: '#fbbf24', fontSize: '0.66rem', marginTop: '0.6rem', lineHeight: 1.45 }}>
+            ⚠ Fer play: IP daje samo državu/ASN. „Kladionica" dolazi iz labele mašine (vr_naziv_ss: Scooorebet/Maxi/Joker + filijale) — inferencija, ne hard-dokaz. Mašine imaju verzionisan klijent (vr_verzija) = instaliran softver; mehanizam „srpski operater → daljinski terminal → glas" je VERODOSTOJNA HIPOTEZA (nema veze mašina↔operater u bazi), ne dokaz.
           </div>
         </div>
       )}
@@ -1125,6 +1133,9 @@ export default function GraphExplorer() {
 }
 
 const panelStyle = { flex: '0 0 300px', background: 'var(--glass-bg)', border: '1px solid var(--glass-border)', borderRadius: 16, padding: '1.1rem', alignSelf: 'flex-start', maxHeight: 760, overflowY: 'auto' };
+// Pogledi bez grafa (Komanda/Direktive/Koordinatori/Kaskada/GeoIP): panel popunjava
+// glavni prostor (graf je skriven) umesto da bude uzan stub ili padne ispod.
+const widePanel = { ...panelStyle, flex: '1 1 600px', maxWidth: 900, maxHeight: 'calc(100vh - 110px)' };
 
 function Section({ title, children }) {
   return (

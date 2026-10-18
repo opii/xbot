@@ -95,3 +95,31 @@ Ovo otkriće uspostavlja novu stratešku osu istraživanja u projektu Cacix. Vi�
    Da li su vodeći organizatori i centroidi zajednica u Neo4j grafu (`Operator` čvorovi sa visokim `tw_org` i `cc_org`) povezani sa opštinama gde se nalaze ključna uplatna mesta (npr. Požarevac, Novi Beograd, Kruševac, Zrenjanin)?
 3. **Vremenska ko-sinhronija (Zadatak → Komentari → Voter udar):**
    Uskladiti vremenske linije: kada koordinator zada vest sa kvotom (npr. smernica *"500"* ili *"max"*), koliko sekundi kasnije uplatna mesta iz Kameruna i Borče kreću sa automatskim glasanjem, i koji operateri pod deljenim šablonima teksta (`CO_TEMPLATE`) unose prve komentare koje voter zatim pumpa u vrh?
+
+---
+
+## 5. Dokazni lanac i granice (fer play)
+
+> Dodatak (analiza, okt. 2026): precizno razdvaja **šta podaci dokazuju** od
+> **inferencije** i **hipoteze**, da zaključci iz §1 stoje na čvrstom tlu.
+
+**Šta tačno imamo u `voter_racunari` (1.668 mašina):** `vr_ip`, `vr_verzija`,
+`vr_naziv_ss`, `vr_srbija`, `vr_datum/vreme`, `vr_aktivno`.
+
+| Tvrdnja | Osnov | Status |
+|---|---|---|
+| Glasanje ide iz inostranstva, najviše iz Afrike | `vr_ip` → offline GeoIP (ASN/država): 66% distinct IP vanSrpskih; Kamerun 472 IP #1 | ✔ dokazano (iz IP-a) |
+| Sistem sam označava mašine kao strane | `vr_srbija=0` za 930/1.668 | ✔ dokazano |
+| Na mašinama radi namenski klijent (instaliran softver) | `vr_verzija` = verzionisana aplikacija `1.0.2.172`–`177` (+ „hardcode") | ✔ dokazano |
+| Mašine su u uplatnim mestima/brendovima kladionica | `vr_naziv_ss` (labela): **174** sa eksplicitnim brendom (Scooorebet/Maxi/Joker/Casino) + srpske filijale (Borca, Požarevac, Zrenjanin…) + afričke lokacije (Nkayi, Bertoua, Dolisie…) | ⚠ **inferencija iz labele** (nije hard-polje; ima i generičkih: „Tehnika" ×85, lična imena) |
+| Srpski operateri „pumpaju" glasove sa afričkih terminala (zaobilaze srpski IP) | — | ✘ **hipoteza** — NE postoji spojni ključ `voter_racunari` ↔ `knv_voter_*` (mašina/IP ↔ kreditirani operater) |
+
+**Precizna formulacija:** sigurni smo da (a) glasanje dolazi uglavnom iz Afrike
+(IP/GeoIP), (b) mašine nose instaliran verzionisan klijent, i (c) **velik deo**
+mašina je označen imenima uplatnih mesta/brendova kladionica. **Mehanizam**
+„srpski operater → daljinski terminal u kladionici → glas, čime se zaobilazi
+zaštita po IP-u" je **verodostojna hipoteza saglasna sa podacima**, ali nije
+dokazana eksplicitnom vezom u bazi. Ko tvrdi da je dokazana — preskače tu prazninu.
+
+Izvori: `src/analysis/voter_geoip.py` (GeoIP), `src/analysis/betting_geo.py`
+(mapiranje `vr_naziv_ss`→opština), UI pogled „🌍 Voter / GeoIP (Afrika)".
