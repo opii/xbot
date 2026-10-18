@@ -1,0 +1,649 @@
+{
+  "generated": "2026-10-18T13:56:18",
+  "ss_priority": {
+    "ss": {
+      "tasks": 724,
+      "median_s": 582.5,
+      "p25_s": 227.8
+    },
+    "baseline": {
+      "tasks": 139795,
+      "median_s": 707.0,
+      "p25_s": 121.0
+    },
+    "speedup_pct": 17.6
+  },
+  "first_mover_all": [
+    {
+      "okrug": "Južnobački okrug",
+      "first_moves": 28771,
+      "participated": 78947,
+      "first_rate": 0.364
+    },
+    {
+      "okrug": "Beograd",
+      "first_moves": 16537,
+      "participated": 64291,
+      "first_rate": 0.257
+    },
+    {
+      "okrug": "Srednjobanatski okrug",
+      "first_moves": 11463,
+      "participated": 53063,
+      "first_rate": 0.216
+    },
+    {
+      "okrug": "Mačvanski okrug",
+      "first_moves": 8274,
+      "participated": 46473,
+      "first_rate": 0.178
+    },
+    {
+      "okrug": "Raški okrug",
+      "first_moves": 7556,
+      "participated": 44977,
+      "first_rate": 0.168
+    },
+    {
+      "okrug": "Pomoravski okrug",
+      "first_moves": 7434,
+      "participated": 43587,
+      "first_rate": 0.171
+    },
+    {
+      "okrug": "Kolubarski okrug",
+      "first_moves": 7018,
+      "participated": 40114,
+      "first_rate": 0.175
+    },
+    {
+      "okrug": "Zapadnobački okrug",
+      "first_moves": 6487,
+      "participated": 39900,
+      "first_rate": 0.163
+    },
+    {
+      "okrug": "Rasinski okrug",
+      "first_moves": 6092,
+      "participated": 43899,
+      "first_rate": 0.139
+    },
+    {
+      "okrug": "Moravički okrug",
+      "first_moves": 5490,
+      "participated": 42028,
+      "first_rate": 0.131
+    },
+    {
+      "okrug": "Braničevski okrug",
+      "first_moves": 5475,
+      "participated": 42436,
+      "first_rate": 0.129
+    },
+    {
+      "okrug": "Severnobački okrug",
+      "first_moves": 4877,
+      "participated": 41401,
+      "first_rate": 0.118
+    },
+    {
+      "okrug": "Zlatiborski okrug",
+      "first_moves": 4773,
+      "participated": 38075,
+      "first_rate": 0.125
+    },
+    {
+      "okrug": "Sremski okrug",
+      "first_moves": 3422,
+      "participated": 37639,
+      "first_rate": 0.091
+    },
+    {
+      "okrug": "Južnobanatski okrug",
+      "first_moves": 3125,
+      "participated": 35550,
+      "first_rate": 0.088
+    },
+    {
+      "okrug": "Borski okrug",
+      "first_moves": 3105,
+      "participated": 27019,
+      "first_rate": 0.115
+    },
+    {
+      "okrug": "Šumadijski okrug",
+      "first_moves": 2688,
+      "participated": 34316,
+      "first_rate": 0.078
+    },
+    {
+      "okrug": "Severnobanatski okrug",
+      "first_moves": 2187,
+      "participated": 34768,
+      "first_rate": 0.063
+    },
+    {
+      "okrug": "Podunavski okrug",
+      "first_moves": 1846,
+      "participated": 30877,
+      "first_rate": 0.06
+    },
+    {
+      "okrug": "Jablanički okrug",
+      "first_moves": 1709,
+      "participated": 29633,
+      "first_rate": 0.058
+    },
+    {
+      "okrug": "Pčinjski okrug",
+      "first_moves": 1448,
+      "participated": 29666,
+      "first_rate": 0.049
+    },
+    {
+      "okrug": "Toplički okrug",
+      "first_moves": 455,
+      "participated": 25190,
+      "first_rate": 0.018
+    },
+    {
+      "okrug": "Pirotski okrug",
+      "first_moves": 222,
+      "participated": 21013,
+      "first_rate": 0.011
+    },
+    {
+      "okrug": "Zaječarski okrug",
+      "first_moves": 86,
+      "participated": 14871,
+      "first_rate": 0.006
+    },
+    {
+      "okrug": "Nišavski okrug",
+      "first_moves": 42,
+      "participated": 13991,
+      "first_rate": 0.003
+    }
+  ],
+  "first_mover_ss": [
+    {
+      "okrug": "Beograd",
+      "first_moves": 174,
+      "participated": 503,
+      "first_rate": 0.346
+    },
+    {
+      "okrug": "Srednjobanatski okrug",
+      "first_moves": 119,
+      "participated": 354,
+      "first_rate": 0.336
+    },
+    {
+      "okrug": "Južnobački okrug",
+      "first_moves": 89,
+      "participated": 310,
+      "first_rate": 0.287
+    },
+    {
+      "okrug": "Kolubarski okrug",
+      "first_moves": 44,
+      "participated": 185,
+      "first_rate": 0.238
+    },
+    {
+      "okrug": "Severnobački okrug",
+      "first_moves": 33,
+      "participated": 178,
+      "first_rate": 0.185
+    },
+    {
+      "okrug": "Braničevski okrug",
+      "first_moves": 32,
+      "participated": 193,
+      "first_rate": 0.166
+    },
+    {
+      "okrug": "Podunavski okrug",
+      "first_moves": 32,
+      "participated": 168,
+      "first_rate": 0.19
+    },
+    {
+      "okrug": "Sremski okrug",
+      "first_moves": 27,
+      "participated": 149,
+      "first_rate": 0.181
+    },
+    {
+      "okrug": "Zapadnobački okrug",
+      "first_moves": 25,
+      "participated": 107,
+      "first_rate": 0.234
+    },
+    {
+      "okrug": "Mačvanski okrug",
+      "first_moves": 23,
+      "participated": 171,
+      "first_rate": 0.135
+    },
+    {
+      "okrug": "Moravički okrug",
+      "first_moves": 22,
+      "participated": 131,
+      "first_rate": 0.168
+    },
+    {
+      "okrug": "Pomoravski okrug",
+      "first_moves": 21,
+      "participated": 168,
+      "first_rate": 0.125
+    },
+    {
+      "okrug": "Raški okrug",
+      "first_moves": 18,
+      "participated": 177,
+      "first_rate": 0.102
+    },
+    {
+      "okrug": "Zlatiborski okrug",
+      "first_moves": 16,
+      "participated": 128,
+      "first_rate": 0.125
+    },
+    {
+      "okrug": "Severnobanatski okrug",
+      "first_moves": 14,
+      "participated": 91,
+      "first_rate": 0.154
+    },
+    {
+      "okrug": "Šumadijski okrug",
+      "first_moves": 14,
+      "participated": 127,
+      "first_rate": 0.11
+    },
+    {
+      "okrug": "Rasinski okrug",
+      "first_moves": 13,
+      "participated": 142,
+      "first_rate": 0.092
+    },
+    {
+      "okrug": "Južnobanatski okrug",
+      "first_moves": 6,
+      "participated": 78,
+      "first_rate": 0.077
+    },
+    {
+      "okrug": "Zaječarski okrug",
+      "first_moves": 2,
+      "participated": 11,
+      "first_rate": 0.182
+    }
+  ],
+  "hour_of_day": {
+    "created": [
+      19,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      13,
+      34,
+      20,
+      29,
+      67,
+      125,
+      91,
+      79,
+      57,
+      55,
+      97,
+      119,
+      120,
+      97,
+      59,
+      27
+    ],
+    "executed": [
+      62,
+      51,
+      4,
+      39,
+      25,
+      13,
+      5,
+      59,
+      100,
+      109,
+      90,
+      127,
+      72,
+      294,
+      297,
+      253,
+      184,
+      340,
+      395,
+      536,
+      576,
+      660,
+      447,
+      232
+    ]
+  },
+  "timeline": [
+    {
+      "ym": "2023-03",
+      "created": 27,
+      "executed": 0
+    },
+    {
+      "ym": "2023-05",
+      "created": 9,
+      "executed": 0
+    },
+    {
+      "ym": "2023-06",
+      "created": 4,
+      "executed": 0
+    },
+    {
+      "ym": "2023-09",
+      "created": 8,
+      "executed": 0
+    },
+    {
+      "ym": "2023-10",
+      "created": 7,
+      "executed": 0
+    },
+    {
+      "ym": "2023-11",
+      "created": 47,
+      "executed": 0
+    },
+    {
+      "ym": "2024-01",
+      "created": 35,
+      "executed": 0
+    },
+    {
+      "ym": "2024-02",
+      "created": 25,
+      "executed": 0
+    },
+    {
+      "ym": "2024-03",
+      "created": 13,
+      "executed": 0
+    },
+    {
+      "ym": "2024-04",
+      "created": 7,
+      "executed": 0
+    },
+    {
+      "ym": "2024-05",
+      "created": 2,
+      "executed": 0
+    },
+    {
+      "ym": "2024-06",
+      "created": 3,
+      "executed": 0
+    },
+    {
+      "ym": "2024-08",
+      "created": 103,
+      "executed": 0
+    },
+    {
+      "ym": "2024-09",
+      "created": 17,
+      "executed": 29
+    },
+    {
+      "ym": "2024-10",
+      "created": 9,
+      "executed": 61
+    },
+    {
+      "ym": "2024-11",
+      "created": 335,
+      "executed": 2030
+    },
+    {
+      "ym": "2024-12",
+      "created": 317,
+      "executed": 2049
+    },
+    {
+      "ym": "2025-01",
+      "created": 80,
+      "executed": 472
+    },
+    {
+      "ym": "2025-02",
+      "created": 18,
+      "executed": 117
+    },
+    {
+      "ym": "2025-03",
+      "created": 41,
+      "executed": 204
+    },
+    {
+      "ym": "2025-04",
+      "created": 1,
+      "executed": 8
+    }
+  ],
+  "issuer_okrug": [
+    {
+      "izdavac": "Lidija Milićević",
+      "okrug": "Beograd",
+      "n": 236
+    },
+    {
+      "izdavac": "Ivana  Ranković",
+      "okrug": "Beograd",
+      "n": 199
+    },
+    {
+      "izdavac": "Branislava  Spevak",
+      "okrug": "Beograd",
+      "n": 192
+    },
+    {
+      "izdavac": "Branislava  Spevak",
+      "okrug": "Srednjobanatski okrug",
+      "n": 109
+    },
+    {
+      "izdavac": "Marija Đukić Bajramović",
+      "okrug": "Beograd",
+      "n": 107
+    },
+    {
+      "izdavac": "Ivana  Ranković",
+      "okrug": "Južnobački okrug",
+      "n": 93
+    },
+    {
+      "izdavac": "Ivana  Ranković",
+      "okrug": "Srednjobanatski okrug",
+      "n": 92
+    },
+    {
+      "izdavac": "Lidija Milićević",
+      "okrug": "Južnobački okrug",
+      "n": 92
+    },
+    {
+      "izdavac": "Lidija Milićević",
+      "okrug": "Srednjobanatski okrug",
+      "n": 88
+    },
+    {
+      "izdavac": "Lidija Milićević",
+      "okrug": "Sremski okrug",
+      "n": 81
+    },
+    {
+      "izdavac": "Branislava  Spevak",
+      "okrug": "Južnobački okrug",
+      "n": 76
+    },
+    {
+      "izdavac": "Dragoslav  Janjić",
+      "okrug": "Beograd",
+      "n": 76
+    },
+    {
+      "izdavac": "Zorica Holasek",
+      "okrug": "Beograd",
+      "n": 66
+    },
+    {
+      "izdavac": "Marija Đukić Bajramović",
+      "okrug": "Zlatiborski okrug",
+      "n": 66
+    },
+    {
+      "izdavac": "Branislava  Spevak",
+      "okrug": "Raški okrug",
+      "n": 59
+    },
+    {
+      "izdavac": "Lidija Milićević",
+      "okrug": "Zlatiborski okrug",
+      "n": 59
+    },
+    {
+      "izdavac": "Ivana  Ranković",
+      "okrug": "Severnobački okrug",
+      "n": 58
+    },
+    {
+      "izdavac": "Branislava  Spevak",
+      "okrug": "Kolubarski okrug",
+      "n": 54
+    },
+    {
+      "izdavac": "Branislava  Spevak",
+      "okrug": "Mačvanski okrug",
+      "n": 51
+    },
+    {
+      "izdavac": "Branislava  Spevak",
+      "okrug": "Rasinski okrug",
+      "n": 51
+    },
+    {
+      "izdavac": "Ivana  Ranković",
+      "okrug": "Braničevski okrug",
+      "n": 50
+    },
+    {
+      "izdavac": "Dragoslav  Janjić",
+      "okrug": "Srednjobanatski okrug",
+      "n": 49
+    },
+    {
+      "izdavac": "Lidija Milićević",
+      "okrug": "Mačvanski okrug",
+      "n": 47
+    },
+    {
+      "izdavac": "Ivana  Ranković",
+      "okrug": "Podunavski okrug",
+      "n": 47
+    },
+    {
+      "izdavac": "Marija Đukić Bajramović",
+      "okrug": "Srednjobanatski okrug",
+      "n": 46
+    },
+    {
+      "izdavac": "Lidija Milićević",
+      "okrug": "Severnobački okrug",
+      "n": 45
+    },
+    {
+      "izdavac": "Branislava  Spevak",
+      "okrug": "Šumadijski okrug",
+      "n": 44
+    },
+    {
+      "izdavac": "Lidija Milićević",
+      "okrug": "Raški okrug",
+      "n": 42
+    },
+    {
+      "izdavac": "Lidija Milićević",
+      "okrug": "Kolubarski okrug",
+      "n": 42
+    },
+    {
+      "izdavac": "Lidija Milićević",
+      "okrug": "Braničevski okrug",
+      "n": 40
+    },
+    {
+      "izdavac": "Lidija Milićević",
+      "okrug": "Pomoravski okrug",
+      "n": 38
+    },
+    {
+      "izdavac": "Branislava  Spevak",
+      "okrug": "Severnobački okrug",
+      "n": 38
+    },
+    {
+      "izdavac": "Branislava  Spevak",
+      "okrug": "Braničevski okrug",
+      "n": 37
+    },
+    {
+      "izdavac": "Marija Đukić Bajramović",
+      "okrug": "Južnobački okrug",
+      "n": 36
+    },
+    {
+      "izdavac": "Snežana Živanović",
+      "okrug": "Beograd",
+      "n": 36
+    },
+    {
+      "izdavac": "Ivana  Ranković",
+      "okrug": "Zlatiborski okrug",
+      "n": 36
+    },
+    {
+      "izdavac": "Marija Đukić Bajramović",
+      "okrug": "Kolubarski okrug",
+      "n": 35
+    },
+    {
+      "izdavac": "Marija  Mitrović",
+      "okrug": "Beograd",
+      "n": 35
+    },
+    {
+      "izdavac": "Ivana  Ranković",
+      "okrug": "Pomoravski okrug",
+      "n": 33
+    },
+    {
+      "izdavac": "Lidija Milićević",
+      "okrug": "Rasinski okrug",
+      "n": 33
+    }
+  ],
+  "disclaimer": "Redosled i latencija su KORELACIJA (ko obično reaguje ubrzo posle kreiranja zadatka), inferirana propagacija — NE dokaz da je pojedinac lično prosledio poruku konkretnom operateru.",
+  "note": "SS/ČET = zadaci sa oznakom centralnog izvora (super specijal / iz četa). „Vrh koplja“ = okrug koji je najčešće PRVI reagent na zadatke."
+}

@@ -115,6 +115,7 @@ export default function GraphExplorer() {
   const [dirData, setDirData] = useState(null);
   const [coData, setCoData] = useState(null);
   const [coExp, setCoExp] = useState({});
+  const [casData, setCasData] = useState(null);
 
   const merge = useCallback((incoming) => {
     setData((prev) => {
@@ -159,11 +160,11 @@ export default function GraphExplorer() {
     setViewState(v); setMinShared(0);
     if (v === 'behav' && metric) setBehavMetric(metric);
     if (v === 'bursts') loadBursts();
-    else if (v === 'command' || v === 'command_voter' || v === 'directives' || v === 'coordinators') { setDetail(null); setPathInfo(null); setBurstInfo(null); }
+    else if (v === 'command' || v === 'command_voter' || v === 'directives' || v === 'coordinators' || v === 'cascade' || v === 'geoip') { setDetail(null); setPathInfo(null); setBurstInfo(null); }
     else loadView(v, metric || behavMetric);
   };
 
-  const NO_GRAPH = ['command', 'command_voter', 'directives', 'coordinators'];
+  const NO_GRAPH = ['command', 'command_voter', 'directives', 'coordinators', 'cascade', 'geoip'];
   useEffect(() => { if (view === 'bursts') loadBursts(); else if (!NO_GRAPH.includes(view)) loadView(view); }, [layer]); // eslint-disable-line
   useEffect(() => { fetch(`${API}/api/regions`).then((r) => r.json()).then((d) => setOkruzi(d.okruzi || [])).catch(() => {}); }, []);
   useEffect(() => { fetch(`${API}/api/behavior_cohort`).then((r) => r.json()).then(setCohort).catch(() => {}); }, []);
@@ -172,6 +173,7 @@ export default function GraphExplorer() {
   useEffect(() => { fetch(`${API}/api/command_voter`).then((r) => r.json()).then(setCvData).catch(() => {}); }, []);
   useEffect(() => { fetch(`${API}/api/directives?top=25`).then((r) => r.json()).then(setDirData).catch(() => {}); }, []);
   useEffect(() => { fetch(`${API}/api/coordinators`).then((r) => r.json()).then(setCoData).catch(() => {}); }, []);
+  useEffect(() => { fetch(`${API}/api/cascade`).then((r) => r.json()).then(setCasData).catch(() => {}); }, []);
   useEffect(() => {
     const upd = () => wrapRef.current && setDim({ w: wrapRef.current.offsetWidth, h: 640 });
     upd(); window.addEventListener('resize', upd);
@@ -404,6 +406,7 @@ export default function GraphExplorer() {
           <NavItem color="#f43f5e" active={view === 'command_voter'} onClick={() => setView('command_voter')}>⚖ Komandna odgovornost & Voter</NavItem>
           <NavItem color="#a78bfa" active={view === 'directives'} onClick={() => setView('directives')}>📋 Direktive (šta se naređuje)</NavItem>
           <NavItem color="#38bdf8" active={view === 'coordinators'} onClick={() => setView('coordinators')}>🏛 Koordinatori (hijerarhija)</NavItem>
+          <NavItem color="#2dd4bf" active={view === 'cascade'} onClick={() => setView('cascade')}>⏱ Kaskada (SS → teren)</NavItem>
         </Section>
 
         <Section title="Filteri">
@@ -910,6 +913,71 @@ export default function GraphExplorer() {
           })}
           <div style={{ color: '#fbbf24', fontSize: '0.66rem', marginTop: '0.6rem', lineHeight: 1.4 }}>
             ⚠ Fer play: raspon kontrole = geografska nadležnost (operateri registrovani u toj oblasti), NE dokaz pojedinačnog naređenja.
+          </div>
+        </div>
+      )}
+
+      {view === 'cascade' && !detail && !pathInfo && casData && casData.ss_priority && (
+        <div style={{ ...panelStyle, flex: '0 0 360px' }}>
+          <div style={{ fontWeight: 600, color: 'var(--text-main)' }}>⏱ Kaskada — SS direktiva → teren</div>
+          <div style={{ color: 'var(--text-muted)', fontSize: '0.72rem', margin: '0.3rem 0 0.5rem', lineHeight: 1.4 }}>
+            Kako se centralni zadatak (SS/ČET) širi kroz vreme: prioritet, ko reaguje prvi, ritam i geografski tok.
+          </div>
+
+          {/* SS PRIORITET */}
+          <div style={{ color: '#2dd4bf', fontSize: '0.74rem', margin: '0 0 0.5rem', padding: '0.4rem 0.5rem', border: '1px solid rgba(45,212,191,0.4)', borderRadius: 6, lineHeight: 1.45 }}>
+            <b>SS ima prioritet:</b> medijana prve reakcije <b style={{ color: '#2dd4bf' }}>{casData.ss_priority.ss?.median_s}s</b> vs {casData.ss_priority.baseline?.median_s}s za obične zadatke — <b>{casData.ss_priority.speedup_pct}% brže</b>. SS zadataka: {(casData.ss_priority.ss?.tasks || 0).toLocaleString('sr-RS')}.
+          </div>
+
+          {/* RITAM PO SATU */}
+          <div style={{ fontWeight: 600, fontSize: '0.8rem', color: '#2dd4bf', margin: '0.3rem 0 0.2rem' }}>Ritam po satu (0–23h)</div>
+          <div style={{ color: 'var(--text-muted)', fontSize: '0.66rem', marginBottom: '0.2rem' }}>▮ kreiranje (izdavač) · ▮ izvršenje (teren)</div>
+          {['created', 'executed'].map((k) => {
+            const arr = casData.hour_of_day?.[k] || [];
+            const mx = Math.max(1, ...arr);
+            return (
+              <div key={k} style={{ display: 'flex', alignItems: 'flex-end', gap: 1, height: 34, marginBottom: '0.25rem' }}>
+                {arr.map((v, h) => (
+                  <div key={h} title={`${h}h: ${v}`} style={{ flex: 1, height: `${Math.max(2, (v / mx) * 34)}px`, background: k === 'created' ? '#f59e0b' : '#2dd4bf', opacity: 0.8, borderRadius: 1 }} />
+                ))}
+              </div>
+            );
+          })}
+
+          {/* VRH KOPLJA */}
+          <div style={{ fontWeight: 600, fontSize: '0.8rem', color: '#2dd4bf', margin: '0.5rem 0 0.2rem' }}>Vrh koplja — ko reaguje prvi</div>
+          <div style={{ color: 'var(--text-muted)', fontSize: '0.66rem', marginBottom: '0.2rem' }}>prvi reagent po zadatku · SS-stopa = prvi/učešće na SS zadacima</div>
+          <table style={{ width: '100%', fontSize: '0.7rem', borderCollapse: 'collapse' }}>
+            <thead><tr style={{ color: 'var(--text-muted)', textAlign: 'left' }}>
+              <th>okrug</th><th style={{ textAlign: 'right' }}>prvi (svi)</th><th style={{ textAlign: 'right' }}>SS-stopa</th>
+            </tr></thead>
+            <tbody>
+              {(casData.first_mover_all || []).slice(0, 10).map((r, i) => {
+                const ss = (casData.first_mover_ss || []).find((x) => x.okrug === r.okrug);
+                return (
+                  <tr key={i} style={{ borderTop: '1px solid var(--glass-border)' }}>
+                    <td style={{ color: i === 0 ? '#2dd4bf' : 'var(--text-main)' }}>{i === 0 && '🏆 '}{r.okrug.replace(' okrug', '')}</td>
+                    <td style={{ textAlign: 'right' }}>{r.first_moves.toLocaleString('sr-RS')}</td>
+                    <td style={{ textAlign: 'right', color: ss && ss.first_rate >= 0.3 ? '#fbbf24' : 'var(--text-muted)' }}>{ss ? ss.first_rate : '—'}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+
+          {/* IZDAVAČ → OKRUG */}
+          {(casData.issuer_okrug || []).length > 0 && <>
+            <div style={{ fontWeight: 600, fontSize: '0.8rem', color: '#2dd4bf', margin: '0.5rem 0 0.2rem' }}>Izdavač SS → okrug koji izvršava</div>
+            {(casData.issuer_okrug || []).slice(0, 12).map((e, i) => (
+              <div key={i} style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.7rem', padding: '0.12rem 0', borderBottom: '1px solid var(--glass-border)' }}>
+                <span style={{ color: 'var(--text-main)' }}>{e.izdavac} <span style={{ color: 'var(--text-muted)' }}>→ {e.okrug.replace(' okrug', '')}</span></span>
+                <span style={{ color: '#2dd4bf' }}>{e.n}</span>
+              </div>
+            ))}
+          </>}
+
+          <div style={{ color: '#fbbf24', fontSize: '0.66rem', marginTop: '0.6rem', lineHeight: 1.4 }}>
+            ⚠ Fer play: {casData.disclaimer}
           </div>
         </div>
       )}

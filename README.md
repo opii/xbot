@@ -55,6 +55,9 @@ koliko poena). Podaci pokazuju:
   156 koordinatora + 22 zamenika), ali **nijedan od 156 koordinatora nije grafni
   centroid** (od 16 habova nijedan nema titulu). Formalna komanda i mrežna izvršna
   moć su razdvojeni slojevi ([`docs/analiza_koordinatora.md`](docs/analiza_koordinatora.md)).
+- **Kaskada (SS → teren):** centralne direktive propagiraju **17,6% brže** (582s vs
+  707s do prve reakcije); „vrh koplja" (prvi reagent) su Novi Sad, Beograd, Zrenjanin;
+  SS se izvršava **prekoregionalno** (centralni kanal) ([`docs/analiza_kaskade.md`](docs/analiza_kaskade.md)).
 
 ## 🌍 Voter infrastruktura — GeoIP nalazi
 

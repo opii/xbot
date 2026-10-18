@@ -87,14 +87,15 @@ dup/lead/template/reg/farm/pseudonyms/toxicity/infiltrator; `template` koristi C
 `/api/path?a=&b=&layer=&max_pop=` (putanja + spone), `/api/stats`,
 `/api/export/operator/{id}`, `/api/taskmasters`, `/api/command_voter`,
 `/api/directives?top=` (taksonomija+lanac+SS/ČET izvor), `/api/coordinators`
-(hijerarhija Region→Okrug→Opština + raspon kontrole). Node id šema: `op:<id>`, `acc:<id>`, `tgt:<handle>`,
+(hijerarhija Region→Okrug→Opština + raspon kontrole), `/api/cascade` (SS prioritet
++ vrh koplja + ritam + izdavač→okrug). Node id šema: `op:<id>`, `acc:<id>`, `tgt:<handle>`,
 `portal:<name>`, `news:<vid>`. Operater nosi `auto_score` (+komponente),
 `lead_score`, `template_frac`, `reg_score`, `dup_ratio`, `role`, `farm_ratio`/
 `farm_machine`, `shift_archetype`/`work_hours_pct`/`weekend_ratio`, `tw_org`/`cc_org`,
 `tw_community`/`cc_community`. Slojevi veza: CO_ACTED, CO_COMMENTED, CO_TEMPLATE.
 FE: levi meni; pogledi Pregled/Geografija/Uloge/Smene/Portali/Organizatori/Master, bihevioralne
 metrike (…/farm), Kampanje, Komanda (Task-masteri / Komandna odgovornost & Voter /
-📋 Direktive / 🏛 Koordinatori); denoising klizač „min jačina veze" + „sakrij izolovane".
+📋 Direktive / 🏛 Koordinatori / ⏱ Kaskada); denoising klizač „min jačina veze" + „sakrij izolovane".
 
 ## Kako pokrenuti
 ```bash
@@ -121,8 +122,8 @@ Kampanje (burstevi + timeline), putanje (+diskriminativne spone), denoising
 Jedan `load_graph.py` gradi sve (graf + organizatori + skorovi + burstevi, ~3min).
 Dodatne analize (van `load_graph.py`, svaka piše `data/geo/*.json` i ima UI/API):
 voter GeoIP, kladionice↔opštine, task-masteri, komandna odgovornost & voter,
-**analiza direktiva** (`directives.py` → „📋 Direktive") i **hijerarhija koordinatora**
-(`coordinators.py` → „🏛 Koordinatori").
+**analiza direktiva** (`directives.py` → „📋 Direktive"), **hijerarhija koordinatora**
+(`coordinators.py` → „🏛 Koordinatori") i **vremenska kaskada** (`cascade.py` → „⏱ Kaskada").
 
 ## Ključni nalazi (zaključci)
 
@@ -188,6 +189,12 @@ ljudi koji rade u smenama — ali je koordinacija vrlo jaka i merljiva.** Dokazi
   komanda (geografska nadležnost) i izvršna moć (centralnost u mreži) su RAZDVOJENI
   slojevi — dosledno nalazu da su i SS-izdavači org≈0. Centroidi i 🎰 koncentrisani
   u Vojvodini/Beogradu. Detalji: [`docs/analiza_koordinatora.md`](docs/analiza_koordinatora.md).
+- **Kaskada: SS ima prioritet + vrh koplja.** Centralni (SS/ČET) zadaci propagiraju
+  **17,6% brže** (medijana prve reakcije 582s vs 707s baseline). „Vrh koplja" (prvi
+  reagent) su **Južnobački (Novi Sad), Beograd, Srednjobanatski (Zrenjanin)** —
+  otvaraju kampanju. SS direktive se izvršavaju **prekoregionalno** (izdavač u
+  jednom okrugu, izvršenje u Beogradu/Vojvodini) = centralni kanal, ne lokalna
+  stvar. Detalji: [`docs/analiza_kaskade.md`](docs/analiza_kaskade.md).
 - **Mete.** Masovne mete (npr. `@sns_srbija` — dira je 3.608 operatera) su šum za
   povezivanje; prava koordinacija se vidi na retkim, deljenim metama.
 
@@ -347,8 +354,12 @@ granu u `nodeColor` (`view==='xxx'`), `NavItem` u sekciji POGLED, i granu u
   raspon kontrole + nalaz „komanda ≠ izvršenje" (0 koordinatora su centroidi).
   `src/analysis/coordinators.py`, `/api/coordinators`, UI „🏛 Koordinatori",
   [`docs/analiza_koordinatora.md`](docs/analiza_koordinatora.md).
-  Sledeće (dublje): **vremenska kaskada** izdavač SS → okružni/opštinski koordinator
-  → operater (ko kome prosleđuje smernicu, redosled i latencija kroz vreme).
+- ✅ **Vremenska kaskada** (URAĐENO): SS prioritet (17,6% brže), vrh koplja (prvi
+  reagent po okrugu), ritam po satu, izdavač→okrug (prekoregionalni tok).
+  `src/analysis/cascade.py`, `/api/cascade`, UI „⏱ Kaskada",
+  [`docs/analiza_kaskade.md`](docs/analiza_kaskade.md).
+  Sledeće (dublje): kaskada na nivou OPERATERA (lead→follower lanci unutar kampanje,
+  ne samo okrug), i veza SS-talasa sa voter udarima sa terminala kroz vreme.
 - **Tretman portala**: razlika u ponašanju prema opozicionim portalima vs tabloidi
   (`arhiva_vesti_unos.vu_portal` + glasanje `voter`/`izvestaj_voter`).
 - Sinhroni start/stop: preklopljeni dnevni timeline-ovi više operatera (kampanje

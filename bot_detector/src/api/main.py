@@ -893,6 +893,18 @@ def _load_coordinators():
 COORDINATORS = _load_coordinators()
 
 
+def _load_cascade():
+    try:
+        p = os.path.join(os.path.dirname(__file__), "..", "..", "data", "geo", "cascade.json")
+        with open(p, encoding="utf-8") as f:
+            return json.load(f)
+    except Exception:  # noqa: BLE001
+        return {}
+
+
+CASCADE = _load_cascade()
+
+
 @app.get("/api/directives")
 def directives(top: int = Query(25, le=40)):
     """Analiza direktiva (smernica): taksonomija (akcija/ton/izvor/cross-platform),
@@ -911,6 +923,15 @@ def directives(top: int = Query(25, le=40)):
         "examples": d.get("examples", {}),
         "defs": d.get("defs", {}),
     }
+
+
+@app.get("/api/cascade")
+def cascade():
+    """Vremenska kaskada: SS/ČET direktiva → teren (okruzi). SS prioritet, vrh
+    koplja (prvi reagent), ritam po satu, mesečni timeline, izdavač→okrug.
+    FER PLAY: redosled/latencija = korelacija (inferirana propagacija), ne dokaz."""
+    return CASCADE or {"ss_priority": {}, "first_mover_all": [], "first_mover_ss": [],
+                       "hour_of_day": {}, "timeline": [], "issuer_okrug": []}
 
 
 @app.get("/api/coordinators")
