@@ -116,6 +116,7 @@ export default function GraphExplorer() {
   const [coData, setCoData] = useState(null);
   const [coExp, setCoExp] = useState({});
   const [casData, setCasData] = useState(null);
+  const [geoipData, setGeoipData] = useState(null);
 
   const merge = useCallback((incoming) => {
     setData((prev) => {
@@ -174,6 +175,7 @@ export default function GraphExplorer() {
   useEffect(() => { fetch(`${API}/api/directives?top=25`).then((r) => r.json()).then(setDirData).catch(() => {}); }, []);
   useEffect(() => { fetch(`${API}/api/coordinators`).then((r) => r.json()).then(setCoData).catch(() => {}); }, []);
   useEffect(() => { fetch(`${API}/api/cascade`).then((r) => r.json()).then(setCasData).catch(() => {}); }, []);
+  useEffect(() => { fetch(`${API}/api/voter_geoip`).then((r) => r.json()).then(setGeoipData).catch(() => {}); }, []);
   useEffect(() => {
     const upd = () => wrapRef.current && setDim({ w: wrapRef.current.offsetWidth, h: 640 });
     upd(); window.addEventListener('resize', upd);
@@ -407,6 +409,10 @@ export default function GraphExplorer() {
           <NavItem color="#a78bfa" active={view === 'directives'} onClick={() => setView('directives')}>📋 Direktive (šta se naređuje)</NavItem>
           <NavItem color="#38bdf8" active={view === 'coordinators'} onClick={() => setView('coordinators')}>🏛 Koordinatori (hijerarhija)</NavItem>
           <NavItem color="#2dd4bf" active={view === 'cascade'} onClick={() => setView('cascade')}>⏱ Kaskada (SS → teren)</NavItem>
+        </Section>
+
+        <Section title="Voter infrastruktura">
+          <NavItem color="#fb7185" active={view === 'geoip'} onClick={() => setView('geoip')}>🌍 Voter / GeoIP (Afrika)</NavItem>
         </Section>
 
         <Section title="Filteri">
@@ -978,6 +984,67 @@ export default function GraphExplorer() {
 
           <div style={{ color: '#fbbf24', fontSize: '0.66rem', marginTop: '0.6rem', lineHeight: 1.4 }}>
             ⚠ Fer play: {casData.disclaimer}
+          </div>
+        </div>
+      )}
+
+      {view === 'geoip' && !detail && !pathInfo && geoipData && geoipData.countries && (
+        <div style={{ ...panelStyle, flex: '0 0 360px' }}>
+          <div style={{ fontWeight: 600, color: 'var(--text-main)' }}>🌍 Voter / GeoIP — strana infrastruktura</div>
+          <div style={{ color: 'var(--text-muted)', fontSize: '0.7rem', margin: '0.3rem 0 0.5rem', lineHeight: 1.4 }}>
+            {geoipData.note}
+          </div>
+          {/* SUMMARY */}
+          <div style={{ display: 'flex', gap: '0.4rem', marginBottom: '0.5rem', flexWrap: 'wrap' }}>
+            <div style={{ flex: 1, minWidth: 90, padding: '0.35rem 0.5rem', border: '1px solid var(--glass-border)', borderRadius: 6 }}>
+              <div style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--text-main)' }}>{Math.round((geoipData.foreign / (geoipData.matched || 1)) * 100)}%</div>
+              <div style={{ fontSize: '0.64rem', color: 'var(--text-muted)' }}>strane mašine ({geoipData.foreign}/{geoipData.matched})</div>
+            </div>
+            <div style={{ flex: 1, minWidth: 90, padding: '0.35rem 0.5rem', border: '1px solid rgba(251,113,133,0.4)', borderRadius: 6 }}>
+              <div style={{ fontSize: '1.1rem', fontWeight: 700, color: '#fb7185' }}>{Math.round(geoipData.africa_share * 100)}%</div>
+              <div style={{ fontSize: '0.64rem', color: 'var(--text-muted)' }}>Afrika ({geoipData.africa_ip} IP)</div>
+            </div>
+          </div>
+
+          {/* DRŽAVE */}
+          <div style={{ fontWeight: 600, fontSize: '0.8rem', color: '#fb7185', margin: '0.3rem 0 0.2rem' }}>Države (po broju IP)</div>
+          {(() => { const mx = Math.max(1, ...geoipData.countries.map((c) => c.ips)); return geoipData.countries.slice(0, 14).map((c) => (
+            <div key={c.cc} style={{ marginBottom: '0.2rem' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.72rem' }}>
+                <span style={{ color: c.africa ? '#fb7185' : 'var(--text-main)' }}>{c.africa && '🌍 '}{c.name} <span style={{ color: 'var(--text-muted)', fontSize: '0.64rem' }}>{c.cc}</span></span>
+                <span style={{ color: 'var(--text-muted)' }}>{c.ips}</span>
+              </div>
+              <div style={{ height: 4, background: 'var(--glass-border)', borderRadius: 2 }}>
+                <div style={{ width: `${(c.ips / mx) * 100}%`, height: 4, background: c.africa ? '#fb7185' : '#60a5fa', borderRadius: 2 }} />
+              </div>
+            </div>
+          )); })()}
+
+          {/* ASN */}
+          <div style={{ fontWeight: 600, fontSize: '0.8rem', color: '#fb7185', margin: '0.5rem 0 0.2rem' }}>Provajderi (ASN) — top 12</div>
+          {geoipData.asn.slice(0, 12).map((a, i) => (
+            <div key={i} style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.66rem', padding: '0.1rem 0', borderBottom: '1px solid var(--glass-border)' }}>
+              <span style={{ color: a.africa ? '#fb7185' : 'var(--text-muted)' }}>{a.africa && '🌍 '}{a.asn.length > 42 ? a.asn.slice(0, 42) + '…' : a.asn}</span>
+              <span style={{ color: 'var(--text-main)', paddingLeft: '0.3rem' }}>{a.n}</span>
+            </div>
+          ))}
+
+          {/* TAJMING */}
+          {geoipData.timing?.median_s != null && <>
+            <div style={{ fontWeight: 600, fontSize: '0.8rem', color: '#fb7185', margin: '0.5rem 0 0.2rem' }}>Tajming glasanja (komentar → glas)</div>
+            <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', marginBottom: '0.3rem' }}>
+              medijana <b style={{ color: 'var(--text-main)' }}>{geoipData.timing.median_s}s</b> · <b style={{ color: '#f87171' }}>{(geoipData.timing.buckets?.['<10s'] || 0).toLocaleString('sr-RS')}</b> glasova &lt;10s (mašinsko) · noć {Math.round((geoipData.timing.vote_night_ratio || 0) * 100)}%
+            </div>
+            <div style={{ display: 'flex', alignItems: 'flex-end', gap: 1, height: 30 }}>
+              {(() => { const vh = geoipData.timing.vote_hours || []; const mx = Math.max(1, ...vh); return vh.map((v, h) => (
+                <div key={h} title={`${h}h: ${v}`} style={{ flex: 1, height: `${Math.max(2, (v / mx) * 30)}px`, background: '#fb7185', opacity: 0.75, borderRadius: 1 }} />
+              )); })()}
+            </div>
+            <div style={{ fontSize: '0.6rem', color: 'var(--text-muted)' }}>glasovi po satu (0–23h)</div>
+          </>}
+
+          <div style={{ color: '#fbbf24', fontSize: '0.66rem', marginTop: '0.6rem', lineHeight: 1.4 }}>
+            ⚠ Fer play: ovo je geografija VOTER MAŠINA (terminali kladionica), NE operatera. Veza mašina↔osoba ne postoji u bazi.
           </div>
         </div>
       )}

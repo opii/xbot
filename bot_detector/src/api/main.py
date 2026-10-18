@@ -905,6 +905,27 @@ def _load_cascade():
 CASCADE = _load_cascade()
 
 
+def _load_json_geo(fname):
+    try:
+        p = os.path.join(os.path.dirname(__file__), "..", "..", "data", "geo", fname)
+        with open(p, encoding="utf-8") as f:
+            return json.load(f)
+    except Exception:  # noqa: BLE001
+        return {}
+
+
+VOTER_GEOIP = _load_json_geo("voter_geoip.json")
+VOTER_TIMING = _load_json_geo("voter_timing.json")
+
+# ISO-2 kodovi afričkih država prisutnih u voter podacima (za udeo Afrike)
+_AFRICA = {"CM": "Kamerun", "CG": "Kongo (Brazavil)", "CD": "DR Kongo", "TZ": "Tanzanija",
+           "CI": "Obala Slonovače", "LS": "Lesoto", "SC": "Sejšeli", "TD": "Čad",
+           "NG": "Nigerija", "GH": "Gana", "SN": "Senegal", "KE": "Kenija"}
+_CC_NAME = {"RS": "Srbija", "BA": "BiH", "ME": "Crna Gora", "IT": "Italija",
+            "PE": "Peru", "CY": "Kipar", "US": "SAD", "MT": "Malta", "GB": "UK",
+            "HR": "Hrvatska", "BE": "Belgija", "DE": "Nemačka", **_AFRICA}
+
+
 @app.get("/api/directives")
 def directives(top: int = Query(25, le=40)):
     """Analiza direktiva (smernica): taksonomija (akcija/ton/izvor/cross-platform),
@@ -922,6 +943,44 @@ def directives(top: int = Query(25, le=40)):
         "command_source": cs,
         "examples": d.get("examples", {}),
         "defs": d.get("defs", {}),
+    }
+
+
+@app.get("/api/voter_geoip")
+def voter_geoip():
+    """Voter infrastruktura: GeoIP (države/ASN, udeo Afrike) + tajming glasanja.
+    Offline iptoasn mapiranje voter IP adresa; strana/afrička kladioničarska mreža."""
+    g = VOTER_GEOIP or {}
+    countries = g.get("country_ip", {}) or g.get("countries", {})
+    africa = {cc: n for cc, n in countries.items() if cc in _AFRICA}
+    africa_ip = sum(africa.values())
+    total_ip = sum(countries.values()) or 1
+    # rang država (po IP) sa imenima + afrička oznaka
+    ranked = sorted(countries.items(), key=lambda kv: kv[1], reverse=True)
+    country_rows = [{"cc": cc, "name": _CC_NAME.get(cc, cc), "ips": n,
+                     "africa": cc in _AFRICA} for cc, n in ranked]
+    asn_rows = [{"asn": k, "n": v, "africa": any(f"({cc})" in k for cc in _AFRICA)}
+                for k, v in sorted((g.get("asn", {}) or {}).items(),
+                                   key=lambda kv: kv[1], reverse=True)]
+    t = VOTER_TIMING or {}
+    return {
+        "total": g.get("total", 0), "matched": g.get("matched", 0),
+        "foreign": g.get("foreign", 0), "distinct_ip": g.get("distinct_ip", 0),
+        "rs_ip": g.get("rs_ip", 0),
+        "africa_ip": africa_ip, "africa_share": round(africa_ip / total_ip, 3),
+        "africa_countries": {_CC_NAME.get(cc, cc): n for cc, n in
+                             sorted(africa.items(), key=lambda kv: kv[1], reverse=True)},
+        "countries": country_rows, "asn": asn_rows[:30],
+        "timing": {
+            "median_s": t.get("latency", {}).get("median_s"),
+            "n": t.get("latency", {}).get("n"),
+            "buckets": t.get("latency", {}).get("buckets", {}),
+            "vote_hours": t.get("vote_hours", []),
+            "vote_night_ratio": t.get("vote_night_ratio"),
+        },
+        "note": ("Voter mašine su terminali u uplatnim mestima kladionica u Srbiji i "
+                 "Africi (vr_naziv_ss). Operateri NEMAJU IP — ovo je geografija VOTER "
+                 "mašina, ne operatera (vidi docs/voter_kladionice_infrastruktura.md)."),
     }
 
 

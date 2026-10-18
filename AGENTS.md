@@ -88,14 +88,16 @@ dup/lead/template/reg/farm/pseudonyms/toxicity/infiltrator; `template` koristi C
 `/api/export/operator/{id}`, `/api/taskmasters`, `/api/command_voter`,
 `/api/directives?top=` (taksonomija+lanac+SS/ČET izvor), `/api/coordinators`
 (hijerarhija Region→Okrug→Opština + raspon kontrole), `/api/cascade` (SS prioritet
-+ vrh koplja + ritam + izdavač→okrug). Node id šema: `op:<id>`, `acc:<id>`, `tgt:<handle>`,
++ vrh koplja + ritam + izdavač→okrug), `/api/voter_geoip` (države/ASN voter mašina
++ udeo Afrike + tajming). Node id šema: `op:<id>`, `acc:<id>`, `tgt:<handle>`,
 `portal:<name>`, `news:<vid>`. Operater nosi `auto_score` (+komponente),
 `lead_score`, `template_frac`, `reg_score`, `dup_ratio`, `role`, `farm_ratio`/
 `farm_machine`, `shift_archetype`/`work_hours_pct`/`weekend_ratio`, `tw_org`/`cc_org`,
 `tw_community`/`cc_community`. Slojevi veza: CO_ACTED, CO_COMMENTED, CO_TEMPLATE.
 FE: levi meni; pogledi Pregled/Geografija/Uloge/Smene/Portali/Organizatori/Master, bihevioralne
 metrike (…/farm), Kampanje, Komanda (Task-masteri / Komandna odgovornost & Voter /
-📋 Direktive / 🏛 Koordinatori / ⏱ Kaskada); denoising klizač „min jačina veze" + „sakrij izolovane".
+📋 Direktive / 🏛 Koordinatori / ⏱ Kaskada), Voter infrastruktura (🌍 Voter/GeoIP —
+Afrika); denoising klizač „min jačina veze" + „sakrij izolovane".
 
 ## Kako pokrenuti
 ```bash
@@ -169,7 +171,9 @@ ljudi koji rade u smenama — ali je koordinacija vrlo jaka i merljiva.** Dokazi
   najveći strani otisak su **afrički mobilni provajderi**: CAMNET Kamerun (472 IP!),
   MTN, Orange Cameroon, Congo Telecom, Tanzanija, Obala Slonovače. Detaljna studija:
   [`docs/voter_kladionice_infrastruktura.md`](docs/voter_kladionice_infrastruktura.md).
-  Offline GeoIP: `src/analysis/voter_geoip.py` → `data/geo/voter_geoip.json`.
+  Offline GeoIP: `src/analysis/voter_geoip.py` → `data/geo/voter_geoip.json`;
+  u UI pogled „🌍 Voter/GeoIP (Afrika)" preko `/api/voter_geoip` (Afrika 66% IP,
+  Kamerun #1 sa 472 — ispred Srbije 216).
 - **Direktive (šta se naređuje).** 99% tviter smernica je čista akcija
   (`odgovaramo`/`fv`/`kv`/`rt`); eksplicitno napadačkih samo 2.712, odbrambenih
   1.446. Ton napada se vidi u IZBORU METE, ne u tekstu: 587 eksplicitnih

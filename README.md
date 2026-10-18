@@ -38,7 +38,9 @@ koliko poena). Podaci pokazuju:
 - **Strana voter infrastruktura:** automatsko glasanje (550M klikova) ide iz
   inostranstva — 63% zapisa van Srbije; najjači ASN je Telekom/MTS, ali odmah iza
   slede afrički provajderi (CAMNET Kamerun 472 IP, MTN, Orange, Congo Telecom…).
-  Offline GeoIP: [`src/analysis/voter_geoip.py`](bot_detector/src/analysis/voter_geoip.py).
+  Afrika je **66% distinct IP** (Kamerun #1, ispred Srbije). Offline GeoIP:
+  [`src/analysis/voter_geoip.py`](bot_detector/src/analysis/voter_geoip.py); u
+  exploreru: pogled **„🌍 Voter / GeoIP (Afrika)"**.
 - **Kladionice = voter terminali:** voter mašine su terminali u uplatnim mestima
   kladionica (Scooorebet/Maxi/Joker) u Srbiji i Africi; opštine sa terminalima
   imaju i jake operaterske klastere ([`docs/analiza_komanda_i_voter.md`](docs/analiza_komanda_i_voter.md)).
