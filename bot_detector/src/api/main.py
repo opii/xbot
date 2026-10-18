@@ -107,6 +107,9 @@ def op_node(rec):
         "weekend_ratio": rec.get("weekend_ratio") or 0,
         "shift_archetype": rec.get("shift_archetype"),
         "pseudonyms": rec.get("pseudonyms") or 0,
+        "toxicity_score": rec.get("toxicity_score") or 0,
+        "toxicity_level": rec.get("toxicity_level") or "Netoksičan",
+        "toxic_attacks": rec.get("toxic_attacks") or 0,
         # veličina čvora raste logaritamski sa brojem akcija (~2..7)
         "val": round(2 + 1.1 * math.log10((rec.get("actions") or 0) + 1), 2),
     }
@@ -526,8 +529,23 @@ def behavior(op_id: int):
         WHERE vkk_korisnik_id = %s AND vkk_simulacija = 0 AND vkk_komentar <> ''
     """, (op_id,))[0]
     dup_ratio = round(1 - (crow[1] / crow[0]), 3) if crow[0] else None
+    # top napadnute mete (najviše reply akcija od ovog operatera)
+    top_attacked = [{"handle": h, "attacks": a} for h, a in pg(f"""
+        SELECT {HANDLE_SQL} AS handle, count(*) AS attacks
+        FROM arhiva_twitter_unos_korisnici_akcije a
+        JOIN arhiva_twitter_unos t ON t.tu_id = a.tuka_twitter_id
+        WHERE a.tuka_korisnik_id = %s AND a.tuka_akcija = 2
+        GROUP BY 1 ORDER BY attacks DESC LIMIT 5
+    """, (op_id,)) if h]
+    with driver.session() as s:
+        tox = s.run("MATCH (o:Operator {id:$id}) RETURN o.toxicity_score AS sc, "
+                    "o.toxicity_level AS lv, o.toxic_attacks AS at", id=op_id).single()
     return {
         "hours": hours,
+        "toxicity_score": (tox and tox["sc"]) or 0,
+        "toxicity_level": (tox and tox["lv"]) or "Netoksičan",
+        "toxic_attacks": (tox and tox["at"]) or 0,
+        "top_attacked": top_attacked,
         "night_ratio": round(night / total, 3),
         "actions": agg[0], "from": agg[1], "to": agg[2], "active_days": agg[3],
         "mix": {"like": agg[4], "rt": agg[5], "reply": agg[6], "quote": agg[7]},
@@ -545,7 +563,7 @@ BEHAV_METRIC = {
     "auto": "auto_score", "night": "night_ratio", "short_lat": "short_lat_frac",
     "entropy": "hour_entropy", "dup": "dup_ratio", "lead": "lead_score",
     "template": "template_frac", "reg": "reg_score", "farm": "farm_ratio",
-    "pseudonyms": "pseudonyms",
+    "pseudonyms": "pseudonyms", "toxicity": "toxicity_score",
 }
 
 

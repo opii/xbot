@@ -77,7 +77,7 @@ Napomena: `load_graph.py` na kraju poziva i `detect_organizers` i
 `/api/regions`, `/api/organizers?layer=&only_centroids=`, `/api/crosslayer`
 (master koordinatori), `/api/behavior/{id}` (ritam/radni dani/latencija/timeline/
 miks/duplikati), `/api/behavior_top?metric=&layer=` (metrike: auto/night/short_lat/
-dup/lead/template/reg/farm; `template` koristi CO_TEMPLATE), `/api/behavior_cohort`
+dup/lead/template/reg/farm/pseudonyms/toxicity; `template` koristi CO_TEMPLATE), `/api/behavior_cohort`
 (decili), `/api/bursts` + `/api/burst/{tid}` (kampanje/nalet po minutu + lideri),
 `/api/path?a=&b=&layer=&max_pop=` (putanja + spone), `/api/stats`,
 `/api/export/operator/{id}`. Node id šema: `op:<id>`, `acc:<id>`, `tgt:<handle>`,
@@ -136,6 +136,12 @@ ljudi koji rade u smenama — ali je koordinacija vrlo jaka i merljiva.** Dokazi
   pod **1.338** imena. Uz to duplikati do **96%** i **100% šablonskog teksta**
   (`template_frac`); 22k identičnih šablona vrti cela mreža.
 - **Uloge.** Mreža je prvenstveno „Odgovarači" (uputstvo zadataka je „odgovaramo").
+- **Jurišni odredi (toksičnost).** Mreža ne napada sve jednako: stranačke mete
+  (`sns_srbija`, `avucic`, `milos_vucevic`) dobijaju quote/like (hvalospevi), a
+  opozicija/kritički mediji (`onlinedanas`, `n1srbija`, `kpromeni`, `novarsonline`,
+  `slobageorgiev`…) isključivo napadačke odgovore pod direktivama „brutalno/zezamo/
+  pukli". 520 operatera je „Jurišnik"; npr. #2656 ima 3.882 napada, a top mete su
+  baš kritički mediji. Preko 150k napadačkih odgovora ukupno.
 - **Mete.** Masovne mete (npr. `@sns_srbija` — dira je 3.608 operatera) su šum za
   povezivanje; prava koordinacija se vidi na retkim, deljenim metama.
 
@@ -170,6 +176,13 @@ Svi pragovi su izbori — menjaju gustinu/osetljivost; čitati rezultate uz njih
   inače `Mešovit`.
 - `farm_ratio` = udeo akcija preko `tuka_program_racunar`; `farm_machine` = mode
   mašine (ili null).
+- `toxic_attacks` = odgovori (akcija=2) na opozicione mete ILI uz agresivnu
+  direktivu (`tu_smernica ~* brutalno|zezamo|sprdamo|hejt|lazov|resavamo|pukli`;
+  generičko „odgovaramo" se NE broji) + komentari na kritičkim portalima
+  (n1info/danas/nova/juznevesti/vreme/radar). `toxicity_score` = (toxic_attacks/
+  total)·min(1, toxic_attacks/40). `toxicity_level`: Ekstremna (Jurišnik) [score≥0,4
+  ili attacks≥300] → Visoka [≥0,2] → Umerena [≥0,08] → Netoksičan (Pojačivač).
+  520 operatera je „Jurišnik". Opozicioni handle-set je kurirani (vidi kod).
 - `work_hours_pct` = pon–pet 08–15h; `weekend_ratio` = sub/ned. `shift_archetype`
   (redosled provere): `Kancelarijski` (work≥0,75 i weekend<0,1) → `Noćna smena`
   (night≥0,25) → `Vikend` (weekend≥0,40) → `Mešovit / 24-7`.

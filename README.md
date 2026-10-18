@@ -29,6 +29,9 @@ koliko poena). Podaci pokazuju:
   (#7418 → 2.378 imena na 17k komentara); do 96% duplikata, 100% šablonskog teksta.
 - **Vojnička sinhronija:** u 12% kampanja >85% operatera reaguje u prvih 10 min;
   lideri u razmaku od sekundi.
+- **Jurišni odredi:** 520 operatera specijalizovano za napade — opozicija i
+  kritički mediji dobijaju isključivo napadačke odgovore (#2656 = 3.882 napada),
+  dok stranačke mete dobijaju hvalospeve (quote/like).
 
 ## 🧭 Pristup: operater-centričan
 
@@ -168,7 +171,7 @@ Filteri / Alatke):
 | `/api/expand/{id}?layer=&frm=&to=` | susedi (nalozi/ko-akteri/mete ili ko-komentatori/portali) |
 | `/api/operator/{id}` | detalji + top mete |
 | `/api/behavior/{id}` | bihevioralni profil (ritam, radni dani, latencija, timeline, miks, duplikati) |
-| `/api/behavior_top?metric=&layer=` | rang po metrici: `auto`/`night`/`short_lat`/`dup`/`lead`/`template`/`reg` (+ veze) |
+| `/api/behavior_top?metric=&layer=` | rang po metrici: `auto`/`night`/`short_lat`/`dup`/`lead`/`template`/`reg`/`farm`/`pseudonyms`/`toxicity` (+ veze) |
 | `/api/behavior_cohort` | decili metrika kroz sve operatere |
 | `/api/bursts?limit=&min_ops=` | najsinhronizovanije kampanje (mete) |
 | `/api/burst/{tid}` | vremenska linija kampanje po minutu + lideri + operateri |

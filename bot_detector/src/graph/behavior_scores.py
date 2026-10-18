@@ -211,6 +211,56 @@ def run(drv=None):
     """)
     pseudo_rows = [{"id": op, "ps": n} for op, n in cur.fetchall()]
 
+    print("Računanje toksičnosti (jurišni odredi) ...", flush=True)
+    # Napad = odgovor (akcija=2) na opozicionu metu ILI uz agresivnu direktivu,
+    # PLUS komentar na kritičkom portalu. (NB: generičko „odgovaramo" se NE broji
+    # kao agresivno — inače bi skoro svi odgovori bili toksični; primeri iz baze
+    # #2656/#2649 se poklapaju sa ovom definicijom.)
+    OPP = ['marinikatepic', 'kpromeni', 'onlinedanas', 'n1srbija', 'novarsonline',
+           'gjesic', 'slobodaipravda', 'slobageorgiev', 'zdravkoponos', 'miranpogacar',
+           'narodnipokrets', 'dragandjilas']
+    AGG = r'brutalno|zezamo|sprdamo|hejt|lazov|resavamo|pukli'
+    CRIT = ['n1info.rs', 'danas.rs', 'nova.rs', 'juznevesti.com', 'vreme.com', 'radar.rs']
+    H = "lower(split_part(split_part(t.tu_link_tvita, '.com/', 2), '/', 1))"
+    cur.execute(f"""
+        SELECT a.tuka_korisnik_id, count(*) AS total_tw,
+               count(*) FILTER (WHERE a.tuka_akcija=2
+                   AND (t.tu_smernica ~* %s OR {H} = ANY(%s))) AS toxic_tw
+        FROM arhiva_twitter_unos_korisnici_akcije a
+        JOIN arhiva_twitter_unos t ON t.tu_id = a.tuka_twitter_id
+        GROUP BY 1
+    """, (AGG, OPP))
+    tw = {op: (tt, tx) for op, tt, tx in cur.fetchall()}
+    cur.execute("""
+        SELECT v.vkk_korisnik_id, count(*) AS total_cm,
+               count(*) FILTER (WHERE u.vu_portal = ANY(%s)) AS crit_cm
+        FROM arhiva_vesti_korisnici_komentari v
+        JOIN arhiva_vesti_unos u ON u.vu_id = v.vkk_vest_id
+        WHERE v.vkk_simulacija = 0
+        GROUP BY 1
+    """, (CRIT,))
+    cm = {op: (tt, cc) for op, tt, cc in cur.fetchall()}
+
+    def tox_level(score, attacks):
+        if score >= 0.40 or attacks >= 300:
+            return "Ekstremna (Jurišnik)"
+        if score >= 0.20:
+            return "Visoka"
+        if score >= 0.08:
+            return "Umerena"
+        return "Netoksičan (Pojačivač)"
+
+    tox_rows = []
+    for op in set(tw) | set(cm):
+        ttw, txw = tw.get(op, (0, 0))
+        tcm, ccm = cm.get(op, (0, 0))
+        attacks = txw + ccm
+        total = (ttw + tcm) or 1
+        conf = min(1.0, attacks / 40.0)
+        score = round((attacks / total) * conf, 4)
+        tox_rows.append({"id": op, "sc": score, "lv": tox_level(score, attacks),
+                         "at": attacks})
+
     print("Računanje udela deljenih šablona (konzerviran tekst) ...", flush=True)
     # template_frac = udeo komentara operatera čiji tekst koristi >=3 operatera
     cur.execute(r"""
@@ -267,6 +317,15 @@ def run(drv=None):
                 UNWIND $rows AS r
                 MATCH (o:Operator {id: r.id}) SET o.pseudonyms = r.ps
             """, rows=pseudo_rows[i:i + 5000])
+        s.run("MATCH (o:Operator) SET o.toxicity_score=0, o.toxicity_level=null, o.toxic_attacks=0")
+        for i in range(0, len(tox_rows), 5000):
+            s.run("""
+                UNWIND $rows AS r
+                MATCH (o:Operator {id: r.id})
+                SET o.toxicity_score=r.sc, o.toxicity_level=r.lv, o.toxic_attacks=r.at
+            """, rows=tox_rows[i:i + 5000])
+        print(f"  toksičnost: {sum(1 for r in tox_rows if r['at'] >= 300):,} jurišnika "
+              f"(≥300 napada)", flush=True)
         for i in range(0, len(lead_rows), 5000):
             s.run("""
                 UNWIND $rows AS r

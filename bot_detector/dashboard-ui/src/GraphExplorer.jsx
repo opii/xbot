@@ -23,7 +23,9 @@ const METRICS = {
   reg: { field: 'reg_score', base: 0, norm: 0.5, label: 'Regularnost ritma' },
   farm: { field: 'farm_ratio', base: 0, norm: 0.45, label: 'Serverska farma (Inđija/SBB)' },
   pseudonyms: { field: 'pseudonyms', base: 1, norm: 500, label: 'Broj pseudonima (lažni identiteti)', int: true },
+  toxicity: { field: 'toxicity_score', base: 0, norm: 0.6, label: 'Toksičnost (Jurišni odred)' },
 };
+const TOX_COLOR = { 'Ekstremna (Jurišnik)': '#ef4444', 'Visoka': '#f97316', 'Umerena': '#fbbf24', 'Netoksičan (Pojačivač)': '#60a5fa', 'Netoksičan': '#60a5fa' };
 const metricColor = (v, m) => operatorColorN(((v || 0) - m.base) / (m.norm - m.base));
 const ROLE_COLOR = { 'Pojačivač': '#60a5fa', 'Odgovarač': '#fbbf24', 'Mešovit': '#94a3b8' };
 const ARCH_COLOR = { 'Kancelarijski': '#60a5fa', 'Noćna smena': '#a78bfa', 'Vikend': '#fbbf24', 'Mešovit / 24-7': '#94a3b8' };
@@ -517,6 +519,30 @@ export default function GraphExplorer() {
               </span>
             )}
           </div>
+          {detail.toxic_attacks > 0 && (
+            <div style={{ border: `1px solid ${TOX_COLOR[detail.toxicity_level] || 'var(--glass-border)'}`, borderRadius: 10, padding: '0.6rem 0.7rem', marginBottom: '0.8rem', background: 'rgba(0,0,0,0.2)' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <span style={{ color: TOX_COLOR[detail.toxicity_level] || 'var(--text-main)', fontWeight: 700, fontSize: '0.9rem' }}>
+                  {detail.toxicity_level?.startsWith('Ekstremna') ? '🔴' : detail.toxicity_level === 'Netoksičan (Pojačivač)' ? '🔵' : '🟠'} {detail.toxicity_level}
+                </span>
+                <span style={{ color: TOX_COLOR[detail.toxicity_level], fontWeight: 700 }}>{(detail.toxicity_score || 0).toFixed(2)}</span>
+              </div>
+              <div style={{ color: 'var(--text-muted)', fontSize: '0.78rem', marginTop: '0.2rem' }}>
+                {detail.toxic_attacks.toLocaleString('sr-RS')} napada na opoziciju i kritičke medije
+              </div>
+              {behav?.top_attacked?.length > 0 && (
+                <div style={{ marginTop: '0.35rem' }}>
+                  {behav.top_attacked.map((t) => (
+                    <div key={t.handle} onClick={() => onNodeClick({ id: `tgt:${t.handle}`, type: 'target' })}
+                      style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.76rem', padding: '0.08rem 0', cursor: 'pointer' }}>
+                      <span style={{ color: NODE_COLOR.target }}>@{t.handle}</span>
+                      <span style={{ color: '#ef4444' }}>{t.attacks} ⚔</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.5rem', fontSize: '0.85rem' }}>
             <Stat label="Akcija" v={detail.actions} />
             <Stat label="Naloga" v={detail.accounts} />
@@ -704,7 +730,8 @@ function ListPanel({ view, behavMetric, layer, nodes, onPick }) {
               : behavMetric === 'farm' ? 'Udeo akcija preko namenske serverske mašine (KANCELARIJASBB / INDJIJA1 / INDJIJA2).'
                 : behavMetric === 'reg' ? 'Pravilnost razmaka između akcija (viši = bot-like).'
                   : behavMetric === 'pseudonyms' ? 'Broj različitih imena pod kojima operater komentariše (industrija lažnih identiteta).'
-                    : 'Udeo akcija < 2 min od objave zadatka.';
+                    : behavMetric === 'toxicity' ? 'Napadački odgovori na opoziciju/kritičke medije + komentari na kritičkim portalima. Jurišni odred.'
+                      : 'Udeo akcija < 2 min od objave zadatka.';
     valOf = (n) => n[m.field] || 0;
     colorOf = (n) => metricColor(n[m.field], m);
   }
