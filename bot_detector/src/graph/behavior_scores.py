@@ -261,6 +261,31 @@ def run(drv=None):
         tox_rows.append({"id": op, "sc": score, "lv": tox_level(score, attacks),
                          "at": attacks})
 
+    print("Računanje tretmana portala (Infiltrator vs Podrška) ...", flush=True)
+    # infiltrator_ratio = kritički / (kritički + tabloid) komentari.
+    # Kritički mediji: prolaznost ~0,9% (99% blokade); tabloidi ~32%+.
+    TAB = ['informer.rs', 'alo.rs', 'kurir.rs', 'novosti.rs']
+    cur.execute("""
+        SELECT v.vkk_korisnik_id,
+               count(*) FILTER (WHERE u.vu_portal = ANY(%s)) crit,
+               count(*) FILTER (WHERE u.vu_portal = ANY(%s)) tab
+        FROM arhiva_vesti_korisnici_komentari v
+        JOIN arhiva_vesti_unos u ON u.vu_id = v.vkk_vest_id
+        WHERE v.vkk_simulacija = 0 AND u.vu_portal = ANY(%s)
+        GROUP BY 1
+    """, (CRIT, TAB, CRIT + TAB))
+    portal_rows = []
+    for op, crit, tab in cur.fetchall():
+        tot = crit + tab
+        if tot < 20:
+            role, inf = None, 0.0
+        else:
+            inf = round(crit / tot, 4)
+            role = ("Infiltrator" if inf >= 0.6 else
+                    "Podrška" if inf <= 0.3 else "Mešovit (portali)")
+        portal_rows.append({"id": op, "inf": inf, "role": role,
+                            "crit": crit, "tab": tab})
+
     print("Računanje udela deljenih šablona (konzerviran tekst) ...", flush=True)
     # template_frac = udeo komentara operatera čiji tekst koristi >=3 operatera
     cur.execute(r"""
@@ -326,6 +351,17 @@ def run(drv=None):
             """, rows=tox_rows[i:i + 5000])
         print(f"  toksičnost: {sum(1 for r in tox_rows if r['at'] >= 300):,} jurišnika "
               f"(≥300 napada)", flush=True)
+        s.run("MATCH (o:Operator) SET o.infiltrator_ratio=0, o.portal_role=null, "
+              "o.crit_comments=0, o.tab_comments=0")
+        for i in range(0, len(portal_rows), 5000):
+            s.run("""
+                UNWIND $rows AS r
+                MATCH (o:Operator {id: r.id})
+                SET o.infiltrator_ratio=r.inf, o.portal_role=r.role,
+                    o.crit_comments=r.crit, o.tab_comments=r.tab
+            """, rows=portal_rows[i:i + 5000])
+        print(f"  portali: {sum(1 for r in portal_rows if r['role']=='Infiltrator'):,} "
+              f"Infiltratora", flush=True)
         for i in range(0, len(lead_rows), 5000):
             s.run("""
                 UNWIND $rows AS r

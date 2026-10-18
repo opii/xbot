@@ -32,6 +32,9 @@ koliko poena). Podaci pokazuju:
 - **Jurišni odredi:** 520 operatera specijalizovano za napade — opozicija i
   kritički mediji dobijaju isključivo napadačke odgovore (#2656 = 3.882 napada),
   dok stranačke mete dobijaju hvalospeve (quote/like).
+- **Tretman portala:** 302 „Infiltratora" zasipaju kritičke medije (0,9%
+  prolaznosti, 99% blokade) — #6206 poslao 31.653 komentara, prošao 1 — dok
+  tabloidi puštaju ~32%.
 
 ## 🧭 Pristup: operater-centričan
 
@@ -171,7 +174,7 @@ Filteri / Alatke):
 | `/api/expand/{id}?layer=&frm=&to=` | susedi (nalozi/ko-akteri/mete ili ko-komentatori/portali) |
 | `/api/operator/{id}` | detalji + top mete |
 | `/api/behavior/{id}` | bihevioralni profil (ritam, radni dani, latencija, timeline, miks, duplikati) |
-| `/api/behavior_top?metric=&layer=` | rang po metrici: `auto`/`night`/`short_lat`/`dup`/`lead`/`template`/`reg`/`farm`/`pseudonyms`/`toxicity` (+ veze) |
+| `/api/behavior_top?metric=&layer=` | rang po metrici: `auto`/`night`/`short_lat`/`dup`/`lead`/`template`/`reg`/`farm`/`pseudonyms`/`toxicity`/`infiltrator` (+ veze) |
 | `/api/behavior_cohort` | decili metrika kroz sve operatere |
 | `/api/bursts?limit=&min_ops=` | najsinhronizovanije kampanje (mete) |
 | `/api/burst/{tid}` | vremenska linija kampanje po minutu + lideri + operateri |

@@ -24,8 +24,10 @@ const METRICS = {
   farm: { field: 'farm_ratio', base: 0, norm: 0.45, label: 'Serverska farma (Inđija/SBB)' },
   pseudonyms: { field: 'pseudonyms', base: 1, norm: 500, label: 'Broj pseudonima (lažni identiteti)', int: true },
   toxicity: { field: 'toxicity_score', base: 0, norm: 0.6, label: 'Toksičnost (Jurišni odred)' },
+  infiltrator: { field: 'infiltrator_ratio', base: 0, norm: 1, label: 'Infiltrator (kritički mediji)' },
 };
 const TOX_COLOR = { 'Ekstremna (Jurišnik)': '#ef4444', 'Visoka': '#f97316', 'Umerena': '#fbbf24', 'Netoksičan (Pojačivač)': '#60a5fa', 'Netoksičan': '#60a5fa' };
+const PROLE_COLOR = { 'Infiltrator': '#ef4444', 'Podrška': '#60a5fa', 'Mešovit (portali)': '#94a3b8' };
 const metricColor = (v, m) => operatorColorN(((v || 0) - m.base) / (m.norm - m.base));
 const ROLE_COLOR = { 'Pojačivač': '#60a5fa', 'Odgovarač': '#fbbf24', 'Mešovit': '#94a3b8' };
 const ARCH_COLOR = { 'Kancelarijski': '#60a5fa', 'Noćna smena': '#a78bfa', 'Vikend': '#fbbf24', 'Mešovit / 24-7': '#94a3b8' };
@@ -247,6 +249,7 @@ export default function GraphExplorer() {
     if (n.type === 'operator') {
       if (view === 'roles') return ROLE_COLOR[n.role] || '#64748b';
       if (view === 'shifts') return ARCH_COLOR[n.shift_archetype] || '#64748b';
+      if (view === 'portals') return PROLE_COLOR[n.portal_role] || '#64748b';
       if (view === 'behav') return metricColor(n[METRICS[behavMetric].field], METRICS[behavMetric]);
       if (view === 'master') return operatorColorN(n.master || 0);
       if (view === 'organizers') return communityColor(communityOf(n, layer));
@@ -323,6 +326,7 @@ export default function GraphExplorer() {
 
   const colorLegend = view === 'roles' ? 'boja = uloga: ● pojačivač ● odgovarač ● mešovit'
     : view === 'shifts' ? 'boja = smena: ● kancelarijski ● noćni ● vikend ● mešovit'
+      : view === 'portals' ? 'boja = portal: ● infiltrator (kritički) ● podrška (tabloidi) ● mešovit'
       : view === 'organizers' ? 'boja = zajednica · ★ centroid'
       : view === 'master' ? 'boja = master skor (oba sloja)'
       : view === 'behav' ? `boja = ${METRICS[behavMetric].label}`
@@ -351,6 +355,7 @@ export default function GraphExplorer() {
           <NavItem active={view === 'overview'} onClick={() => setView('overview')}>Pregled — povezanost</NavItem>
           <NavItem active={view === 'roles'} onClick={() => setView('roles')}>Uloge (pojačivač/odgovarač)</NavItem>
           <NavItem active={view === 'shifts'} onClick={() => setView('shifts')}>Smene (kancelarijski/noćni/vikend)</NavItem>
+          <NavItem active={view === 'portals'} onClick={() => setView('portals')}>Portali (infiltrator/podrška)</NavItem>
           <NavItem active={view === 'organizers'} color="#fde047" onClick={() => setView('organizers')}>★ Organizatori — zajednice</NavItem>
           <NavItem active={view === 'master'} color="#ef4444" onClick={() => setView('master')}>⚑ Master — oba sloja</NavItem>
         </Section>
@@ -518,6 +523,12 @@ export default function GraphExplorer() {
                 🎭 {detail.pseudonyms.toLocaleString('sr-RS')} pseudonima
               </span>
             )}
+            {detail.portal_role && (
+              <span style={{ fontSize: '0.72rem', padding: '0.15rem 0.5rem', borderRadius: 6, background: 'rgba(0,0,0,0.25)', color: PROLE_COLOR[detail.portal_role] || 'var(--text-muted)', border: `1px solid ${PROLE_COLOR[detail.portal_role] || 'var(--glass-border)'}` }}
+                title={`Infiltrator ratio ${Math.round((detail.infiltrator_ratio || 0) * 100)}% (kritički vs tabloidi)`}>
+                📰 {detail.portal_role}
+              </span>
+            )}
           </div>
           {detail.toxic_attacks > 0 && (
             <div style={{ border: `1px solid ${TOX_COLOR[detail.toxicity_level] || 'var(--glass-border)'}`, borderRadius: 10, padding: '0.6rem 0.7rem', marginBottom: '0.8rem', background: 'rgba(0,0,0,0.2)' }}>
@@ -587,6 +598,22 @@ export default function GraphExplorer() {
                       <span style={{ color: 'var(--text-muted)' }}>{p.comments.toLocaleString('sr-RS')}</span>
                     </div>
                   ))}
+                </>
+              )}
+              {behav.portal_treatment && (behav.portal_treatment.critical.sent > 0 || behav.portal_treatment.tabloid.sent > 0) && (
+                <>
+                  <SubH>Tretman portala (prolaznost moderacije)</SubH>
+                  {[['critical', 'Kritički mediji', '#ef4444'], ['tabloid', 'Tabloidi', '#60a5fa']].map(([k, lbl, c]) => {
+                    const t = behav.portal_treatment[k];
+                    return (
+                      <div key={k} style={{ fontSize: '0.78rem', padding: '0.12rem 0', display: 'flex', justifyContent: 'space-between' }}>
+                        <span style={{ color: c }}>{lbl}</span>
+                        <span style={{ color: 'var(--text-muted)' }}>
+                          {t.sent.toLocaleString('sr-RS')} poslato · {t.rate != null ? `${(t.rate * 100).toFixed(1)}% prošlo` : '—'}
+                        </span>
+                      </div>
+                    );
+                  })}
                 </>
               )}
             </div>
@@ -731,7 +758,8 @@ function ListPanel({ view, behavMetric, layer, nodes, onPick }) {
                 : behavMetric === 'reg' ? 'Pravilnost razmaka između akcija (viši = bot-like).'
                   : behavMetric === 'pseudonyms' ? 'Broj različitih imena pod kojima operater komentariše (industrija lažnih identiteta).'
                     : behavMetric === 'toxicity' ? 'Napadački odgovori na opoziciju/kritičke medije + komentari na kritičkim portalima. Jurišni odred.'
-                      : 'Udeo akcija < 2 min od objave zadatka.';
+                      : behavMetric === 'infiltrator' ? 'Udeo komentara na kritičkim medijima (N1/Nova/Danas) vs tabloidi. Visok = Infiltrator.'
+                        : 'Udeo akcija < 2 min od objave zadatka.';
     valOf = (n) => n[m.field] || 0;
     colorOf = (n) => metricColor(n[m.field], m);
   }

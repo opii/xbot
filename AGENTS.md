@@ -77,7 +77,7 @@ Napomena: `load_graph.py` na kraju poziva i `detect_organizers` i
 `/api/regions`, `/api/organizers?layer=&only_centroids=`, `/api/crosslayer`
 (master koordinatori), `/api/behavior/{id}` (ritam/radni dani/latencija/timeline/
 miks/duplikati), `/api/behavior_top?metric=&layer=` (metrike: auto/night/short_lat/
-dup/lead/template/reg/farm/pseudonyms/toxicity; `template` koristi CO_TEMPLATE), `/api/behavior_cohort`
+dup/lead/template/reg/farm/pseudonyms/toxicity/infiltrator; `template` koristi CO_TEMPLATE), `/api/behavior_cohort`
 (decili), `/api/bursts` + `/api/burst/{tid}` (kampanje/nalet po minutu + lideri),
 `/api/path?a=&b=&layer=&max_pop=` (putanja + spone), `/api/stats`,
 `/api/export/operator/{id}`. Node id šema: `op:<id>`, `acc:<id>`, `tgt:<handle>`,
@@ -142,6 +142,10 @@ ljudi koji rade u smenama — ali je koordinacija vrlo jaka i merljiva.** Dokazi
   `slobageorgiev`…) isključivo napadačke odgovore pod direktivama „brutalno/zezamo/
   pukli". 520 operatera je „Jurišnik"; npr. #2656 ima 3.882 napada, a top mete su
   baš kritički mediji. Preko 150k napadačkih odgovora ukupno.
+- **Tretman portala (Infiltrator vs Podrška).** Kritički mediji dobijaju 1M+
+  komentara uz ~0,9% prolaznosti (moderacija seče 99%), a mreža ih i dalje zasipa;
+  tabloidi ~32% prolaznosti. Npr. #6206 je poslao 31.653 komentara na kritičke
+  medije od kojih je prošao **1**. 302 operatera su „Infiltratori".
 - **Mete.** Masovne mete (npr. `@sns_srbija` — dira je 3.608 operatera) su šum za
   povezivanje; prava koordinacija se vidi na retkim, deljenim metama.
 
@@ -183,6 +187,10 @@ Svi pragovi su izbori — menjaju gustinu/osetljivost; čitati rezultate uz njih
   total)·min(1, toxic_attacks/40). `toxicity_level`: Ekstremna (Jurišnik) [score≥0,4
   ili attacks≥300] → Visoka [≥0,2] → Umerena [≥0,08] → Netoksičan (Pojačivač).
   520 operatera je „Jurišnik". Opozicioni handle-set je kurirani (vidi kod).
+- `infiltrator_ratio` = kritički / (kritički+tabloid) komentari (prag ≥20 komentara).
+  `portal_role`: Infiltrator (≥0,6) / Podrška (≤0,3) / Mešovit. Kritički mediji
+  (n1info/nova/danas/juznevesti/vreme/radar) imaju ~0,9% prolaznosti moderacije,
+  tabloidi (informer/alo/kurir/novosti) ~32%. 302 Infiltratora.
 - `work_hours_pct` = pon–pet 08–15h; `weekend_ratio` = sub/ned. `shift_archetype`
   (redosled provere): `Kancelarijski` (work≥0,75 i weekend<0,1) → `Noćna smena`
   (night≥0,25) → `Vikend` (weekend≥0,40) → `Mešovit / 24-7`.

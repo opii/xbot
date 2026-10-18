@@ -110,6 +110,10 @@ def op_node(rec):
         "toxicity_score": rec.get("toxicity_score") or 0,
         "toxicity_level": rec.get("toxicity_level") or "Netoksičan",
         "toxic_attacks": rec.get("toxic_attacks") or 0,
+        "infiltrator_ratio": rec.get("infiltrator_ratio") or 0,
+        "portal_role": rec.get("portal_role"),
+        "crit_comments": rec.get("crit_comments") or 0,
+        "tab_comments": rec.get("tab_comments") or 0,
         # veličina čvora raste logaritamski sa brojem akcija (~2..7)
         "val": round(2 + 1.1 * math.log10((rec.get("actions") or 0) + 1), 2),
     }
@@ -539,12 +543,28 @@ def behavior(op_id: int):
     """, (op_id,)) if h]
     with driver.session() as s:
         tox = s.run("MATCH (o:Operator {id:$id}) RETURN o.toxicity_score AS sc, "
-                    "o.toxicity_level AS lv, o.toxic_attacks AS at", id=op_id).single()
+                    "o.toxicity_level AS lv, o.toxic_attacks AS at, "
+                    "o.portal_role AS pr, o.infiltrator_ratio AS ir", id=op_id).single()
+    # tretman portala: poslato/objavljeno (prolaznost) po kategoriji
+    pt = {}
+    for kat, portals in (("critical", CRIT_PORTALS), ("tabloid", TAB_PORTALS)):
+        row = pg("""
+            SELECT count(*), sum((v.vkk_objavljen=1)::int)
+            FROM arhiva_vesti_korisnici_komentari v
+            JOIN arhiva_vesti_unos u ON u.vu_id = v.vkk_vest_id
+            WHERE v.vkk_korisnik_id = %s AND v.vkk_simulacija = 0 AND u.vu_portal = ANY(%s)
+        """, (op_id, list(portals)))[0]
+        sent, pub = row[0] or 0, row[1] or 0
+        pt[kat] = {"sent": sent, "published": pub,
+                   "rate": round(pub / sent, 4) if sent else None}
     return {
         "hours": hours,
         "toxicity_score": (tox and tox["sc"]) or 0,
         "toxicity_level": (tox and tox["lv"]) or "Netoksičan",
         "toxic_attacks": (tox and tox["at"]) or 0,
+        "portal_role": (tox and tox["pr"]) or None,
+        "infiltrator_ratio": (tox and tox["ir"]) or 0,
+        "portal_treatment": pt,
         "top_attacked": top_attacked,
         "night_ratio": round(night / total, 3),
         "actions": agg[0], "from": agg[1], "to": agg[2], "active_days": agg[3],
@@ -564,7 +584,11 @@ BEHAV_METRIC = {
     "entropy": "hour_entropy", "dup": "dup_ratio", "lead": "lead_score",
     "template": "template_frac", "reg": "reg_score", "farm": "farm_ratio",
     "pseudonyms": "pseudonyms", "toxicity": "toxicity_score",
+    "infiltrator": "infiltrator_ratio",
 }
+
+CRIT_PORTALS = ('n1info.rs', 'nova.rs', 'danas.rs', 'juznevesti.com', 'vreme.com', 'radar.rs')
+TAB_PORTALS = ('informer.rs', 'alo.rs', 'kurir.rs', 'novosti.rs')
 
 
 @app.get("/api/behavior_top")
