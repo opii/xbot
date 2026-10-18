@@ -195,6 +195,10 @@ Ključne tabele:
 Ovaj vodič pretpostavlja da imaš **isključivo ovaj repozitorijum i SQLite bazu**.
 Sve ostalo (Postgres, Neo4j graf, analitički JSON-ovi, UI) se gradi lokalno.
 
+> ⚡ **Prečica:** posle koraka 0–2 (baza, Docker, venv), koraci **3–5 se rade jednim
+> pozivom**: [`bot_detector/rebuild.sh`](bot_detector/rebuild.sh) (`./rebuild.sh`;
+> `--help` za opcije). Preostaju samo backend (6) i frontend (7).
+
 ### 0. Preduslovi
 - **Docker** + **Docker Compose** (za Postgres i Neo4j).
 - **Python 3.11+** (testirano 3.13) i **Node.js 18+** (testirano 22) + `npm`.
