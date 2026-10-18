@@ -22,6 +22,7 @@ const METRICS = {
   template: { field: 'template_frac', base: 0, norm: 0.6, label: 'Deljeni šabloni (konzerviran tekst)' },
   reg: { field: 'reg_score', base: 0, norm: 0.5, label: 'Regularnost ritma' },
   farm: { field: 'farm_ratio', base: 0, norm: 0.45, label: 'Serverska farma (Inđija/SBB)' },
+  pseudonyms: { field: 'pseudonyms', base: 1, norm: 500, label: 'Broj pseudonima (lažni identiteti)', int: true },
 };
 const metricColor = (v, m) => operatorColorN(((v || 0) - m.base) / (m.norm - m.base));
 const ROLE_COLOR = { 'Pojačivač': '#60a5fa', 'Odgovarač': '#fbbf24', 'Mešovit': '#94a3b8' };
@@ -509,6 +510,12 @@ export default function GraphExplorer() {
                 ⚙ Serverska farma · {detail.farm_machine} {Math.round(detail.farm_ratio * 100)}%
               </span>
             )}
+            {detail.pseudonyms > 20 && (
+              <span style={{ fontSize: '0.72rem', padding: '0.15rem 0.5rem', borderRadius: 6, background: 'rgba(0,0,0,0.25)', color: '#e879f9', border: '1px solid #e879f9' }}
+                title="Broj različitih imena u komentarima (lažni identiteti)">
+                🎭 {detail.pseudonyms.toLocaleString('sr-RS')} pseudonima
+              </span>
+            )}
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.5rem', fontSize: '0.85rem' }}>
             <Stat label="Akcija" v={detail.actions} />
@@ -696,10 +703,13 @@ function ListPanel({ view, behavMetric, layer, nodes, onPick }) {
             : behavMetric === 'template' ? 'Udeo komentara sa tekstom koji dele i drugi (konzervirana poruka). Veze = deljeni šabloni.'
               : behavMetric === 'farm' ? 'Udeo akcija preko namenske serverske mašine (KANCELARIJASBB / INDJIJA1 / INDJIJA2).'
                 : behavMetric === 'reg' ? 'Pravilnost razmaka između akcija (viši = bot-like).'
-                  : 'Udeo akcija < 2 min od objave zadatka.';
+                  : behavMetric === 'pseudonyms' ? 'Broj različitih imena pod kojima operater komentariše (industrija lažnih identiteta).'
+                    : 'Udeo akcija < 2 min od objave zadatka.';
     valOf = (n) => n[m.field] || 0;
     colorOf = (n) => metricColor(n[m.field], m);
   }
+  const isInt = view === 'behav' && METRICS[behavMetric] && METRICS[behavMetric].int;
+  const fmt = (v) => (isInt ? Math.round(v).toLocaleString('sr-RS') : v.toFixed(2));
   const rows = [...ops].sort((a, b) => valOf(b) - valOf(a)).slice(0, 25);
   return (
     <>
@@ -708,7 +718,7 @@ function ListPanel({ view, behavMetric, layer, nodes, onPick }) {
       {rows.map((n) => (
         <div key={n.id} onClick={() => onPick(n)} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0.3rem 0', borderBottom: '1px solid var(--glass-border)', cursor: 'pointer', fontSize: '0.85rem' }}>
           <span><span style={{ color: colorOf(n) }}>●</span> {badge && badge(n)}{n.label}</span>
-          <span style={{ color: 'var(--text-muted)' }}>{valOf(n).toFixed(2)}</span>
+          <span style={{ color: 'var(--text-muted)' }}>{fmt(valOf(n))}</span>
         </div>
       ))}
     </>

@@ -162,6 +162,9 @@ Svi pragovi su izbori — menjaju gustinu/osetljivost; čitati rezultate uz njih
   udela ko-aktera koje je operater pretekao; prag n≥20 meta. 1 = stalno prvi.
 - `dup_ratio` = 1 − distinct/ukupno komentara (exact). `template_frac` = udeo
   komentara čiji tekst koristi ≥3 operatera (deljeni, near-exact).
+- `pseudonyms` = count(distinct `vkk_autor`) (vkk_simulacija=0, autor≠''): broj
+  lažnih identiteta pod kojima operater komentariše. Raspodela: medijana 9, p90
+  134, max 2.378.
 - `reg_score` = m/(m+s) razmaka između uzastopnih akcija (n≥30). Viši = pravilnije.
 - `role` = `Odgovarač` ako (reply+quote)/tot>0,5; `Pojačivač` ako (like+rt)/tot>0,8;
   inače `Mešovit`.

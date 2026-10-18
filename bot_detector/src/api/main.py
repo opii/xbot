@@ -106,6 +106,7 @@ def op_node(rec):
         "work_hours_pct": rec.get("work_hours_pct") or 0,
         "weekend_ratio": rec.get("weekend_ratio") or 0,
         "shift_archetype": rec.get("shift_archetype"),
+        "pseudonyms": rec.get("pseudonyms") or 0,
         # veličina čvora raste logaritamski sa brojem akcija (~2..7)
         "val": round(2 + 1.1 * math.log10((rec.get("actions") or 0) + 1), 2),
     }
@@ -544,6 +545,7 @@ BEHAV_METRIC = {
     "auto": "auto_score", "night": "night_ratio", "short_lat": "short_lat_frac",
     "entropy": "hour_entropy", "dup": "dup_ratio", "lead": "lead_score",
     "template": "template_frac", "reg": "reg_score", "farm": "farm_ratio",
+    "pseudonyms": "pseudonyms",
 }
 
 

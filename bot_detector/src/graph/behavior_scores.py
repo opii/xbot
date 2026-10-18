@@ -202,6 +202,15 @@ def run(drv=None):
     dup_rows = [{"id": op, "dup": round(1 - (dist / tot), 4) if tot else 0.0}
                 for op, tot, dist in cur.fetchall()]
 
+    print("Računanje pseudonima (različita imena u komentarima) ...", flush=True)
+    cur.execute("""
+        SELECT vkk_korisnik_id, count(DISTINCT vkk_autor)
+        FROM arhiva_vesti_korisnici_komentari
+        WHERE vkk_simulacija = 0 AND vkk_autor <> ''
+        GROUP BY 1
+    """)
+    pseudo_rows = [{"id": op, "ps": n} for op, n in cur.fetchall()]
+
     print("Računanje udela deljenih šablona (konzerviran tekst) ...", flush=True)
     # template_frac = udeo komentara operatera čiji tekst koristi >=3 operatera
     cur.execute(r"""
@@ -252,6 +261,12 @@ def run(drv=None):
                 UNWIND $rows AS r
                 MATCH (o:Operator {id: r.id}) SET o.dup_ratio = r.dup
             """, rows=dup_rows[i:i + 5000])
+        s.run("MATCH (o:Operator) SET o.pseudonyms = 0")
+        for i in range(0, len(pseudo_rows), 5000):
+            s.run("""
+                UNWIND $rows AS r
+                MATCH (o:Operator {id: r.id}) SET o.pseudonyms = r.ps
+            """, rows=pseudo_rows[i:i + 5000])
         for i in range(0, len(lead_rows), 5000):
             s.run("""
                 UNWIND $rows AS r
