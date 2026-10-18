@@ -614,6 +614,30 @@ export default function GraphExplorer() {
                 📰 {detail.portal_role}
               </span>
             )}
+            {(detail.tactical_groups || []).slice(0, 6).map((g) => (
+              <span key={g} style={{ fontSize: '0.72rem', padding: '0.15rem 0.5rem', borderRadius: 6, background: 'rgba(56,189,248,0.12)', color: '#38bdf8', border: '1px solid #38bdf8' }}
+                title="Taktička grupa / divizija">
+                👥 {g}
+              </span>
+            ))}
+            {detail.f12_count > 0 && (
+              <span style={{ fontSize: '0.72rem', padding: '0.15rem 0.5rem', borderRadius: 6, background: 'rgba(239,68,68,0.15)', color: '#f87171', border: '1px solid #f87171' }}
+                title="Sistem je beležio otvaranja DevTools/F12 konzole (interni nadzor)">
+                🕵️ F12 Inspector: {detail.f12_count}×
+              </span>
+            )}
+            {detail.devices && detail.devices.total > 0 && (
+              <span style={{ fontSize: '0.72rem', padding: '0.15rem 0.5rem', borderRadius: 6, background: 'rgba(167,139,250,0.12)', color: '#a78bfa', border: '1px solid #a78bfa' }}
+                title="Registrovani uređaji / dominantni OS (digitalni otisak)">
+                📱 {detail.devices.total} uređaja{detail.devices.os ? ` (${detail.devices.os})` : ''}
+              </span>
+            )}
+            {(detail.platforms || []).length > 0 && (
+              <span style={{ fontSize: '0.72rem', padding: '0.15rem 0.5rem', borderRadius: 6, background: 'rgba(52,211,153,0.12)', color: '#34d399', border: '1px solid #34d399' }}
+                title="Platforme na kojima operater ima naloge">
+                🌐 {detail.platforms.join(' · ')}
+              </span>
+            )}
           </div>
           {detail.toxic_attacks > 0 && (
             <div style={{ border: `1px solid ${TOX_COLOR[detail.toxicity_level] || 'var(--glass-border)'}`, borderRadius: 10, padding: '0.6rem 0.7rem', marginBottom: '0.8rem', background: 'rgba(0,0,0,0.2)' }}>

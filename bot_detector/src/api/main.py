@@ -76,6 +76,46 @@ def op_targets(op_id, limit, frm=None, to=None):
     return [{"handle": h, "actions": a, "rts": r} for h, a, r in rows if h]
 
 
+_PLATFORMS = [("Twitter", "korisnici_twitter_nalozi"), ("Instagram", "korisnici_instagram_nalozi"),
+              ("TikTok", "korisnici_tiktok_nalozi"), ("Facebook", "korisnici_facebook_nalozi"),
+              ("Threads", "korisnici_threads_nalozi"), ("Reddit", "korisnici_reddit_nalozi")]
+
+
+def _platform_cols():
+    out = {}
+    for label, tbl in _PLATFORMS:
+        r = pg("""SELECT column_name FROM information_schema.columns
+                  WHERE table_schema='progress' AND table_name=%s
+                  AND column_name ILIKE '%%korisnik_id' LIMIT 1""", (tbl,))
+        if r:
+            out[label] = (tbl, r[0][0])
+    return out
+
+
+PLATFORM_COLS = _platform_cols()
+
+
+def op_layers(op_id):
+    """Operativni slojevi za profil: taktičke grupe, F12 nadzor, uređaji, platforme."""
+    groups = [r[0] for r in pg("""SELECT g.kg_naziv FROM korisnici_grupe_aktivisti ga
+        JOIN korisnici_grupe g ON g.kg_id = ga.kga_grupa_id
+        WHERE ga.kga_aktivista_id = %s AND g.kg_naziv IS NOT NULL
+        ORDER BY g.kg_naziv""", (op_id,))]
+    f12 = pg("SELECT count(*) FROM otvoren_inspector WHERE oi_korisnik_id = %s", (op_id,))[0][0]
+    dev = pg("""SELECT count(*), mode() WITHIN GROUP (ORDER BY ku_operativni_sistem)
+                FROM korisnici_uredjaji WHERE ku_korisnik_id = %s""", (op_id,))[0]
+    platforms = []
+    for label, (tbl, col) in PLATFORM_COLS.items():
+        if pg(f"SELECT count(*) FROM {tbl} WHERE {col} = %s", (op_id,))[0][0]:
+            platforms.append(label)
+    return {
+        "tactical_groups": groups,
+        "f12_count": int(f12 or 0),
+        "devices": {"total": int(dev[0]), "os": dev[1]} if dev and dev[0] else None,
+        "platforms": platforms,
+    }
+
+
 def op_points(op_id):
     """Partijski bodovi operatera (izvestaj_dnevni): ukupno + razbijeno po akciji."""
     rows = pg("""SELECT sum(iz_ukupno_bodovi), sum(iz_twitter_quote), sum(iz_twitter_reply),
@@ -214,6 +254,7 @@ def operator_detail(op_id: int, frm: str = None, to: str = None):
     detail = op_node(o)
     detail["top_targets"] = op_targets(op_id, 15, frm, to)
     detail["points"] = op_points(op_id)
+    detail.update(op_layers(op_id))
     return detail
 
 
