@@ -51,6 +51,10 @@ koliko poena). Podaci pokazuju:
   „odgovaramo"). Najtešnja sinhronija = pro-režim amplifikacija. Postoji centralni
   izvor „super specijal / Šefov video iz četa" (30 izdavača), odvojen od izvršnih
   centroida ([`docs/analiza_direktiva.md`](docs/analiza_direktiva.md)).
+- **Koordinatori — komanda ≠ izvršenje:** komanda je geografska (Region→Okrug→Opština,
+  156 koordinatora + 22 zamenika), ali **nijedan od 156 koordinatora nije grafni
+  centroid** (od 16 habova nijedan nema titulu). Formalna komanda i mrežna izvršna
+  moć su razdvojeni slojevi ([`docs/analiza_koordinatora.md`](docs/analiza_koordinatora.md)).
 
 ## 🌍 Voter infrastruktura — GeoIP nalazi
 

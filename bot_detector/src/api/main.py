@@ -881,6 +881,18 @@ def _load_directives():
 DIRECTIVES = _load_directives()
 
 
+def _load_coordinators():
+    try:
+        p = os.path.join(os.path.dirname(__file__), "..", "..", "data", "geo", "coordinators.json")
+        with open(p, encoding="utf-8") as f:
+            return json.load(f)
+    except Exception:  # noqa: BLE001
+        return {}
+
+
+COORDINATORS = _load_coordinators()
+
+
 @app.get("/api/directives")
 def directives(top: int = Query(25, le=40)):
     """Analiza direktiva (smernica): taksonomija (akcija/ton/izvor/cross-platform),
@@ -899,6 +911,14 @@ def directives(top: int = Query(25, le=40)):
         "examples": d.get("examples", {}),
         "defs": d.get("defs", {}),
     }
+
+
+@app.get("/api/coordinators")
+def coordinators():
+    """Hijerarhija koordinatora (Region→Okrug→Opština) + raspon kontrole
+    (operateri/centroidi/komanda/SS/🎰) i nalaz komanda-vs-izvršenje.
+    FER PLAY: raspon = geografska nadležnost, ne dokaz pojedinačnog naređenja."""
+    return COORDINATORS or {"tree": [], "levels": {}, "command_vs_execution": {}}
 
 
 @app.get("/api/taskmasters")

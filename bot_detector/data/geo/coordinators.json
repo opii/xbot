@@ -1,0 +1,3322 @@
+{
+  "generated": "2026-10-18T06:13:40",
+  "levels": {
+    "region": 5,
+    "okrug": 15,
+    "opstina": 136,
+    "deputies": 22
+  },
+  "command_vs_execution": {
+    "coordinators_total": 156,
+    "in_graph": 139,
+    "are_centroids": 0,
+    "are_ss_issuers": 4,
+    "note": "Koordinatorska pozicija = formalna komanda. Grafni centroid = izvršna moć (jak u mreži akcija). Preklapanje je mali deo — komanda i izvršenje su uglavnom RAZDVOJENI slojevi."
+  },
+  "tree": [
+    {
+      "id": 5,
+      "naziv": "Vojvodina",
+      "operators": 2973,
+      "centroids": 5,
+      "command": 51,
+      "ss_issuers": 8,
+      "shops": 120,
+      "coord": [],
+      "deputy": 0,
+      "okruzi": [
+        {
+          "id": 23,
+          "naziv": "Severnobački okrug",
+          "operators": 91,
+          "centroids": 0,
+          "command": 4,
+          "ss_issuers": 0,
+          "shops": 16,
+          "coord": [
+            {
+              "id": 2644,
+              "ime": "Dijana Šupić",
+              "centroid": false,
+              "max_org": 0.262
+            }
+          ],
+          "deputy": 1,
+          "opstine": [
+            {
+              "id": 156,
+              "naziv": "Subotica",
+              "operators": 63,
+              "centroids": 0,
+              "command": 1,
+              "ss_issuers": 0,
+              "shops": 14,
+              "coord": [
+                {
+                  "id": 373,
+                  "ime": "Rosa Ivanišević",
+                  "centroid": false,
+                  "max_org": 0.106
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 18,
+              "naziv": "Bačka Topola",
+              "operators": 21,
+              "centroids": 0,
+              "command": 3,
+              "ss_issuers": 0,
+              "shops": 2,
+              "coord": [
+                {
+                  "id": 2644,
+                  "ime": "Dijana Šupić",
+                  "centroid": false,
+                  "max_org": 0.262
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 100,
+              "naziv": "Mali Iđoš",
+              "operators": 7,
+              "centroids": 0,
+              "command": 0,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 372,
+                  "ime": "Miloš Žmukić",
+                  "centroid": false,
+                  "max_org": 0.158
+                }
+              ],
+              "deputy": 0
+            }
+          ]
+        },
+        {
+          "id": 24,
+          "naziv": "Srednjobanatski okrug",
+          "operators": 341,
+          "centroids": 1,
+          "command": 3,
+          "ss_issuers": 2,
+          "shops": 12,
+          "coord": [],
+          "deputy": 1,
+          "opstine": [
+            {
+              "id": 187,
+              "naziv": "Žitište",
+              "operators": 105,
+              "centroids": 0,
+              "command": 1,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 368,
+                  "ime": "Nemanja Karagić",
+                  "centroid": false,
+                  "max_org": 0.133
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 110,
+              "naziv": "Novi Bečej",
+              "operators": 95,
+              "centroids": 0,
+              "command": 0,
+              "ss_issuers": 0,
+              "shops": 3,
+              "coord": [
+                {
+                  "id": 8952,
+                  "ime": "Stefan Kišmarton",
+                  "centroid": false,
+                  "max_org": 0
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 189,
+              "naziv": "Zrenjanin",
+              "operators": 65,
+              "centroids": 0,
+              "command": 1,
+              "ss_issuers": 1,
+              "shops": 9,
+              "coord": [
+                {
+                  "id": 329,
+                  "ime": "Kristina Ćirišan",
+                  "centroid": false,
+                  "max_org": 0.016
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 108,
+              "naziv": "Nova Crnja",
+              "operators": 44,
+              "centroids": 1,
+              "command": 0,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 8767,
+                  "ime": "Emina Ferenci",
+                  "centroid": false,
+                  "max_org": 0.005
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 142,
+              "naziv": "Sečanj",
+              "operators": 32,
+              "centroids": 0,
+              "command": 1,
+              "ss_issuers": 1,
+              "shops": 0,
+              "coord": [],
+              "deputy": 0
+            }
+          ]
+        },
+        {
+          "id": 25,
+          "naziv": "Severnobanatski okrug",
+          "operators": 441,
+          "centroids": 2,
+          "command": 7,
+          "ss_issuers": 0,
+          "shops": 7,
+          "coord": [
+            {
+              "id": 4423,
+              "ime": "Miodrag Bulajić",
+              "centroid": false,
+              "max_org": 0.299
+            }
+          ],
+          "deputy": 1,
+          "opstine": [
+            {
+              "id": 70,
+              "naziv": "Kikinda",
+              "operators": 214,
+              "centroids": 1,
+              "command": 5,
+              "ss_issuers": 0,
+              "shops": 7,
+              "coord": [
+                {
+                  "id": 4423,
+                  "ime": "Miodrag Bulajić",
+                  "centroid": false,
+                  "max_org": 0.299
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 111,
+              "naziv": "Novi Kneževac",
+              "operators": 65,
+              "centroids": 0,
+              "command": 2,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 8825,
+                  "ime": "Nataša Perić",
+                  "centroid": false,
+                  "max_org": 0
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 52,
+              "naziv": "Čoka",
+              "operators": 59,
+              "centroids": 1,
+              "command": 0,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 9089,
+                  "ime": "Darinka Rajić",
+                  "centroid": false,
+                  "max_org": 0
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 69,
+              "naziv": "Kanjiža",
+              "operators": 37,
+              "centroids": 0,
+              "command": 0,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 2504,
+                  "ime": "Ervin  Beharević",
+                  "centroid": false,
+                  "max_org": 0.0
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 143,
+              "naziv": "Senta",
+              "operators": 37,
+              "centroids": 0,
+              "command": 0,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 400,
+                  "ime": "Davor Marinković",
+                  "centroid": false,
+                  "max_org": 0.0
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 3,
+              "naziv": "Ada",
+              "operators": 29,
+              "centroids": 0,
+              "command": 0,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 4735,
+                  "ime": "Milan Obradović",
+                  "centroid": false,
+                  "max_org": 0.032
+                }
+              ],
+              "deputy": 0
+            }
+          ]
+        },
+        {
+          "id": 26,
+          "naziv": "Južnobanatski okrug",
+          "operators": 764,
+          "centroids": 0,
+          "command": 6,
+          "ss_issuers": 1,
+          "shops": 16,
+          "coord": [
+            {
+              "id": 330,
+              "ime": "Nenad Rakić",
+              "centroid": false,
+              "max_org": 0.02
+            }
+          ],
+          "deputy": 0,
+          "opstine": [
+            {
+              "id": 120,
+              "naziv": "Pančevo",
+              "operators": 188,
+              "centroids": 0,
+              "command": 2,
+              "ss_issuers": 0,
+              "shops": 3,
+              "coord": [
+                {
+                  "id": 8326,
+                  "ime": "Aleksandra Jovanović",
+                  "centroid": false,
+                  "max_org": 0.052
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 181,
+              "naziv": "Vršac",
+              "operators": 123,
+              "centroids": 0,
+              "command": 2,
+              "ss_issuers": 1,
+              "shops": 6,
+              "coord": [
+                {
+                  "id": 2600,
+                  "ime": "Mario Opričić",
+                  "centroid": false,
+                  "max_org": 0
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 23,
+              "naziv": "Bela Crkva",
+              "operators": 116,
+              "centroids": 0,
+              "command": 1,
+              "ss_issuers": 0,
+              "shops": 4,
+              "coord": [
+                {
+                  "id": 1959,
+                  "ime": "Mina  Caran",
+                  "centroid": false,
+                  "max_org": 0.047
+                }
+              ],
+              "deputy": 1
+            },
+            {
+              "id": 81,
+              "naziv": "Kovin",
+              "operators": 101,
+              "centroids": 0,
+              "command": 1,
+              "ss_issuers": 0,
+              "shops": 3,
+              "coord": [
+                {
+                  "id": 6889,
+                  "ime": "Aleksandar Trnovanović",
+                  "centroid": false,
+                  "max_org": 0.17
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 117,
+              "naziv": "Opovo",
+              "operators": 100,
+              "centroids": 0,
+              "command": 0,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 2176,
+                  "ime": "Nenad  Šarac",
+                  "centroid": false,
+                  "max_org": 0.046
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 80,
+              "naziv": "Kovačica",
+              "operators": 53,
+              "centroids": 0,
+              "command": 0,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 6067,
+                  "ime": "Andrea Čižik",
+                  "centroid": false,
+                  "max_org": 0.015
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 7,
+              "naziv": "Alibunar",
+              "operators": 47,
+              "centroids": 0,
+              "command": 0,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 361,
+                  "ime": "Marćel Menger",
+                  "centroid": false,
+                  "max_org": 0.014
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 126,
+              "naziv": "Plandište",
+              "operators": 36,
+              "centroids": 0,
+              "command": 0,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 357,
+                  "ime": "Mirjan Grbić",
+                  "centroid": false,
+                  "max_org": 0.044
+                }
+              ],
+              "deputy": 0
+            }
+          ]
+        },
+        {
+          "id": 27,
+          "naziv": "Zapadnobački okrug",
+          "operators": 264,
+          "centroids": 1,
+          "command": 2,
+          "ss_issuers": 0,
+          "shops": 25,
+          "coord": [
+            {
+              "id": 393,
+              "ime": "Igor Dereta",
+              "centroid": false,
+              "max_org": 0
+            }
+          ],
+          "deputy": 0,
+          "opstine": [
+            {
+              "id": 87,
+              "naziv": "Kula",
+              "operators": 80,
+              "centroids": 1,
+              "command": 1,
+              "ss_issuers": 0,
+              "shops": 11,
+              "coord": [
+                {
+                  "id": 9263,
+                  "ime": "Daliborka Selić",
+                  "centroid": false,
+                  "max_org": 0
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 116,
+              "naziv": "Odžaci",
+              "operators": 78,
+              "centroids": 0,
+              "command": 1,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 2223,
+                  "ime": "Aleksandar  Todorović",
+                  "centroid": false,
+                  "max_org": 0.042
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 148,
+              "naziv": "Sombor",
+              "operators": 63,
+              "centroids": 0,
+              "command": 0,
+              "ss_issuers": 0,
+              "shops": 11,
+              "coord": [
+                {
+                  "id": 2247,
+                  "ime": "Žarko Nastasić",
+                  "centroid": false,
+                  "max_org": 0.11
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 12,
+              "naziv": "Apatin",
+              "operators": 43,
+              "centroids": 0,
+              "command": 0,
+              "ss_issuers": 0,
+              "shops": 3,
+              "coord": [
+                {
+                  "id": 387,
+                  "ime": "Damir Škrbić",
+                  "centroid": false,
+                  "max_org": 0.013
+                }
+              ],
+              "deputy": 0
+            }
+          ]
+        },
+        {
+          "id": 28,
+          "naziv": "Južnobački okrug",
+          "operators": 706,
+          "centroids": 1,
+          "command": 21,
+          "ss_issuers": 5,
+          "shops": 19,
+          "coord": [
+            {
+              "id": 382,
+              "ime": "Nikolina Milovanović",
+              "centroid": false,
+              "max_org": 0
+            }
+          ],
+          "deputy": 0,
+          "opstine": [
+            {
+              "id": 150,
+              "naziv": "Srbobran",
+              "operators": 89,
+              "centroids": 0,
+              "command": 3,
+              "ss_issuers": 1,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 381,
+                  "ime": "Ljiljana Plazačić",
+                  "centroid": false,
+                  "max_org": 0.031
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 113,
+              "naziv": "Novi Sad - grad",
+              "operators": 88,
+              "centroids": 0,
+              "command": 6,
+              "ss_issuers": 2,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 356,
+                  "ime": "Aleksandar Vasilić",
+                  "centroid": false,
+                  "max_org": 0.003
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 25,
+              "naziv": "Beočin",
+              "operators": 81,
+              "centroids": 0,
+              "command": 1,
+              "ss_issuers": 1,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 1084,
+                  "ime": "Bojan Matijević",
+                  "centroid": false,
+                  "max_org": 0.016
+                }
+              ],
+              "deputy": 1
+            },
+            {
+              "id": 179,
+              "naziv": "Vrbas",
+              "operators": 67,
+              "centroids": 0,
+              "command": 3,
+              "ss_issuers": 0,
+              "shops": 9,
+              "coord": [
+                {
+                  "id": 7896,
+                  "ime": "Vesna Stanković",
+                  "centroid": false,
+                  "max_org": 0.042
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 22,
+              "naziv": "Bečej",
+              "operators": 65,
+              "centroids": 0,
+              "command": 0,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 380,
+                  "ime": "Saša Marić",
+                  "centroid": false,
+                  "max_org": 0.057
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 183,
+              "naziv": "Žabalj",
+              "operators": 62,
+              "centroids": 0,
+              "command": 0,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 637,
+                  "ime": "Ilona Miličić",
+                  "centroid": false,
+                  "max_org": 0.191
+                }
+              ],
+              "deputy": 1
+            },
+            {
+              "id": 161,
+              "naziv": "Temerin",
+              "operators": 56,
+              "centroids": 0,
+              "command": 0,
+              "ss_issuers": 0,
+              "shops": 5,
+              "coord": [
+                {
+                  "id": 969,
+                  "ime": "Damjan Maksić",
+                  "centroid": false,
+                  "max_org": 0.0
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 17,
+              "naziv": "Bačka Palanka",
+              "operators": 55,
+              "centroids": 0,
+              "command": 5,
+              "ss_issuers": 0,
+              "shops": 5,
+              "coord": [
+                {
+                  "id": 382,
+                  "ime": "Nikolina Milovanović",
+                  "centroid": false,
+                  "max_org": 0
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 19,
+              "naziv": "Bački Petrovac",
+              "operators": 54,
+              "centroids": 1,
+              "command": 2,
+              "ss_issuers": 1,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 688,
+                  "ime": "Branislava  Spevak",
+                  "centroid": false,
+                  "max_org": 0.011
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 16,
+              "naziv": "Bač",
+              "operators": 38,
+              "centroids": 0,
+              "command": 0,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 7154,
+                  "ime": "Gordana  Karan Pakledinac",
+                  "centroid": false,
+                  "max_org": 0.316
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 162,
+              "naziv": "Titel",
+              "operators": 35,
+              "centroids": 0,
+              "command": 1,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 375,
+                  "ime": "Miodrag Mrkić",
+                  "centroid": false,
+                  "max_org": 0.076
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 152,
+              "naziv": "Sremski Karlovci",
+              "operators": 16,
+              "centroids": 0,
+              "command": 0,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 861,
+                  "ime": "Jagoda Agbaba",
+                  "centroid": false,
+                  "max_org": 0.305
+                }
+              ],
+              "deputy": 0
+            }
+          ]
+        },
+        {
+          "id": 29,
+          "naziv": "Sremski okrug",
+          "operators": 366,
+          "centroids": 0,
+          "command": 8,
+          "ss_issuers": 0,
+          "shops": 25,
+          "coord": [
+            {
+              "id": 393,
+              "ime": "Igor Dereta",
+              "centroid": false,
+              "max_org": 0
+            }
+          ],
+          "deputy": 0,
+          "opstine": [
+            {
+              "id": 6,
+              "naziv": "Šid",
+              "operators": 96,
+              "centroids": 0,
+              "command": 1,
+              "ss_issuers": 0,
+              "shops": 5,
+              "coord": [
+                {
+                  "id": 5807,
+                  "ime": "Milica Krmek",
+                  "centroid": false,
+                  "max_org": 0.034
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 123,
+              "naziv": "Pećinci",
+              "operators": 74,
+              "centroids": 0,
+              "command": 2,
+              "ss_issuers": 0,
+              "shops": 2,
+              "coord": [
+                {
+                  "id": 8352,
+                  "ime": "Bojana Konjević",
+                  "centroid": false,
+                  "max_org": 0
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 140,
+              "naziv": "Ruma",
+              "operators": 66,
+              "centroids": 0,
+              "command": 2,
+              "ss_issuers": 0,
+              "shops": 2,
+              "coord": [
+                {
+                  "id": 9091,
+                  "ime": "Nebojša Tešić",
+                  "centroid": false,
+                  "max_org": 0
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 153,
+              "naziv": "Stara Pazova",
+              "operators": 53,
+              "centroids": 0,
+              "command": 0,
+              "ss_issuers": 0,
+              "shops": 6,
+              "coord": [
+                {
+                  "id": 5495,
+                  "ime": "Boško Grbović",
+                  "centroid": false,
+                  "max_org": 0.504
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 9,
+              "naziv": "Irig",
+              "operators": 36,
+              "centroids": 0,
+              "command": 1,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 8871,
+                  "ime": "Nikola Ristanović",
+                  "centroid": false,
+                  "max_org": 0
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 151,
+              "naziv": "Sremska Mitrovica",
+              "operators": 27,
+              "centroids": 0,
+              "command": 1,
+              "ss_issuers": 0,
+              "shops": 4,
+              "coord": [
+                {
+                  "id": 395,
+                  "ime": "Dalibor Ivanović",
+                  "centroid": false,
+                  "max_org": 0
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 5,
+              "naziv": "Inđija",
+              "operators": 14,
+              "centroids": 0,
+              "command": 1,
+              "ss_issuers": 0,
+              "shops": 6,
+              "coord": [
+                {
+                  "id": 394,
+                  "ime": "Ljubica Galčić",
+                  "centroid": false,
+                  "max_org": 0.296
+                }
+              ],
+              "deputy": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "naziv": "Zapadna Srbija",
+      "operators": 1996,
+      "centroids": 6,
+      "command": 41,
+      "ss_issuers": 8,
+      "shops": 37,
+      "coord": [
+        {
+          "id": 60,
+          "ime": "Radmila Isaković",
+          "centroid": false,
+          "max_org": 0
+        }
+      ],
+      "deputy": 0,
+      "okruzi": [
+        {
+          "id": 8,
+          "naziv": "Mačvanski okrug",
+          "operators": 760,
+          "centroids": 1,
+          "command": 20,
+          "ss_issuers": 7,
+          "shops": 9,
+          "coord": [
+            {
+              "id": 212,
+              "ime": "Verica  Ravnjak",
+              "centroid": false,
+              "max_org": 0.004
+            }
+          ],
+          "deputy": 0,
+          "opstine": [
+            {
+              "id": 141,
+              "naziv": "Šabac",
+              "operators": 260,
+              "centroids": 0,
+              "command": 6,
+              "ss_issuers": 1,
+              "shops": 6,
+              "coord": [
+                {
+                  "id": 212,
+                  "ime": "Verica  Ravnjak",
+                  "centroid": false,
+                  "max_org": 0.004
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 97,
+              "naziv": "Loznica",
+              "operators": 142,
+              "centroids": 1,
+              "command": 1,
+              "ss_issuers": 0,
+              "shops": 3,
+              "coord": [
+                {
+                  "id": 8834,
+                  "ime": "Uroš  Trifunović",
+                  "centroid": false,
+                  "max_org": 0
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 43,
+              "naziv": "Bogatić",
+              "operators": 90,
+              "centroids": 0,
+              "command": 1,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 162,
+                  "ime": "Ivan Mirković",
+                  "centroid": false,
+                  "max_org": 0
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 96,
+              "naziv": "Ljubovija",
+              "operators": 83,
+              "centroids": 0,
+              "command": 2,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 149,
+                  "ime": "Mladen  Radivojević",
+                  "centroid": false,
+                  "max_org": 0.046
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 101,
+              "naziv": "Mali Zvornik",
+              "operators": 55,
+              "centroids": 0,
+              "command": 2,
+              "ss_issuers": 2,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 256,
+                  "ime": "Dijana Ostrovski",
+                  "centroid": false,
+                  "max_org": 0.329
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 84,
+              "naziv": "Krupanj",
+              "operators": 48,
+              "centroids": 0,
+              "command": 2,
+              "ss_issuers": 2,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 6291,
+                  "ime": "Nataša Nikolić",
+                  "centroid": false,
+                  "max_org": 0.001
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 176,
+              "naziv": "Vladimirci",
+              "operators": 47,
+              "centroids": 0,
+              "command": 3,
+              "ss_issuers": 2,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 307,
+                  "ime": "Marijana Poučković",
+                  "centroid": false,
+                  "max_org": 0.114
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 75,
+              "naziv": "Koceljeva",
+              "operators": 35,
+              "centroids": 0,
+              "command": 3,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 5401,
+                  "ime": "Aleksandar Pajić",
+                  "centroid": false,
+                  "max_org": 0.029
+                }
+              ],
+              "deputy": 0
+            }
+          ]
+        },
+        {
+          "id": 9,
+          "naziv": "Kolubarski okrug",
+          "operators": 341,
+          "centroids": 1,
+          "command": 6,
+          "ss_issuers": 0,
+          "shops": 6,
+          "coord": [],
+          "deputy": 0,
+          "opstine": [
+            {
+              "id": 170,
+              "naziv": "Valjevo",
+              "operators": 130,
+              "centroids": 0,
+              "command": 2,
+              "ss_issuers": 0,
+              "shops": 3,
+              "coord": [
+                {
+                  "id": 8966,
+                  "ime": "Željana Marković",
+                  "centroid": false,
+                  "max_org": 0
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 89,
+              "naziv": "Lajkovac",
+              "operators": 53,
+              "centroids": 1,
+              "command": 1,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 430,
+                  "ime": "Danijela Arsenović",
+                  "centroid": false,
+                  "max_org": 0.057
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 167,
+              "naziv": "Ub",
+              "operators": 52,
+              "centroids": 0,
+              "command": 1,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [],
+              "deputy": 0
+            },
+            {
+              "id": 95,
+              "naziv": "Ljig",
+              "operators": 47,
+              "centroids": 0,
+              "command": 2,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 8968,
+                  "ime": "Mihailo Ivanović",
+                  "centroid": false,
+                  "max_org": 0
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 105,
+              "naziv": "Mionica",
+              "operators": 31,
+              "centroids": 0,
+              "command": 0,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 427,
+                  "ime": "Milutin Milovanović",
+                  "centroid": false,
+                  "max_org": 0.0
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 119,
+              "naziv": "Osečina",
+              "operators": 28,
+              "centroids": 0,
+              "command": 0,
+              "ss_issuers": 0,
+              "shops": 3,
+              "coord": [
+                {
+                  "id": 429,
+                  "ime": "Željko Grujičić",
+                  "centroid": false,
+                  "max_org": 0
+                }
+              ],
+              "deputy": 0
+            }
+          ]
+        },
+        {
+          "id": 14,
+          "naziv": "Zlatiborski okrug",
+          "operators": 515,
+          "centroids": 2,
+          "command": 6,
+          "ss_issuers": 0,
+          "shops": 15,
+          "coord": [
+            {
+              "id": 351,
+              "ime": "Desimir Popović",
+              "centroid": false,
+              "max_org": 0.12
+            }
+          ],
+          "deputy": 0,
+          "opstine": [
+            {
+              "id": 169,
+              "naziv": "Užice",
+              "operators": 175,
+              "centroids": 0,
+              "command": 1,
+              "ss_issuers": 0,
+              "shops": 6,
+              "coord": [
+                {
+                  "id": 4310,
+                  "ime": "Đorđe Stojanović",
+                  "centroid": false,
+                  "max_org": 0.469
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 131,
+              "naziv": "Priboj",
+              "operators": 83,
+              "centroids": 1,
+              "command": 0,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 438,
+                  "ime": "Sanja Manović",
+                  "centroid": false,
+                  "max_org": 0.13
+                }
+              ],
+              "deputy": 1
+            },
+            {
+              "id": 109,
+              "naziv": "Nova Varoš",
+              "operators": 63,
+              "centroids": 0,
+              "command": 0,
+              "ss_issuers": 0,
+              "shops": 1,
+              "coord": [
+                {
+                  "id": 3684,
+                  "ime": "Dražen Zečević",
+                  "centroid": false,
+                  "max_org": 0.171
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 20,
+              "naziv": "Bajina Bašta",
+              "operators": 60,
+              "centroids": 1,
+              "command": 0,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 443,
+                  "ime": "Božidar  Nikolić",
+                  "centroid": false,
+                  "max_org": 0.101
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 144,
+              "naziv": "Sjenica",
+              "operators": 38,
+              "centroids": 0,
+              "command": 0,
+              "ss_issuers": 0,
+              "shops": 8,
+              "coord": [
+                {
+                  "id": 761,
+                  "ime": "Nikola Milević",
+                  "centroid": false,
+                  "max_org": 0.121
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 129,
+              "naziv": "Požega",
+              "operators": 32,
+              "centroids": 0,
+              "command": 3,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 8874,
+                  "ime": "Aleksandar Šuljagić",
+                  "centroid": false,
+                  "max_org": 0
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 14,
+              "naziv": "Arilje",
+              "operators": 26,
+              "centroids": 0,
+              "command": 0,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 435,
+                  "ime": "Blagoje  Radeljić",
+                  "centroid": false,
+                  "max_org": 0.144
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 132,
+              "naziv": "Prijepolje",
+              "operators": 21,
+              "centroids": 0,
+              "command": 1,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 434,
+                  "ime": "Matija Šljukić",
+                  "centroid": false,
+                  "max_org": 0
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 76,
+              "naziv": "Kosjerić",
+              "operators": 14,
+              "centroids": 0,
+              "command": 1,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 6775,
+                  "ime": "Jovana Lučić",
+                  "centroid": false,
+                  "max_org": 0.0
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 50,
+              "naziv": "Čajetina",
+              "operators": 3,
+              "centroids": 0,
+              "command": 0,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [],
+              "deputy": 0
+            }
+          ]
+        },
+        {
+          "id": 15,
+          "naziv": "Moravički okrug",
+          "operators": 380,
+          "centroids": 2,
+          "command": 9,
+          "ss_issuers": 1,
+          "shops": 7,
+          "coord": [
+            {
+              "id": 350,
+              "ime": "Milanko Krivokuća",
+              "centroid": false,
+              "max_org": 0.266
+            }
+          ],
+          "deputy": 0,
+          "opstine": [
+            {
+              "id": 49,
+              "naziv": "Čačak",
+              "operators": 137,
+              "centroids": 2,
+              "command": 1,
+              "ss_issuers": 0,
+              "shops": 5,
+              "coord": [
+                {
+                  "id": 350,
+                  "ime": "Milanko Krivokuća",
+                  "centroid": false,
+                  "max_org": 0.266
+                }
+              ],
+              "deputy": 1
+            },
+            {
+              "id": 98,
+              "naziv": "Lučani",
+              "operators": 127,
+              "centroids": 0,
+              "command": 4,
+              "ss_issuers": 0,
+              "shops": 2,
+              "coord": [
+                {
+                  "id": 5453,
+                  "ime": "Dragana Anđelić",
+                  "centroid": false,
+                  "max_org": 0.026
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 66,
+              "naziv": "Ivanjica",
+              "operators": 64,
+              "centroids": 0,
+              "command": 1,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 585,
+                  "ime": "Danijela  Bešević",
+                  "centroid": false,
+                  "max_org": 0.091
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 64,
+              "naziv": "Gornji Milanovac",
+              "operators": 52,
+              "centroids": 0,
+              "command": 3,
+              "ss_issuers": 1,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 546,
+                  "ime": "Nenad  Tomić",
+                  "centroid": false,
+                  "max_org": 0.257
+                }
+              ],
+              "deputy": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "naziv": "Centralna Srbija",
+      "operators": 1713,
+      "centroids": 2,
+      "command": 45,
+      "ss_issuers": 4,
+      "shops": 39,
+      "coord": [
+        {
+          "id": 322,
+          "ime": "Marijana Karajović",
+          "centroid": false,
+          "max_org": 0.021
+        }
+      ],
+      "deputy": 1,
+      "okruzi": [
+        {
+          "id": 10,
+          "naziv": "Podunavski okrug",
+          "operators": 238,
+          "centroids": 0,
+          "command": 6,
+          "ss_issuers": 0,
+          "shops": 6,
+          "coord": [
+            {
+              "id": 4309,
+              "ime": "Jovana Lukić",
+              "centroid": false,
+              "max_org": 0.011
+            }
+          ],
+          "deputy": 0,
+          "opstine": [
+            {
+              "id": 145,
+              "naziv": "Smederevo",
+              "operators": 128,
+              "centroids": 0,
+              "command": 3,
+              "ss_issuers": 0,
+              "shops": 6,
+              "coord": [
+                {
+                  "id": 4309,
+                  "ime": "Jovana Lukić",
+                  "centroid": false,
+                  "max_org": 0.011
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 172,
+              "naziv": "Velika Plana",
+              "operators": 71,
+              "centroids": 0,
+              "command": 3,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 7450,
+                  "ime": "Nenad Rajković",
+                  "centroid": false,
+                  "max_org": 0.006
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 146,
+              "naziv": "Smederevska Palanka",
+              "operators": 39,
+              "centroids": 0,
+              "command": 0,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 451,
+                  "ime": "Nemanja Torbica",
+                  "centroid": false,
+                  "max_org": 0.023
+                }
+              ],
+              "deputy": 0
+            }
+          ]
+        },
+        {
+          "id": 11,
+          "naziv": "Šumadijski okrug",
+          "operators": 442,
+          "centroids": 0,
+          "command": 14,
+          "ss_issuers": 0,
+          "shops": 3,
+          "coord": [
+            {
+              "id": 322,
+              "ime": "Marijana Karajović",
+              "centroid": false,
+              "max_org": 0.021
+            }
+          ],
+          "deputy": 0,
+          "opstine": [
+            {
+              "id": 82,
+              "naziv": "Kragujevac",
+              "operators": 187,
+              "centroids": 0,
+              "command": 8,
+              "ss_issuers": 0,
+              "shops": 2,
+              "coord": [
+                {
+                  "id": 322,
+                  "ime": "Marijana Karajović",
+                  "centroid": false,
+                  "max_org": 0.021
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 21,
+              "naziv": "Batočina",
+              "operators": 49,
+              "centroids": 0,
+              "command": 3,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 1375,
+                  "ime": "Biljana Kirov",
+                  "centroid": false,
+                  "max_org": 0.199
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 163,
+              "naziv": "Topola",
+              "operators": 48,
+              "centroids": 0,
+              "command": 0,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 9234,
+                  "ime": "Mihailo Aleksić",
+                  "centroid": false,
+                  "max_org": 0
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 13,
+              "naziv": "Aranđelovac",
+              "operators": 47,
+              "centroids": 0,
+              "command": 1,
+              "ss_issuers": 0,
+              "shops": 1,
+              "coord": [],
+              "deputy": 0
+            },
+            {
+              "id": 90,
+              "naziv": "Lapovo",
+              "operators": 43,
+              "centroids": 0,
+              "command": 2,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 8900,
+                  "ime": "Ivana Obradović",
+                  "centroid": false,
+                  "max_org": 0
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 73,
+              "naziv": "Knić",
+              "operators": 36,
+              "centroids": 0,
+              "command": 0,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 1375,
+                  "ime": "Biljana Kirov",
+                  "centroid": false,
+                  "max_org": 0.199
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 136,
+              "naziv": "Rača",
+              "operators": 32,
+              "centroids": 0,
+              "command": 0,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 1373,
+                  "ime": "Milan Ignjatović",
+                  "centroid": false,
+                  "max_org": 0.084
+                }
+              ],
+              "deputy": 0
+            }
+          ]
+        },
+        {
+          "id": 12,
+          "naziv": "Pomoravski okrug",
+          "operators": 158,
+          "centroids": 0,
+          "command": 8,
+          "ss_issuers": 0,
+          "shops": 3,
+          "coord": [],
+          "deputy": 0,
+          "opstine": [
+            {
+              "id": 139,
+              "naziv": "Rekovac",
+              "operators": 34,
+              "centroids": 0,
+              "command": 0,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [],
+              "deputy": 0
+            },
+            {
+              "id": 121,
+              "naziv": "Paraćin",
+              "operators": 33,
+              "centroids": 0,
+              "command": 2,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 4981,
+                  "ime": "Ana Milošević",
+                  "centroid": false,
+                  "max_org": 0.012
+                }
+              ],
+              "deputy": 1
+            },
+            {
+              "id": 54,
+              "naziv": "Ćuprija",
+              "operators": 31,
+              "centroids": 0,
+              "command": 3,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [],
+              "deputy": 0
+            },
+            {
+              "id": 57,
+              "naziv": "Despotovac",
+              "operators": 21,
+              "centroids": 0,
+              "command": 2,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [],
+              "deputy": 0
+            },
+            {
+              "id": 67,
+              "naziv": "Jagodina",
+              "operators": 20,
+              "centroids": 0,
+              "command": 0,
+              "ss_issuers": 0,
+              "shops": 3,
+              "coord": [],
+              "deputy": 0
+            },
+            {
+              "id": 159,
+              "naziv": "Svilajnac",
+              "operators": 19,
+              "centroids": 0,
+              "command": 1,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 464,
+                  "ime": "Dragana Ljubisavljević",
+                  "centroid": false,
+                  "max_org": 0.137
+                }
+              ],
+              "deputy": 0
+            }
+          ]
+        },
+        {
+          "id": 16,
+          "naziv": "Raški okrug",
+          "operators": 459,
+          "centroids": 2,
+          "command": 7,
+          "ss_issuers": 2,
+          "shops": 18,
+          "coord": [
+            {
+              "id": 322,
+              "ime": "Marijana Karajović",
+              "centroid": false,
+              "max_org": 0.021
+            }
+          ],
+          "deputy": 0,
+          "opstine": [
+            {
+              "id": 83,
+              "naziv": "Kraljevo",
+              "operators": 199,
+              "centroids": 0,
+              "command": 2,
+              "ss_issuers": 0,
+              "shops": 7,
+              "coord": [
+                {
+                  "id": 1905,
+                  "ime": "Darko Bogdanović",
+                  "centroid": false,
+                  "max_org": 0.461
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 180,
+              "naziv": "Vrnjačka Banja",
+              "operators": 101,
+              "centroids": 0,
+              "command": 3,
+              "ss_issuers": 2,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 2421,
+                  "ime": "Milomir Japundžić",
+                  "centroid": false,
+                  "max_org": 0.281
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 137,
+              "naziv": "Raška",
+              "operators": 93,
+              "centroids": 1,
+              "command": 1,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 459,
+                  "ime": "Stefana Vučković",
+                  "centroid": false,
+                  "max_org": 0.197
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 112,
+              "naziv": "Novi Pazar",
+              "operators": 55,
+              "centroids": 1,
+              "command": 1,
+              "ss_issuers": 0,
+              "shops": 11,
+              "coord": [
+                {
+                  "id": 5832,
+                  "ime": "Nikolina Milutinović",
+                  "centroid": false,
+                  "max_org": 0.109
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 166,
+              "naziv": "Tutin",
+              "operators": 11,
+              "centroids": 0,
+              "command": 0,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 7815,
+                  "ime": "Marko  Aleksić",
+                  "centroid": false,
+                  "max_org": 0.003
+                }
+              ],
+              "deputy": 0
+            }
+          ]
+        },
+        {
+          "id": 17,
+          "naziv": "Rasinski okrug",
+          "operators": 416,
+          "centroids": 0,
+          "command": 10,
+          "ss_issuers": 2,
+          "shops": 9,
+          "coord": [
+            {
+              "id": 3057,
+              "ime": "Miloš Jovanović",
+              "centroid": false,
+              "max_org": 0.033
+            }
+          ],
+          "deputy": 0,
+          "opstine": [
+            {
+              "id": 85,
+              "naziv": "Kruševac",
+              "operators": 195,
+              "centroids": 0,
+              "command": 3,
+              "ss_issuers": 2,
+              "shops": 9,
+              "coord": [
+                {
+                  "id": 3057,
+                  "ime": "Miloš Jovanović",
+                  "centroid": false,
+                  "max_org": 0.033
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 165,
+              "naziv": "Trstenik",
+              "operators": 74,
+              "centroids": 0,
+              "command": 2,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 2992,
+                  "ime": "Nemanja Stupljanin",
+                  "centroid": false,
+                  "max_org": 0.305
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 171,
+              "naziv": "Varvarin",
+              "operators": 57,
+              "centroids": 0,
+              "command": 0,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 2929,
+                  "ime": "Marija Jovanović",
+                  "centroid": false,
+                  "max_org": 0.007
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 10,
+              "naziv": "Aleksandrovac",
+              "operators": 35,
+              "centroids": 0,
+              "command": 3,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 447,
+                  "ime": "Vladislav Mihajlović",
+                  "centroid": false,
+                  "max_org": 0.002
+                }
+              ],
+              "deputy": 1
+            },
+            {
+              "id": 51,
+              "naziv": "Ćićevac",
+              "operators": 31,
+              "centroids": 0,
+              "command": 0,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 2904,
+                  "ime": "Dejan Kostić",
+                  "centroid": false,
+                  "max_org": 0
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 47,
+              "naziv": "Brus",
+              "operators": 24,
+              "centroids": 0,
+              "command": 2,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 5330,
+                  "ime": "Dragana Živković",
+                  "centroid": false,
+                  "max_org": 0.151
+                }
+              ],
+              "deputy": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "naziv": "Južna Srbija",
+      "operators": 1297,
+      "centroids": 1,
+      "command": 15,
+      "ss_issuers": 4,
+      "shops": 11,
+      "coord": [
+        {
+          "id": 315,
+          "ime": "Ivan Jovanović",
+          "centroid": false,
+          "max_org": 0
+        }
+      ],
+      "deputy": 1,
+      "okruzi": [
+        {
+          "id": 18,
+          "naziv": "Nišavski okrug",
+          "operators": 132,
+          "centroids": 0,
+          "command": 5,
+          "ss_issuers": 2,
+          "shops": 7,
+          "coord": [],
+          "deputy": 0,
+          "opstine": [
+            {
+              "id": 107,
+              "naziv": "Niš",
+              "operators": 62,
+              "centroids": 0,
+              "command": 2,
+              "ss_issuers": 1,
+              "shops": 7,
+              "coord": [
+                {
+                  "id": 315,
+                  "ime": "Ivan Jovanović",
+                  "centroid": false,
+                  "max_org": 0
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 104,
+              "naziv": "Merošina",
+              "operators": 38,
+              "centroids": 0,
+              "command": 0,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 403,
+                  "ime": "Srđan Đorđević",
+                  "centroid": false,
+                  "max_org": 0
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 11,
+              "naziv": "Aleksinac",
+              "operators": 15,
+              "centroids": 0,
+              "command": 2,
+              "ss_issuers": 1,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 1457,
+                  "ime": "Jasmina Batoćanin",
+                  "centroid": false,
+                  "max_org": 0.018
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 138,
+              "naziv": "Ražanj",
+              "operators": 10,
+              "centroids": 0,
+              "command": 1,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 5304,
+                  "ime": "Aleksandar Drenić",
+                  "centroid": false,
+                  "max_org": 0.015
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 160,
+              "naziv": "Svrljig",
+              "operators": 6,
+              "centroids": 0,
+              "command": 0,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [],
+              "deputy": 0
+            },
+            {
+              "id": 60,
+              "naziv": "Gadžin Han",
+              "operators": 1,
+              "centroids": 0,
+              "command": 0,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [],
+              "deputy": 0
+            },
+            {
+              "id": 59,
+              "naziv": "Doljevac",
+              "operators": 0,
+              "centroids": 0,
+              "command": 0,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [],
+              "deputy": 0
+            }
+          ]
+        },
+        {
+          "id": 19,
+          "naziv": "Toplički okrug",
+          "operators": 298,
+          "centroids": 0,
+          "command": 5,
+          "ss_issuers": 2,
+          "shops": 0,
+          "coord": [],
+          "deputy": 0,
+          "opstine": [
+            {
+              "id": 135,
+              "naziv": "Prokuplje",
+              "operators": 107,
+              "centroids": 0,
+              "command": 4,
+              "ss_issuers": 2,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 8822,
+                  "ime": "Maja Antanasković",
+                  "centroid": false,
+                  "max_org": 0
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 88,
+              "naziv": "Kuršumlija",
+              "operators": 94,
+              "centroids": 0,
+              "command": 0,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 3808,
+                  "ime": "Nataša Vasić",
+                  "centroid": false,
+                  "max_org": 0.021
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 188,
+              "naziv": "Žitorađa",
+              "operators": 73,
+              "centroids": 0,
+              "command": 1,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 1681,
+                  "ime": "Aleksandra Gligorijević",
+                  "centroid": false,
+                  "max_org": 0.02
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 42,
+              "naziv": "Blace",
+              "operators": 24,
+              "centroids": 0,
+              "command": 0,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [],
+              "deputy": 0
+            }
+          ]
+        },
+        {
+          "id": 20,
+          "naziv": "Pirotski okrug",
+          "operators": 223,
+          "centroids": 0,
+          "command": 0,
+          "ss_issuers": 0,
+          "shops": 0,
+          "coord": [],
+          "deputy": 0,
+          "opstine": [
+            {
+              "id": 15,
+              "naziv": "Babušnica",
+              "operators": 88,
+              "centroids": 0,
+              "command": 0,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 1659,
+                  "ime": "Danica Đenić",
+                  "centroid": false,
+                  "max_org": 0.001
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 24,
+              "naziv": "Bela Palanka",
+              "operators": 71,
+              "centroids": 0,
+              "command": 0,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 413,
+                  "ime": "Marija  Golubović",
+                  "centroid": false,
+                  "max_org": 0.006
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 125,
+              "naziv": "Pirot",
+              "operators": 52,
+              "centroids": 0,
+              "command": 0,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 1679,
+                  "ime": "Pavle  Aleksić",
+                  "centroid": false,
+                  "max_org": 0.006
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 58,
+              "naziv": "Dimitrovgrad",
+              "operators": 12,
+              "centroids": 0,
+              "command": 0,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [],
+              "deputy": 0
+            }
+          ]
+        },
+        {
+          "id": 21,
+          "naziv": "Jablanički okrug",
+          "operators": 341,
+          "centroids": 1,
+          "command": 5,
+          "ss_issuers": 0,
+          "shops": 0,
+          "coord": [
+            {
+              "id": 2009,
+              "ime": "Zoran Radonjić",
+              "centroid": false,
+              "max_org": 0.009
+            }
+          ],
+          "deputy": 0,
+          "opstine": [
+            {
+              "id": 93,
+              "naziv": "Leskovac",
+              "operators": 211,
+              "centroids": 0,
+              "command": 4,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 5239,
+                  "ime": "Milan Đorđević",
+                  "centroid": false,
+                  "max_org": 0
+                }
+              ],
+              "deputy": 1
+            },
+            {
+              "id": 91,
+              "naziv": "Lebane",
+              "operators": 60,
+              "centroids": 0,
+              "command": 0,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 416,
+                  "ime": "Filip Pejić",
+                  "centroid": false,
+                  "max_org": 0.038
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 177,
+              "naziv": "Vlasotince",
+              "operators": 39,
+              "centroids": 1,
+              "command": 0,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 2009,
+                  "ime": "Zoran Radonjić",
+                  "centroid": false,
+                  "max_org": 0.009
+                }
+              ],
+              "deputy": 1
+            },
+            {
+              "id": 44,
+              "naziv": "Bojnik",
+              "operators": 19,
+              "centroids": 0,
+              "command": 1,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 415,
+                  "ime": "Mladen Đorđević",
+                  "centroid": false,
+                  "max_org": 0
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 103,
+              "naziv": "Medveđa",
+              "operators": 12,
+              "centroids": 0,
+              "command": 0,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [],
+              "deputy": 0
+            },
+            {
+              "id": 53,
+              "naziv": "Crna Trava",
+              "operators": 0,
+              "centroids": 0,
+              "command": 0,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [],
+              "deputy": 0
+            }
+          ]
+        },
+        {
+          "id": 22,
+          "naziv": "Pčinjski okrug",
+          "operators": 303,
+          "centroids": 0,
+          "command": 0,
+          "ss_issuers": 0,
+          "shops": 4,
+          "coord": [],
+          "deputy": 0,
+          "opstine": [
+            {
+              "id": 178,
+              "naziv": "Vranje",
+              "operators": 177,
+              "centroids": 0,
+              "command": 0,
+              "ss_issuers": 0,
+              "shops": 2,
+              "coord": [
+                {
+                  "id": 319,
+                  "ime": "Nemanja Bošković",
+                  "centroid": false,
+                  "max_org": 0.112
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 157,
+              "naziv": "Surdulica",
+              "operators": 64,
+              "centroids": 0,
+              "command": 0,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 5087,
+                  "ime": "Dušan Đorđević",
+                  "centroid": false,
+                  "max_org": 0.296
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 164,
+              "naziv": "Trgovište",
+              "operators": 32,
+              "centroids": 0,
+              "command": 0,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 9124,
+                  "ime": "Zoran Radonjić",
+                  "centroid": false,
+                  "max_org": 0
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 175,
+              "naziv": "Vladičin Han",
+              "operators": 21,
+              "centroids": 0,
+              "command": 0,
+              "ss_issuers": 0,
+              "shops": 2,
+              "coord": [],
+              "deputy": 0
+            },
+            {
+              "id": 48,
+              "naziv": "Bujanovac",
+              "operators": 9,
+              "centroids": 0,
+              "command": 0,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 410,
+                  "ime": "Dušan Jovanović",
+                  "centroid": false,
+                  "max_org": 0.01
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 46,
+              "naziv": "Bosilegrad",
+              "operators": 0,
+              "centroids": 0,
+              "command": 0,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [],
+              "deputy": 0
+            },
+            {
+              "id": 130,
+              "naziv": "Preševo",
+              "operators": 0,
+              "centroids": 0,
+              "command": 0,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [],
+              "deputy": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "naziv": "Grad Beograd",
+      "operators": 872,
+      "centroids": 2,
+      "command": 17,
+      "ss_issuers": 3,
+      "shops": 45,
+      "coord": [
+        {
+          "id": 59,
+          "ime": "Lana Lana",
+          "centroid": false,
+          "max_org": 0
+        }
+      ],
+      "deputy": 1,
+      "okruzi": [
+        {
+          "id": 5,
+          "naziv": "Beograd",
+          "operators": 872,
+          "centroids": 2,
+          "command": 17,
+          "ss_issuers": 3,
+          "shops": 45,
+          "coord": [
+            {
+              "id": 66,
+              "ime": "Miloš Jovanović",
+              "centroid": false,
+              "max_org": 0.305
+            }
+          ],
+          "deputy": 0,
+          "opstine": [
+            {
+              "id": 32,
+              "naziv": "Beograd-Palilula",
+              "operators": 161,
+              "centroids": 0,
+              "command": 1,
+              "ss_issuers": 0,
+              "shops": 16,
+              "coord": [
+                {
+                  "id": 6191,
+                  "ime": "Lazar Vasić",
+                  "centroid": false,
+                  "max_org": 0.062
+                }
+              ],
+              "deputy": 1
+            },
+            {
+              "id": 41,
+              "naziv": "Beograd-Zvezdara",
+              "operators": 80,
+              "centroids": 1,
+              "command": 0,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 342,
+                  "ime": "Tatjana Benak",
+                  "centroid": false,
+                  "max_org": 0.064
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 31,
+              "naziv": "Beograd-Novi Beograd",
+              "operators": 74,
+              "centroids": 1,
+              "command": 0,
+              "ss_issuers": 0,
+              "shops": 21,
+              "coord": [
+                {
+                  "id": 825,
+                  "ime": "Bojan Stojanović",
+                  "centroid": false,
+                  "max_org": 0.015
+                }
+              ],
+              "deputy": 1
+            },
+            {
+              "id": 29,
+              "naziv": "Beograd-Lazarevac",
+              "operators": 72,
+              "centroids": 0,
+              "command": 1,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 8827,
+                  "ime": "Jovana Petković",
+                  "centroid": false,
+                  "max_org": 0
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 40,
+              "naziv": "Beograd-Zemun",
+              "operators": 63,
+              "centroids": 0,
+              "command": 2,
+              "ss_issuers": 0,
+              "shops": 8,
+              "coord": [
+                {
+                  "id": 6264,
+                  "ime": "Vukašin Vlahović",
+                  "centroid": false,
+                  "max_org": 0.065
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 36,
+              "naziv": "Beograd-Stari Grad",
+              "operators": 61,
+              "centroids": 0,
+              "command": 0,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 1234,
+                  "ime": "Minja Ivošević",
+                  "centroid": false,
+                  "max_org": 0.004
+                }
+              ],
+              "deputy": 1
+            },
+            {
+              "id": 27,
+              "naziv": "Beograd-Čukarica",
+              "operators": 56,
+              "centroids": 0,
+              "command": 1,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 806,
+                  "ime": "Stevan Žitnik",
+                  "centroid": false,
+                  "max_org": 0.195
+                }
+              ],
+              "deputy": 1
+            },
+            {
+              "id": 30,
+              "naziv": "Beograd-Mladenovac",
+              "operators": 39,
+              "centroids": 0,
+              "command": 1,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 7645,
+                  "ime": "Lazar Marić",
+                  "centroid": false,
+                  "max_org": 0.016
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 33,
+              "naziv": "Beograd-Rakovica",
+              "operators": 39,
+              "centroids": 0,
+              "command": 4,
+              "ss_issuers": 1,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 70,
+                  "ime": "Marija Krulj",
+                  "centroid": false,
+                  "max_org": 0.225
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 28,
+              "naziv": "Beograd-Grocka",
+              "operators": 35,
+              "centroids": 0,
+              "command": 0,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [],
+              "deputy": 0
+            },
+            {
+              "id": 38,
+              "naziv": "Beograd-Voždovac",
+              "operators": 33,
+              "centroids": 0,
+              "command": 0,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [],
+              "deputy": 0
+            },
+            {
+              "id": 37,
+              "naziv": "Beograd-Surčin",
+              "operators": 32,
+              "centroids": 0,
+              "command": 1,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 334,
+                  "ime": "Jovo Đurđević",
+                  "centroid": false,
+                  "max_org": 0.025
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 34,
+              "naziv": "Beograd-Savski Venac",
+              "operators": 29,
+              "centroids": 0,
+              "command": 2,
+              "ss_issuers": 1,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 483,
+                  "ime": "Vučeta Radević",
+                  "centroid": false,
+                  "max_org": 0.166
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 39,
+              "naziv": "Beograd-Vračar",
+              "operators": 29,
+              "centroids": 0,
+              "command": 0,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 338,
+                  "ime": "Stevan Vilotijević",
+                  "centroid": false,
+                  "max_org": 0.17
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 8,
+              "naziv": "Beograd-Obrenovac",
+              "operators": 27,
+              "centroids": 0,
+              "command": 2,
+              "ss_issuers": 1,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 72,
+                  "ime": "Mirjana Kujović",
+                  "centroid": false,
+                  "max_org": 0.262
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 35,
+              "naziv": "Beograd-Sopot",
+              "operators": 25,
+              "centroids": 0,
+              "command": 0,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 344,
+                  "ime": "Dunja Paunović",
+                  "centroid": false,
+                  "max_org": 0.039
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 26,
+              "naziv": "Beograd-Barajevo",
+              "operators": 17,
+              "centroids": 0,
+              "command": 2,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 343,
+                  "ime": "Đorđe Nestorović",
+                  "centroid": false,
+                  "max_org": 0.164
+                }
+              ],
+              "deputy": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "naziv": "Istočna Srbija",
+      "operators": 457,
+      "centroids": 0,
+      "command": 23,
+      "ss_issuers": 3,
+      "shops": 14,
+      "coord": [
+        {
+          "id": 472,
+          "ime": "Tanja Dimić",
+          "centroid": false,
+          "max_org": 0.001
+        }
+      ],
+      "deputy": 0,
+      "okruzi": [
+        {
+          "id": 6,
+          "naziv": "Borski okrug",
+          "operators": 179,
+          "centroids": 0,
+          "command": 2,
+          "ss_issuers": 0,
+          "shops": 4,
+          "coord": [],
+          "deputy": 0,
+          "opstine": [
+            {
+              "id": 192,
+              "naziv": "Bor",
+              "operators": 116,
+              "centroids": 0,
+              "command": 0,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 5719,
+                  "ime": "Marko Andrejić",
+                  "centroid": false,
+                  "max_org": 0.033
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 71,
+              "naziv": "Kladovo",
+              "operators": 35,
+              "centroids": 0,
+              "command": 1,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 2849,
+                  "ime": "Ivana Modrić",
+                  "centroid": false,
+                  "max_org": 0.001
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 106,
+              "naziv": "Negotin",
+              "operators": 25,
+              "centroids": 0,
+              "command": 1,
+              "ss_issuers": 0,
+              "shops": 4,
+              "coord": [
+                {
+                  "id": 4210,
+                  "ime": "Darko Čirišanović",
+                  "centroid": false,
+                  "max_org": 0
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 99,
+              "naziv": "Majdanpek",
+              "operators": 3,
+              "centroids": 0,
+              "command": 0,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [],
+              "deputy": 0
+            }
+          ]
+        },
+        {
+          "id": 7,
+          "naziv": "Braničevski okrug",
+          "operators": 179,
+          "centroids": 0,
+          "command": 16,
+          "ss_issuers": 3,
+          "shops": 10,
+          "coord": [],
+          "deputy": 0,
+          "opstine": [
+            {
+              "id": 128,
+              "naziv": "Požarevac",
+              "operators": 50,
+              "centroids": 0,
+              "command": 3,
+              "ss_issuers": 1,
+              "shops": 10,
+              "coord": [
+                {
+                  "id": 2788,
+                  "ime": "Vladimir Stanković",
+                  "centroid": false,
+                  "max_org": 0.036
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 2,
+              "naziv": "Golubac",
+              "operators": 33,
+              "centroids": 0,
+              "command": 1,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 2827,
+                  "ime": "Marina  Trailović",
+                  "centroid": false,
+                  "max_org": 0.319
+                }
+              ],
+              "deputy": 1
+            },
+            {
+              "id": 173,
+              "naziv": "Veliko Gradište",
+              "operators": 30,
+              "centroids": 0,
+              "command": 6,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 5289,
+                  "ime": "Tamara Jacanović",
+                  "centroid": false,
+                  "max_org": 0.015
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 124,
+              "naziv": "Petrovac",
+              "operators": 18,
+              "centroids": 0,
+              "command": 0,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 2900,
+                  "ime": "Ana Stanojlović",
+                  "centroid": false,
+                  "max_org": 0
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 185,
+              "naziv": "Žagubica",
+              "operators": 17,
+              "centroids": 0,
+              "command": 2,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 2869,
+                  "ime": "Milena Radojičić",
+                  "centroid": false,
+                  "max_org": 0.289
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 102,
+              "naziv": "Malo Crniće",
+              "operators": 15,
+              "centroids": 0,
+              "command": 1,
+              "ss_issuers": 1,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 471,
+                  "ime": "Jovana Živanović",
+                  "centroid": false,
+                  "max_org": 0.115
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 86,
+              "naziv": "Kučevo",
+              "operators": 9,
+              "centroids": 0,
+              "command": 3,
+              "ss_issuers": 1,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 472,
+                  "ime": "Tanja Dimić",
+                  "centroid": false,
+                  "max_org": 0.001
+                }
+              ],
+              "deputy": 0
+            },
+            {
+              "id": 184,
+              "naziv": "Žabari",
+              "operators": 7,
+              "centroids": 0,
+              "command": 0,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [
+                {
+                  "id": 469,
+                  "ime": "Marko Ilić",
+                  "centroid": false,
+                  "max_org": 0.006
+                }
+              ],
+              "deputy": 0
+            }
+          ]
+        },
+        {
+          "id": 13,
+          "naziv": "Zaječarski okrug",
+          "operators": 99,
+          "centroids": 0,
+          "command": 5,
+          "ss_issuers": 0,
+          "shops": 0,
+          "coord": [],
+          "deputy": 0,
+          "opstine": [
+            {
+              "id": 74,
+              "naziv": "Knjaževac",
+              "operators": 36,
+              "centroids": 0,
+              "command": 0,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [],
+              "deputy": 0
+            },
+            {
+              "id": 147,
+              "naziv": "Sokobanja",
+              "operators": 34,
+              "centroids": 0,
+              "command": 3,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [],
+              "deputy": 0
+            },
+            {
+              "id": 186,
+              "naziv": "Zaječar",
+              "operators": 19,
+              "centroids": 0,
+              "command": 1,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [],
+              "deputy": 0
+            },
+            {
+              "id": 45,
+              "naziv": "Boljevac",
+              "operators": 10,
+              "centroids": 0,
+              "command": 1,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [],
+              "deputy": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "naziv": "TEST",
+      "operators": 6,
+      "centroids": 0,
+      "command": 4,
+      "ss_issuers": 0,
+      "shops": 0,
+      "coord": [],
+      "deputy": 0,
+      "okruzi": [
+        {
+          "id": 31,
+          "naziv": "TEST",
+          "operators": 6,
+          "centroids": 0,
+          "command": 4,
+          "ss_issuers": 0,
+          "shops": 0,
+          "coord": [],
+          "deputy": 0,
+          "opstine": [
+            {
+              "id": 194,
+              "naziv": "TEST",
+              "operators": 6,
+              "centroids": 0,
+              "command": 4,
+              "ss_issuers": 0,
+              "shops": 0,
+              "coord": [],
+              "deputy": 0
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "disclaimer": "Koordinatorske pozicije su iz namenskih tabela (autoritativne). Raspon kontrole = geografska nadležnost (operateri registrovani u toj opštini/okrugu/regionu), ne dokaz pojedinačnog naređenja."
+}

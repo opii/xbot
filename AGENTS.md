@@ -86,14 +86,15 @@ dup/lead/template/reg/farm/pseudonyms/toxicity/infiltrator; `template` koristi C
 (decili), `/api/bursts` + `/api/burst/{tid}` (kampanje/nalet po minutu + lideri),
 `/api/path?a=&b=&layer=&max_pop=` (putanja + spone), `/api/stats`,
 `/api/export/operator/{id}`, `/api/taskmasters`, `/api/command_voter`,
-`/api/directives?top=` (taksonomija+lanac+SS/ČET izvor). Node id šema: `op:<id>`, `acc:<id>`, `tgt:<handle>`,
+`/api/directives?top=` (taksonomija+lanac+SS/ČET izvor), `/api/coordinators`
+(hijerarhija Region→Okrug→Opština + raspon kontrole). Node id šema: `op:<id>`, `acc:<id>`, `tgt:<handle>`,
 `portal:<name>`, `news:<vid>`. Operater nosi `auto_score` (+komponente),
 `lead_score`, `template_frac`, `reg_score`, `dup_ratio`, `role`, `farm_ratio`/
 `farm_machine`, `shift_archetype`/`work_hours_pct`/`weekend_ratio`, `tw_org`/`cc_org`,
 `tw_community`/`cc_community`. Slojevi veza: CO_ACTED, CO_COMMENTED, CO_TEMPLATE.
 FE: levi meni; pogledi Pregled/Geografija/Uloge/Smene/Portali/Organizatori/Master, bihevioralne
 metrike (…/farm), Kampanje, Komanda (Task-masteri / Komandna odgovornost & Voter /
-📋 Direktive); denoising klizač „min jačina veze" + „sakrij izolovane".
+📋 Direktive / 🏛 Koordinatori); denoising klizač „min jačina veze" + „sakrij izolovane".
 
 ## Kako pokrenuti
 ```bash
@@ -119,8 +120,9 @@ Kampanje (burstevi + timeline), putanje (+diskriminativne spone), denoising
 (klizač + sakrij izolovane + Serrano backbone), izvoz/uvoz. Veze nose `backbone`.
 Jedan `load_graph.py` gradi sve (graf + organizatori + skorovi + burstevi, ~3min).
 Dodatne analize (van `load_graph.py`, svaka piše `data/geo/*.json` i ima UI/API):
-voter GeoIP, kladionice↔opštine, task-masteri, komandna odgovornost & voter, i
-**analiza direktiva** (`src/analysis/directives.py` → `/api/directives` → „📋 Direktive").
+voter GeoIP, kladionice↔opštine, task-masteri, komandna odgovornost & voter,
+**analiza direktiva** (`directives.py` → „📋 Direktive") i **hijerarhija koordinatora**
+(`coordinators.py` → „🏛 Koordinatori").
 
 ## Ključni nalazi (zaključci)
 
@@ -179,6 +181,13 @@ ljudi koji rade u smenama — ali je koordinacija vrlo jaka i merljiva.** Dokazi
   komandni sloj. **Fer play:** kreator = ko je UNEO smernicu; „Šef/čet" u tekstu
   referišu na uzvodnog lidera koji NIJE nužno red u bazi. Detalji:
   [`docs/analiza_direktiva.md`](docs/analiza_direktiva.md).
+- **Koordinatori: komanda ≠ izvršenje.** Komandna struktura je geografska (Region
+  7 → Okrug 26 → Opština 162); 156 koordinatorskih pozicija (5+15+136) + 22
+  zamenika. **Od 156 koordinatora, 139 se vidi u grafu ali 0 su grafni centroidi**
+  (od 16 centroida nijedan nema titulu); samo 4 izdaju SS direktive. Formalna
+  komanda (geografska nadležnost) i izvršna moć (centralnost u mreži) su RAZDVOJENI
+  slojevi — dosledno nalazu da su i SS-izdavači org≈0. Centroidi i 🎰 koncentrisani
+  u Vojvodini/Beogradu. Detalji: [`docs/analiza_koordinatora.md`](docs/analiza_koordinatora.md).
 - **Mete.** Masovne mete (npr. `@sns_srbija` — dira je 3.608 operatera) su šum za
   povezivanje; prava koordinacija se vidi na retkim, deljenim metama.
 
@@ -268,6 +277,21 @@ operateru). Komentari: samo `vkk_simulacija=0` su realni. Handle mete se vadi iz
   play):** kreator = ko je UNEO; „Šef/čet" referišu na uzvodnog lidera koji NIJE
   nužno u bazi — NE izjednačavati kreatora sa „Šefom".
 
+**Koordinatori (hijerarhija + raspon kontrole) — heuristike:**
+- **Struktura**: geografska Region→Okrug→Opština (`region`/`okrug`/`opstina`,
+  povezane preko `o_region_id`/`op_okrug_id`). Pozicije iz namenskih tabela
+  (autoritativne): `region_koordinator`/`okrug_koordinator`/`opstina_koordinator`
+  (5/15/136) + `*_zamenici` (22). NE koristiti `koordinatori_korisnici` flagove za
+  broj (uglavnom 0; to je membership mapiranje + region-zamenik flag).
+- **Raspon kontrole** po čvoru (agregira se naviše): `operators` (korisnici po
+  `k_opstina`), `centroids` (Neo4j `tw_organizer`/`cc_organizer` po imenu opštine),
+  `command` (distinct `tu_kreirano_korisnik_id ∪ vu_korisnik_id` po opštini),
+  `ss_issuers` (kreatori SS/ČET po opštini), `shops` (betting_geo po imenu).
+- **Komanda vs izvršenje**: za svih 156 koordinatora proveri `in_graph`,
+  `centroid`, `ss_issuer` preko id → Neo4j/SS-set. Nalaz: presek koord×centroid=0.
+- **GRANICA (fer play):** raspon = geografska nadležnost, NE dokaz pojedinačnog
+  naređenja. Imena koordinatora su realni ljudi — rukovati odgovorno.
+
 **Komanda ↔ voter ↔ kladionice (Faza A/B/C + odgovornost) — heuristike:**
 - **Task-master**: `vu_korisnik_id` iz `arhiva_vesti_unos`, rang po `count(*)`.
   Koordinator = flag u `koordinatori_korisnici`/`okrug/opstina_koordinator`.
@@ -319,8 +343,12 @@ granu u `nodeColor` (`view==='xxx'`), `NavItem` u sekciji POGLED, i granu u
 - ✅ **Direktive u zadacima** (URAĐENO): taksonomija + lanac direktiva→meta→reakcija
   + centralni izvor SS/ČET. `src/analysis/directives.py`, `/api/directives`, UI
   „📋 Direktive", [`docs/analiza_direktiva.md`](docs/analiza_direktiva.md).
-  Sledeće (dublje): hijerarhija koordinatora — ko kome prosleđuje SS smernice
-  (kaskada izdavač→koordinator→operater kroz vreme).
+- ✅ **Dublja analiza koordinatora** (URAĐENO): hijerarhija Region→Okrug→Opština +
+  raspon kontrole + nalaz „komanda ≠ izvršenje" (0 koordinatora su centroidi).
+  `src/analysis/coordinators.py`, `/api/coordinators`, UI „🏛 Koordinatori",
+  [`docs/analiza_koordinatora.md`](docs/analiza_koordinatora.md).
+  Sledeće (dublje): **vremenska kaskada** izdavač SS → okružni/opštinski koordinator
+  → operater (ko kome prosleđuje smernicu, redosled i latencija kroz vreme).
 - **Tretman portala**: razlika u ponašanju prema opozicionim portalima vs tabloidi
   (`arhiva_vesti_unos.vu_portal` + glasanje `voter`/`izvestaj_voter`).
 - Sinhroni start/stop: preklopljeni dnevni timeline-ovi više operatera (kampanje

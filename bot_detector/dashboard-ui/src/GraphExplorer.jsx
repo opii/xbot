@@ -113,6 +113,8 @@ export default function GraphExplorer() {
   const [tmData, setTmData] = useState(null);
   const [cvData, setCvData] = useState(null);
   const [dirData, setDirData] = useState(null);
+  const [coData, setCoData] = useState(null);
+  const [coExp, setCoExp] = useState({});
 
   const merge = useCallback((incoming) => {
     setData((prev) => {
@@ -157,11 +159,11 @@ export default function GraphExplorer() {
     setViewState(v); setMinShared(0);
     if (v === 'behav' && metric) setBehavMetric(metric);
     if (v === 'bursts') loadBursts();
-    else if (v === 'command' || v === 'command_voter' || v === 'directives') { setDetail(null); setPathInfo(null); setBurstInfo(null); }
+    else if (v === 'command' || v === 'command_voter' || v === 'directives' || v === 'coordinators') { setDetail(null); setPathInfo(null); setBurstInfo(null); }
     else loadView(v, metric || behavMetric);
   };
 
-  const NO_GRAPH = ['command', 'command_voter', 'directives'];
+  const NO_GRAPH = ['command', 'command_voter', 'directives', 'coordinators'];
   useEffect(() => { if (view === 'bursts') loadBursts(); else if (!NO_GRAPH.includes(view)) loadView(view); }, [layer]); // eslint-disable-line
   useEffect(() => { fetch(`${API}/api/regions`).then((r) => r.json()).then((d) => setOkruzi(d.okruzi || [])).catch(() => {}); }, []);
   useEffect(() => { fetch(`${API}/api/behavior_cohort`).then((r) => r.json()).then(setCohort).catch(() => {}); }, []);
@@ -169,6 +171,7 @@ export default function GraphExplorer() {
   useEffect(() => { fetch(`${API}/api/taskmasters?limit=40`).then((r) => r.json()).then(setTmData).catch(() => {}); }, []);
   useEffect(() => { fetch(`${API}/api/command_voter`).then((r) => r.json()).then(setCvData).catch(() => {}); }, []);
   useEffect(() => { fetch(`${API}/api/directives?top=25`).then((r) => r.json()).then(setDirData).catch(() => {}); }, []);
+  useEffect(() => { fetch(`${API}/api/coordinators`).then((r) => r.json()).then(setCoData).catch(() => {}); }, []);
   useEffect(() => {
     const upd = () => wrapRef.current && setDim({ w: wrapRef.current.offsetWidth, h: 640 });
     upd(); window.addEventListener('resize', upd);
@@ -400,6 +403,7 @@ export default function GraphExplorer() {
           <NavItem color="#f43f5e" active={view === 'command'} onClick={() => setView('command')}>⌘ Task-masteri (ko zadaje)</NavItem>
           <NavItem color="#f43f5e" active={view === 'command_voter'} onClick={() => setView('command_voter')}>⚖ Komandna odgovornost & Voter</NavItem>
           <NavItem color="#a78bfa" active={view === 'directives'} onClick={() => setView('directives')}>📋 Direktive (šta se naređuje)</NavItem>
+          <NavItem color="#38bdf8" active={view === 'coordinators'} onClick={() => setView('coordinators')}>🏛 Koordinatori (hijerarhija)</NavItem>
         </Section>
 
         <Section title="Filteri">
@@ -850,6 +854,63 @@ export default function GraphExplorer() {
               ))}
             </div>
           ))}
+        </div>
+      )}
+
+      {view === 'coordinators' && !detail && !pathInfo && coData && coData.tree && (
+        <div style={{ ...panelStyle, flex: '0 0 360px' }}>
+          <div style={{ fontWeight: 600, color: 'var(--text-main)' }}>🏛 Koordinatori — hijerarhija</div>
+          <div style={{ color: 'var(--text-muted)', fontSize: '0.72rem', margin: '0.3rem 0 0.4rem', lineHeight: 1.4 }}>
+            Komanda je geografska: Region → Okrug → Opština. {coData.levels?.region} region · {coData.levels?.okrug} okrug · {coData.levels?.opstina} opština koordinatora (+{coData.levels?.deputies} zamenika).
+          </div>
+          {/* KLJUČNI NALAZ: komanda vs izvršenje */}
+          <div style={{ color: '#38bdf8', fontSize: '0.72rem', margin: '0 0 0.5rem', padding: '0.4rem 0.5rem', border: '1px solid rgba(56,189,248,0.4)', borderRadius: 6, lineHeight: 1.45 }}>
+            <b>Komanda ≠ izvršenje:</b> od {coData.command_vs_execution?.coordinators_total} koordinatora, {coData.command_vs_execution?.in_graph} se vidi u grafu, ali <b style={{ color: '#f87171' }}>{coData.command_vs_execution?.are_centroids} su grafni centroidi</b> i {coData.command_vs_execution?.are_ss_issuers} izdaje SS direktive. Formalna titula i mrežna moć su odvojeni slojevi.
+          </div>
+          <div style={{ color: 'var(--text-muted)', fontSize: '0.66rem', marginBottom: '0.3rem' }}>
+            kolone: operateri · ●centroidi · ⌘komanda · SS · 🎰kladionice · klik = razgranaj
+          </div>
+          {coData.tree.map((R) => {
+            const rOpen = coExp[`r${R.id}`];
+            return (
+              <div key={R.id}>
+                <div onClick={() => setCoExp((e) => ({ ...e, [`r${R.id}`]: !e[`r${R.id}`] }))}
+                  style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0.35rem 0', borderBottom: '1px solid var(--glass-border)', cursor: 'pointer', fontSize: '0.84rem' }}>
+                  <span style={{ color: 'var(--text-main)', fontWeight: 600 }}>{rOpen ? '▾' : '▸'} {R.naziv}</span>
+                  <span style={{ color: 'var(--text-muted)', fontSize: '0.72rem' }}>
+                    {R.operators} · <span style={{ color: '#fde047' }}>●{R.centroids}</span> · ⌘{R.command}{R.ss_issuers > 0 && ` · SS${R.ss_issuers}`}{R.shops > 0 && <span style={{ color: '#f59e0b' }}> 🎰{R.shops}</span>}
+                  </span>
+                </div>
+                {R.coord?.[0] && <div style={{ fontSize: '0.68rem', color: '#60a5fa', paddingLeft: '1rem' }}>koord: {R.coord[0].ime}</div>}
+                {rOpen && R.okruzi.map((O) => {
+                  const oOpen = coExp[`o${O.id}`];
+                  return (
+                    <div key={O.id} style={{ paddingLeft: '0.6rem' }}>
+                      <div onClick={() => setCoExp((e) => ({ ...e, [`o${O.id}`]: !e[`o${O.id}`] }))}
+                        style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0.25rem 0', borderBottom: '1px solid var(--glass-border)', cursor: 'pointer', fontSize: '0.78rem' }}>
+                        <span style={{ color: 'var(--text-main)' }}>{oOpen ? '▾' : '▸'} {O.naziv}{O.coord?.[0] && <span style={{ color: '#60a5fa', fontSize: '0.68rem' }}> · {O.coord[0].ime}</span>}</span>
+                        <span style={{ color: 'var(--text-muted)', fontSize: '0.7rem' }}>
+                          {O.operators} · <span style={{ color: '#fde047' }}>●{O.centroids}</span> · ⌘{O.command}{O.shops > 0 && <span style={{ color: '#f59e0b' }}> 🎰{O.shops}</span>}
+                        </span>
+                      </div>
+                      {oOpen && O.opstine.filter((P) => P.operators > 0 || P.shops > 0 || P.coord?.length).map((P) => (
+                        <div key={P.id} style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.72rem', padding: '0.12rem 0 0.12rem 1.3rem', color: 'var(--text-muted)' }}>
+                          <span onClick={() => P.coord?.[0] && (P.coord[0].centroid || P.coord[0].max_org > 0) && onNodeClick({ id: `op:${P.coord[0].id}`, type: 'operator' })}
+                            style={{ cursor: P.coord?.[0] && (P.coord[0].centroid || P.coord[0].max_org > 0) ? 'pointer' : 'default', color: P.coord?.[0]?.centroid ? '#fde047' : 'var(--text-muted)' }}>
+                            {P.naziv}{P.coord?.[0] && <span style={{ color: '#60a5fa' }}> · {P.coord[0].ime}</span>}
+                          </span>
+                          <span>{P.operators}{P.centroids > 0 && <span style={{ color: '#fde047' }}> ●{P.centroids}</span>}{P.command > 0 && ` · ⌘${P.command}`}{P.ss_issuers > 0 && ` · SS${P.ss_issuers}`}{P.shops > 0 && <span style={{ color: '#f59e0b' }}> 🎰{P.shops}</span>}</span>
+                        </div>
+                      ))}
+                    </div>
+                  );
+                })}
+              </div>
+            );
+          })}
+          <div style={{ color: '#fbbf24', fontSize: '0.66rem', marginTop: '0.6rem', lineHeight: 1.4 }}>
+            ⚠ Fer play: raspon kontrole = geografska nadležnost (operateri registrovani u toj oblasti), NE dokaz pojedinačnog naređenja.
+          </div>
         </div>
       )}
 
