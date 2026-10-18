@@ -119,6 +119,13 @@ export default function GraphExplorer() {
   const [geoipData, setGeoipData] = useState(null);
   const [scData, setScData] = useState(null);
   const [gmData, setGmData] = useState(null);
+  const [regData, setRegData] = useState(null);
+  const [kurirData, setKurirData] = useState(null);
+  const [customData, setCustomData] = useState(null);
+  const [tacData, setTacData] = useState(null);
+  const [survData, setSurvData] = useState(null);
+  const [multiData, setMultiData] = useState(null);
+  const [tacSubTab, setTacSubTab] = useState('groups');
 
   const merge = useCallback((incoming) => {
     setData((prev) => {
@@ -167,7 +174,7 @@ export default function GraphExplorer() {
     else loadView(v, metric || behavMetric);
   };
 
-  const NO_GRAPH = ['command', 'command_voter', 'directives', 'coordinators', 'cascade', 'geoip', 'shift_chat', 'gamification'];
+  const NO_GRAPH = ['command', 'command_voter', 'directives', 'coordinators', 'cascade', 'geoip', 'shift_chat', 'gamification', 'regional_voter', 'tactical_ops'];
   useEffect(() => { if (view === 'bursts') loadBursts(); else if (!NO_GRAPH.includes(view)) loadView(view); }, [layer]); // eslint-disable-line
   useEffect(() => { fetch(`${API}/api/regions`).then((r) => r.json()).then((d) => setOkruzi(d.okruzi || [])).catch(() => {}); }, []);
   useEffect(() => { fetch(`${API}/api/behavior_cohort`).then((r) => r.json()).then(setCohort).catch(() => {}); }, []);
@@ -189,6 +196,16 @@ export default function GraphExplorer() {
     if (view === 'directives' && !dirData) fetch(`${API}/api/directives?top=25`).then((r) => r.json()).then(setDirData).catch(() => {});
     if (view === 'shift_chat' && !scData) fetch(`${API}/api/shift_chat`).then((r) => r.json()).then(setScData).catch(() => {});
     if (view === 'gamification' && !gmData) fetch(`${API}/api/gamification`).then((r) => r.json()).then(setGmData).catch(() => {});
+    if (view === 'regional_voter') {
+      if (!regData) fetch(`${API}/api/regional_operations`).then((r) => r.json()).then(setRegData).catch(() => {});
+      if (!kurirData) fetch(`${API}/api/voter_kurir`).then((r) => r.json()).then(setKurirData).catch(() => {});
+      if (!customData) fetch(`${API}/api/voter_custom`).then((r) => r.json()).then(setCustomData).catch(() => {});
+    }
+    if (view === 'tactical_ops') {
+      if (!tacData) fetch(`${API}/api/tactical_groups`).then((r) => r.json()).then(setTacData).catch(() => {});
+      if (!survData) fetch(`${API}/api/system_surveillance`).then((r) => r.json()).then(setSurvData).catch(() => {});
+      if (!multiData) fetch(`${API}/api/multiplatform_stats`).then((r) => r.json()).then(setMultiData).catch(() => {});
+    }
   }, [view]); // eslint-disable-line
   useEffect(() => {
     const upd = () => wrapRef.current && setDim({ w: wrapRef.current.offsetWidth, h: 640 });
@@ -425,10 +442,12 @@ export default function GraphExplorer() {
           <NavItem color="#2dd4bf" active={view === 'cascade'} onClick={() => setView('cascade')}>⏱ Kaskada (SS → teren)</NavItem>
           <NavItem color="#c084fc" active={view === 'shift_chat'} onClick={() => setView('shift_chat')}>💬 Dnevnik dežurstava (Chat)</NavItem>
           <NavItem color="#34d399" active={view === 'gamification'} onClick={() => setView('gamification')}>🎯 Kvote &amp; Bodovanje</NavItem>
+          <NavItem color="#38bdf8" active={view === 'tactical_ops'} onClick={() => setView('tactical_ops')}>👥 Taktičke divizije &amp; Nadzor</NavItem>
         </Section>
 
         <Section title="Voter infrastruktura">
           <NavItem color="#fb7185" active={view === 'geoip'} onClick={() => setView('geoip')}>🌍 Voter / GeoIP (Afrika)</NavItem>
+          <NavItem color="#fb7185" active={view === 'regional_voter'} onClick={() => setView('regional_voter')}>📡 Prekogranični voter &amp; Relay</NavItem>
         </Section>
 
         <Section title="Filteri">
@@ -1214,6 +1233,191 @@ export default function GraphExplorer() {
           <div style={{ color: '#fbbf24', fontSize: '0.66rem', marginTop: '0.5rem', lineHeight: 1.4 }}>
             ⚠ Fer play: {gmData.fair_play}
           </div>
+        </div>
+      )}
+
+      {view === 'regional_voter' && !detail && !pathInfo && regData && regData.countries && (
+        <div style={widePanel}>
+          <div style={{ fontWeight: 600, color: 'var(--text-main)' }}>📡 Prekogranični voter &amp; Relay</div>
+          <div style={{ color: 'var(--text-muted)', fontSize: '0.72rem', margin: '0.3rem 0 0.5rem', lineHeight: 1.4 }}>
+            Operacija izvan Srbije (CG/BiH), namenska proxy mreža i relay nalozi na afričkim terminalima (K1–K3).
+          </div>
+          {(() => {
+            const cg = regData.countries.find((c) => c.country === 'CRNA GORA') || {};
+            const bih = regData.countries.find((c) => c.country === 'BIH') || {};
+            const px = regData.proxy || {};
+            const cards = [
+              ['Strani glasovi', (regData.foreign_votes || 0).toLocaleString('sr-RS'), `${Math.round((regData.foreign_share || 0) * 1000) / 10}% baze`, '#fb7185'],
+              ['Crna Gora', (cg.votes || 0).toLocaleString('sr-RS'), `${cg.portals || 0} portala`, '#fb7185'],
+              ['BiH', (bih.votes || 0).toLocaleString('sr-RS'), `${bih.portals || 0} portala`, '#fb7185'],
+              ['Proxy endpointi', (px.total || 0).toLocaleString('sr-RS'), `${px.distinct_ip || 0} IP · vijesti.me`, '#f59e0b'],
+              ['Relay mašine (strano)', (kurirData?.machines_foreign ?? '—'), `${kurirData?.accounts_total ?? '—'} naloga`, '#f59e0b'],
+            ];
+            return (
+              <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '0.6rem' }}>
+                {cards.map(([lbl, v, sub, col]) => (
+                  <div key={lbl} style={{ flex: '1 1 120px', minWidth: 110, padding: '0.45rem 0.6rem', border: `1px solid ${col}55`, borderRadius: 8, background: 'rgba(0,0,0,0.2)' }}>
+                    <div style={{ fontSize: '1.05rem', fontWeight: 700, color: col }}>{v}</div>
+                    <div style={{ fontSize: '0.64rem', color: 'var(--text-main)' }}>{lbl}</div>
+                    <div style={{ fontSize: '0.6rem', color: 'var(--text-muted)' }}>{sub}</div>
+                  </div>
+                ))}
+              </div>
+            );
+          })()}
+
+          {/* PORTALI */}
+          <div style={{ fontWeight: 600, fontSize: '0.8rem', color: '#fb7185', margin: '0.3rem 0 0.2rem' }}>Regionalni portali (glasovi)</div>
+          <table style={{ width: '100%', fontSize: '0.7rem', borderCollapse: 'collapse' }}>
+            <thead><tr style={{ color: 'var(--text-muted)', textAlign: 'left' }}><th>portal</th><th>država</th><th style={{ textAlign: 'right' }}>glasova</th><th style={{ textAlign: 'right' }}>kom.</th></tr></thead>
+            <tbody>
+              {regData.portals.filter((p) => p.country !== 'SRBIJA').slice(0, 10).map((p) => (
+                <tr key={p.portal} style={{ borderTop: '1px solid var(--glass-border)' }}>
+                  <td style={{ color: 'var(--text-main)' }}>{p.portal}</td>
+                  <td style={{ color: p.country === 'CRNA GORA' ? '#fb7185' : '#60a5fa' }}>{p.country === 'CRNA GORA' ? 'CG' : p.country === 'BIH' ? 'BiH' : p.country}</td>
+                  <td style={{ textAlign: 'right' }}>{(p.votes || 0).toLocaleString('sr-RS')}</td>
+                  <td style={{ textAlign: 'right', color: 'var(--text-muted)' }}>{(p.comments || 0).toLocaleString('sr-RS')}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <div style={{ fontSize: '0.68rem', color: 'var(--text-muted)', margin: '0.35rem 0', padding: '0.35rem 0.5rem', border: '1px solid rgba(245,158,11,0.35)', borderRadius: 6 }}>
+            🛡 Proxy mreža: <b style={{ color: '#f59e0b' }}>{(regData.proxy?.total || 0)}</b> endpointa na <b>{regData.proxy?.distinct_ip || 0}</b> IP — 100% rezervisano za <b>vijesti.me</b> (rotacija portova za zaobilaženje anti-bot zaštite).
+          </div>
+
+          {/* RELAY NALOZI */}
+          {kurirData && kurirData.top_machines && (<>
+            <div style={{ fontWeight: 600, fontSize: '0.8rem', color: '#fb7185', margin: '0.4rem 0 0.2rem' }}>Relay nalozi na terminalima (Afrika)</div>
+            {kurirData.top_machines.slice(0, 8).map((m) => (
+              <div key={m.racunar_id} style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.7rem', padding: '0.1rem 0', borderBottom: '1px solid var(--glass-border)' }}>
+                <span style={{ color: m.drzava === 'strano' ? '#fb7185' : 'var(--text-main)' }}>{m.drzava === 'strano' && '🌍 '}{m.lokacija || `#${m.racunar_id}`}</span>
+                <span style={{ color: 'var(--text-muted)' }}>{m.naloga} naloga</span>
+              </div>
+            ))}
+            <div style={{ fontSize: '0.66rem', color: 'var(--text-muted)', marginTop: '0.25rem' }}>
+              Temp-mail domeni: {(kurirData.temp_mail_domains || []).slice(0, 6).map((d) => d.domain).join(', ')}…
+            </div>
+            <div style={{ fontSize: '0.64rem', color: '#fbbf24', marginTop: '0.2rem' }}>⚠ Fer play: lozinke se NE izlažu; „kurir“ = relay nalog, NIJE portal Kurir.rs.</div>
+          </>)}
+
+          {/* HEADLESS JS */}
+          {customData && customData.actions && (<>
+            <div style={{ fontWeight: 600, fontSize: '0.8rem', color: '#fb7185', margin: '0.4rem 0 0.2rem' }}>Headless injekcija (JS/XPath) — {customData.exec_total} izvršenja</div>
+            {customData.actions.map((a) => (
+              <div key={a.id} style={{ marginBottom: '0.35rem' }}>
+                <div style={{ fontSize: '0.68rem', color: 'var(--text-main)' }}>🎯 <span style={{ color: '#60a5fa' }}>{a.link}</span></div>
+                <div style={{ fontSize: '0.62rem', color: 'var(--text-muted)' }}>{(a.techniques || []).join(' · ')} — {a.executions}× (strano {a.exec_foreign})</div>
+                <pre style={{ fontFamily: 'monospace', fontSize: '0.62rem', color: '#9ca3af', background: 'rgba(0,0,0,0.35)', border: '1px solid var(--glass-border)', borderRadius: 5, padding: '0.35rem 0.45rem', margin: '0.15rem 0 0', whiteSpace: 'pre-wrap', wordBreak: 'break-all' }}>{a.js_excerpt_redacted}</pre>
+              </div>
+            ))}
+          </>)}
+        </div>
+      )}
+
+      {view === 'tactical_ops' && !detail && !pathInfo && tacData && (
+        <div style={widePanel}>
+          <div style={{ fontWeight: 600, color: 'var(--text-main)' }}>👥 Taktičke divizije &amp; Nadzor</div>
+          <div style={{ display: 'flex', gap: '0.3rem', flexWrap: 'wrap', margin: '0.5rem 0 0.6rem' }}>
+            {[['groups', '👥 Grupe & Divizije'], ['surveillance', '🕵️ Nadzor & Uređaji'], ['arsenal', '🌐 Arsenal']].map(([k, lbl]) => (
+              <button key={k} onClick={() => setTacSubTab(k)}
+                style={{ padding: '0.3rem 0.6rem', borderRadius: 7, cursor: 'pointer', fontSize: '0.72rem', border: '1px solid var(--glass-border)', background: tacSubTab === k ? '#38bdf8' : 'transparent', color: tacSubTab === k ? '#0b1220' : 'var(--text-muted)', fontWeight: tacSubTab === k ? 700 : 400 }}>{lbl}</button>
+            ))}
+          </div>
+
+          {/* --- POD-TAB 1: GRUPE --- */}
+          {tacSubTab === 'groups' && (<>
+            <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', marginBottom: '0.4rem' }}>
+              {tacData.groups_total} internih grupa · {(tacData.memberships_total || 0).toLocaleString('sr-RS')} članstava (paralelna hijerarhija po funkciji/platformi).
+            </div>
+            <div style={{ fontWeight: 600, fontSize: '0.78rem', color: '#38bdf8', margin: '0.2rem 0' }}>TikTok divizija (abecedna podela)</div>
+            <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap', marginBottom: '0.4rem' }}>
+              {(tacData.groups || []).filter((g) => g.category === 'TikTok divizija').map((g) => (
+                <div key={g.id} style={{ flex: '1 1 140px', padding: '0.4rem 0.55rem', border: '1px solid #38bdf855', borderRadius: 8, background: 'rgba(0,0,0,0.2)' }}>
+                  <div style={{ fontSize: '0.74rem', color: 'var(--text-main)' }}>{g.naziv}</div>
+                  <div style={{ fontSize: '1rem', fontWeight: 700, color: '#38bdf8' }}>{g.members} <span style={{ fontSize: '0.6rem', color: 'var(--text-muted)' }}>aktivista</span></div>
+                </div>
+              ))}
+            </div>
+            <div style={{ fontWeight: 600, fontSize: '0.78rem', color: '#38bdf8', margin: '0.3rem 0 0.2rem' }}>Kategorije</div>
+            {(tacData.categories || []).map((c) => {
+              const mx = Math.max(1, ...tacData.categories.map((x) => x.members));
+              return (
+                <div key={c.category} style={{ marginBottom: '0.15rem' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.7rem' }}>
+                    <span style={{ color: 'var(--text-main)' }}>{c.category} <span style={{ color: 'var(--text-muted)', fontSize: '0.62rem' }}>({c.groups})</span></span>
+                    <span style={{ color: '#38bdf8' }}>{c.members}</span>
+                  </div>
+                  <div style={{ height: 4, background: 'var(--glass-border)', borderRadius: 2 }}><div style={{ width: `${(c.members / mx) * 100}%`, height: 4, background: '#38bdf8', borderRadius: 2 }} /></div>
+                </div>
+              );
+            })}
+            {Object.keys(tacData.key_group_members || {}).length > 0 && (<>
+              <div style={{ fontWeight: 600, fontSize: '0.78rem', color: '#38bdf8', margin: '0.4rem 0 0.2rem' }}>Ključne komandne grupe (članovi)</div>
+              {Object.entries(tacData.key_group_members).map(([gid, info]) => (
+                <div key={gid} style={{ marginBottom: '0.25rem' }}>
+                  <div style={{ fontSize: '0.7rem', color: 'var(--text-main)' }}>{info.naziv} <span style={{ color: 'var(--text-muted)' }}>({info.members.length})</span></div>
+                  <div style={{ fontSize: '0.64rem', color: 'var(--text-muted)' }}>{info.members.slice(0, 6).map((m) => m.ime + (m.opstina ? ` (${m.opstina})` : '')).join(' · ')}</div>
+                </div>
+              ))}
+            </>)}
+          </>)}
+
+          {/* --- POD-TAB 2: NADZOR --- */}
+          {tacSubTab === 'surveillance' && survData && (<>
+            <div style={{ fontWeight: 600, fontSize: '0.78rem', color: '#a78bfa', margin: '0.2rem 0 0.2rem' }}>🕵️ F12 „paranoja" (otvaranje DevTools)</div>
+            <div style={{ fontSize: '0.68rem', color: 'var(--text-muted)', marginBottom: '0.25rem' }}>
+              {survData.inspector?.records} zapisa / {survData.inspector?.distinct_operators} operatera · prozor {(survData.inspector?.from || '').slice(0, 10)}–{(survData.inspector?.to || '').slice(0, 10)} (korelacija s događajem, ne uzrok)
+            </div>
+            {(survData.inspector?.top_watched || []).slice(0, 8).map((t) => (
+              <div key={t.id} style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.7rem', padding: '0.1rem 0', borderBottom: '1px solid var(--glass-border)' }}>
+                <span style={{ color: 'var(--text-main)' }}>{t.ime}</span><span style={{ color: '#a78bfa' }}>{t.opened}×</span>
+              </div>
+            ))}
+            <div style={{ fontWeight: 600, fontSize: '0.78rem', color: '#a78bfa', margin: '0.4rem 0 0.2rem' }}>Hardverski profil ({(survData.devices?.records || 0).toLocaleString('sr-RS')} uređaja)</div>
+            {(survData.devices?.os || []).slice(0, 5).map((o) => {
+              const mx = Math.max(1, ...(survData.devices.os.map((x) => x.devices)));
+              return (
+                <div key={o.os} style={{ marginBottom: '0.12rem' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.7rem' }}><span style={{ color: 'var(--text-main)' }}>{o.os}</span><span style={{ color: 'var(--text-muted)' }}>{o.devices.toLocaleString('sr-RS')} · {o.operators} op</span></div>
+                  <div style={{ height: 4, background: 'var(--glass-border)', borderRadius: 2 }}><div style={{ width: `${(o.devices / mx) * 100}%`, height: 4, background: '#a78bfa', borderRadius: 2 }} /></div>
+                </div>
+              );
+            })}
+            <div style={{ fontSize: '0.68rem', color: 'var(--text-muted)', marginTop: '0.25rem' }}>
+              Multi-device: <b style={{ color: '#a78bfa' }}>{survData.devices?.operators_5plus_devices}</b> operatera sa 5+ uređaja. Deljeni uređaj (3+ op): {survData.devices?.shared_device_3plus_ops} <span style={{ color: '#fbbf24' }}>(farma preko deljenog param. nepotkrepljena)</span>.
+            </div>
+            <div style={{ fontWeight: 600, fontSize: '0.78rem', color: '#a78bfa', margin: '0.4rem 0 0.2rem' }}>SMS gateway „{survData.sms?.sender}"</div>
+            <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>
+              <b style={{ color: 'var(--text-main)' }}>{(survData.sms?.messages || 0).toLocaleString('sr-RS')}</b> poruka ({Math.round((survData.sms?.delivered_pct || 0) * 100)}% isporučeno) · 2FA {survData.sms?.type_2fa_codes?.toLocaleString('sr-RS')} · test {survData.sms?.type_test} · <span style={{ color: '#fbbf24' }}>telefoni/kodovi maskirani</span>
+            </div>
+          </>)}
+
+          {/* --- POD-TAB 3: ARSENAL --- */}
+          {tacSubTab === 'arsenal' && multiData && (<>
+            <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', marginBottom: '0.3rem' }}>
+              <b style={{ color: '#34d399' }}>{(multiData.total_accounts || 0).toLocaleString('sr-RS')}</b> naloga na {(multiData.platforms || []).length} platformi · <b style={{ color: '#34d399' }}>{(multiData.operators_3plus_networks || 0).toLocaleString('sr-RS')}</b> operatera na 3+ mreže ({(multiData.operators_4plus_networks || 0).toLocaleString('sr-RS')} na 4+).
+            </div>
+            <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap', marginBottom: '0.5rem' }}>
+              {(multiData.platforms || []).map((p) => (
+                <div key={p.platform} style={{ flex: '1 1 90px', padding: '0.4rem 0.5rem', border: '1px solid #34d39955', borderRadius: 8, background: 'rgba(0,0,0,0.2)' }}>
+                  <div style={{ fontSize: '0.95rem', fontWeight: 700, color: '#34d399' }}>{p.accounts.toLocaleString('sr-RS')}</div>
+                  <div style={{ fontSize: '0.64rem', color: 'var(--text-main)' }}>{p.platform}</div>
+                  <div style={{ fontSize: '0.58rem', color: 'var(--text-muted)' }}>{p.operators.toLocaleString('sr-RS')} op</div>
+                </div>
+              ))}
+            </div>
+            {multiData.instagram && (
+              <div style={{ fontSize: '0.68rem', color: 'var(--text-muted)', marginBottom: '0.35rem' }}>
+                📸 Instagram: {(multiData.instagram.tasks || 0).toLocaleString('sr-RS')} zadataka · {(multiData.instagram.comments || 0).toLocaleString('sr-RS')} komentara.
+              </div>
+            )}
+            <div style={{ fontWeight: 600, fontSize: '0.78rem', color: '#34d399', margin: '0.2rem 0 0.2rem' }}>Zvanična dežurstva ({(multiData.dezurstva_types || []).length})</div>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.25rem' }}>
+              {(multiData.dezurstva_types || []).map((d) => (
+                <span key={d} style={{ fontSize: '0.62rem', padding: '0.1rem 0.4rem', borderRadius: 4, background: 'rgba(52,211,153,0.12)', color: '#34d399' }}>{d}</span>
+              ))}
+            </div>
+          </>)}
         </div>
       )}
 
