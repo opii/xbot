@@ -21,9 +21,11 @@ const METRICS = {
   lead: { field: 'lead_score', base: 0.3, norm: 0.72, label: 'Lider — prvi na meti' },
   template: { field: 'template_frac', base: 0, norm: 0.6, label: 'Deljeni šabloni (konzerviran tekst)' },
   reg: { field: 'reg_score', base: 0, norm: 0.5, label: 'Regularnost ritma' },
+  farm: { field: 'farm_ratio', base: 0, norm: 0.45, label: 'Serverska farma (Inđija/SBB)' },
 };
 const metricColor = (v, m) => operatorColorN(((v || 0) - m.base) / (m.norm - m.base));
 const ROLE_COLOR = { 'Pojačivač': '#60a5fa', 'Odgovarač': '#fbbf24', 'Mešovit': '#94a3b8' };
+const ARCH_COLOR = { 'Kancelarijski': '#60a5fa', 'Noćna smena': '#a78bfa', 'Vikend': '#fbbf24', 'Mešovit / 24-7': '#94a3b8' };
 const communityColor = (c) => (c == null ? '#64748b' : COMMUNITY_PALETTE[c % COMMUNITY_PALETTE.length]);
 const communityOf = (n, layer) => (layer === 'comments' ? n.cc_community : n.tw_community);
 const isOrganizer = (n, layer) => (layer === 'comments' ? n.cc_organizer : n.tw_organizer);
@@ -240,6 +242,7 @@ export default function GraphExplorer() {
   const nodeColor = (n) => {
     if (n.type === 'operator') {
       if (view === 'roles') return ROLE_COLOR[n.role] || '#64748b';
+      if (view === 'shifts') return ARCH_COLOR[n.shift_archetype] || '#64748b';
       if (view === 'behav') return metricColor(n[METRICS[behavMetric].field], METRICS[behavMetric]);
       if (view === 'master') return operatorColorN(n.master || 0);
       if (view === 'organizers') return communityColor(communityOf(n, layer));
@@ -313,7 +316,8 @@ export default function GraphExplorer() {
   };
 
   const colorLegend = view === 'roles' ? 'boja = uloga: ● pojačivač ● odgovarač ● mešovit'
-    : view === 'organizers' ? 'boja = zajednica · ★ centroid'
+    : view === 'shifts' ? 'boja = smena: ● kancelarijski ● noćni ● vikend ● mešovit'
+      : view === 'organizers' ? 'boja = zajednica · ★ centroid'
       : view === 'master' ? 'boja = master skor (oba sloja)'
       : view === 'behav' ? `boja = ${METRICS[behavMetric].label}`
         : view === 'bursts' ? 'operateri jedne kampanje oko mete'
@@ -340,6 +344,7 @@ export default function GraphExplorer() {
         <Section title="Pogled">
           <NavItem active={view === 'overview'} onClick={() => setView('overview')}>Pregled — povezanost</NavItem>
           <NavItem active={view === 'roles'} onClick={() => setView('roles')}>Uloge (pojačivač/odgovarač)</NavItem>
+          <NavItem active={view === 'shifts'} onClick={() => setView('shifts')}>Smene (kancelarijski/noćni/vikend)</NavItem>
           <NavItem active={view === 'organizers'} color="#fde047" onClick={() => setView('organizers')}>★ Organizatori — zajednice</NavItem>
           <NavItem active={view === 'master'} color="#ef4444" onClick={() => setView('master')}>⚑ Master — oba sloja</NavItem>
         </Section>
@@ -482,8 +487,21 @@ export default function GraphExplorer() {
       {detail && detail.type === 'operator' && (
         <div style={panelStyle}>
           <div style={{ fontSize: '1.05rem', fontWeight: 600, color: 'var(--text-main)' }}>{detail.label}</div>
-          <div style={{ color: 'var(--text-muted)', fontSize: '0.82rem', marginBottom: '0.8rem' }}>
+          <div style={{ color: 'var(--text-muted)', fontSize: '0.82rem', marginBottom: '0.5rem' }}>
             {[detail.opstina, detail.okrug, detail.region].filter(Boolean).join(' · ') || 'lokacija nepoznata'}
+          </div>
+          <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap', marginBottom: '0.8rem' }}>
+            {detail.shift_archetype && (
+              <span style={{ fontSize: '0.72rem', padding: '0.15rem 0.5rem', borderRadius: 6, background: 'rgba(0,0,0,0.25)', color: ARCH_COLOR[detail.shift_archetype] || 'var(--text-muted)', border: `1px solid ${ARCH_COLOR[detail.shift_archetype] || 'var(--glass-border)'}` }}>
+                🕑 {detail.shift_archetype}
+              </span>
+            )}
+            {detail.farm_ratio > 0 && detail.farm_machine && (
+              <span style={{ fontSize: '0.72rem', padding: '0.15rem 0.5rem', borderRadius: 6, background: 'rgba(0,0,0,0.25)', color: '#f97316', border: '1px solid #f97316' }}
+                title={`${Math.round(detail.farm_ratio * 100)}% akcija preko namenske mašine`}>
+                ⚙ Serverska farma · {detail.farm_machine} {Math.round(detail.farm_ratio * 100)}%
+              </span>
+            )}
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.5rem', fontSize: '0.85rem' }}>
             <Stat label="Akcija" v={detail.actions} />
@@ -669,7 +687,9 @@ function ListPanel({ view, behavMetric, layer, nodes, onPick }) {
         : behavMetric === 'night' ? 'Udeo akcija u noćnim satima (00–05h).'
           : behavMetric === 'lead' ? 'Koliko često operater PRVI reaguje na metu (1 = stalno prvi). Pokretači kampanja.'
             : behavMetric === 'template' ? 'Udeo komentara sa tekstom koji dele i drugi (konzervirana poruka). Veze = deljeni šabloni.'
-              : 'Udeo akcija < 2 min od objave zadatka.';
+              : behavMetric === 'farm' ? 'Udeo akcija preko namenske serverske mašine (KANCELARIJASBB / INDJIJA1 / INDJIJA2).'
+                : behavMetric === 'reg' ? 'Pravilnost razmaka između akcija (viši = bot-like).'
+                  : 'Udeo akcija < 2 min od objave zadatka.';
     valOf = (n) => n[m.field] || 0;
     colorOf = (n) => metricColor(n[m.field], m);
   }

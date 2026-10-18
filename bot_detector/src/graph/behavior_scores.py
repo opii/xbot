@@ -95,6 +95,32 @@ def run(drv=None):
     cur.execute("SELECT count(*) FROM target_bursts")
     print(f"  kampanja (>=8 operatera): {cur.fetchone()[0]:,}", flush=True)
 
+    print("Računanje farme (serverske mašine) + radnog vremena ...", flush=True)
+    # farma = akcije preko namenske mašine (tuka_program_racunar);
+    # radno vreme = pon–pet 08–15h; vikend = sub/ned.
+    cur.execute("""
+        SELECT tuka_korisnik_id, count(*) total,
+               count(*) FILTER (WHERE tuka_program_racunar <> '') farm_n,
+               mode() WITHIN GROUP (ORDER BY NULLIF(tuka_program_racunar, '')) machine,
+               count(*) FILTER (WHERE extract(dow FROM tuka_datum::date) BETWEEN 1 AND 5
+                                AND substr(tuka_vreme, 12, 2)::int BETWEEN 8 AND 15) work,
+               count(*) FILTER (WHERE extract(dow FROM tuka_datum::date) IN (0, 6)) weekend
+        FROM arhiva_twitter_unos_korisnici_akcije GROUP BY 1
+    """)
+    fw = {}
+    for op, tot, fn, mach, work, wknd in cur.fetchall():
+        tot = tot or 1
+        fw[op] = (round(fn / tot, 4), mach, round(work / tot, 4), round(wknd / tot, 4))
+
+    def archetype(work_pct, wknd, night):
+        if work_pct >= 0.75 and wknd < 0.1:
+            return "Kancelarijski"
+        if night >= 0.25:
+            return "Noćna smena"
+        if wknd >= 0.40:
+            return "Vikend"
+        return "Mešovit / 24-7"
+
     ln24 = math.log(24)
     rows = []
     for op, hrs in hours.items():
@@ -110,8 +136,11 @@ def run(drv=None):
         # prigušenje po pouzdanosti: malo akcija = nepouzdana procena -> ka 0
         conf = min(1.0, total / 50.0)
         score = (W_NIGHT * night + W_ENTROPY * ent + W_SHORTLAT * sl) * conf
+        farm_r, mach, work_pct, wknd = fw.get(op, (0.0, None, 0.0, 0.0))
         rows.append({"id": op, "auto": round(score, 4), "night": round(night, 4),
-                     "ent": round(ent, 4), "sl": round(sl, 4)})
+                     "ent": round(ent, 4), "sl": round(sl, 4),
+                     "farm": farm_r, "mach": mach, "work": work_pct, "wknd": wknd,
+                     "arch": archetype(work_pct, wknd, night)})
 
     print("Računanje lead-lag skora (ko prvi reaguje) ...", flush=True)
     # Po meti (5..500 operatera) rangiramo po vremenu prve akcije; lead = prosek
@@ -205,13 +234,18 @@ def run(drv=None):
 
     print(f"Upis auto_score za {len(rows):,} operatera ...", flush=True)
     with drv.session() as s:
-        s.run("MATCH (o:Operator) SET o.auto_score=0, o.dup_ratio=0, o.lead_score=0, o.lead_n=0")
+        s.run("MATCH (o:Operator) SET o.auto_score=0, o.dup_ratio=0, o.lead_score=0, "
+              "o.lead_n=0, o.farm_ratio=0, o.farm_machine=null, o.work_hours_pct=0, "
+              "o.weekend_ratio=0, o.shift_archetype=null")
         for i in range(0, len(rows), 5000):
             s.run("""
                 UNWIND $rows AS r
                 MATCH (o:Operator {id: r.id})
                 SET o.auto_score=r.auto, o.night_ratio=r.night,
-                    o.hour_entropy=r.ent, o.short_lat_frac=r.sl
+                    o.hour_entropy=r.ent, o.short_lat_frac=r.sl,
+                    o.farm_ratio=r.farm, o.farm_machine=r.mach,
+                    o.work_hours_pct=r.work, o.weekend_ratio=r.wknd,
+                    o.shift_archetype=r.arch
             """, rows=rows[i:i + 5000])
         for i in range(0, len(dup_rows), 5000):
             s.run("""

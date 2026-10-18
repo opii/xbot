@@ -101,6 +101,11 @@ def op_node(rec):
         "template_frac": rec.get("template_frac") or 0,
         "reg_score": rec.get("reg_score") or 0,
         "role": rec.get("role"),
+        "farm_ratio": rec.get("farm_ratio") or 0,
+        "farm_machine": rec.get("farm_machine"),
+        "work_hours_pct": rec.get("work_hours_pct") or 0,
+        "weekend_ratio": rec.get("weekend_ratio") or 0,
+        "shift_archetype": rec.get("shift_archetype"),
         # veličina čvora raste logaritamski sa brojem akcija (~2..7)
         "val": round(2 + 1.1 * math.log10((rec.get("actions") or 0) + 1), 2),
     }
@@ -533,7 +538,7 @@ def behavior(op_id: int):
 BEHAV_METRIC = {
     "auto": "auto_score", "night": "night_ratio", "short_lat": "short_lat_frac",
     "entropy": "hour_entropy", "dup": "dup_ratio", "lead": "lead_score",
-    "template": "template_frac", "reg": "reg_score",
+    "template": "template_frac", "reg": "reg_score", "farm": "farm_ratio",
 }
 
 
