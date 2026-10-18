@@ -95,6 +95,7 @@ def op_node(rec):
         "night_ratio_g": rec.get("night_ratio") or 0,
         "hour_entropy": rec.get("hour_entropy") or 0,
         "short_lat_frac": rec.get("short_lat_frac") or 0,
+        "dup_ratio_g": rec.get("dup_ratio") or 0,
         # veličina čvora raste logaritamski sa brojem akcija (~2..7)
         "val": round(2 + 1.1 * math.log10((rec.get("actions") or 0) + 1), 2),
     }
@@ -524,14 +525,23 @@ def behavior(op_id: int):
     }
 
 
+BEHAV_METRIC = {
+    "auto": "auto_score", "night": "night_ratio", "short_lat": "short_lat_frac",
+    "entropy": "hour_entropy", "dup": "dup_ratio",
+}
+
+
 @app.get("/api/behavior_top")
-def behavior_top(layer: str = "twitter", limit: int = Query(40, le=150)):
-    """Operateri sa najvišim skorom automatizacije + veze među njima."""
+def behavior_top(layer: str = "twitter", limit: int = Query(40, le=150),
+                 metric: str = "auto"):
+    """Operateri rangirani po izabranoj bihevioralnoj metrici + veze među njima.
+    metric: auto | night | short_lat | entropy | dup"""
+    prop = BEHAV_METRIC.get(metric, "auto_score")
     rel, ltype = (("CO_COMMENTED", "co_commented") if layer == "comments"
                   else ("CO_ACTED", "co_acted"))
     q = f"""
-    MATCH (o:Operator) WHERE o.auto_score > 0
-    WITH o ORDER BY o.auto_score DESC LIMIT $limit
+    MATCH (o:Operator) WHERE o.{prop} > 0
+    WITH o ORDER BY o.{prop} DESC LIMIT $limit
     WITH collect(o) AS top
     UNWIND top AS o
     OPTIONAL MATCH (o)-[c:{rel}]-(p:Operator) WHERE p IN top

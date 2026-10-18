@@ -86,9 +86,19 @@ def run(drv=None):
         rows.append({"id": op, "auto": round(score, 4), "night": round(night, 4),
                      "ent": round(ent, 4), "sl": round(sl, 4)})
 
+    print("Računanje udela duplikata komentara ...", flush=True)
+    cur.execute("""
+        SELECT vkk_korisnik_id, count(*), count(DISTINCT vkk_komentar)
+        FROM arhiva_vesti_korisnici_komentari
+        WHERE vkk_simulacija = 0 AND vkk_komentar <> ''
+        GROUP BY 1
+    """)
+    dup_rows = [{"id": op, "dup": round(1 - (dist / tot), 4) if tot else 0.0}
+                for op, tot, dist in cur.fetchall()]
+
     print(f"Upis auto_score za {len(rows):,} operatera ...", flush=True)
     with drv.session() as s:
-        s.run("MATCH (o:Operator) SET o.auto_score = 0")
+        s.run("MATCH (o:Operator) SET o.auto_score = 0, o.dup_ratio = 0")
         for i in range(0, len(rows), 5000):
             s.run("""
                 UNWIND $rows AS r
@@ -96,6 +106,11 @@ def run(drv=None):
                 SET o.auto_score=r.auto, o.night_ratio=r.night,
                     o.hour_entropy=r.ent, o.short_lat_frac=r.sl
             """, rows=rows[i:i + 5000])
+        for i in range(0, len(dup_rows), 5000):
+            s.run("""
+                UNWIND $rows AS r
+                MATCH (o:Operator {id: r.id}) SET o.dup_ratio = r.dup
+            """, rows=dup_rows[i:i + 5000])
         top = s.run("MATCH (o:Operator) WHERE o.auto_score > 0 "
                     "RETURN o.ime AS ime, o.auto_score AS a "
                     "ORDER BY a DESC LIMIT 5").data()
