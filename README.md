@@ -9,6 +9,8 @@ Umesto da pogađa "da li je nalog bot", Cacix **mapira postojeću koordinaciju**
 meri ponašanje: ko sa kim deli iste mete, ko su organizatori (centralni čvorovi) i
 kako izgleda vremenski obrazac aktivnosti (ljudski rad u smenama vs automatizacija).
 
+📄 **Master OSINT Whitepaper (sveobuhvatna sinteza, publikabilno):**
+[`docs/CACIX_MASTER_OSINT_WHITEPAPER.md`](docs/CACIX_MASTER_OSINT_WHITEPAPER.md)
 📄 **Detaljna dokumentacija (grafovi + bihevioralna analiza):**
 <https://claude.ai/code/artifact/f44e1f1b-8ec4-4b85-bb11-19f820042143>
 🤖 Orijentir za AI agente: [`AGENTS.md`](AGENTS.md)
