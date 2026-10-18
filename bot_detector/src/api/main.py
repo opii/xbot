@@ -811,6 +811,31 @@ def regions():
     return {"okruzi": out}
 
 
+@app.get("/api/geo")
+def geo():
+    """Rangiranje okruga i opština po broju operatera i akcija (sve operatere)."""
+    with driver.session() as s:
+        ok = {r["okrug"]: {"okrug": r["okrug"], "operators": r["ops"],
+                           "actions": r["act"] or 0, "opstine": []}
+              for r in s.run("""
+                MATCH (o:Operator) WHERE o.okrug IS NOT NULL
+                RETURN o.okrug AS okrug, count(o) AS ops, sum(o.actions) AS act
+              """)}
+        for r in s.run("""
+            MATCH (o:Operator) WHERE o.okrug IS NOT NULL AND o.opstina IS NOT NULL
+            RETURN o.okrug AS okrug, o.opstina AS opstina,
+                   count(o) AS ops, sum(o.actions) AS act
+        """):
+            if r["okrug"] in ok:
+                ok[r["okrug"]]["opstine"].append(
+                    {"opstina": r["opstina"], "operators": r["ops"],
+                     "actions": r["act"] or 0})
+    out = sorted(ok.values(), key=lambda x: -x["actions"])
+    for o in out:
+        o["opstine"].sort(key=lambda x: -x["actions"])
+    return {"okruzi": out}
+
+
 @app.get("/api/stats")
 def stats():
     with driver.session() as s:

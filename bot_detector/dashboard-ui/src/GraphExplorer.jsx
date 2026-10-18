@@ -32,6 +32,18 @@ const metricColor = (v, m) => operatorColorN(((v || 0) - m.base) / (m.norm - m.b
 const ROLE_COLOR = { 'Pojačivač': '#60a5fa', 'Odgovarač': '#fbbf24', 'Mešovit': '#94a3b8' };
 const ARCH_COLOR = { 'Kancelarijski': '#60a5fa', 'Noćna smena': '#a78bfa', 'Vikend': '#fbbf24', 'Mešovit / 24-7': '#94a3b8' };
 const communityColor = (c) => (c == null ? '#64748b' : COMMUNITY_PALETTE[c % COMMUNITY_PALETTE.length]);
+// paleta za okruge (stabilan heš imena → boja)
+const GEO_PALETTE = [
+  '#60a5fa', '#f472b6', '#34d399', '#fbbf24', '#a78bfa', '#fb7185', '#22d3ee',
+  '#a3e635', '#f97316', '#e879f9', '#4ade80', '#38bdf8', '#facc15', '#2dd4bf',
+  '#c084fc', '#f87171', '#818cf8', '#fcd34d', '#5eead4', '#fda4af',
+];
+const geoColor = (okrug) => {
+  if (!okrug) return '#64748b';
+  let h = 0;
+  for (let i = 0; i < okrug.length; i++) h = (h * 31 + okrug.charCodeAt(i)) >>> 0;
+  return GEO_PALETTE[h % GEO_PALETTE.length];
+};
 const communityOf = (n, layer) => (layer === 'comments' ? n.cc_community : n.tw_community);
 const isOrganizer = (n, layer) => (layer === 'comments' ? n.cc_organizer : n.tw_organizer);
 
@@ -97,6 +109,7 @@ export default function GraphExplorer() {
   const [behavMetric, setBehavMetric] = useState('auto');
   const [burstList, setBurstList] = useState([]);
   const [burstInfo, setBurstInfo] = useState(null);
+  const [geoData, setGeoData] = useState([]);
 
   const merge = useCallback((incoming) => {
     setData((prev) => {
@@ -147,6 +160,7 @@ export default function GraphExplorer() {
   useEffect(() => { if (view === 'bursts') loadBursts(); else loadView(view); }, [layer]); // eslint-disable-line
   useEffect(() => { fetch(`${API}/api/regions`).then((r) => r.json()).then((d) => setOkruzi(d.okruzi || [])).catch(() => {}); }, []);
   useEffect(() => { fetch(`${API}/api/behavior_cohort`).then((r) => r.json()).then(setCohort).catch(() => {}); }, []);
+  useEffect(() => { fetch(`${API}/api/geo`).then((r) => r.json()).then((d) => setGeoData(d.okruzi || [])).catch(() => {}); }, []);
   useEffect(() => {
     const upd = () => wrapRef.current && setDim({ w: wrapRef.current.offsetWidth, h: 640 });
     upd(); window.addEventListener('resize', upd);
@@ -250,6 +264,7 @@ export default function GraphExplorer() {
       if (view === 'roles') return ROLE_COLOR[n.role] || '#64748b';
       if (view === 'shifts') return ARCH_COLOR[n.shift_archetype] || '#64748b';
       if (view === 'portals') return PROLE_COLOR[n.portal_role] || '#64748b';
+      if (view === 'geo') return geoColor(n.okrug);
       if (view === 'behav') return metricColor(n[METRICS[behavMetric].field], METRICS[behavMetric]);
       if (view === 'master') return operatorColorN(n.master || 0);
       if (view === 'organizers') return communityColor(communityOf(n, layer));
@@ -324,7 +339,8 @@ export default function GraphExplorer() {
     } finally { setBusy(false); }
   };
 
-  const colorLegend = view === 'roles' ? 'boja = uloga: ● pojačivač ● odgovarač ● mešovit'
+  const colorLegend = view === 'geo' ? 'boja = upravni okrug'
+    : view === 'roles' ? 'boja = uloga: ● pojačivač ● odgovarač ● mešovit'
     : view === 'shifts' ? 'boja = smena: ● kancelarijski ● noćni ● vikend ● mešovit'
       : view === 'portals' ? 'boja = portal: ● infiltrator (kritički) ● podrška (tabloidi) ● mešovit'
       : view === 'organizers' ? 'boja = zajednica · ★ centroid'
@@ -353,6 +369,7 @@ export default function GraphExplorer() {
 
         <Section title="Pogled">
           <NavItem active={view === 'overview'} onClick={() => setView('overview')}>Pregled — povezanost</NavItem>
+          <NavItem active={view === 'geo'} onClick={() => setView('geo')}>Geografija (okruzi)</NavItem>
           <NavItem active={view === 'roles'} onClick={() => setView('roles')}>Uloge (pojačivač/odgovarač)</NavItem>
           <NavItem active={view === 'shifts'} onClick={() => setView('shifts')}>Smene (kancelarijski/noćni/vikend)</NavItem>
           <NavItem active={view === 'portals'} onClick={() => setView('portals')}>Portali (infiltrator/podrška)</NavItem>
@@ -632,6 +649,29 @@ export default function GraphExplorer() {
       {!detail && !pathInfo && ['organizers', 'master', 'behav'].includes(view) && (
         <div style={panelStyle}>
           <ListPanel view={view} behavMetric={behavMetric} layer={layer} nodes={data.nodes} onPick={onNodeClick} />
+        </div>
+      )}
+
+      {view === 'geo' && !detail && !pathInfo && (
+        <div style={panelStyle}>
+          <div style={{ fontWeight: 600, color: 'var(--text-main)' }}>Geografija — okruzi</div>
+          <div style={{ color: 'var(--text-muted)', fontSize: '0.78rem', margin: '0.3rem 0 0.7rem' }}>
+            Upravni okruzi po aktivnosti (operateri · akcije). Klik = filtriraj graf na okrug.
+          </div>
+          {geoData.map((o) => (
+            <div key={o.okrug}>
+              <div onClick={() => { setFOkrug(o.okrug === fOkrug ? '' : o.okrug); setViewState('geo'); loadView('geo', behavMetric, o.okrug === fOkrug ? '' : o.okrug, ''); }}
+                style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0.3rem 0', borderBottom: '1px solid var(--glass-border)', cursor: 'pointer', fontSize: '0.85rem', background: o.okrug === fOkrug ? 'rgba(255,255,255,0.05)' : 'transparent' }}>
+                <span><span style={{ color: geoColor(o.okrug) }}>●</span> {o.okrug}</span>
+                <span style={{ color: 'var(--text-muted)' }}>{o.operators} · {(o.actions || 0).toLocaleString('sr-RS')}</span>
+              </div>
+              {o.okrug === fOkrug && o.opstine.slice(0, 8).map((op) => (
+                <div key={op.opstina} style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.76rem', padding: '0.1rem 0 0.1rem 1rem', color: 'var(--text-muted)' }}>
+                  <span>{op.opstina}</span><span>{op.operators} · {(op.actions || 0).toLocaleString('sr-RS')}</span>
+                </div>
+              ))}
+            </div>
+          ))}
         </div>
       )}
 

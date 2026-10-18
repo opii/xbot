@@ -147,7 +147,7 @@ Interfejs je **levi meni** (Sloj / Pogled / Bihevioralna analiza / Kampanje /
 Filteri / Alatke):
 
 - **Sloj:** *Tviter / Komentari* menja mrežu, bojenje i razlistavanje.
-- **Pogled:** Pregled (povezanost) · **Uloge** (Pojačivač/Odgovarač/Mešovit) ·
+- **Pogled:** Pregled (povezanost) · **Geografija** (okruzi) · **Uloge** (Pojačivač/Odgovarač/Mešovit) ·
   **★ Organizatori** (zajednice, centroidi) · **⚑ Master** (oba sloja).
 - **Bihevioralna analiza** (boji i rangira graf po): skor automatizacije · noćna
   aktivnost · kratke latencije · duplikati komentara · **Lider — prvi na meti** ·
