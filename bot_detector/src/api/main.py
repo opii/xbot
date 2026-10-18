@@ -138,7 +138,7 @@ def overview(limit: int = Query(60, le=200),
     WITH collect(o) AS top
     UNWIND top AS o
     OPTIONAL MATCH (o)-[c:{rel}]-(p:Operator) WHERE p IN top
-    RETURN o AS node, collect(DISTINCT {{other:p.id, shared:c.shared}}) AS edges
+    RETURN o AS node, collect(DISTINCT {{other:p.id, shared:c.shared, backbone:c.backbone}}) AS edges
     """
     nodes, links, seen = [], [], set()
     with driver.session() as s:
@@ -155,7 +155,8 @@ def overview(limit: int = Query(60, le=200),
                     continue
                 seen.add(key)
                 links.append({"source": f"op:{a}", "target": f"op:{b}",
-                              "type": ltype, "shared": e["shared"]})
+                              "type": ltype, "shared": e["shared"],
+                              "backbone": e.get("backbone")})
     return {"nodes": nodes, "links": links}
 
 
@@ -201,13 +202,15 @@ def expand(op_id: int,
         with driver.session() as s:
             for r in s.run(
                 "MATCH (o:Operator {id:$id})-[c:CO_COMMENTED]-(p:Operator) "
-                "RETURN p, c.shared AS shared ORDER BY c.shared DESC LIMIT $lim",
+                "RETURN p, c.shared AS shared, c.backbone AS backbone "
+                "ORDER BY c.shared DESC LIMIT $lim",
                 id=op_id, lim=co_limit):
                 p = dict(r["p"])
                 nodes.append(op_node(p))
                 a, b = sorted((op_id, p["id"]))
                 links.append({"source": f"op:{a}", "target": f"op:{b}",
-                              "type": "co_commented", "shared": r["shared"]})
+                              "type": "co_commented", "shared": r["shared"],
+                              "backbone": r["backbone"]})
         for pr in op_portals(op_id, 10, frm, to):
             pid = f"portal:{pr['portal']}"
             nodes.append({"id": pid, "type": "portal", "label": pr["portal"], "val": 3})
@@ -227,13 +230,15 @@ def expand(op_id: int,
         if coacted:
             for r in s.run(
                 "MATCH (o:Operator {id:$id})-[c:CO_ACTED]-(p:Operator) "
-                "RETURN p, c.shared AS shared ORDER BY c.shared DESC LIMIT $lim",
+                "RETURN p, c.shared AS shared, c.backbone AS backbone "
+                "ORDER BY c.shared DESC LIMIT $lim",
                 id=op_id, lim=co_limit):
                 p = dict(r["p"])
                 nodes.append(op_node(p))
                 a, b = sorted((op_id, p["id"]))
                 links.append({"source": f"op:{a}", "target": f"op:{b}",
-                              "type": "co_acted", "shared": r["shared"]})
+                              "type": "co_acted", "shared": r["shared"],
+                              "backbone": r["backbone"]})
     if amplifies:
         for t in op_targets(op_id, tgt_limit, frm, to):
             nodes.append({"id": f"tgt:{t['handle']}", "type": "target",
@@ -560,7 +565,7 @@ def behavior_top(layer: str = "twitter", limit: int = Query(40, le=150),
     WITH collect(o) AS top
     UNWIND top AS o
     OPTIONAL MATCH (o)-[c:{rel}]-(p:Operator) WHERE p IN top
-    RETURN o AS node, collect(DISTINCT {{other:p.id, shared:c.shared}}) AS edges
+    RETURN o AS node, collect(DISTINCT {{other:p.id, shared:c.shared, backbone:c.backbone}}) AS edges
     """
     nodes, links, seen = [], [], set()
     with driver.session() as s:
@@ -575,7 +580,8 @@ def behavior_top(layer: str = "twitter", limit: int = Query(40, le=150),
                     continue
                 seen.add((a, b))
                 links.append({"source": f"op:{a}", "target": f"op:{b}",
-                              "type": ltype, "shared": e["shared"]})
+                              "type": ltype, "shared": e["shared"],
+                              "backbone": e.get("backbone")})
     return {"nodes": nodes, "links": links}
 
 
@@ -677,9 +683,9 @@ def crosslayer(limit: int = Query(40, le=150)):
     WITH collect(o) AS top, collect({id:o.id, ms:ms}) AS mss
     UNWIND top AS o
     OPTIONAL MATCH (o)-[c:CO_ACTED]-(p:Operator) WHERE p IN top
-    WITH top, mss, o, collect(DISTINCT {id:p.id, s:c.shared}) AS twe
+    WITH top, mss, o, collect(DISTINCT {id:p.id, s:c.shared, bb:c.backbone}) AS twe
     OPTIONAL MATCH (o)-[d:CO_COMMENTED]-(r:Operator) WHERE r IN top
-    RETURN o AS node, twe, collect(DISTINCT {id:r.id, s:d.shared}) AS cce,
+    RETURN o AS node, twe, collect(DISTINCT {id:r.id, s:d.shared, bb:d.backbone}) AS cce,
            [m IN mss WHERE m.id = o.id][0].ms AS ms
     """
     nodes, links, seen = [], [], set()
@@ -701,7 +707,8 @@ def crosslayer(limit: int = Query(40, le=150)):
                         continue
                     seen.add(key)
                     links.append({"source": f"op:{a}", "target": f"op:{b}",
-                                  "type": etype, "shared": e["s"]})
+                                  "type": etype, "shared": e["s"],
+                                  "backbone": e.get("bb")})
     return {"nodes": nodes, "links": links}
 
 
@@ -719,7 +726,7 @@ def organizers(layer: str = "twitter", limit: int = Query(40, le=150),
     WITH collect(o) AS top
     UNWIND top AS o
     OPTIONAL MATCH (o)-[c:{rel}]-(p:Operator) WHERE p IN top
-    RETURN o AS node, collect(DISTINCT {{other:p.id, shared:c.shared}}) AS edges
+    RETURN o AS node, collect(DISTINCT {{other:p.id, shared:c.shared, backbone:c.backbone}}) AS edges
     """
     nodes, links, seen = [], [], set()
     with driver.session() as s:
@@ -738,7 +745,8 @@ def organizers(layer: str = "twitter", limit: int = Query(40, le=150),
                     continue
                 seen.add((a, b))
                 links.append({"source": f"op:{a}", "target": f"op:{b}",
-                              "type": ltype, "shared": e["shared"]})
+                              "type": ltype, "shared": e["shared"],
+                              "backbone": e.get("backbone")})
     return {"nodes": nodes, "links": links, "layer": layer}
 
 

@@ -112,6 +112,44 @@ def process(drv, prefix, rel, lo, hi):
                   f"(zajednica {r['comm']})", flush=True)
 
 
+def disparity_backbone(drv, rel, alpha=0.05):
+    """Serrano multiscale disparity filter: na svaku vezu upisuje `backbone`.
+    Za čvor i stepena k, p_ij = w_ij/s_i, značajnost α_ij = (1-p_ij)^(k-1).
+    Veza je backbone ako je značajna (α<alpha) iz BAR JEDNOG kraja (OR pravilo);
+    čvor stepena 1 se čuva (jedina veza, periferija/male opštine)."""
+    with drv.session() as s:
+        edges = [(r["a"], r["b"], r["w"] or 1) for r in s.run(
+            f"MATCH (a:Operator)-[c:{rel}]-(b:Operator) WHERE a.id < b.id "
+            "RETURN a.id AS a, b.id AS b, c.shared AS w")]
+    if not edges:
+        print(f"[backbone {rel}] nema veza"); return
+    strength, degree = {}, {}
+    for a, b, w in edges:
+        strength[a] = strength.get(a, 0) + w
+        strength[b] = strength.get(b, 0) + w
+        degree[a] = degree.get(a, 0) + 1
+        degree[b] = degree.get(b, 0) + 1
+
+    def sig(node, w):  # α iz perspektive čvora; stepen 1 -> značajno (čuvaj)
+        k = degree[node]
+        if k <= 1:
+            return 0.0
+        p = w / strength[node]
+        return (1 - p) ** (k - 1)
+
+    rows = [{"a": a, "b": b, "bb": min(sig(a, w), sig(b, w)) < alpha}
+            for a, b, w in edges]
+    kept = sum(1 for r in rows if r["bb"])
+    with drv.session() as s:
+        for i in range(0, len(rows), 5000):
+            s.run(f"""
+                UNWIND $rows AS r
+                MATCH (a:Operator {{id:r.a}})-[c:{rel}]-(b:Operator {{id:r.b}})
+                SET c.backbone = r.bb
+            """, rows=rows[i:i + 5000])
+    print(f"[backbone {rel}] α<{alpha}: {kept:,}/{len(edges):,} veza", flush=True)
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--lo", type=float, default=5)

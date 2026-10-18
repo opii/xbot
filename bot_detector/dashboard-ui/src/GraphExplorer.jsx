@@ -80,6 +80,7 @@ export default function GraphExplorer() {
   const [show, setShow] = useState({ accounts: true, targets: true, coacted: true });
   const [minShared, setMinShared] = useState(0);
   const [hideOrphans, setHideOrphans] = useState(false);
+  const [backboneOnly, setBackboneOnly] = useState(false);
   const [frm, setFrm] = useState('');
   const [to, setTo] = useState('');
   const [pathMode, setPathMode] = useState(false);
@@ -270,6 +271,8 @@ export default function GraphExplorer() {
       if (l.type === 'amplifies' && !show.targets) return false;
       // klizač jačine: seče slabe koordinacione veze (šum / hairball)
       if (CO_TYPES.has(l.type) && (l.shared || 0) < minShared) return false;
+      // disparity backbone: samo statistički značajne veze (null = zadrži)
+      if (backboneOnly && CO_TYPES.has(l.type) && l.backbone === false) return false;
       return vis.has(nid(l.source)) && vis.has(nid(l.target));
     });
     if (hideOrphans) {
@@ -389,6 +392,10 @@ export default function GraphExplorer() {
           <input type="range" min="0" max={maxW} value={Math.min(minShared, maxW)} step={Math.max(1, Math.floor(maxW / 50))} onChange={(e) => setMinShared(+e.target.value)} style={{ width: '100%' }} />
           <label style={{ display: 'flex', gap: '0.35rem', alignItems: 'center', cursor: 'pointer', fontSize: '0.8rem', color: 'var(--text-muted)', padding: '0.1rem 0' }}>
             <input type="checkbox" checked={hideOrphans} onChange={(e) => setHideOrphans(e.target.checked)} /> sakrij izolovane
+          </label>
+          <label style={{ display: 'flex', gap: '0.35rem', alignItems: 'center', cursor: 'pointer', fontSize: '0.8rem', color: 'var(--text-muted)', padding: '0.1rem 0' }}
+            title="Serrano disparity filter: samo statistički značajne veze (α<0.05) — čist graf bez hairball-a, čuva male klastere">
+            <input type="checkbox" checked={backboneOnly} onChange={(e) => setBackboneOnly(e.target.checked)} /> samo backbone (disparity)
           </label>
         </Section>
 

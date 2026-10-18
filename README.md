@@ -134,7 +134,9 @@ Filteri / Alatke):
 - **Kampanje:** **⚡ Burstevi** — najsinhronizovaniji udari; klik → vremenska linija
   po minutu + lideri (ofset u sekundama).
 - **Filteri:** okrug / opština · period (mete/profil/izvoz) · tipovi čvorova ·
-  **klizač „min jačina veze"** i **„sakrij izolovane"** (sečenje šuma/hairball-a).
+  **klizač „min jačina veze"**, **„sakrij izolovane"** i **„samo backbone
+  (disparity)"** — Serrano multiscale filter koji ostavlja samo statistički
+  značajne veze (čist graf, čuva male klastere).
 - **Alatke:** pretraga · **Putanja** (klik na dva operatera, + diskriminativne
   spone) · Reset · izvoz JSON/CSV/klaster · učitaj.
 - **Bihevioralni panel** (klik na operatera): skor automatizacije sa percentilom,

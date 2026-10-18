@@ -99,7 +99,7 @@ sloja (CO_ACTED/CO_COMMENTED/CO_TEMPLATE), levi meni sa svim pogledima
 (Pregled/Uloge/Smene/Organizatori/Master), bihevioralne metrike (auto/night/
 short_lat/dup/lead/template/reg/farm) + pun profil sa bedževima (farma, arhetip),
 Kampanje (burstevi + timeline), putanje (+diskriminativne spone), denoising
-(klizač + sakrij izolovane), izvoz/uvoz.
+(klizač + sakrij izolovane + Serrano backbone), izvoz/uvoz. Veze nose `backbone`.
 Jedan `load_graph.py` gradi sve (graf + organizatori + skorovi + burstevi, ~3min).
 
 ## Ključni nalazi (zaključci)
@@ -166,8 +166,13 @@ Svi pragovi su izbori — menjaju gustinu/osetljivost; čitati rezultate uz njih
 - **Putanja**: `shortestPath` nad izabranim slojem; spone = konkretne deljene
   mete/vesti po skoku; `max_pop` filtrira masovne mete (diskriminativne spone).
 - **Burst**: po meti (≥8 op), nalet u prvih 10 min; sinhronija = peak10/ukupno.
-- **Denoising**: klizač „min jačina veze" (prag na `shared`, adaptivni max) +
-  „sakrij izolovane" — UI, uživo. (Planirano: Serrano disparity filter, vidi dole.)
+- **Denoising**: (a) klizač „min jačina veze" (prag na `shared`, adaptivni max) +
+  „sakrij izolovane" — UI, uživo; (b) **Serrano disparity filter** (backbone):
+  za čvor i stepena k, p_ij=w_ij/s_i, α_ij=(1−p_ij)^(k−1); veza je `backbone=true`
+  ako je α<0,05 iz BAR JEDNOG kraja (OR pravilo; stepen 1 se čuva). Računa se u
+  `detect_organizers.disparity_backbone()` za CO_ACTED/CO_COMMENTED/CO_TEMPLATE;
+  UI prekidač „samo backbone". Čuva male opštinske klastere, seče hairball
+  (CO_COMMENTED 131k→~12k značajnih).
 
 **Mapiranja/gotcha:** `tuka_akcija` 0=lajk,1=retvit,2=odgovor,3=citat (potvrđeno
 vs `izvestaj_dnevni`). `tuka_korisnik_id`→`korisnici.k_id` (akcije pripisane
@@ -195,10 +200,6 @@ granu u `nodeColor` (`view==='xxx'`), `NavItem` u sekciji POGLED, i granu u
 
 ## Roadmap (otvoreno / sledeće)
 
-- **#3 Serrano disparity filter** (dogovoreno, sledeće): statistički backbone —
-  za vezu p_ij = w_ij/s_i, α_ij = (1−p_ij)^(k−1); zadrži α<0,05; upiši
-  `backbone:true/false` na `CO_ACTED`/`CO_COMMENTED`; UI prekidač „samo backbone".
-  Čisti hairball a čuva male opštinske klastere (bolje od globalnog praga).
 - Sinhroni start/stop: preklopljeni dnevni timeline-ovi više operatera (kampanje
   kroz vreme).
 - Životni ciklus naloga: kad se nalozi prave/brišu u odnosu na kampanje.

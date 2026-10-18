@@ -283,9 +283,12 @@ def main():
     # --- 7. Detekcija organizatora (centroida) po sloju ---
     print("\nDetekcija organizatora (centroida) ...", flush=True)
     try:
-        from detect_organizers import process as detect_process, LAYERS
+        from detect_organizers import process as detect_process, disparity_backbone, LAYERS
         for prefix, rel in LAYERS.items():
             detect_process(drv, prefix, rel, 5, 95)
+        # Serrano disparity filter: statistički backbone na koordinacionim vezama
+        for rel in LAYERS.values():
+            disparity_backbone(drv, rel, 0.05)
     except Exception as e:  # noqa: BLE001
         print(f"  [upozorenje] detekcija preskočena: {e}", flush=True)
 
