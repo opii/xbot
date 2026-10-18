@@ -111,6 +111,7 @@ export default function GraphExplorer() {
   const [burstInfo, setBurstInfo] = useState(null);
   const [geoData, setGeoData] = useState([]);
   const [tmData, setTmData] = useState(null);
+  const [cvData, setCvData] = useState(null);
 
   const merge = useCallback((incoming) => {
     setData((prev) => {
@@ -155,15 +156,16 @@ export default function GraphExplorer() {
     setViewState(v); setMinShared(0);
     if (v === 'behav' && metric) setBehavMetric(metric);
     if (v === 'bursts') loadBursts();
-    else if (v === 'command') { setDetail(null); setPathInfo(null); setBurstInfo(null); }
+    else if (v === 'command' || v === 'command_voter') { setDetail(null); setPathInfo(null); setBurstInfo(null); }
     else loadView(v, metric || behavMetric);
   };
 
-  useEffect(() => { if (view === 'bursts') loadBursts(); else if (view !== 'command') loadView(view); }, [layer]); // eslint-disable-line
+  useEffect(() => { if (view === 'bursts') loadBursts(); else if (view !== 'command' && view !== 'command_voter') loadView(view); }, [layer]); // eslint-disable-line
   useEffect(() => { fetch(`${API}/api/regions`).then((r) => r.json()).then((d) => setOkruzi(d.okruzi || [])).catch(() => {}); }, []);
   useEffect(() => { fetch(`${API}/api/behavior_cohort`).then((r) => r.json()).then(setCohort).catch(() => {}); }, []);
   useEffect(() => { fetch(`${API}/api/geo`).then((r) => r.json()).then((d) => setGeoData(d.okruzi || [])).catch(() => {}); }, []);
   useEffect(() => { fetch(`${API}/api/taskmasters?limit=40`).then((r) => r.json()).then(setTmData).catch(() => {}); }, []);
+  useEffect(() => { fetch(`${API}/api/command_voter`).then((r) => r.json()).then(setCvData).catch(() => {}); }, []);
   useEffect(() => {
     const upd = () => wrapRef.current && setDim({ w: wrapRef.current.offsetWidth, h: 640 });
     upd(); window.addEventListener('resize', upd);
@@ -393,6 +395,7 @@ export default function GraphExplorer() {
 
         <Section title="Komanda">
           <NavItem color="#f43f5e" active={view === 'command'} onClick={() => setView('command')}>⌘ Task-masteri (ko zadaje)</NavItem>
+          <NavItem color="#f43f5e" active={view === 'command_voter'} onClick={() => setView('command_voter')}>⚖ Komandna odgovornost & Voter</NavItem>
         </Section>
 
         <Section title="Filteri">
@@ -698,6 +701,40 @@ export default function GraphExplorer() {
               </div>
               <div style={{ color: 'var(--text-muted)', fontSize: '0.72rem' }}>
                 {m.roles.length ? `koord: ${m.roles.join('/')}` : '—'}{m.okrug ? ` · ${m.okrug}` : ''}
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {view === 'command_voter' && !detail && !pathInfo && cvData && (
+        <div style={{ ...panelStyle, flex: '0 0 340px' }}>
+          <div style={{ fontWeight: 600, color: 'var(--text-main)' }}>⚖ Komandna odgovornost & Voter</div>
+          <div style={{ color: 'var(--text-muted)', fontSize: '0.72rem', margin: '0.3rem 0 0.3rem', lineHeight: 1.4 }}>
+            {cvData.count} nosilaca EKSPLICITNIH VOTER privilegija · {cvData.coordinators} koordinatora · {cvData.with_terminals} u opštini sa terminalima (🎰).
+          </div>
+          <div style={{ color: '#fbbf24', fontSize: '0.68rem', margin: '0 0 0.6rem', padding: '0.3rem 0.4rem', border: '1px solid rgba(251,191,36,0.4)', borderRadius: 6, lineHeight: 1.4 }}>
+            ⚠ Fer play: ovo su dodeljena prava + uloge + ko-lokacija + kreditirani glasovi — NE dokaz da je pojedinac pokrenuo afričke mašine (te veze u bazi nema). Nije pravna presuda.
+          </div>
+          {cvData.people.map((m) => (
+            <div key={m.id} onClick={() => m.in_graph && onNodeClick({ id: `op:${m.id}`, type: 'operator' })}
+              style={{ padding: '0.4rem 0', borderBottom: '1px solid var(--glass-border)', cursor: m.in_graph ? 'pointer' : 'default' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.85rem' }}>
+                <span style={{ color: m.centroid ? '#fde047' : 'var(--text-main)' }}>{m.centroid && '★ '}{m.ime}</span>
+                {m.votes_credited > 0 && <span style={{ color: '#ef4444' }}>{m.votes_credited.toLocaleString('sr-RS')} glasova</span>}
+              </div>
+              <div style={{ display: 'flex', gap: '0.3rem', flexWrap: 'wrap', marginTop: '0.2rem' }}>
+                {(m.privs || []).map((p) => (
+                  <span key={p} style={{ fontSize: '0.6rem', padding: '0.05rem 0.3rem', borderRadius: 4, background: 'rgba(239,68,68,0.15)', color: '#f87171' }}>
+                    {p.replace('IZVEŠTAJI_VOTER', 'IZVEŠTAJI').replace('VOTER_', '')}
+                  </span>
+                ))}
+                {m.coordinator && <span style={{ fontSize: '0.6rem', padding: '0.05rem 0.3rem', borderRadius: 4, background: 'rgba(96,165,250,0.15)', color: '#60a5fa' }}>KOORDINATOR</span>}
+              </div>
+              <div style={{ color: 'var(--text-muted)', fontSize: '0.7rem', marginTop: '0.1rem' }}>
+                {m.opstina || '?'}{m.shops_in_opstina > 0 && <span style={{ color: '#f59e0b' }}> 🎰{m.shops_in_opstina}</span>}
+                {m.max_org > 0 && ` · org ${m.max_org}`}
+                {m.voter_priority_tasks > 0 && ` · ${m.voter_priority_tasks} voter-prioritet zadataka`}
               </div>
             </div>
           ))}

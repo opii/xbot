@@ -233,6 +233,26 @@ vs `izvestaj_dnevni`). `tuka_korisnik_id`→`korisnici.k_id` (akcije pripisane
 operateru). Komentari: samo `vkk_simulacija=0` su realni. Handle mete se vadi iz
 `tu_link_tvita`. Neo4j Cypher alias traži `AS`. Decimal iz PG → `float()`.
 
+**Komanda ↔ voter ↔ kladionice (Faza A/B/C + odgovornost) — heuristike:**
+- **Task-master**: `vu_korisnik_id` iz `arhiva_vesti_unos`, rang po `count(*)`.
+  Koordinator = flag u `koordinatori_korisnici`/`okrug/opstina_koordinator`.
+  Komandni sloj = puno zadataka + nizak `max(tw_org,cc_org)` (zadaje, ne izvršava).
+  `#0` = automatika (`vu_automatika_kreirala`). `vu_voter_prioritet` je BINARNO (0/1).
+- **Kladionica→opština**: normalizovano ime opštine = prefiks `vr_naziv_ss` (granica
+  reči/cifre) + alias kvartova; ~16% match (ostalo CG/BiH/Afrika/brendovi).
+- **Kladionica↔centroid**: GEOGRAFSKO preklapanje (ista opština ima i terminal i
+  jakog operatera/centroida) — NIJE direktna veza.
+- **Voter automatizacija**: `knv_voter_vreme − knv_vreme_kreiranja`; medijana 111s,
+  217k glasova <10s = mašinsko pojačavanje.
+- **VOTER privilegije**: `korisnici_privilegije` ILIKE '%voter%' (IZVEŠTAJI_VOTER/
+  VOTER_DODATAK/VOTER_KOMENTARI); 61 osoba (109 dodela). Kreditirani glasovi =
+  `knv_voter_korisnik_id`.
+- **GRANICA ATRIBUCIJE (fer play, obavezno):** `voter_racunari` (mašine, uklj.
+  afričke) NEMA `korisnik_id`, a `knv_voter_*` nema referencu na mašinu/IP →
+  **NE postoji veza osoba↔mašina/IP**. Zato se „osoba pokreće afričke botove" NE
+  sme tvrditi. Atribucija = dodeljena prava + uloge + kreditirani glasovi +
+  ko-lokacija (vidi `docs/komandna_odgovornost_i_pravni_osnov.md`), NE pravna presuda.
+
 ## Kako proširiti (da naslednik nastavi)
 
 **Nova bihevioralna metrika** (obrazac, ~15 min):

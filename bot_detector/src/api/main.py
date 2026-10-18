@@ -836,6 +836,39 @@ def _load_taskmasters():
 TASKMASTERS = _load_taskmasters()
 
 
+def _load_command_voter():
+    try:
+        p = os.path.join(os.path.dirname(__file__), "..", "..", "data", "geo", "command_voter.json")
+        with open(p, encoding="utf-8") as f:
+            return json.load(f)
+    except Exception:  # noqa: BLE001
+        return {"people": [], "count": 0, "coordinators": 0, "with_terminals": 0}
+
+
+COMMAND_VOTER = _load_command_voter()
+
+
+@app.get("/api/command_voter")
+def command_voter(limit: int = Query(61, le=61)):
+    """Komandna odgovornost & Voter: nosioci VOTER privilegija + uloge + glasovi
+    + terminali u opštini. SAMO ono što podaci dokazuju (fer play)."""
+    people = []
+    for m in COMMAND_VOTER.get("people", [])[:limit]:
+        people.append({
+            "id": m["id"], "ime": m.get("ime") or f"#{m['id']}",
+            "privs": m.get("privs") or [], "coordinator": m.get("coordinator", False),
+            "centroid": m.get("centroid", False), "okrug": m.get("okrug"),
+            "opstina": m.get("opstina"), "shops_in_opstina": m.get("shops_in_opstina", 0),
+            "votes_credited": m.get("votes_credited", 0),
+            "voter_priority_tasks": m.get("voter_priority_tasks", 0),
+            "max_org": m.get("max_org", 0), "in_graph": m.get("max_org", 0) > 0 or m.get("centroid", False),
+        })
+    return {"count": COMMAND_VOTER.get("count", 0),
+            "coordinators": COMMAND_VOTER.get("coordinators", 0),
+            "with_terminals": COMMAND_VOTER.get("with_terminals", 0),
+            "people": people}
+
+
 @app.get("/api/taskmasters")
 def taskmasters(limit: int = Query(40, le=135)):
     """Kreatori zadataka za portale (komandni sloj) + koordinatorske uloge."""

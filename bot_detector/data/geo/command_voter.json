@@ -1,0 +1,1214 @@
+{
+  "count": 61,
+  "coordinators": 13,
+  "with_terminals": 25,
+  "people": [
+    {
+      "id": 265,
+      "privs": [
+        "VOTER_KOMENTARI"
+      ],
+      "ime": "Jelena Lavrnić",
+      "pozicija": "NULL",
+      "okrug": "Mačvanski okrug",
+      "opstina": "Šabac",
+      "ok_koord": 212,
+      "op_koord": 212,
+      "reg_koord": 60,
+      "votes_credited": 387488,
+      "voter_priority_tasks": 0,
+      "shops_in_opstina": 6,
+      "max_org": 0.08,
+      "centroid": false,
+      "coordinator": true
+    },
+    {
+      "id": 66,
+      "privs": [
+        "VOTER_KOMENTARI"
+      ],
+      "ime": "Miloš Jovanović",
+      "pozicija": "Koo okruga",
+      "okrug": "Beograd",
+      "opstina": "Beograd-Čukarica",
+      "ok_koord": 66,
+      "op_koord": 806,
+      "reg_koord": 59,
+      "votes_credited": 7698,
+      "voter_priority_tasks": 0,
+      "shops_in_opstina": 0,
+      "max_org": 0.305,
+      "centroid": false,
+      "coordinator": true
+    },
+    {
+      "id": 342,
+      "privs": [
+        "VOTER_KOMENTARI"
+      ],
+      "ime": "Tatjana Benak",
+      "pozicija": "Koo opštine",
+      "okrug": "Beograd",
+      "opstina": "Beograd-Zvezdara",
+      "ok_koord": 66,
+      "op_koord": 342,
+      "reg_koord": 59,
+      "votes_credited": 142504,
+      "voter_priority_tasks": 0,
+      "shops_in_opstina": 0,
+      "max_org": 0.064,
+      "centroid": false,
+      "coordinator": true
+    },
+    {
+      "id": 1457,
+      "privs": [
+        "VOTER_DODATAK",
+        "VOTER_KOMENTARI"
+      ],
+      "ime": "Jasmina Batoćanin",
+      "pozicija": "Koo opštine",
+      "okrug": "Nišavski okrug",
+      "opstina": "Aleksinac",
+      "ok_koord": null,
+      "op_koord": 1457,
+      "reg_koord": 315,
+      "votes_credited": 43620,
+      "voter_priority_tasks": 0,
+      "shops_in_opstina": 0,
+      "max_org": 0.018,
+      "centroid": false,
+      "coordinator": true
+    },
+    {
+      "id": 5764,
+      "privs": [
+        "IZVEŠTAJI_VOTER",
+        "VOTER_DODATAK",
+        "VOTER_KOMENTARI"
+      ],
+      "ime": "Nenad Stamenković",
+      "pozicija": "NULL",
+      "okrug": "Jablanički okrug",
+      "opstina": "Bojnik",
+      "ok_koord": 2009,
+      "op_koord": 415,
+      "reg_koord": 315,
+      "votes_credited": 0,
+      "voter_priority_tasks": 0,
+      "shops_in_opstina": 0,
+      "max_org": 0.054,
+      "centroid": false,
+      "coordinator": true
+    },
+    {
+      "id": 5453,
+      "privs": [
+        "VOTER_DODATAK",
+        "VOTER_KOMENTARI"
+      ],
+      "ime": "Dragana Anđelić",
+      "pozicija": "Koo opštine",
+      "okrug": "Moravički okrug",
+      "opstina": "Lučani",
+      "ok_koord": 350,
+      "op_koord": 5453,
+      "reg_koord": 60,
+      "votes_credited": 0,
+      "voter_priority_tasks": 0,
+      "shops_in_opstina": 2,
+      "max_org": 0.026,
+      "centroid": false,
+      "coordinator": true
+    },
+    {
+      "id": 2724,
+      "privs": [
+        "VOTER_DODATAK",
+        "VOTER_KOMENTARI"
+      ],
+      "ime": "Aleksandar Ljubinković",
+      "pozicija": "NULL",
+      "okrug": "Severnobački okrug",
+      "opstina": "Subotica",
+      "ok_koord": 2644,
+      "op_koord": 373,
+      "reg_koord": null,
+      "votes_credited": 0,
+      "voter_priority_tasks": 13,
+      "shops_in_opstina": 14,
+      "max_org": 0.022,
+      "centroid": false,
+      "coordinator": true
+    },
+    {
+      "id": 7542,
+      "privs": [
+        "VOTER_DODATAK",
+        "VOTER_KOMENTARI"
+      ],
+      "ime": "Marija Andrić",
+      "pozicija": "NULL",
+      "okrug": "Mačvanski okrug",
+      "opstina": "Šabac",
+      "ok_koord": 212,
+      "op_koord": 212,
+      "reg_koord": 60,
+      "votes_credited": 6489,
+      "voter_priority_tasks": 0,
+      "shops_in_opstina": 6,
+      "max_org": 0,
+      "centroid": false,
+      "coordinator": true
+    },
+    {
+      "id": 8288,
+      "privs": [
+        "VOTER_DODATAK",
+        "VOTER_KOMENTARI"
+      ],
+      "ime": "Marijana Stanković",
+      "pozicija": "NULL",
+      "okrug": "Braničevski okrug",
+      "opstina": "Veliko Gradište",
+      "ok_koord": null,
+      "op_koord": 5289,
+      "reg_koord": 472,
+      "votes_credited": 2,
+      "voter_priority_tasks": 0,
+      "shops_in_opstina": 0,
+      "max_org": 0.003,
+      "centroid": false,
+      "coordinator": true
+    },
+    {
+      "id": 59,
+      "privs": [
+        "IZVEŠTAJI_VOTER",
+        "VOTER_DODATAK",
+        "VOTER_KOMENTARI"
+      ],
+      "ime": "Lana Lana",
+      "pozicija": "NULL",
+      "okrug": "Beograd",
+      "opstina": "Beograd-Čukarica",
+      "ok_koord": 66,
+      "op_koord": 806,
+      "reg_koord": 59,
+      "votes_credited": 37,
+      "voter_priority_tasks": 0,
+      "shops_in_opstina": 0,
+      "max_org": 0,
+      "centroid": false,
+      "coordinator": true
+    },
+    {
+      "id": 737,
+      "privs": [
+        "VOTER_DODATAK",
+        "VOTER_KOMENTARI"
+      ],
+      "ime": "Valentina Vasić",
+      "pozicija": "NULL",
+      "okrug": "Kolubarski okrug",
+      "opstina": "Valjevo",
+      "ok_koord": null,
+      "op_koord": 8966,
+      "reg_koord": 60,
+      "votes_credited": 0,
+      "voter_priority_tasks": 0,
+      "shops_in_opstina": 3,
+      "max_org": 0,
+      "centroid": false,
+      "coordinator": true
+    },
+    {
+      "id": 9012,
+      "privs": [
+        "VOTER_DODATAK",
+        "VOTER_KOMENTARI"
+      ],
+      "ime": "Srđan Gašić",
+      "pozicija": "NULL",
+      "okrug": "Rasinski okrug",
+      "opstina": "Kruševac",
+      "ok_koord": 3057,
+      "op_koord": 3057,
+      "reg_koord": 322,
+      "votes_credited": 0,
+      "voter_priority_tasks": 0,
+      "shops_in_opstina": 9,
+      "max_org": 0,
+      "centroid": false,
+      "coordinator": true
+    },
+    {
+      "id": 9085,
+      "privs": [
+        "VOTER_DODATAK",
+        "VOTER_KOMENTARI"
+      ],
+      "ime": "Nataša Savić",
+      "pozicija": "NULL",
+      "okrug": "Pomoravski okrug",
+      "opstina": "Paraćin",
+      "ok_koord": null,
+      "op_koord": 4981,
+      "reg_koord": 322,
+      "votes_credited": 0,
+      "voter_priority_tasks": 0,
+      "shops_in_opstina": 0,
+      "max_org": 0,
+      "centroid": false,
+      "coordinator": true
+    },
+    {
+      "id": 2219,
+      "privs": [
+        "VOTER_KOMENTARI"
+      ],
+      "ime": "Žarko  Popović",
+      "pozicija": "NULL",
+      "okrug": "Zapadnobački okrug",
+      "opstina": "Odžaci",
+      "ok_koord": null,
+      "op_koord": null,
+      "reg_koord": null,
+      "votes_credited": 849162,
+      "voter_priority_tasks": 4,
+      "shops_in_opstina": 0,
+      "max_org": 0.0,
+      "centroid": false,
+      "coordinator": false
+    },
+    {
+      "id": 1371,
+      "privs": [
+        "VOTER_KOMENTARI"
+      ],
+      "ime": "Milica Radovanović",
+      "pozicija": "NULL",
+      "okrug": "Šumadijski okrug",
+      "opstina": "Rača",
+      "ok_koord": null,
+      "op_koord": null,
+      "reg_koord": null,
+      "votes_credited": 537705,
+      "voter_priority_tasks": 0,
+      "shops_in_opstina": 0,
+      "max_org": 0,
+      "centroid": false,
+      "coordinator": false
+    },
+    {
+      "id": 616,
+      "privs": [
+        "VOTER_KOMENTARI"
+      ],
+      "ime": "Marko Miletić",
+      "pozicija": "NULL",
+      "okrug": "Kolubarski okrug",
+      "opstina": "Lajkovac",
+      "ok_koord": null,
+      "op_koord": null,
+      "reg_koord": null,
+      "votes_credited": 205395,
+      "voter_priority_tasks": 0,
+      "shops_in_opstina": 0,
+      "max_org": 0.245,
+      "centroid": false,
+      "coordinator": false
+    },
+    {
+      "id": 4188,
+      "privs": [
+        "VOTER_KOMENTARI"
+      ],
+      "ime": "Jasmina Adamović",
+      "pozicija": "NULL",
+      "okrug": "Severnobanatski okrug",
+      "opstina": "Kikinda",
+      "ok_koord": null,
+      "op_koord": null,
+      "reg_koord": null,
+      "votes_credited": 0,
+      "voter_priority_tasks": 0,
+      "shops_in_opstina": 7,
+      "max_org": 0.385,
+      "centroid": true,
+      "coordinator": false
+    },
+    {
+      "id": 1166,
+      "privs": [
+        "VOTER_DODATAK",
+        "VOTER_KOMENTARI"
+      ],
+      "ime": "Olivera Savićević",
+      "pozicija": "NULL",
+      "okrug": "Južnobački okrug",
+      "opstina": "Srbobran",
+      "ok_koord": null,
+      "op_koord": null,
+      "reg_koord": null,
+      "votes_credited": 2340,
+      "voter_priority_tasks": 0,
+      "shops_in_opstina": 0,
+      "max_org": 0.305,
+      "centroid": false,
+      "coordinator": false
+    },
+    {
+      "id": 2400,
+      "privs": [
+        "VOTER_DODATAK",
+        "VOTER_KOMENTARI"
+      ],
+      "ime": "Jelena Bojković",
+      "pozicija": "Koo administracije",
+      "okrug": "Raški okrug",
+      "opstina": "Vrnjačka Banja",
+      "ok_koord": null,
+      "op_koord": null,
+      "reg_koord": null,
+      "votes_credited": 0,
+      "voter_priority_tasks": 0,
+      "shops_in_opstina": 0,
+      "max_org": 0.291,
+      "centroid": false,
+      "coordinator": false
+    },
+    {
+      "id": 2247,
+      "privs": [
+        "VOTER_KOMENTARI"
+      ],
+      "ime": "Žarko Nastasić",
+      "pozicija": "Koo opštine",
+      "okrug": "Zapadnobački okrug",
+      "opstina": "Sombor",
+      "ok_koord": null,
+      "op_koord": null,
+      "reg_koord": null,
+      "votes_credited": 177065,
+      "voter_priority_tasks": 0,
+      "shops_in_opstina": 11,
+      "max_org": 0.11,
+      "centroid": false,
+      "coordinator": false
+    },
+    {
+      "id": 1287,
+      "privs": [
+        "VOTER_KOMENTARI"
+      ],
+      "ime": "Milena Pribaković",
+      "pozicija": "NULL",
+      "okrug": "Šumadijski okrug",
+      "opstina": "Kragujevac",
+      "ok_koord": null,
+      "op_koord": null,
+      "reg_koord": null,
+      "votes_credited": 85437,
+      "voter_priority_tasks": 0,
+      "shops_in_opstina": 2,
+      "max_org": 0.178,
+      "centroid": false,
+      "coordinator": false
+    },
+    {
+      "id": 2644,
+      "privs": [
+        "VOTER_DODATAK",
+        "VOTER_KOMENTARI"
+      ],
+      "ime": "Dijana Šupić",
+      "pozicija": "Koo okruga, Koo opštine",
+      "okrug": "Severnobački okrug",
+      "opstina": "Bačka Topola",
+      "ok_koord": null,
+      "op_koord": null,
+      "reg_koord": null,
+      "votes_credited": 0,
+      "voter_priority_tasks": 0,
+      "shops_in_opstina": 2,
+      "max_org": 0.262,
+      "centroid": false,
+      "coordinator": false
+    },
+    {
+      "id": 1375,
+      "privs": [
+        "VOTER_DODATAK",
+        "VOTER_KOMENTARI"
+      ],
+      "ime": "Biljana Kirov",
+      "pozicija": "Koo opštine",
+      "okrug": "Šumadijski okrug",
+      "opstina": "Batočina",
+      "ok_koord": null,
+      "op_koord": null,
+      "reg_koord": null,
+      "votes_credited": 0,
+      "voter_priority_tasks": 0,
+      "shops_in_opstina": 0,
+      "max_org": 0.199,
+      "centroid": false,
+      "coordinator": false
+    },
+    {
+      "id": 2849,
+      "privs": [
+        "VOTER_KOMENTARI"
+      ],
+      "ime": "Ivana Modrić",
+      "pozicija": "Koo opštine",
+      "okrug": "Borski okrug",
+      "opstina": "Kladovo",
+      "ok_koord": null,
+      "op_koord": null,
+      "reg_koord": null,
+      "votes_credited": 185115,
+      "voter_priority_tasks": 0,
+      "shops_in_opstina": 0,
+      "max_org": 0.001,
+      "centroid": false,
+      "coordinator": false
+    },
+    {
+      "id": 1482,
+      "privs": [
+        "VOTER_KOMENTARI"
+      ],
+      "ime": "Biljana Spasić",
+      "pozicija": "NULL",
+      "okrug": "Pčinjski okrug",
+      "opstina": "Vranje",
+      "ok_koord": null,
+      "op_koord": null,
+      "reg_koord": null,
+      "votes_credited": 175417,
+      "voter_priority_tasks": 0,
+      "shops_in_opstina": 2,
+      "max_org": 0,
+      "centroid": false,
+      "coordinator": false
+    },
+    {
+      "id": 981,
+      "privs": [
+        "VOTER_KOMENTARI"
+      ],
+      "ime": "Sanja Jovičić",
+      "pozicija": "NULL",
+      "okrug": "Zlatiborski okrug",
+      "opstina": "Arilje",
+      "ok_koord": null,
+      "op_koord": null,
+      "reg_koord": null,
+      "votes_credited": 101260,
+      "voter_priority_tasks": 0,
+      "shops_in_opstina": 0,
+      "max_org": 0,
+      "centroid": false,
+      "coordinator": false
+    },
+    {
+      "id": 2249,
+      "privs": [
+        "VOTER_KOMENTARI"
+      ],
+      "ime": "Zdravka Novaković",
+      "pozicija": "NULL",
+      "okrug": "Zapadnobački okrug",
+      "opstina": "Sombor",
+      "ok_koord": null,
+      "op_koord": null,
+      "reg_koord": null,
+      "votes_credited": 86170,
+      "voter_priority_tasks": 0,
+      "shops_in_opstina": 11,
+      "max_org": 0,
+      "centroid": false,
+      "coordinator": false
+    },
+    {
+      "id": 1362,
+      "privs": [
+        "VOTER_KOMENTARI"
+      ],
+      "ime": "Katarina Ignjatović",
+      "pozicija": "NULL",
+      "okrug": "Šumadijski okrug",
+      "opstina": "Rača",
+      "ok_koord": null,
+      "op_koord": null,
+      "reg_koord": null,
+      "votes_credited": 85101,
+      "voter_priority_tasks": 0,
+      "shops_in_opstina": 0,
+      "max_org": 0,
+      "centroid": false,
+      "coordinator": false
+    },
+    {
+      "id": 376,
+      "privs": [
+        "VOTER_KOMENTARI"
+      ],
+      "ime": "Leon  Šalamon",
+      "pozicija": "kontrolor",
+      "okrug": "Južnobački okrug",
+      "opstina": "Bač",
+      "ok_koord": null,
+      "op_koord": null,
+      "reg_koord": null,
+      "votes_credited": 73156,
+      "voter_priority_tasks": 0,
+      "shops_in_opstina": 0,
+      "max_org": 0,
+      "centroid": false,
+      "coordinator": false
+    },
+    {
+      "id": 3176,
+      "privs": [
+        "IZVEŠTAJI_VOTER",
+        "VOTER_DODATAK",
+        "VOTER_KOMENTARI"
+      ],
+      "ime": "Nikola  Bugarski",
+      "pozicija": "NULL",
+      "okrug": "Južnobački okrug",
+      "opstina": "Novi Sad - grad",
+      "ok_koord": null,
+      "op_koord": null,
+      "reg_koord": null,
+      "votes_credited": 0,
+      "voter_priority_tasks": 29,
+      "shops_in_opstina": 0,
+      "max_org": 0.038,
+      "centroid": false,
+      "coordinator": false
+    },
+    {
+      "id": 6616,
+      "privs": [
+        "VOTER_KOMENTARI"
+      ],
+      "ime": "Miloš Radovanović",
+      "pozicija": "NULL",
+      "okrug": "Mačvanski okrug",
+      "opstina": "Loznica",
+      "ok_koord": null,
+      "op_koord": null,
+      "reg_koord": null,
+      "votes_credited": 34492,
+      "voter_priority_tasks": 0,
+      "shops_in_opstina": 3,
+      "max_org": 0,
+      "centroid": false,
+      "coordinator": false
+    },
+    {
+      "id": 1780,
+      "privs": [
+        "VOTER_KOMENTARI"
+      ],
+      "ime": "Marija Ž Stanojlović",
+      "pozicija": "NULL",
+      "okrug": "Podunavski okrug",
+      "opstina": "Velika Plana",
+      "ok_koord": null,
+      "op_koord": null,
+      "reg_koord": null,
+      "votes_credited": 29639,
+      "voter_priority_tasks": 0,
+      "shops_in_opstina": 0,
+      "max_org": 0,
+      "centroid": false,
+      "coordinator": false
+    },
+    {
+      "id": 71,
+      "privs": [
+        "IZVEŠTAJI_VOTER"
+      ],
+      "ime": "Bojana Bošković Jovanović",
+      "pozicija": "NULL",
+      "okrug": "Mačvanski okrug",
+      "opstina": "Šabac",
+      "ok_koord": null,
+      "op_koord": null,
+      "reg_koord": null,
+      "votes_credited": 0,
+      "voter_priority_tasks": 0,
+      "shops_in_opstina": 6,
+      "max_org": 0.026,
+      "centroid": false,
+      "coordinator": false
+    },
+    {
+      "id": 207,
+      "privs": [
+        "IZVEŠTAJI_VOTER",
+        "VOTER_DODATAK",
+        "VOTER_KOMENTARI"
+      ],
+      "ime": "Slavica Kostić",
+      "pozicija": "NULL",
+      "okrug": "Mačvanski okrug",
+      "opstina": "Šabac",
+      "ok_koord": null,
+      "op_koord": null,
+      "reg_koord": null,
+      "votes_credited": 20323,
+      "voter_priority_tasks": 76,
+      "shops_in_opstina": 6,
+      "max_org": 0.003,
+      "centroid": false,
+      "coordinator": false
+    },
+    {
+      "id": 322,
+      "privs": [
+        "IZVEŠTAJI_VOTER",
+        "VOTER_DODATAK",
+        "VOTER_KOMENTARI"
+      ],
+      "ime": "Marijana Karajović",
+      "pozicija": "Koo okruga, koo opštine",
+      "okrug": "Šumadijski okrug",
+      "opstina": "Kragujevac",
+      "ok_koord": null,
+      "op_koord": null,
+      "reg_koord": null,
+      "votes_credited": 298,
+      "voter_priority_tasks": 18,
+      "shops_in_opstina": 2,
+      "max_org": 0.021,
+      "centroid": false,
+      "coordinator": false
+    },
+    {
+      "id": 102,
+      "privs": [
+        "VOTER_DODATAK",
+        "VOTER_KOMENTARI"
+      ],
+      "ime": "Dejan Pavlović",
+      "pozicija": "NULL",
+      "okrug": "Mačvanski okrug",
+      "opstina": "Loznica",
+      "ok_koord": null,
+      "op_koord": null,
+      "reg_koord": null,
+      "votes_credited": 19210,
+      "voter_priority_tasks": 0,
+      "shops_in_opstina": 3,
+      "max_org": 0,
+      "centroid": false,
+      "coordinator": false
+    },
+    {
+      "id": 3759,
+      "privs": [
+        "VOTER_DODATAK",
+        "VOTER_KOMENTARI"
+      ],
+      "ime": "Neda Nedović",
+      "pozicija": "NULL",
+      "okrug": "Šumadijski okrug",
+      "opstina": "Kragujevac",
+      "ok_koord": null,
+      "op_koord": null,
+      "reg_koord": null,
+      "votes_credited": 0,
+      "voter_priority_tasks": 0,
+      "shops_in_opstina": 2,
+      "max_org": 0.014,
+      "centroid": false,
+      "coordinator": false
+    },
+    {
+      "id": 831,
+      "privs": [
+        "VOTER_KOMENTARI"
+      ],
+      "ime": "Milica Lučić",
+      "pozicija": "NULL",
+      "okrug": "Beograd",
+      "opstina": "Beograd-Novi Beograd",
+      "ok_koord": null,
+      "op_koord": null,
+      "reg_koord": null,
+      "votes_credited": 13839,
+      "voter_priority_tasks": 0,
+      "shops_in_opstina": 21,
+      "max_org": 0,
+      "centroid": false,
+      "coordinator": false
+    },
+    {
+      "id": 472,
+      "privs": [
+        "VOTER_DODATAK",
+        "VOTER_KOMENTARI"
+      ],
+      "ime": "Tanja Dimić",
+      "pozicija": "Koo okruga, koo opštine",
+      "okrug": "Braničevski okrug",
+      "opstina": "Kučevo",
+      "ok_koord": null,
+      "op_koord": null,
+      "reg_koord": null,
+      "votes_credited": 12783,
+      "voter_priority_tasks": 0,
+      "shops_in_opstina": 0,
+      "max_org": 0.001,
+      "centroid": false,
+      "coordinator": false
+    },
+    {
+      "id": 573,
+      "privs": [
+        "VOTER_KOMENTARI"
+      ],
+      "ime": "Milica Zečević",
+      "pozicija": "NULL",
+      "okrug": "Moravički okrug",
+      "opstina": "Lučani",
+      "ok_koord": null,
+      "op_koord": null,
+      "reg_koord": null,
+      "votes_credited": 11290,
+      "voter_priority_tasks": 0,
+      "shops_in_opstina": 2,
+      "max_org": 0,
+      "centroid": false,
+      "coordinator": false
+    },
+    {
+      "id": 1574,
+      "privs": [
+        "VOTER_KOMENTARI"
+      ],
+      "ime": "Slavica Stefanovski",
+      "pozicija": "NULL",
+      "okrug": "Južnobački okrug",
+      "opstina": "Bačka Palanka",
+      "ok_koord": null,
+      "op_koord": null,
+      "reg_koord": null,
+      "votes_credited": 6132,
+      "voter_priority_tasks": 0,
+      "shops_in_opstina": 5,
+      "max_org": 0,
+      "centroid": false,
+      "coordinator": false
+    },
+    {
+      "id": 60,
+      "privs": [
+        "IZVEŠTAJI_VOTER",
+        "VOTER_DODATAK",
+        "VOTER_KOMENTARI"
+      ],
+      "ime": "Radmila Isaković",
+      "pozicija": "NULL",
+      "okrug": "Mačvanski okrug",
+      "opstina": "Šabac",
+      "ok_koord": null,
+      "op_koord": null,
+      "reg_koord": null,
+      "votes_credited": 6106,
+      "voter_priority_tasks": 12,
+      "shops_in_opstina": 6,
+      "max_org": 0,
+      "centroid": false,
+      "coordinator": false
+    },
+    {
+      "id": 6167,
+      "privs": [
+        "IZVEŠTAJI_VOTER",
+        "VOTER_DODATAK",
+        "VOTER_KOMENTARI"
+      ],
+      "ime": "Tamara Španović",
+      "pozicija": "NULL",
+      "okrug": "Sremski okrug",
+      "opstina": "Šid",
+      "ok_koord": null,
+      "op_koord": null,
+      "reg_koord": null,
+      "votes_credited": 0,
+      "voter_priority_tasks": 0,
+      "shops_in_opstina": 5,
+      "max_org": 0.001,
+      "centroid": false,
+      "coordinator": false
+    },
+    {
+      "id": 1088,
+      "privs": [
+        "VOTER_KOMENTARI"
+      ],
+      "ime": "Rebeka Vuhinger",
+      "pozicija": "NULL",
+      "okrug": "Južnobački okrug",
+      "opstina": "Srbobran",
+      "ok_koord": null,
+      "op_koord": null,
+      "reg_koord": null,
+      "votes_credited": 895,
+      "voter_priority_tasks": 0,
+      "shops_in_opstina": 0,
+      "max_org": 0,
+      "centroid": false,
+      "coordinator": false
+    },
+    {
+      "id": 2888,
+      "privs": [
+        "VOTER_KOMENTARI"
+      ],
+      "ime": "Milica Milanović",
+      "pozicija": "NULL",
+      "okrug": "Braničevski okrug",
+      "opstina": "Veliko Gradište",
+      "ok_koord": null,
+      "op_koord": null,
+      "reg_koord": null,
+      "votes_credited": 717,
+      "voter_priority_tasks": 0,
+      "shops_in_opstina": 0,
+      "max_org": 0,
+      "centroid": false,
+      "coordinator": false
+    },
+    {
+      "id": 1733,
+      "privs": [
+        "VOTER_DODATAK",
+        "VOTER_KOMENTARI"
+      ],
+      "ime": "Milena Todosijević",
+      "pozicija": "NULL",
+      "okrug": "Toplički okrug",
+      "opstina": "Prokuplje",
+      "ok_koord": null,
+      "op_koord": null,
+      "reg_koord": null,
+      "votes_credited": 493,
+      "voter_priority_tasks": 0,
+      "shops_in_opstina": 0,
+      "max_org": 0,
+      "centroid": false,
+      "coordinator": false
+    },
+    {
+      "id": 2857,
+      "privs": [
+        "VOTER_DODATAK",
+        "VOTER_KOMENTARI"
+      ],
+      "ime": "Bojana Brzaković",
+      "pozicija": "Kontrolor za Borski okrug",
+      "okrug": "Borski okrug",
+      "opstina": "Kladovo",
+      "ok_koord": null,
+      "op_koord": null,
+      "reg_koord": null,
+      "votes_credited": 76,
+      "voter_priority_tasks": 0,
+      "shops_in_opstina": 0,
+      "max_org": 0,
+      "centroid": false,
+      "coordinator": false
+    },
+    {
+      "id": 5016,
+      "privs": [
+        "IZVEŠTAJI_VOTER",
+        "VOTER_DODATAK",
+        "VOTER_KOMENTARI"
+      ],
+      "ime": "Milica Milanović",
+      "pozicija": "NULL",
+      "okrug": "Braničevski okrug",
+      "opstina": "Veliko Gradište",
+      "ok_koord": null,
+      "op_koord": null,
+      "reg_koord": null,
+      "votes_credited": 43,
+      "voter_priority_tasks": 0,
+      "shops_in_opstina": 0,
+      "max_org": 0,
+      "centroid": false,
+      "coordinator": false
+    },
+    {
+      "id": 3724,
+      "privs": [
+        "VOTER_DODATAK",
+        "VOTER_KOMENTARI"
+      ],
+      "ime": "Jelena Gobeljić",
+      "pozicija": "Koo opštine",
+      "okrug": "Šumadijski okrug",
+      "opstina": "Topola",
+      "ok_koord": null,
+      "op_koord": null,
+      "reg_koord": null,
+      "votes_credited": 22,
+      "voter_priority_tasks": 0,
+      "shops_in_opstina": 0,
+      "max_org": 0,
+      "centroid": false,
+      "coordinator": false
+    },
+    {
+      "id": 62,
+      "privs": [
+        "IZVEŠTAJI_VOTER",
+        "VOTER_DODATAK",
+        "VOTER_KOMENTARI"
+      ],
+      "ime": "TEST 1 ADMIN",
+      "pozicija": "ADMIN",
+      "okrug": "TEST",
+      "opstina": "TEST",
+      "ok_koord": null,
+      "op_koord": null,
+      "reg_koord": null,
+      "votes_credited": 20,
+      "voter_priority_tasks": 0,
+      "shops_in_opstina": 0,
+      "max_org": 0,
+      "centroid": false,
+      "coordinator": false
+    },
+    {
+      "id": 1,
+      "privs": [
+        "IZVEŠTAJI_VOTER",
+        "VOTER_DODATAK",
+        "VOTER_KOMENTARI"
+      ],
+      "ime": "TEST ADMIN",
+      "pozicija": "ADMIN",
+      "okrug": "TEST",
+      "opstina": "TEST",
+      "ok_koord": null,
+      "op_koord": null,
+      "reg_koord": null,
+      "votes_credited": 7,
+      "voter_priority_tasks": 0,
+      "shops_in_opstina": 0,
+      "max_org": 0,
+      "centroid": false,
+      "coordinator": false
+    },
+    {
+      "id": 64,
+      "privs": [
+        "IZVEŠTAJI_VOTER",
+        "VOTER_DODATAK",
+        "VOTER_KOMENTARI"
+      ],
+      "ime": "TEST 2 ADMIN",
+      "pozicija": "ADMIN",
+      "okrug": "TEST",
+      "opstina": "TEST",
+      "ok_koord": null,
+      "op_koord": null,
+      "reg_koord": null,
+      "votes_credited": 4,
+      "voter_priority_tasks": 0,
+      "shops_in_opstina": 0,
+      "max_org": 0,
+      "centroid": false,
+      "coordinator": false
+    },
+    {
+      "id": 1790,
+      "privs": [
+        "VOTER_KOMENTARI"
+      ],
+      "ime": "Sanja Nešić",
+      "pozicija": "NULL",
+      "okrug": "Podunavski okrug",
+      "opstina": "Velika Plana",
+      "ok_koord": null,
+      "op_koord": null,
+      "reg_koord": null,
+      "votes_credited": 2,
+      "voter_priority_tasks": 0,
+      "shops_in_opstina": 0,
+      "max_org": 0,
+      "centroid": false,
+      "coordinator": false
+    },
+    {
+      "id": 2477,
+      "privs": [
+        "VOTER_KOMENTARI"
+      ],
+      "ime": "Ivona Kočiš",
+      "pozicija": "NULL",
+      "okrug": "Severnobanatski okrug",
+      "opstina": "Ada",
+      "ok_koord": null,
+      "op_koord": null,
+      "reg_koord": null,
+      "votes_credited": 0,
+      "voter_priority_tasks": 0,
+      "shops_in_opstina": 0,
+      "max_org": 0,
+      "centroid": false,
+      "coordinator": false
+    },
+    {
+      "id": 2942,
+      "privs": [
+        "VOTER_KOMENTARI"
+      ],
+      "ime": "Ana Marković",
+      "pozicija": "NULL",
+      "okrug": "Rasinski okrug",
+      "opstina": "Aleksandrovac",
+      "ok_koord": null,
+      "op_koord": null,
+      "reg_koord": null,
+      "votes_credited": 0,
+      "voter_priority_tasks": 0,
+      "shops_in_opstina": 0,
+      "max_org": 0,
+      "centroid": false,
+      "coordinator": false
+    },
+    {
+      "id": 3960,
+      "privs": [
+        "VOTER_DODATAK"
+      ],
+      "ime": "TEST 3 ADMIN",
+      "pozicija": "NULL",
+      "okrug": "TEST",
+      "opstina": "TEST",
+      "ok_koord": null,
+      "op_koord": null,
+      "reg_koord": null,
+      "votes_credited": 0,
+      "voter_priority_tasks": 0,
+      "shops_in_opstina": 0,
+      "max_org": 0,
+      "centroid": false,
+      "coordinator": false
+    },
+    {
+      "id": 4023,
+      "privs": [
+        "VOTER_DODATAK",
+        "VOTER_KOMENTARI"
+      ],
+      "ime": "Danica Stefanović",
+      "pozicija": "NULL",
+      "okrug": "Raški okrug",
+      "opstina": "Kraljevo",
+      "ok_koord": null,
+      "op_koord": null,
+      "reg_koord": null,
+      "votes_credited": 0,
+      "voter_priority_tasks": 0,
+      "shops_in_opstina": 7,
+      "max_org": 0.0,
+      "centroid": false,
+      "coordinator": false
+    },
+    {
+      "id": 5260,
+      "privs": [
+        "IZVEŠTAJI_VOTER",
+        "VOTER_DODATAK",
+        "VOTER_KOMENTARI"
+      ],
+      "ime": "Jana Vilimonović",
+      "pozicija": "NULL",
+      "okrug": "Rasinski okrug",
+      "opstina": "Aleksandrovac",
+      "ok_koord": null,
+      "op_koord": null,
+      "reg_koord": null,
+      "votes_credited": 0,
+      "voter_priority_tasks": 2,
+      "shops_in_opstina": 0,
+      "max_org": 0,
+      "centroid": false,
+      "coordinator": false
+    },
+    {
+      "id": 8352,
+      "privs": [
+        "IZVEŠTAJI_VOTER",
+        "VOTER_DODATAK",
+        "VOTER_KOMENTARI"
+      ],
+      "ime": "Bojana Konjević",
+      "pozicija": "Koo opštine",
+      "okrug": "Sremski okrug",
+      "opstina": "Pećinci",
+      "ok_koord": null,
+      "op_koord": null,
+      "reg_koord": null,
+      "votes_credited": 0,
+      "voter_priority_tasks": 0,
+      "shops_in_opstina": 2,
+      "max_org": 0,
+      "centroid": false,
+      "coordinator": false
+    },
+    {
+      "id": 8900,
+      "privs": [
+        "VOTER_DODATAK",
+        "VOTER_KOMENTARI"
+      ],
+      "ime": "Ivana Obradović",
+      "pozicija": "Koo opštine",
+      "okrug": "Šumadijski okrug",
+      "opstina": "Lapovo",
+      "ok_koord": null,
+      "op_koord": null,
+      "reg_koord": null,
+      "votes_credited": 0,
+      "voter_priority_tasks": 0,
+      "shops_in_opstina": 0,
+      "max_org": 0,
+      "centroid": false,
+      "coordinator": false
+    },
+    {
+      "id": 9084,
+      "privs": [
+        "IZVEŠTAJI_VOTER",
+        "VOTER_DODATAK",
+        "VOTER_KOMENTARI"
+      ],
+      "ime": "Milena Rajić",
+      "pozicija": "NULL",
+      "okrug": "Pomoravski okrug",
+      "opstina": "Paraćin",
+      "ok_koord": null,
+      "op_koord": null,
+      "reg_koord": null,
+      "votes_credited": 0,
+      "voter_priority_tasks": 0,
+      "shops_in_opstina": 0,
+      "max_org": 0,
+      "centroid": false,
+      "coordinator": false
+    }
+  ]
+}
