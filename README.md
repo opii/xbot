@@ -190,49 +190,95 @@ Ključne tabele:
 
 ---
 
-## 🚀 Instalacija i pokretanje
+## 🚀 Izgradnja od nule (samo kod + `progress_baza_podataka.sqlite3`)
+
+Ovaj vodič pretpostavlja da imaš **isključivo ovaj repozitorijum i SQLite bazu**.
+Sve ostalo (Postgres, Neo4j graf, analitički JSON-ovi, UI) se gradi lokalno.
+
+### 0. Preduslovi
+- **Docker** + **Docker Compose** (za Postgres i Neo4j).
+- **Python 3.11+** (testirano 3.13) i **Node.js 18+** (testirano 22) + `npm`.
+- **Baza `progress_baza_podataka.sqlite3`** (~4,8 GB). **NIJE u repo-u** (`.gitignore`) —
+  postaviti je ručno u `bot_detector/data/`:
+  ```bash
+  cp /putanja/do/progress_baza_podataka.sqlite3 bot_detector/data/
+  ```
 
 ### 1. Baze (Docker)
 ```bash
 cd bot_detector
-docker compose up -d        # Postgres :5432, Neo4j :7474/:7687 (perzistentni volumeni)
+docker compose up -d        # Postgres :5432, Neo4j :7474 (HTTP) / :7687 (Bolt)
+docker compose ps           # sačekaj da su "healthy" (Neo4j start_period ~30s)
 ```
+Kredencijali (compose): Postgres `bot_user`/`bot_password`/`bot_detector_db`;
+Neo4j `neo4j`/`bot_password` (browser login na http://localhost:7474). Volumeni su
+perzistentni.
 
 ### 2. Python okruženje
 ```bash
 cd bot_detector
 python3 -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt   # pandas, networkx, fastapi, uvicorn, psycopg2-binary, neo4j
+./venv/bin/pip install -r requirements.txt
 ```
 
-### 3. Uvoz baze (jednom)
-Ako je `progress` šema prazna, uvezi SQLite u Postgres:
+### 3. Uvoz SQLite → Postgres (jednom, ~12 GB, ~10–20 min)
 ```bash
 ./venv/bin/python src/import_progress_db.py
 ```
-Idempotentno je (preskače već uvezene tabele; `--force` za ponovni uvoz).
+Učita svih 57 tabela u šemu `progress`. **Idempotentno** (preskače uvezene; `--force`
+za ponovni uvoz; `--sqlite PUTANJA` ako baza nije na podrazumevanoj lokaciji;
+dekodira `\uXXXX` ćirilicu).
 
-### 4. Gradnja grafa + detekcija organizatora
+### 4. Gradnja grafa + skorovi (~3 min)
 ```bash
 ./venv/bin/python src/graph/load_graph.py
 ```
-Gradi Neo4j graf (oba sloja) + izvedene tabele (`target_popularity`,
-`news_popularity`) i na kraju računa organizatore/zajednice.
+Gradi Neo4j graf (slojevi CO_ACTED / CO_COMMENTED / CO_TEMPLATE), izvedene Postgres
+tabele i na kraju računa **organizatore, zajednice, bihevioralne skorove i burstove**.
 Alternativa (kontejnerizovano): `docker compose --profile init up graph_loader --build`.
 
-### 5. Backend (FastAPI)
+### 5. (Opciono) GeoIP + regeneracija analitičkih JSON-ova
+Analitički izlazi (`data/geo/*.json`) **jesu u repo-u**, pa koraci 6–7 rade i bez ovoga.
+Ovaj korak ih **osvežava sa tvoje baze** i potreban je samo za GeoIP (dataset nije u repo-u):
+```bash
+# GeoIP referentni dataset za voter_geoip.py (~7 MB) — NIJE u repo-u (.gitignore)
+curl -L https://iptoasn.com/data/ip2asn-v4.tsv.gz -o data/geo/ip2asn-v4.tsv.gz
+
+# (re)generiši sve analitičke JSON-ove (traži učitan Postgres + Neo4j iz koraka 3–4)
+for m in voter_geoip betting_geo task_masters voter_timing command_responsibility \
+         directives coordinators cascade betting_corporate shift_chat gamification_points \
+         regional_operations voter_kurir_links voter_custom_actions tactical_groups \
+         system_surveillance multiplatform; do
+  ./venv/bin/python src/analysis/$m.py
+done
+```
+
+### 6. Backend (FastAPI)
 ```bash
 ./venv/bin/python -m uvicorn api.main:app --host 0.0.0.0 --port 8000 --app-dir src
 ```
+Provera: `curl -s localhost:8000/api/stats` treba da vrati JSON (HTTP 200).
+Gašenje: po portu (NE `pkill -f uvicorn` — ubija i sopstvenu ljusku).
 
-### 6. Frontend (React/Vite)
+### 7. Frontend (React/Vite)
 ```bash
 cd dashboard-ui
 npm install
 npm run dev
 ```
-👉 Otvori **http://localhost:5173**
+👉 Otvori **http://localhost:5173**. UI gađa API na `http://localhost:8000`
+(konstanta `API` u [`src/GraphExplorer.jsx`](bot_detector/dashboard-ui/src/GraphExplorer.jsx)
+— promeniti ako je backend drugde).
+
+### Šta NIJE u repo-u (mora se obezbediti/generisati)
+`*.sqlite3` (ti je daješ) · `data/geo/*.gz` (GeoIP, korak 5) · `venv/` (korak 2) ·
+`dashboard-ui/node_modules/` i `dist/` (korak 7). Sve ostalo (uklj. analitičke
+`data/geo/*.json`) je u repo-u.
+
+### Env varijable (podrazumevano = gornji compose)
+`PROGRESS_PG_DSN` ili `PG_HOST`/`PG_DB`/`PG_USER`/`PG_PASSWORD`;
+`NEO4J_URI`/`NEO4J_USER`/`NEO4J_PASSWORD`. Podrazumevano gađaju `localhost` sa
+compose kredencijalima — menjati samo ako baze nisu lokalne.
 
 ---
 
