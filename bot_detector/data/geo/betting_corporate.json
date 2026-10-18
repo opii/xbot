@@ -1,0 +1,421 @@
+{
+  "generated": "2026-10-18T14:26:05",
+  "machines_total": 1668,
+  "machines_serbia": 738,
+  "machines_foreign": 930,
+  "brands": [
+    {
+      "brand": "Maxi",
+      "total": 92,
+      "serbia": 5,
+      "foreign": 87
+    },
+    {
+      "brand": "Scooorebet",
+      "total": 59,
+      "serbia": 0,
+      "foreign": 59
+    },
+    {
+      "brand": "Joker",
+      "total": 16,
+      "serbia": 0,
+      "foreign": 16
+    },
+    {
+      "brand": "Roma",
+      "total": 8,
+      "serbia": 7,
+      "foreign": 1
+    },
+    {
+      "brand": "Casino",
+      "total": 7,
+      "serbia": 3,
+      "foreign": 4
+    }
+  ],
+  "branded_machines": 182,
+  "serbia_locations": [
+    {
+      "naziv": "Tehnika",
+      "machines": 85
+    },
+    {
+      "naziv": "Enjub",
+      "machines": 9
+    },
+    {
+      "naziv": "Borca Ivana Milutinovica",
+      "machines": 7
+    },
+    {
+      "naziv": "Pozarevac Centar",
+      "machines": 6
+    },
+    {
+      "naziv": "Roma Novi Beograd 2",
+      "machines": 5
+    },
+    {
+      "naziv": "Zrenjanin 3",
+      "machines": 5
+    },
+    {
+      "naziv": "Krusevac Bronks 2",
+      "machines": 5
+    },
+    {
+      "naziv": "Borca Centar",
+      "machines": 5
+    },
+    {
+      "naziv": "Cacak Solid 2",
+      "machines": 4
+    },
+    {
+      "naziv": "Zemun Cara Dusana 2",
+      "machines": 4
+    },
+    {
+      "naziv": "Mirijevski Venac 2",
+      "machines": 4
+    },
+    {
+      "naziv": "Backa Palanka 2",
+      "machines": 4
+    },
+    {
+      "naziv": "Sjenica",
+      "machines": 4
+    },
+    {
+      "naziv": "Dimitrija Tucovica 2",
+      "machines": 4
+    },
+    {
+      "naziv": "Liman",
+      "machines": 4
+    },
+    {
+      "naziv": "Stubline 2",
+      "machines": 4
+    },
+    {
+      "naziv": "Bar Centar",
+      "machines": 4
+    },
+    {
+      "naziv": "Sombor 1",
+      "machines": 4
+    },
+    {
+      "naziv": "Sivac",
+      "machines": 4
+    },
+    {
+      "naziv": "Telep",
+      "machines": 4
+    },
+    {
+      "naziv": "Alas",
+      "machines": 3
+    },
+    {
+      "naziv": "Novi Pazar 1 2",
+      "machines": 3
+    },
+    {
+      "naziv": "Vrbas",
+      "machines": 3
+    },
+    {
+      "naziv": "Niksic Krsta Kostica",
+      "machines": 3
+    },
+    {
+      "naziv": "Stara Pazova",
+      "machines": 3
+    },
+    {
+      "naziv": "Brcko 7",
+      "machines": 3
+    },
+    {
+      "naziv": "Nish 01",
+      "machines": 3
+    },
+    {
+      "naziv": "Autobuska NS",
+      "machines": 3
+    },
+    {
+      "naziv": "Prnjavor Centar",
+      "machines": 3
+    },
+    {
+      "naziv": "Mokrin",
+      "machines": 3
+    },
+    {
+      "naziv": "Detelinara Puma",
+      "machines": 3
+    },
+    {
+      "naziv": "Jagodina Solun",
+      "machines": 3
+    },
+    {
+      "naziv": "Novi Pazar 2",
+      "machines": 3
+    },
+    {
+      "naziv": "Mladenovac 3",
+      "machines": 3
+    },
+    {
+      "naziv": "Basaid 2",
+      "machines": 3
+    },
+    {
+      "naziv": "Satelit 1",
+      "machines": 3
+    },
+    {
+      "naziv": "Smederevo Djusino Sokace",
+      "machines": 3
+    },
+    {
+      "naziv": "Elemir",
+      "machines": 3
+    },
+    {
+      "naziv": "Juzni Bulevar 2",
+      "machines": 3
+    },
+    {
+      "naziv": "Budva Stari Grad",
+      "machines": 3
+    }
+  ],
+  "foreign_locations": [
+    {
+      "naziv": "Nzango",
+      "machines": 11
+    },
+    {
+      "naziv": "Nkayi Marche Mabombo",
+      "machines": 10
+    },
+    {
+      "naziv": "Gendarmerie Bifouiti",
+      "machines": 8
+    },
+    {
+      "naziv": "Nkonsamba 1",
+      "machines": 8
+    },
+    {
+      "naziv": "Makayabou 418",
+      "machines": 7
+    },
+    {
+      "naziv": "Maxi 80",
+      "machines": 7
+    },
+    {
+      "naziv": "Bertoua Bodomo",
+      "machines": 6
+    },
+    {
+      "naziv": "Rue Mbochis",
+      "machines": 6
+    },
+    {
+      "naziv": "Bunker 61",
+      "machines": 5
+    },
+    {
+      "naziv": "Scooorebet 13",
+      "machines": 5
+    },
+    {
+      "naziv": "Obala 2",
+      "machines": 5
+    },
+    {
+      "naziv": "Dolisie Baloumbou",
+      "machines": 5
+    },
+    {
+      "naziv": "Mbida 5",
+      "machines": 5
+    },
+    {
+      "naziv": "Augustinbis 5",
+      "machines": 5
+    },
+    {
+      "naziv": "Bakadila",
+      "machines": 5
+    },
+    {
+      "naziv": "Maxi 36",
+      "machines": 5
+    },
+    {
+      "naziv": "Kinkala",
+      "machines": 5
+    },
+    {
+      "naziv": "Nganga Lingolo",
+      "machines": 5
+    },
+    {
+      "naziv": "Owando",
+      "machines": 5
+    },
+    {
+      "naziv": "Jacques Opangault",
+      "machines": 4
+    },
+    {
+      "naziv": "Village",
+      "machines": 4
+    },
+    {
+      "naziv": "Bunker 40",
+      "machines": 4
+    },
+    {
+      "naziv": "Bunker 50",
+      "machines": 4
+    },
+    {
+      "naziv": "Maxi 51",
+      "machines": 4
+    },
+    {
+      "naziv": "Scooorebet 20",
+      "machines": 4
+    },
+    {
+      "naziv": "Edea 1",
+      "machines": 4
+    },
+    {
+      "naziv": "Bunker 54",
+      "machines": 4
+    },
+    {
+      "naziv": "Maxi 35",
+      "machines": 4
+    },
+    {
+      "naziv": "Avenue Intendance",
+      "machines": 4
+    },
+    {
+      "naziv": "Joker 1",
+      "machines": 4
+    },
+    {
+      "naziv": "Avenue Reine Ngalifourou",
+      "machines": 4
+    },
+    {
+      "naziv": "Rue Mboko",
+      "machines": 4
+    },
+    {
+      "naziv": "New Bell Casino",
+      "machines": 4
+    },
+    {
+      "naziv": "Ebolowa-si2",
+      "machines": 4
+    },
+    {
+      "naziv": "Oyo",
+      "machines": 4
+    },
+    {
+      "naziv": "Bunker 30",
+      "machines": 4
+    },
+    {
+      "naziv": "Sylvia 11",
+      "machines": 4
+    },
+    {
+      "naziv": "La base km4",
+      "machines": 4
+    },
+    {
+      "naziv": "Scooorebet 13 2",
+      "machines": 4
+    },
+    {
+      "naziv": "Igne 45",
+      "machines": 4
+    }
+  ],
+  "client_versions": [
+    {
+      "ver": "1.0.2.177",
+      "n": 885
+    },
+    {
+      "ver": "1.0.2.175",
+      "n": 152
+    },
+    {
+      "ver": "1.0.2.172",
+      "n": 135
+    },
+    {
+      "ver": "1.0.2.176",
+      "n": 125
+    },
+    {
+      "ver": "1.0.2.173",
+      "n": 106
+    },
+    {
+      "ver": "1.0.2.174",
+      "n": 80
+    },
+    {
+      "ver": "1.0.2.176 hardcode",
+      "n": 33
+    },
+    {
+      "ver": "1.0.2.173 hardcode",
+      "n": 31
+    },
+    {
+      "ver": "1.0.2.172 hardcode",
+      "n": 18
+    },
+    {
+      "ver": "1.0.2.175 hardcode",
+      "n": 13
+    }
+  ],
+  "investigation_targets": {
+    "registries": [
+      {
+        "name": "APR — Agencija za privredne registre",
+        "url": "https://www.apr.gov.rs/",
+        "use": "privredna društva, osnivači, sedište"
+      },
+      {
+        "name": "Uprava za igre na sreću (Ministarstvo finansija RS)",
+        "url": "https://uis.gov.rs/",
+        "use": "licence/koncesije za igre na sreću, spisak uplatnih mesta"
+      }
+    ],
+    "method": "Uparivanje: naziv mašine (vr_naziv_ss) → adresa uplatnog mesta → APR/UIS registar → privredno društvo i osnivači. Brend u Africi (Scooorebet/Maxi/Joker) → tražiti povezana lica preko franšiznih/ugovornih veza. SVE zahteva primarni izvor."
+  },
+  "fair_play": "Baza NE sadrži vlasništvo. Brend/lokacija su TRAGOVI, ne dokaz. Javne pretrage NE potvrđuju vezu brenda „Scooorebet“ (Afrika) sa bilo kojim srpskim društvom — NE izjednačavati sa „Soccerbet“ (Phuket d.o.o.) bez primarnog izvora. Ne imenovati pojedince kao vlasnike/krivce bez proverljive dokumentacije."
+}
