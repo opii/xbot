@@ -74,6 +74,14 @@ koliko poena). Podaci pokazuju:
 - **Partijska ekonomija:** quote 4,59 > reply 3,19 > lajk 1,49 bodova — ekonomija
   nagrađuje napad; **7 od 10 top „udarnika" su jurišnici**
   ([`docs/gamifikacija_i_kvote.md`](docs/gamifikacija_i_kvote.md)).
+- **Širina operacije (8 slojeva):** prekogranično (CG 11,5M + BiH 6,1M glasova, proxy
+  mreža za vijesti.me), relay nalozi na afričkim mašinama, headless JS/XPath injekcija,
+  taktičke divizije (TikTok/Voter/Hit-Tvit/Nadzor), nadzor operatera (F12 telemetrija,
+  29.682 uređaja, SMS 2FA gateway) i **51.703 naloga na 6 platformi** (7.178 op na 3+).
+  Vidi `docs/regionalne_operacije_cg_bih.md`, `voter_mehanizam_kurir_custom.md`,
+  `takticke_grupe_i_divizije.md`, `nadzor_operatera.md`, `multiplatform_arsenal.md`.
+  **Sve uz stroga pravila:** kredencijali/telefoni se nikad ne izlažu; FK=dokaz,
+  vremensko poklapanje=korelacija.
 
 ## 🌍 Voter infrastruktura — GeoIP nalazi
 

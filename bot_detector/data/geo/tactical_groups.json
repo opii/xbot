@@ -1,0 +1,1147 @@
+{
+  "generated": "2026-10-18T15:19:34",
+  "groups_total": 30,
+  "memberships_total": 1232,
+  "categories": [
+    {
+      "category": "TikTok divizija",
+      "groups": 3,
+      "members": 386
+    },
+    {
+      "category": "Voter administracija",
+      "groups": 7,
+      "members": 193
+    },
+    {
+      "category": "Koordinacija",
+      "groups": 4,
+      "members": 191
+    },
+    {
+      "category": "Vesti/Deljenje",
+      "groups": 2,
+      "members": 139
+    },
+    {
+      "category": "Nadzor i kontrola",
+      "groups": 5,
+      "members": 116
+    },
+    {
+      "category": "Specijal / sastanak",
+      "groups": 2,
+      "members": 107
+    },
+    {
+      "category": "Ostalo",
+      "groups": 3,
+      "members": 52
+    },
+    {
+      "category": "Analiza komentara",
+      "groups": 2,
+      "members": 27
+    },
+    {
+      "category": "Instagram",
+      "groups": 1,
+      "members": 17
+    },
+    {
+      "category": "Hit Tvit (rapid)",
+      "groups": 1,
+      "members": 4
+    }
+  ],
+  "groups": [
+    {
+      "id": 40,
+      "naziv": "Koordinatori opštinski",
+      "opis": "koo opštine",
+      "members": 144,
+      "kreirao": "Marko  Nedeljković",
+      "category": "Koordinacija"
+    },
+    {
+      "id": 63,
+      "naziv": "Tik Tok - Danijela",
+      "opis": "Od N do Z",
+      "members": 133,
+      "kreirao": "Nenad  Tomić",
+      "category": "TikTok divizija"
+    },
+    {
+      "id": 60,
+      "naziv": "Tik Tok - Nenad",
+      "opis": "Od J do M",
+      "members": 132,
+      "kreirao": "Nenad  Tomić",
+      "category": "TikTok divizija"
+    },
+    {
+      "id": 62,
+      "naziv": "Tik Tok - Dragana",
+      "opis": "Od A do I",
+      "members": 121,
+      "kreirao": "Dragana Cerović",
+      "category": "TikTok divizija"
+    },
+    {
+      "id": 66,
+      "naziv": "vesti",
+      "opis": "5-6-26",
+      "members": 84,
+      "kreirao": "Dragana Cerović",
+      "category": "Vesti/Deljenje"
+    },
+    {
+      "id": 50,
+      "naziv": "Super specijal za sastanak 15012025",
+      "opis": "za sastanak",
+      "members": 84,
+      "kreirao": "Marko  Nedeljković",
+      "category": "Specijal / sastanak"
+    },
+    {
+      "id": 64,
+      "naziv": "Glasanje",
+      "opis": "novo 31.1.2026.",
+      "members": 73,
+      "kreirao": "Dragana Cerović",
+      "category": "Voter administracija"
+    },
+    {
+      "id": 67,
+      "naziv": "deljenje vesti",
+      "opis": "5-6-26",
+      "members": 55,
+      "kreirao": "Dragana Cerović",
+      "category": "Vesti/Deljenje"
+    },
+    {
+      "id": 39,
+      "naziv": "Monitoring",
+      "opis": "Monitorig za izveštaj",
+      "members": 43,
+      "kreirao": "Marko  Nedeljković",
+      "category": "Nadzor i kontrola"
+    },
+    {
+      "id": 46,
+      "naziv": "Nadzor izveštaj sastanak 14012025",
+      "opis": "sastanak",
+      "members": 40,
+      "kreirao": "Marko  Nedeljković",
+      "category": "Nadzor i kontrola"
+    },
+    {
+      "id": 23,
+      "naziv": "Voter glasanje",
+      "opis": "voter",
+      "members": 34,
+      "kreirao": "Dragana Cerović",
+      "category": "Voter administracija"
+    },
+    {
+      "id": 45,
+      "naziv": "Voter za sastanak 14012025",
+      "opis": "voter za sastanak",
+      "members": 25,
+      "kreirao": "Marko  Nedeljković",
+      "category": "Voter administracija"
+    },
+    {
+      "id": 51,
+      "naziv": "Specijal za sastanak 15012025",
+      "opis": "za sastanak",
+      "members": 23,
+      "kreirao": "Marko  Nedeljković",
+      "category": "Specijal / sastanak"
+    },
+    {
+      "id": 57,
+      "naziv": "11-1-2026",
+      "opis": "500",
+      "members": 23,
+      "kreirao": "Dragana Cerović",
+      "category": "Ostalo"
+    },
+    {
+      "id": 48,
+      "naziv": "Koordinatori okružni za sastanak 14012025",
+      "opis": "za sastanak",
+      "members": 21,
+      "kreirao": "Marko  Nedeljković",
+      "category": "Koordinacija"
+    },
+    {
+      "id": 55,
+      "naziv": "voter glas 1voter",
+      "opis": "voter",
+      "members": 19,
+      "kreirao": "Marko  Nedeljković",
+      "category": "Voter administracija"
+    },
+    {
+      "id": 14,
+      "naziv": "Okružni koordinatori",
+      "opis": "koo",
+      "members": 19,
+      "kreirao": "Dragana Cerović",
+      "category": "Koordinacija"
+    },
+    {
+      "id": 5,
+      "naziv": "Kontrolori",
+      "opis": "Kontrola na mrežama",
+      "members": 19,
+      "kreirao": "Dragana Cerović",
+      "category": "Nadzor i kontrola"
+    },
+    {
+      "id": 37,
+      "naziv": "razno",
+      "opis": "obuke, bodovi...",
+      "members": 19,
+      "kreirao": "Dragana Cerović",
+      "category": "Ostalo"
+    },
+    {
+      "id": 41,
+      "naziv": "Instagram specijal",
+      "opis": "Instagram specijal",
+      "members": 17,
+      "kreirao": "Marko  Nedeljković",
+      "category": "Instagram"
+    },
+    {
+      "id": 43,
+      "naziv": "voter glasanje dodatni bodovi",
+      "opis": "voter glasanje dodatni bodovi",
+      "members": 17,
+      "kreirao": "Marko  Nedeljković",
+      "category": "Voter administracija"
+    },
+    {
+      "id": 42,
+      "naziv": "Analiza komentara",
+      "opis": "Analiza komentara",
+      "members": 15,
+      "kreirao": "Marko  Nedeljković",
+      "category": "Analiza komentara"
+    },
+    {
+      "id": 44,
+      "naziv": "voter admini",
+      "opis": "voter admini",
+      "members": 14,
+      "kreirao": "Marko  Nedeljković",
+      "category": "Voter administracija"
+    },
+    {
+      "id": 47,
+      "naziv": "Analiza komentara 14012025",
+      "opis": "analiza komentara",
+      "members": 12,
+      "kreirao": "Marko  Nedeljković",
+      "category": "Analiza komentara"
+    },
+    {
+      "id": 38,
+      "naziv": "Voter administracija",
+      "opis": "Voter administracija",
+      "members": 11,
+      "kreirao": "Marko  Nedeljković",
+      "category": "Voter administracija"
+    },
+    {
+      "id": 65,
+      "naziv": "protokol",
+      "opis": "dežurni",
+      "members": 10,
+      "kreirao": "Dragana Cerović",
+      "category": "Nadzor i kontrola"
+    },
+    {
+      "id": 69,
+      "naziv": "privremena 1",
+      "opis": "4.10.26",
+      "members": 10,
+      "kreirao": "Dragana Cerović",
+      "category": "Ostalo"
+    },
+    {
+      "id": 49,
+      "naziv": "Regionalni koo za sastanak",
+      "opis": "za sastanak",
+      "members": 7,
+      "kreirao": "Marko  Nedeljković",
+      "category": "Koordinacija"
+    },
+    {
+      "id": 13,
+      "naziv": "Sekretari",
+      "opis": "sekretari okruga",
+      "members": 4,
+      "kreirao": "Dragana Cerović",
+      "category": "Nadzor i kontrola"
+    },
+    {
+      "id": 56,
+      "naziv": "hit tvit",
+      "opis": "javljanje",
+      "members": 4,
+      "kreirao": "Dragana Cerović",
+      "category": "Hit Tvit (rapid)"
+    }
+  ],
+  "key_group_members": {
+    "46": {
+      "naziv": "Nadzor izveštaj sastanak 14012025",
+      "members": [
+        {
+          "id": 433,
+          "ime": "Aleksandra Janković",
+          "opstina": "Gornji Milanovac"
+        },
+        {
+          "id": 5736,
+          "ime": "Aleksandra Stupar",
+          "opstina": "Vrbas"
+        },
+        {
+          "id": 6072,
+          "ime": "Ana Nedeljković",
+          "opstina": "Čačak"
+        },
+        {
+          "id": 4167,
+          "ime": "Anđelka Milosavljević",
+          "opstina": "Koceljeva"
+        },
+        {
+          "id": 133,
+          "ime": "Biljana Gačić",
+          "opstina": "Krupanj"
+        },
+        {
+          "id": 973,
+          "ime": "Boris   Davčik",
+          "opstina": "Novi Sad - grad"
+        },
+        {
+          "id": 688,
+          "ime": "Branislava  Spevak",
+          "opstina": "Bački Petrovac"
+        },
+        {
+          "id": 314,
+          "ime": "Dragoslav  Janjić",
+          "opstina": "Vladimirci"
+        },
+        {
+          "id": 299,
+          "ime": "Ivana  Ranković",
+          "opstina": "Vladimirci"
+        },
+        {
+          "id": 539,
+          "ime": "Janko  Langura",
+          "opstina": "Gornji Milanovac"
+        },
+        {
+          "id": 2400,
+          "ime": "Jelena Bojković",
+          "opstina": "Vrnjačka Banja"
+        },
+        {
+          "id": 471,
+          "ime": "Jovana Živanović",
+          "opstina": "Malo Crniće"
+        },
+        {
+          "id": 2987,
+          "ime": "Kristina Lukić",
+          "opstina": "Trstenik"
+        },
+        {
+          "id": 5698,
+          "ime": "Kristina Stokić",
+          "opstina": "Požarevac"
+        },
+        {
+          "id": 3038,
+          "ime": "Lidija Milićević",
+          "opstina": "Kruševac"
+        },
+        {
+          "id": 1075,
+          "ime": "Marian Šušnjar",
+          "opstina": "Beočin"
+        },
+        {
+          "id": 281,
+          "ime": "Marija  Mitrović",
+          "opstina": "Mali Zvornik"
+        },
+        {
+          "id": 70,
+          "ime": "Marija Krulj",
+          "opstina": "Beograd-Rakovica"
+        },
+        {
+          "id": 4192,
+          "ime": "Marija Radivojević",
+          "opstina": "Beograd-Rakovica"
+        },
+        {
+          "id": 2827,
+          "ime": "Marina  Trailović",
+          "opstina": "Golubac"
+        }
+      ]
+    },
+    "23": {
+      "naziv": "Voter glasanje",
+      "members": [
+        {
+          "id": 1482,
+          "ime": "Biljana Spasić",
+          "opstina": "Vranje"
+        },
+        {
+          "id": 1689,
+          "ime": "Dragana Milenković",
+          "opstina": "Žitorađa"
+        },
+        {
+          "id": 2849,
+          "ime": "Ivana Modrić",
+          "opstina": "Kladovo"
+        },
+        {
+          "id": 265,
+          "ime": "Jelena Lavrnić",
+          "opstina": "Šabac"
+        },
+        {
+          "id": 2848,
+          "ime": "Katarina Janić",
+          "opstina": "Kladovo"
+        },
+        {
+          "id": 1359,
+          "ime": "Kristina Zlatković",
+          "opstina": "Lapovo"
+        },
+        {
+          "id": 376,
+          "ime": "Leon  Šalamon",
+          "opstina": "Bač"
+        },
+        {
+          "id": 2616,
+          "ime": "Marija  Savić",
+          "opstina": "Jagodina"
+        },
+        {
+          "id": 1780,
+          "ime": "Marija Ž Stanojlović",
+          "opstina": "Velika Plana"
+        },
+        {
+          "id": 1941,
+          "ime": "Marina  Petrović",
+          "opstina": "Bela Crkva"
+        },
+        {
+          "id": 1545,
+          "ime": "Marina Dobrilović",
+          "opstina": "Smederevo"
+        },
+        {
+          "id": 616,
+          "ime": "Marko Miletić",
+          "opstina": "Lajkovac"
+        },
+        {
+          "id": 2834,
+          "ime": "Marko Stojanović",
+          "opstina": "Negotin"
+        },
+        {
+          "id": 2236,
+          "ime": "Milena Kostić",
+          "opstina": "Sombor"
+        },
+        {
+          "id": 1287,
+          "ime": "Milena Pribaković",
+          "opstina": "Kragujevac"
+        },
+        {
+          "id": 831,
+          "ime": "Milica Lučić",
+          "opstina": "Beograd-Novi Beograd"
+        },
+        {
+          "id": 2888,
+          "ime": "Milica Milanović",
+          "opstina": "Veliko Gradište"
+        },
+        {
+          "id": 1371,
+          "ime": "Milica Radovanović",
+          "opstina": "Rača"
+        },
+        {
+          "id": 573,
+          "ime": "Milica Zečević",
+          "opstina": "Lučani"
+        },
+        {
+          "id": 66,
+          "ime": "Miloš Jovanović",
+          "opstina": "Beograd-Čukarica"
+        }
+      ]
+    },
+    "45": {
+      "naziv": "Voter za sastanak 14012025",
+      "members": [
+        {
+          "id": 1811,
+          "ime": "Aleksandar Janjić",
+          "opstina": "Leskovac"
+        },
+        {
+          "id": 2724,
+          "ime": "Aleksandar Ljubinković",
+          "opstina": "Subotica"
+        },
+        {
+          "id": 5290,
+          "ime": "Aleksandra Mladenović",
+          "opstina": "Veliko Gradište"
+        },
+        {
+          "id": 6203,
+          "ime": "Aleksandra Pavlović",
+          "opstina": "Beograd-Palilula"
+        },
+        {
+          "id": 4484,
+          "ime": "Ana Pavlović",
+          "opstina": "Ljig"
+        },
+        {
+          "id": 5125,
+          "ime": "Anđela Živadinović",
+          "opstina": "Batočina"
+        },
+        {
+          "id": 2682,
+          "ime": "Biljana  Matejin",
+          "opstina": "Kikinda"
+        },
+        {
+          "id": 5663,
+          "ime": "Bojan Popović",
+          "opstina": "Kragujevac"
+        },
+        {
+          "id": 506,
+          "ime": "Dejan Mijailović",
+          "opstina": "Čačak"
+        },
+        {
+          "id": 5453,
+          "ime": "Dragana Anđelić",
+          "opstina": "Lučani"
+        },
+        {
+          "id": 500,
+          "ime": "Filip Peroš",
+          "opstina": "Beograd-Savski Venac"
+        },
+        {
+          "id": 5260,
+          "ime": "Jana Vilimonović",
+          "opstina": "Aleksandrovac"
+        },
+        {
+          "id": 1457,
+          "ime": "Jasmina Batoćanin",
+          "opstina": "Aleksinac"
+        },
+        {
+          "id": 322,
+          "ime": "Marijana Karajović",
+          "opstina": "Kragujevac"
+        },
+        {
+          "id": 7398,
+          "ime": "Milica Milanović",
+          "opstina": "Veliko Gradište"
+        },
+        {
+          "id": 3759,
+          "ime": "Neda Nedović",
+          "opstina": "Kragujevac"
+        },
+        {
+          "id": 5764,
+          "ime": "Nenad Stamenković",
+          "opstina": "Bojnik"
+        },
+        {
+          "id": 3176,
+          "ime": "Nikola  Bugarski",
+          "opstina": "Novi Sad - grad"
+        },
+        {
+          "id": 5832,
+          "ime": "Nikolina Milutinović",
+          "opstina": "Novi Pazar"
+        },
+        {
+          "id": 207,
+          "ime": "Slavica Kostić",
+          "opstina": "Šabac"
+        }
+      ]
+    },
+    "55": {
+      "naziv": "voter glas 1voter",
+      "members": [
+        {
+          "id": 1482,
+          "ime": "Biljana Spasić",
+          "opstina": "Vranje"
+        },
+        {
+          "id": 2849,
+          "ime": "Ivana Modrić",
+          "opstina": "Kladovo"
+        },
+        {
+          "id": 265,
+          "ime": "Jelena Lavrnić",
+          "opstina": "Šabac"
+        },
+        {
+          "id": 1362,
+          "ime": "Katarina Ignjatović",
+          "opstina": "Rača"
+        },
+        {
+          "id": 2848,
+          "ime": "Katarina Janić",
+          "opstina": "Kladovo"
+        },
+        {
+          "id": 376,
+          "ime": "Leon  Šalamon",
+          "opstina": "Bač"
+        },
+        {
+          "id": 1780,
+          "ime": "Marija Ž Stanojlović",
+          "opstina": "Velika Plana"
+        },
+        {
+          "id": 616,
+          "ime": "Marko Miletić",
+          "opstina": "Lajkovac"
+        },
+        {
+          "id": 1287,
+          "ime": "Milena Pribaković",
+          "opstina": "Kragujevac"
+        },
+        {
+          "id": 1371,
+          "ime": "Milica Radovanović",
+          "opstina": "Rača"
+        },
+        {
+          "id": 66,
+          "ime": "Miloš Jovanović",
+          "opstina": "Beograd-Čukarica"
+        },
+        {
+          "id": 6616,
+          "ime": "Miloš Radovanović",
+          "opstina": "Loznica"
+        },
+        {
+          "id": 981,
+          "ime": "Sanja Jovičić",
+          "opstina": "Arilje"
+        },
+        {
+          "id": 590,
+          "ime": "Snežana  Zlatić",
+          "opstina": "Ivanjica"
+        },
+        {
+          "id": 342,
+          "ime": "Tatjana Benak",
+          "opstina": "Beograd-Zvezdara"
+        },
+        {
+          "id": 1338,
+          "ime": "Tatjana Buđevac",
+          "opstina": "Knić"
+        },
+        {
+          "id": 2219,
+          "ime": "Žarko  Popović",
+          "opstina": "Odžaci"
+        },
+        {
+          "id": 2247,
+          "ime": "Žarko Nastasić",
+          "opstina": "Sombor"
+        },
+        {
+          "id": 216,
+          "ime": "Željana Pantelić",
+          "opstina": "Šabac"
+        }
+      ]
+    },
+    "5": {
+      "naziv": "Kontrolori",
+      "members": [
+        {
+          "id": 395,
+          "ime": "Dalibor Ivanović",
+          "opstina": "Sremska Mitrovica"
+        },
+        {
+          "id": 329,
+          "ime": "Kristina Ćirišan",
+          "opstina": "Zrenjanin"
+        },
+        {
+          "id": 8168,
+          "ime": "Marija  Milenković",
+          "opstina": "Prokuplje"
+        },
+        {
+          "id": 2794,
+          "ime": "Marija  Živić",
+          "opstina": "Požarevac"
+        },
+        {
+          "id": 322,
+          "ime": "Marijana Karajović",
+          "opstina": "Kragujevac"
+        },
+        {
+          "id": 2465,
+          "ime": "Marko Bogdanović",
+          "opstina": "Boljevac"
+        },
+        {
+          "id": 457,
+          "ime": "Milena Milojević",
+          "opstina": "Kraljevo"
+        },
+        {
+          "id": 2668,
+          "ime": "Milica Rađenović",
+          "opstina": "Kikinda"
+        },
+        {
+          "id": 72,
+          "ime": "Mirjana Kujović",
+          "opstina": "Beograd-Obrenovac"
+        },
+        {
+          "id": 6891,
+          "ime": "Nataša  Janićijević",
+          "opstina": "Smederevo"
+        },
+        {
+          "id": 8150,
+          "ime": "Nataša Janićijević",
+          "opstina": "Smederevo"
+        },
+        {
+          "id": 1424,
+          "ime": "Nenad Dikić",
+          "opstina": "Niš"
+        },
+        {
+          "id": 3067,
+          "ime": "Nikola Džugurdić",
+          "opstina": "Kruševac"
+        },
+        {
+          "id": 1856,
+          "ime": "Nikola Stanimirović",
+          "opstina": "Leskovac"
+        },
+        {
+          "id": 3416,
+          "ime": "Nikola Stošić",
+          "opstina": "Vranje"
+        },
+        {
+          "id": 1679,
+          "ime": "Pavle  Aleksić",
+          "opstina": "Pirot"
+        },
+        {
+          "id": 7867,
+          "ime": "Stefan Stevanović",
+          "opstina": "Leskovac"
+        },
+        {
+          "id": 342,
+          "ime": "Tatjana Benak",
+          "opstina": "Beograd-Zvezdara"
+        },
+        {
+          "id": 1643,
+          "ime": "Tatjana Đurđević",
+          "opstina": "Alibunar"
+        }
+      ]
+    },
+    "43": {
+      "naziv": "voter glasanje dodatni bodovi",
+      "members": [
+        {
+          "id": 1482,
+          "ime": "Biljana Spasić",
+          "opstina": "Vranje"
+        },
+        {
+          "id": 2849,
+          "ime": "Ivana Modrić",
+          "opstina": "Kladovo"
+        },
+        {
+          "id": 265,
+          "ime": "Jelena Lavrnić",
+          "opstina": "Šabac"
+        },
+        {
+          "id": 1362,
+          "ime": "Katarina Ignjatović",
+          "opstina": "Rača"
+        },
+        {
+          "id": 2848,
+          "ime": "Katarina Janić",
+          "opstina": "Kladovo"
+        },
+        {
+          "id": 376,
+          "ime": "Leon  Šalamon",
+          "opstina": "Bač"
+        },
+        {
+          "id": 1780,
+          "ime": "Marija Ž Stanojlović",
+          "opstina": "Velika Plana"
+        },
+        {
+          "id": 616,
+          "ime": "Marko Miletić",
+          "opstina": "Lajkovac"
+        },
+        {
+          "id": 1287,
+          "ime": "Milena Pribaković",
+          "opstina": "Kragujevac"
+        },
+        {
+          "id": 1371,
+          "ime": "Milica Radovanović",
+          "opstina": "Rača"
+        },
+        {
+          "id": 66,
+          "ime": "Miloš Jovanović",
+          "opstina": "Beograd-Čukarica"
+        },
+        {
+          "id": 981,
+          "ime": "Sanja Jovičić",
+          "opstina": "Arilje"
+        },
+        {
+          "id": 590,
+          "ime": "Snežana  Zlatić",
+          "opstina": "Ivanjica"
+        },
+        {
+          "id": 342,
+          "ime": "Tatjana Benak",
+          "opstina": "Beograd-Zvezdara"
+        },
+        {
+          "id": 1338,
+          "ime": "Tatjana Buđevac",
+          "opstina": "Knić"
+        },
+        {
+          "id": 2219,
+          "ime": "Žarko  Popović",
+          "opstina": "Odžaci"
+        },
+        {
+          "id": 2247,
+          "ime": "Žarko Nastasić",
+          "opstina": "Sombor"
+        }
+      ]
+    },
+    "44": {
+      "naziv": "voter admini",
+      "members": [
+        {
+          "id": 5290,
+          "ime": "Aleksandra Mladenović",
+          "opstina": "Veliko Gradište"
+        },
+        {
+          "id": 6203,
+          "ime": "Aleksandra Pavlović",
+          "opstina": "Beograd-Palilula"
+        },
+        {
+          "id": 5338,
+          "ime": "Damir Janković",
+          "opstina": "Brus"
+        },
+        {
+          "id": 102,
+          "ime": "Dejan Pavlović",
+          "opstina": "Loznica"
+        },
+        {
+          "id": 5760,
+          "ime": "Duško Basarić",
+          "opstina": "Lučani"
+        },
+        {
+          "id": 5341,
+          "ime": "Goran Milićević",
+          "opstina": "Brus"
+        },
+        {
+          "id": 1457,
+          "ime": "Jasmina Batoćanin",
+          "opstina": "Aleksinac"
+        },
+        {
+          "id": 1359,
+          "ime": "Kristina Zlatković",
+          "opstina": "Lapovo"
+        },
+        {
+          "id": 5096,
+          "ime": "Milica Milovanović",
+          "opstina": "Ljubovija"
+        },
+        {
+          "id": 5546,
+          "ime": "Mirjana Ilić",
+          "opstina": "Lučani"
+        },
+        {
+          "id": 207,
+          "ime": "Slavica Kostić",
+          "opstina": "Šabac"
+        },
+        {
+          "id": 472,
+          "ime": "Tanja Dimić",
+          "opstina": "Kučevo"
+        },
+        {
+          "id": 2771,
+          "ime": "Vesna Pejić",
+          "opstina": "Paraćin"
+        },
+        {
+          "id": 216,
+          "ime": "Željana Pantelić",
+          "opstina": "Šabac"
+        }
+      ]
+    },
+    "38": {
+      "naziv": "Voter administracija",
+      "members": [
+        {
+          "id": 5290,
+          "ime": "Aleksandra Mladenović",
+          "opstina": "Veliko Gradište"
+        },
+        {
+          "id": 5338,
+          "ime": "Damir Janković",
+          "opstina": "Brus"
+        },
+        {
+          "id": 102,
+          "ime": "Dejan Pavlović",
+          "opstina": "Loznica"
+        },
+        {
+          "id": 5341,
+          "ime": "Goran Milićević",
+          "opstina": "Brus"
+        },
+        {
+          "id": 1457,
+          "ime": "Jasmina Batoćanin",
+          "opstina": "Aleksinac"
+        },
+        {
+          "id": 1359,
+          "ime": "Kristina Zlatković",
+          "opstina": "Lapovo"
+        },
+        {
+          "id": 2095,
+          "ime": "Marijana Dobrić",
+          "opstina": "Pećinci"
+        },
+        {
+          "id": 2498,
+          "ime": "Milan Dinulović",
+          "opstina": "Zaječar"
+        },
+        {
+          "id": 3759,
+          "ime": "Neda Nedović",
+          "opstina": "Kragujevac"
+        },
+        {
+          "id": 472,
+          "ime": "Tanja Dimić",
+          "opstina": "Kučevo"
+        },
+        {
+          "id": 2771,
+          "ime": "Vesna Pejić",
+          "opstina": "Paraćin"
+        }
+      ]
+    },
+    "65": {
+      "naziv": "protokol",
+      "members": [
+        {
+          "id": 7698,
+          "ime": "Ivona Zorica",
+          "opstina": "Beograd-Čukarica"
+        },
+        {
+          "id": 8827,
+          "ime": "Jovana Petković",
+          "opstina": "Beograd-Lazarevac"
+        },
+        {
+          "id": 70,
+          "ime": "Marija Krulj",
+          "opstina": "Beograd-Rakovica"
+        },
+        {
+          "id": 6635,
+          "ime": "Marko Kukić",
+          "opstina": "Beograd-Čukarica"
+        },
+        {
+          "id": 8899,
+          "ime": "Milan Vladušić",
+          "opstina": "Beograd-Čukarica"
+        },
+        {
+          "id": 72,
+          "ime": "Mirjana Kujović",
+          "opstina": "Beograd-Obrenovac"
+        },
+        {
+          "id": 9004,
+          "ime": "Nikola Janković",
+          "opstina": "Beograd-Čukarica"
+        },
+        {
+          "id": 806,
+          "ime": "Stevan Žitnik",
+          "opstina": "Beograd-Čukarica"
+        },
+        {
+          "id": 8745,
+          "ime": "Svetlana Stojadinović",
+          "opstina": "Beograd-Čukarica"
+        },
+        {
+          "id": 5549,
+          "ime": "Željka Radić",
+          "opstina": "Šabac"
+        }
+      ]
+    },
+    "13": {
+      "naziv": "Sekretari",
+      "members": [
+        {
+          "id": 221,
+          "ime": "Marko  Nedeljković",
+          "opstina": "Koceljeva"
+        },
+        {
+          "id": 357,
+          "ime": "Mirjan Grbić",
+          "opstina": "Plandište"
+        },
+        {
+          "id": 72,
+          "ime": "Mirjana Kujović",
+          "opstina": "Beograd-Obrenovac"
+        },
+        {
+          "id": 68,
+          "ime": "Mirko Osadkovski",
+          "opstina": "Žabalj"
+        }
+      ]
+    },
+    "56": {
+      "naziv": "hit tvit",
+      "members": [
+        {
+          "id": 2776,
+          "ime": "Aleksandar Jovanović",
+          "opstina": "Paraćin"
+        },
+        {
+          "id": 8839,
+          "ime": "Katarina Ćirić",
+          "opstina": "Žitorađa"
+        },
+        {
+          "id": 434,
+          "ime": "Matija Šljukić",
+          "opstina": "Prijepolje"
+        },
+        {
+          "id": 8585,
+          "ime": "Živka Trifunović",
+          "opstina": "Petrovac"
+        }
+      ]
+    }
+  },
+  "note": "Paralelna hijerarhija po funkciji/platformi: TikTok divizija (abecedna podela), Voter administracija, Hit Tvit (rapid koordinacija), Nadzor/Kontrola. Članstvo = korisnici_grupe_aktivisti (eksplicitno)."
+}

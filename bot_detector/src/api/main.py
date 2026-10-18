@@ -937,6 +937,12 @@ VOTER_TIMING = _load_json_geo("voter_timing.json")
 BETTING_CORP = _load_json_geo("betting_corporate.json")
 SHIFT_CHAT = _load_json_geo("shift_chat.json")
 GAMIFICATION = _load_json_geo("gamification.json")
+REGIONAL_OPS = _load_json_geo("regional_operations.json")
+TACTICAL_GROUPS = _load_json_geo("tactical_groups.json")
+SYSTEM_SURVEILLANCE = _load_json_geo("system_surveillance.json")
+MULTIPLATFORM = _load_json_geo("multiplatform.json")
+VOTER_KURIR = _load_json_geo("voter_kurir_accounts.json")
+VOTER_CUSTOM = _load_json_geo("voter_custom_actions.json")
 
 # ISO-2 kodovi afričkih država prisutnih u voter podacima (za udeo Afrike)
 _AFRICA = {"CM": "Kamerun", "CG": "Kongo (Brazavil)", "CD": "DR Kongo", "TZ": "Tanzanija",
@@ -1148,10 +1154,52 @@ def _build_dossier():
       "primarnog izvora.")
     a("- Raspon kontrole koordinatora = geografska nadležnost, ne dokaz pojedinačnog naređenja.")
     a("- Kaskada (redosled/latencija) = korelacija (inferirana propagacija).\n")
+
+    # 6 — širina operacije (K1–K8)
+    ro, tg = REGIONAL_OPS or {}, TACTICAL_GROUPS or {}
+    ss, mp = SYSTEM_SURVEILLANCE or {}, MULTIPLATFORM or {}
+    vk = VOTER_KURIR or {}
+    if ro or tg or ss or mp:
+        a("## 6. Širina operacije (platforme, regioni, nadzor)\n")
+        if ro.get("countries"):
+            cg = next((c for c in ro["countries"] if c["country"] == "CRNA GORA"), {})
+            bih = next((c for c in ro["countries"] if c["country"] == "BIH"), {})
+            px = ro.get("proxy", {})
+            a(f"- **Prekogranično (K1):** CG {_fmt(cg.get('votes',0))} + BiH {_fmt(bih.get('votes',0))} "
+              f"glasova. Proxy mreža: {px.get('total','?')} servera ({px.get('distinct_ip','?')} IP) "
+              f"— svi za **vijesti.me**.")
+        if vk.get("accounts_total"):
+            a(f"- **Kurir/relay nalozi (K2):** {_fmt(vk['accounts_total'])} naloga (temp-mail) na "
+              f"{vk.get('machines_matched','?')} mašina ({vk.get('machines_foreign','?')} strano) — "
+              f"FK na voter_racunari. (Lozinke se ne izlažu; „kurir“≠Kurir.rs.)")
+        if (VOTER_CUSTOM or {}).get("actions"):
+            a(f"- **Headless injekcija (K3):** {len((VOTER_CUSTOM or {})['actions'])} custom akcija sa "
+              f"sirovim JS/XPath (document.evaluate, scrollIntoView, click, FormData) na "
+              f"Kurir/RTCG/Avaz/Progress.rs. (Tajne u kodu redigovane.)")
+        if tg.get("categories"):
+            tiktok = next((c for c in tg["categories"] if "TikTok" in c["category"]), {})
+            a(f"- **Taktičke grupe (K4):** {tg.get('groups_total','?')} internih grupa / "
+              f"{_fmt(tg.get('memberships_total',0))} članstava — TikTok divizija "
+              f"({tiktok.get('members','?')} članova, abecedna podela), Voter admini, Hit Tvit, Nadzor.")
+        if ss.get("inspector"):
+            insp, dev, sms = ss["inspector"], ss.get("devices", {}), ss.get("sms", {})
+            a(f"- **Nadzor operatera (K5–K7):** F12-telemetrija {insp.get('records','?')} zapisa u "
+              f"prozoru {insp.get('from','?')[:10]}–{insp.get('to','?')[:10]} (korelacija s događajem); "
+              f"{_fmt(dev.get('records',0))} uređaja (Android dominira, {dev.get('operators_5plus_devices','?')} "
+              f"op sa 5+ uređaja); SMS gateway „Internet Tim“ {_fmt(sms.get('messages',0))} poruka "
+              f"(2FA; telefoni maskirani).")
+        if mp.get("platforms"):
+            a(f"- **Multi-platformski arsenal (K8):** {_fmt(mp.get('total_accounts',0))} naloga na "
+              f"{len(mp['platforms'])} mreža; {_fmt(mp.get('operators_3plus_networks',0))} operatera "
+              f"pokriva 3+ mreže. 15 kategorija dežurstava (Twitter/IG/FB/Telegram/Sajtovi/Voter).")
+        a("")
+
     a("---\n")
     a("*Detaljni moduli: `docs/analiza_direktiva.md`, `docs/analiza_koordinatora.md`, "
       "`docs/analiza_kaskade.md`, `docs/komandna_odgovornost_i_pravni_osnov.md`, "
-      "`docs/voter_kladionice_infrastruktura.md`, `docs/vlasnicki_profil_kladionica.md`.*")
+      "`docs/voter_kladionice_infrastruktura.md`, `docs/vlasnicki_profil_kladionica.md`, "
+      "`docs/regionalne_operacije_cg_bih.md`, `docs/takticke_grupe_i_divizije.md`, "
+      "`docs/nadzor_operatera.md`, `docs/multiplatform_arsenal.md`.*")
     return "\n".join(L)
 
 
@@ -1162,6 +1210,45 @@ def export_investigation_dossier():
     fname = f"cacix_dosije_{datetime.now().strftime('%Y%m%d')}.md"
     return Response(content=md, media_type="text/markdown; charset=utf-8",
                     headers={"Content-Disposition": f'attachment; filename="{fname}"'})
+
+
+@app.get("/api/regional_operations")
+def regional_operations():
+    """KORAK 1: prekogranične operacije (CG/BiH) + proxy mreža (133 za vijesti.me).
+    Glasovi po državi/portalu iz izvestaj_voter (agregat; država izvedena iz portala)."""
+    return REGIONAL_OPS or {"countries": [], "portals": [], "proxy": {}}
+
+
+@app.get("/api/voter_kurir")
+def voter_kurir():
+    """KORAK 2: kurir/relay nalozi ↔ mašine (voter_kurir_nalozi→voter_racunari).
+    FER PLAY: bez lozinki; „kurir“ nije Kurir.rs."""
+    return VOTER_KURIR or {}
+
+
+@app.get("/api/voter_custom")
+def voter_custom():
+    """KORAK 3: headless JS/XPath custom akcije (tajne redigovane)."""
+    return VOTER_CUSTOM or {}
+
+
+@app.get("/api/tactical_groups")
+def tactical_groups():
+    """KORAK 4: taktičke grupe/divizije (TikTok, Voter admini, Hit Tvit, Nadzor)."""
+    return TACTICAL_GROUPS or {"groups": [], "categories": []}
+
+
+@app.get("/api/system_surveillance")
+def system_surveillance():
+    """KORACI 5–7: nadzor operatera — F12 inspector, uređaji (otisak), SMS gateway.
+    FER PLAY: telefoni/2FA kodovi maskirani; vremenska poklapanja = korelacija."""
+    return SYSTEM_SURVEILLANCE or {"inspector": {}, "devices": {}, "sms": {}}
+
+
+@app.get("/api/multiplatform_stats")
+def multiplatform_stats():
+    """KORAK 8: arsenal preko 6 platformi (51k+ naloga), unakrsna matrica, 15 dežurstava."""
+    return MULTIPLATFORM or {"platforms": [], "coverage": []}
 
 
 @app.get("/api/shift_chat")

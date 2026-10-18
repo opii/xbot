@@ -1,0 +1,122 @@
+{
+  "generated": "2026-10-18T15:19:34",
+  "total_accounts": 51703,
+  "platforms": [
+    {
+      "platform": "Twitter",
+      "accounts": 24801,
+      "operators": 4389
+    },
+    {
+      "platform": "TikTok",
+      "accounts": 7957,
+      "operators": 7709
+    },
+    {
+      "platform": "Instagram",
+      "accounts": 8761,
+      "operators": 7739
+    },
+    {
+      "platform": "Facebook",
+      "accounts": 6176,
+      "operators": 4714
+    },
+    {
+      "platform": "Threads",
+      "accounts": 3366,
+      "operators": 3329
+    },
+    {
+      "platform": "Reddit",
+      "accounts": 642,
+      "operators": 640
+    }
+  ],
+  "coverage": [
+    {
+      "platforms": 1,
+      "operators": 40
+    },
+    {
+      "platforms": 2,
+      "operators": 552
+    },
+    {
+      "platforms": 3,
+      "operators": 2409
+    },
+    {
+      "platforms": 4,
+      "operators": 3928
+    },
+    {
+      "platforms": 5,
+      "operators": 609
+    },
+    {
+      "platforms": 6,
+      "operators": 232
+    }
+  ],
+  "operators_3plus_networks": 7178,
+  "operators_4plus_networks": 4769,
+  "instagram": {
+    "tasks": 10891,
+    "comments": 68710,
+    "from": "2024-12-12",
+    "to": "2025-08-20",
+    "top_targets": [
+      {
+        "post": "Kontramedija - Nista me ne bi iznenadilo",
+        "komentara": 30
+      },
+      {
+        "post": "Studenti u blokadi- Pozivamo...",
+        "komentara": 30
+      },
+      {
+        "post": "kontramedia -Jесте ли спремни? ",
+        "komentara": 28
+      },
+      {
+        "post": "Usrana motka - Cela Srbija je na nogama... Svi smo ujedinjeni sa",
+        "komentara": 26
+      },
+      {
+        "post": "pobunitese - ",
+        "komentara": 25
+      },
+      {
+        "post": "Diplomatski pasoš",
+        "komentara": 25
+      },
+      {
+        "post": "pobunitese - Za babu iz Novog Sada ku..c",
+        "komentara": 21
+      },
+      {
+        "post": "Pobunitese - Izaberi i izgovori tri reči, predsedniče",
+        "komentara": 20
+      }
+    ]
+  },
+  "dezurstva_types": [
+    "TWITTER NADZOR",
+    "TWITTER ANALIZA",
+    "ANALIZA KOMENTARA",
+    "ANALIZA KOMENTARA - ADMIN",
+    "VOTER",
+    "VESTI",
+    "TWITTER PRINT SCREEN",
+    "MONITORING",
+    "INSTAGRAM",
+    "SAJTOVI",
+    "GLASANJE",
+    "KOMENTARISANJE",
+    "FACEBOOK I LIVE",
+    "TELEGRAM",
+    "ADMINISTRACIJA"
+  ],
+  "note": "Arsenal preko 6 platformi (+~51k naloga). Unakrsna matrica = broj distinct platformi po operateru (iz *_korisnik_id). 15 kategorija dežurstava pokriva Twitter/Instagram/Facebook/Telegram/Sajtovi/Voter…"
+}

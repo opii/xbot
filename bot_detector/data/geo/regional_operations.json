@@ -1,0 +1,132 @@
+{
+  "generated": "2026-10-18T15:19:33",
+  "countries": [
+    {
+      "country": "SRBIJA",
+      "votes": 554001240,
+      "comments": 4333431,
+      "portals": 8
+    },
+    {
+      "country": "CRNA GORA",
+      "votes": 11526386,
+      "comments": 100438,
+      "portals": 5
+    },
+    {
+      "country": "BIH",
+      "votes": 6127655,
+      "comments": 43391,
+      "portals": 2
+    }
+  ],
+  "foreign_votes": 17654041,
+  "foreign_share": 0.0309,
+  "portals": [
+    {
+      "portal": "blic.rs",
+      "country": "SRBIJA",
+      "votes": 185014665,
+      "comments": 1293729
+    },
+    {
+      "portal": "alo.rs",
+      "country": "SRBIJA",
+      "votes": 130195029,
+      "comments": 1124383
+    },
+    {
+      "portal": "kurir.rs",
+      "country": "SRBIJA",
+      "votes": 129436781,
+      "comments": 892360
+    },
+    {
+      "portal": "novosti.rs",
+      "country": "SRBIJA",
+      "votes": 50844377,
+      "comments": 593191
+    },
+    {
+      "portal": "telegraf.rs",
+      "country": "SRBIJA",
+      "votes": 25482204,
+      "comments": 229720
+    },
+    {
+      "portal": "b92.net",
+      "country": "SRBIJA",
+      "votes": 23922453,
+      "comments": 120125
+    },
+    {
+      "portal": "politika.rs",
+      "country": "SRBIJA",
+      "votes": 6900567,
+      "comments": 57503
+    },
+    {
+      "portal": "in4s.net",
+      "country": "CRNA GORA",
+      "votes": 6660198,
+      "comments": 65024
+    },
+    {
+      "portal": "klix.ba",
+      "country": "BIH",
+      "votes": 3168000,
+      "comments": 13313
+    },
+    {
+      "portal": "avaz.ba",
+      "country": "BIH",
+      "votes": 2959655,
+      "comments": 30078
+    },
+    {
+      "portal": "vijesti.me",
+      "country": "CRNA GORA",
+      "votes": 2856817,
+      "comments": 19191
+    },
+    {
+      "portal": "espreso.co.rs",
+      "country": "SRBIJA",
+      "votes": 2205164,
+      "comments": 22420
+    },
+    {
+      "portal": "rtcg.me",
+      "country": "CRNA GORA",
+      "votes": 803210,
+      "comments": 7204
+    },
+    {
+      "portal": "cdm.me",
+      "country": "CRNA GORA",
+      "votes": 795290,
+      "comments": 5177
+    },
+    {
+      "portal": "pobjeda.me",
+      "country": "CRNA GORA",
+      "votes": 410871,
+      "comments": 3842
+    }
+  ],
+  "proxy": {
+    "total": 133,
+    "distinct_ip": 4,
+    "by_portal": {
+      "vijesti.me": 133
+    },
+    "ip_port_format": true,
+    "sample_masked": [
+      "101.46.138.x:24667",
+      "101.46.138.x:24770",
+      "101.46.138.x:24562",
+      "101.46.138.x:24866"
+    ]
+  },
+  "note": "izvestaj_voter je dnevni agregat (iv_glasanja) bez kolone države — država se izvodi iz portala (eksplicitni spisak + TLD). Proxy veza (portal) je eksplicitna: svih 133 proxyja konfigurisano za vijesti.me."
+}

@@ -91,7 +91,10 @@ dup/lead/template/reg/farm/pseudonyms/toxicity/infiltrator; `template` koristi C
 + vrh koplja + ritam + izdavač→okrug), `/api/voter_geoip` (države/ASN voter mašina
 + udeo Afrike + tajming), `/api/voter_timing` (cirkadijalna analiza: satnica po
 državi), `/api/export/investigation_dossier` (ceo dosije, Markdown download),
-`/api/shift_chat` (dnevnik dežurstava), `/api/gamification` (bodovi/kvote).
+`/api/shift_chat` (dnevnik dežurstava), `/api/gamification` (bodovi/kvote),
+`/api/regional_operations` (CG/BiH+proxy), `/api/tactical_groups` (divizije),
+`/api/system_surveillance` (F12/uređaji/SMS), `/api/multiplatform_stats` (6 mreža),
+`/api/voter_kurir`, `/api/voter_custom`.
 Node id šema: `op:<id>`, `acc:<id>`, `tgt:<handle>`,
 `portal:<name>`, `news:<vid>`. Operater nosi `auto_score` (+komponente),
 `lead_score`, `template_frac`, `reg_score`, `dup_ratio`, `role`, `farm_ratio`/
@@ -133,8 +136,11 @@ voter GeoIP, kladionice↔opštine, task-masteri, komandna odgovornost & voter,
 (`coordinators.py` → „🏛 Koordinatori"), **vremenska kaskada** (`cascade.py` → „⏱ Kaskada"),
 **cirkadijalni režim** (`voter_timing.py` → satnica u GeoIP pogledu), **korporativni
 tragovi** (`betting_corporate.py`), **generator dosijea** (`/api/export/investigation_dossier`),
-**dnevnik dežurstava** (`shift_chat.py` → „💬 Dnevnik") i **gamifikacija/bodovi**
-(`gamification_points.py` → „🎯 Kvote & Bodovanje").
+**dnevnik dežurstava** (`shift_chat.py` → „💬 Dnevnik"), **gamifikacija/bodovi**
+(`gamification_points.py` → „🎯 Kvote & Bodovanje") i **8 operativnih slojeva K1–K8**
+(`regional_operations.py`, `voter_kurir_links.py`, `voter_custom_actions.py`,
+`tactical_groups.py`, `system_surveillance.py`, `multiplatform.py` → API + docs;
+integrisano u dosije §6).
 
 ## Ključni nalazi (zaključci)
 
@@ -231,6 +237,22 @@ ljudi koji rade u smenama — ali je koordinacija vrlo jaka i merljiva.** Dokazi
   ekonomija nagrađuje napadače; #2 je Mirko Osadkovski (isti chat-supervizor).
   `timski_bodovi` je uzak (2 lidera, tb_procenat∈{30,50} — NIJE realizacija kvote).
   `src/analysis/gamification_points.py`, [`docs/gamifikacija_i_kvote.md`](docs/gamifikacija_i_kvote.md).
+- **Širina operacije (8 slojeva — K1–K8).** (1) Prekogranično: CG 11,5M + BiH 6,1M
+  glasova; proxy mreža 133 endpointa na 4 IP — svi za vijesti.me
+  ([`docs/regionalne_operacije_cg_bih.md`](docs/regionalne_operacije_cg_bih.md)).
+  (2) Kurir/relay nalozi: 1.514 (temp-mail) na 114 mašina (111 strano), FK→voter_racunari
+  — „kurir"≠Kurir.rs, lozinke se ne izlažu. (3) Headless injekcija: 4 custom akcije
+  sa JS/XPath (document.evaluate+scrollIntoView+click+FormData)
+  ([`docs/voter_mehanizam_kurir_custom.md`](docs/voter_mehanizam_kurir_custom.md)).
+  (4) Taktičke grupe: 30 grupa/1.232 članstva — TikTok divizija (386, abecedno),
+  Voter admini, Hit Tvit, Nadzor
+  ([`docs/takticke_grupe_i_divizije.md`](docs/takticke_grupe_i_divizije.md)).
+  (5–7) Nadzor: F12-telemetrija 306 zapisa u 1 nedelji (jul 2023, korelacija),
+  29.682 uređaja (Android, 1.298 op 5+ uređaja, deljeni=0), SMS „Internet Tim" 11.627
+  (2FA, maskirano) ([`docs/nadzor_operatera.md`](docs/nadzor_operatera.md)).
+  (8) Multi-platforma: 51.703 naloga/6 mreža, 7.178 op na 3+ mreže, 15 dežurstava
+  ([`docs/multiplatform_arsenal.md`](docs/multiplatform_arsenal.md)).
+  Pravila: kredencijali/telefoni NIKAD u izlazu; FK=dokaz, vreme-poklapanje=korelacija.
 - **Mete.** Masovne mete (npr. `@sns_srbija` — dira je 3.608 operatera) su šum za
   povezivanje; prava koordinacija se vidi na retkim, deljenim metama.
 

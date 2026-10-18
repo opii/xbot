@@ -1,0 +1,218 @@
+{
+  "generated": "2026-10-18T15:20:03",
+  "accounts_total": 1514,
+  "accounts_active": 1514,
+  "accounts_with_password": 1514,
+  "distinct_machines_referenced": 114,
+  "machines_matched": 114,
+  "machines_serbia": 3,
+  "machines_foreign": 111,
+  "temp_mail_domains": [
+    {
+      "domain": "undeep.xyz",
+      "accounts": 213
+    },
+    {
+      "domain": "smallntm.lol",
+      "accounts": 206
+    },
+    {
+      "domain": "dunkos.xyz",
+      "accounts": 170
+    },
+    {
+      "domain": "apwoghkn.site",
+      "accounts": 115
+    },
+    {
+      "domain": "nbmbb.com",
+      "accounts": 94
+    },
+    {
+      "domain": "hthlm.com",
+      "accounts": 87
+    },
+    {
+      "domain": "ytnhy.com",
+      "accounts": 83
+    },
+    {
+      "domain": "poplk.com",
+      "accounts": 79
+    },
+    {
+      "domain": "dcobe.com",
+      "accounts": 71
+    },
+    {
+      "domain": "mybankloans.org",
+      "accounts": 48
+    },
+    {
+      "domain": "mailnuo.com",
+      "accounts": 46
+    },
+    {
+      "domain": "velvet-mag.lat",
+      "accounts": 45
+    },
+    {
+      "domain": "dpptd.com",
+      "accounts": 37
+    },
+    {
+      "domain": "nowni.com",
+      "accounts": 27
+    },
+    {
+      "domain": "inohm.com",
+      "accounts": 27
+    },
+    {
+      "domain": "rteet.com",
+      "accounts": 19
+    },
+    {
+      "domain": "1secmail.net",
+      "accounts": 12
+    },
+    {
+      "domain": "chainds.com",
+      "accounts": 12
+    },
+    {
+      "domain": "hraifi.com",
+      "accounts": 11
+    },
+    {
+      "domain": "craftapk.com",
+      "accounts": 9
+    }
+  ],
+  "top_machines": [
+    {
+      "racunar_id": null,
+      "drzava": "strano",
+      "lokacija": null,
+      "naloga": 1401
+    },
+    {
+      "racunar_id": 14824,
+      "drzava": "strano",
+      "lokacija": "Wallia",
+      "naloga": 1
+    },
+    {
+      "racunar_id": 14401,
+      "drzava": "strano",
+      "lokacija": "Mfou 1",
+      "naloga": 1
+    },
+    {
+      "racunar_id": 13245,
+      "drzava": "strano",
+      "lokacija": null,
+      "naloga": 1
+    },
+    {
+      "racunar_id": 13862,
+      "drzava": "strano",
+      "lokacija": null,
+      "naloga": 1
+    },
+    {
+      "racunar_id": 13797,
+      "drzava": "strano",
+      "lokacija": "Bunker 22",
+      "naloga": 1
+    },
+    {
+      "racunar_id": 13995,
+      "drzava": "strano",
+      "lokacija": "Maroua Domayo",
+      "naloga": 1
+    },
+    {
+      "racunar_id": 13511,
+      "drzava": "strano",
+      "lokacija": null,
+      "naloga": 1
+    },
+    {
+      "racunar_id": 14497,
+      "drzava": "strano",
+      "lokacija": "Bunker 24",
+      "naloga": 1
+    },
+    {
+      "racunar_id": 13312,
+      "drzava": "strano",
+      "lokacija": null,
+      "naloga": 1
+    },
+    {
+      "racunar_id": 14797,
+      "drzava": "strano",
+      "lokacija": "Gendarmerie Bifouiti",
+      "naloga": 1
+    },
+    {
+      "racunar_id": 14694,
+      "drzava": "strano",
+      "lokacija": "Bunker 34",
+      "naloga": 1
+    },
+    {
+      "racunar_id": 99221242,
+      "drzava": "strano",
+      "lokacija": null,
+      "naloga": 1
+    },
+    {
+      "racunar_id": 13554,
+      "drzava": "strano",
+      "lokacija": null,
+      "naloga": 1
+    },
+    {
+      "racunar_id": 13636,
+      "drzava": "strano",
+      "lokacija": "Mouhoumi",
+      "naloga": 1
+    },
+    {
+      "racunar_id": 13780,
+      "drzava": "strano",
+      "lokacija": "Marche Stella",
+      "naloga": 1
+    },
+    {
+      "racunar_id": 13173,
+      "drzava": "strano",
+      "lokacija": null,
+      "naloga": 1
+    },
+    {
+      "racunar_id": 13794,
+      "drzava": "strano",
+      "lokacija": null,
+      "naloga": 1
+    },
+    {
+      "racunar_id": 13820,
+      "drzava": "strano",
+      "lokacija": null,
+      "naloga": 1
+    },
+    {
+      "racunar_id": 13960,
+      "drzava": "strano",
+      "lokacija": "Maxi 38",
+      "naloga": 1
+    }
+  ],
+  "vreme_uzimanja_od": "2024-10-28 09:14:01",
+  "vreme_uzimanja_do": "NULL",
+  "mechanism": "Mašine (uglavnom afričke lokacije) imaju DODELJENE registrovane naloge (email+lozinka) — infrastruktura za autorizaciju/upis, ne samo anonimno glasanje. Portal nije eksplicitno vezan u tabeli.",
+  "fair_play": "racunar_id→vr_id je dokazan FK. „kurir“ = relay nalog; NE tvrdi se da su nalozi na Kurir.rs (nema veze u bazi). password se ne izlaže."
+}

