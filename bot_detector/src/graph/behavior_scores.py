@@ -131,6 +131,38 @@ def run(drv=None):
     lead_rows = [{"id": op, "lead": float(lead), "ln": n}
                  for op, lead, n in cur.fetchall()]
 
+    print("Računanje regularnosti ritma (razmaci između akcija) ...", flush=True)
+    # reg = m/(m+s) razmaka između uzastopnih akcija; 1 = savršeno pravilno (bot)
+    cur.execute("""
+        WITH ordered AS (
+            SELECT tuka_korisnik_id op, tuka_vreme::timestamp t,
+                   lag(tuka_vreme::timestamp) OVER
+                       (PARTITION BY tuka_korisnik_id ORDER BY tuka_vreme) prev
+            FROM arhiva_twitter_unos_korisnici_akcije),
+        gaps AS (SELECT op, extract(epoch FROM (t - prev)) g
+                 FROM ordered WHERE prev IS NOT NULL AND t > prev)
+        SELECT op, avg(g) m, stddev_pop(g) s, count(*) n
+        FROM gaps GROUP BY op HAVING count(*) >= 30
+    """)
+    reg_rows = [{"id": op, "reg": round(float(m) / (float(m) + float(s)), 4)
+                 if (m is not None and s is not None and (m + s)) else 0.0}
+                for op, m, s, n in cur.fetchall()]
+
+    print("Određivanje uloga (dominantni tip akcije) ...", flush=True)
+    cur.execute("""
+        SELECT tuka_korisnik_id,
+               count(*) FILTER (WHERE tuka_akcija IN (0,1)) amp,
+               count(*) FILTER (WHERE tuka_akcija IN (2,3)) resp,
+               count(*) total
+        FROM arhiva_twitter_unos_korisnici_akcije GROUP BY 1
+    """)
+    role_rows = []
+    for op, amp, resp, tot in cur.fetchall():
+        tot = tot or 1
+        role = ("Odgovarač" if resp / tot > 0.5
+                else "Pojačivač" if amp / tot > 0.8 else "Mešovit")
+        role_rows.append({"id": op, "role": role})
+
     print("Računanje udela duplikata komentara ...", flush=True)
     cur.execute("""
         SELECT vkk_korisnik_id, count(*), count(DISTINCT vkk_komentar)
@@ -205,6 +237,12 @@ def run(drv=None):
                 MERGE (a)-[c:CO_TEMPLATE]-(b) SET c.shared = r.shared
             """, rows=ct_rows[i:i + 5000])
         print(f"  template_frac: {len(tpl_rows):,} op · CO_TEMPLATE: {len(ct_rows):,} veza", flush=True)
+        s.run("MATCH (o:Operator) SET o.reg_score=0, o.role=null")
+        for i in range(0, len(reg_rows), 5000):
+            s.run("UNWIND $rows AS r MATCH (o:Operator {id:r.id}) SET o.reg_score=r.reg", rows=reg_rows[i:i + 5000])
+        for i in range(0, len(role_rows), 5000):
+            s.run("UNWIND $rows AS r MATCH (o:Operator {id:r.id}) SET o.role=r.role", rows=role_rows[i:i + 5000])
+        print(f"  reg_score: {len(reg_rows):,} · uloge: {len(role_rows):,}", flush=True)
         top = s.run("MATCH (o:Operator) WHERE o.auto_score > 0 "
                     "RETURN o.ime AS ime, o.auto_score AS a "
                     "ORDER BY a DESC LIMIT 5").data()

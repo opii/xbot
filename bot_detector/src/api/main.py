@@ -99,6 +99,8 @@ def op_node(rec):
         "lead_score": rec.get("lead_score") or 0,
         "lead_n": rec.get("lead_n") or 0,
         "template_frac": rec.get("template_frac") or 0,
+        "reg_score": rec.get("reg_score") or 0,
+        "role": rec.get("role"),
         # veličina čvora raste logaritamski sa brojem akcija (~2..7)
         "val": round(2 + 1.1 * math.log10((rec.get("actions") or 0) + 1), 2),
     }
@@ -531,7 +533,7 @@ def behavior(op_id: int):
 BEHAV_METRIC = {
     "auto": "auto_score", "night": "night_ratio", "short_lat": "short_lat_frac",
     "entropy": "hour_entropy", "dup": "dup_ratio", "lead": "lead_score",
-    "template": "template_frac",
+    "template": "template_frac", "reg": "reg_score",
 }
 
 

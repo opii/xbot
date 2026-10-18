@@ -20,8 +20,10 @@ const METRICS = {
   dup: { field: 'dup_ratio_g', base: 0, norm: 1, label: 'Duplikati komentara' },
   lead: { field: 'lead_score', base: 0.3, norm: 0.72, label: 'Lider — prvi na meti' },
   template: { field: 'template_frac', base: 0, norm: 0.6, label: 'Deljeni šabloni (konzerviran tekst)' },
+  reg: { field: 'reg_score', base: 0, norm: 0.5, label: 'Regularnost ritma' },
 };
 const metricColor = (v, m) => operatorColorN(((v || 0) - m.base) / (m.norm - m.base));
+const ROLE_COLOR = { 'Pojačivač': '#60a5fa', 'Odgovarač': '#fbbf24', 'Mešovit': '#94a3b8' };
 const communityColor = (c) => (c == null ? '#64748b' : COMMUNITY_PALETTE[c % COMMUNITY_PALETTE.length]);
 const communityOf = (n, layer) => (layer === 'comments' ? n.cc_community : n.tw_community);
 const isOrganizer = (n, layer) => (layer === 'comments' ? n.cc_organizer : n.tw_organizer);
@@ -105,7 +107,7 @@ export default function GraphExplorer() {
     if (v === 'organizers') url = `/api/organizers?layer=${layer}&limit=60`;
     else if (v === 'master') url = '/api/crosslayer?limit=50';
     else if (v === 'behav') url = `/api/behavior_top?layer=${layer}&metric=${metric}&limit=60`;
-    else {
+    else { // overview i 'roles' dele isti izvor; 'roles' samo drugačije boji
       const p = new URLSearchParams({ limit: '60', layer });
       if (okrug) p.set('okrug', okrug);
       if (opstina) p.set('opstina', opstina);
@@ -237,6 +239,7 @@ export default function GraphExplorer() {
 
   const nodeColor = (n) => {
     if (n.type === 'operator') {
+      if (view === 'roles') return ROLE_COLOR[n.role] || '#64748b';
       if (view === 'behav') return metricColor(n[METRICS[behavMetric].field], METRICS[behavMetric]);
       if (view === 'master') return operatorColorN(n.master || 0);
       if (view === 'organizers') return communityColor(communityOf(n, layer));
@@ -309,8 +312,9 @@ export default function GraphExplorer() {
     } finally { setBusy(false); }
   };
 
-  const colorLegend = view === 'organizers' ? 'boja = zajednica · ★ centroid'
-    : view === 'master' ? 'boja = master skor (oba sloja)'
+  const colorLegend = view === 'roles' ? 'boja = uloga: ● pojačivač ● odgovarač ● mešovit'
+    : view === 'organizers' ? 'boja = zajednica · ★ centroid'
+      : view === 'master' ? 'boja = master skor (oba sloja)'
       : view === 'behav' ? `boja = ${METRICS[behavMetric].label}`
         : view === 'bursts' ? 'operateri jedne kampanje oko mete'
           : 'boja = povezanost (slab→jak)';
@@ -335,6 +339,7 @@ export default function GraphExplorer() {
 
         <Section title="Pogled">
           <NavItem active={view === 'overview'} onClick={() => setView('overview')}>Pregled — povezanost</NavItem>
+          <NavItem active={view === 'roles'} onClick={() => setView('roles')}>Uloge (pojačivač/odgovarač)</NavItem>
           <NavItem active={view === 'organizers'} color="#fde047" onClick={() => setView('organizers')}>★ Organizatori — zajednice</NavItem>
           <NavItem active={view === 'master'} color="#ef4444" onClick={() => setView('master')}>⚑ Master — oba sloja</NavItem>
         </Section>
