@@ -5,6 +5,7 @@ Operaterska mreža (Operator, Account; CONTROLS, CO_ACTED) živi u Neo4j.
 Amplifikacija (operater -> meta) se računa uživo iz Postgres šeme `progress`.
 Node id šema za frontend: 'op:<id>', 'acc:<id>', 'tgt:<handle>'.
 """
+import json
 import math
 import os
 
@@ -811,9 +812,22 @@ def regions():
     return {"okruzi": out}
 
 
+def _load_betting():
+    try:
+        p = os.path.join(os.path.dirname(__file__), "..", "..", "data", "geo", "betting_geo.json")
+        with open(p, encoding="utf-8") as f:
+            return json.load(f).get("by_opstina", {})
+    except Exception:  # noqa: BLE001
+        return {}
+
+
+BETTING_BY_OPSTINA = _load_betting()
+
+
 @app.get("/api/geo")
 def geo():
-    """Rangiranje okruga i opština po broju operatera i akcija (sve operatere)."""
+    """Rangiranje okruga i opština po broju operatera i akcija (sve operatere),
+    + broj kladionica (uplatnih mesta) po opštini iz voter infrastrukture."""
     with driver.session() as s:
         ok = {r["okrug"]: {"okrug": r["okrug"], "operators": r["ops"],
                            "actions": r["act"] or 0, "opstine": []}
@@ -829,10 +843,12 @@ def geo():
             if r["okrug"] in ok:
                 ok[r["okrug"]]["opstine"].append(
                     {"opstina": r["opstina"], "operators": r["ops"],
-                     "actions": r["act"] or 0})
+                     "actions": r["act"] or 0,
+                     "shops": BETTING_BY_OPSTINA.get(r["opstina"], 0)})
     out = sorted(ok.values(), key=lambda x: -x["actions"])
     for o in out:
         o["opstine"].sort(key=lambda x: -x["actions"])
+        o["shops"] = sum(x["shops"] for x in o["opstine"])  # kladionice po okrugu
     return {"okruzi": out}
 
 

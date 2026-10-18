@@ -656,18 +656,19 @@ export default function GraphExplorer() {
         <div style={panelStyle}>
           <div style={{ fontWeight: 600, color: 'var(--text-main)' }}>Geografija — okruzi</div>
           <div style={{ color: 'var(--text-muted)', fontSize: '0.78rem', margin: '0.3rem 0 0.7rem' }}>
-            Upravni okruzi po aktivnosti (operateri · akcije). Klik = filtriraj graf na okrug.
+            Upravni okruzi po aktivnosti (operateri · akcije). 🎰 = uplatna mesta kladionica (voter infrastruktura). Klik = filtriraj graf na okrug.
           </div>
           {geoData.map((o) => (
             <div key={o.okrug}>
               <div onClick={() => { setFOkrug(o.okrug === fOkrug ? '' : o.okrug); setViewState('geo'); loadView('geo', behavMetric, o.okrug === fOkrug ? '' : o.okrug, ''); }}
                 style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0.3rem 0', borderBottom: '1px solid var(--glass-border)', cursor: 'pointer', fontSize: '0.85rem', background: o.okrug === fOkrug ? 'rgba(255,255,255,0.05)' : 'transparent' }}>
-                <span><span style={{ color: geoColor(o.okrug) }}>●</span> {o.okrug}</span>
+                <span><span style={{ color: geoColor(o.okrug) }}>●</span> {o.okrug}{o.shops > 0 && <span style={{ color: '#f59e0b' }}> 🎰{o.shops}</span>}</span>
                 <span style={{ color: 'var(--text-muted)' }}>{o.operators} · {(o.actions || 0).toLocaleString('sr-RS')}</span>
               </div>
-              {o.okrug === fOkrug && o.opstine.slice(0, 8).map((op) => (
+              {o.okrug === fOkrug && o.opstine.slice(0, 10).map((op) => (
                 <div key={op.opstina} style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.76rem', padding: '0.1rem 0 0.1rem 1rem', color: 'var(--text-muted)' }}>
-                  <span>{op.opstina}</span><span>{op.operators} · {(op.actions || 0).toLocaleString('sr-RS')}</span>
+                  <span>{op.opstina}{op.shops > 0 && <span style={{ color: '#f59e0b' }}> 🎰{op.shops}</span>}</span>
+                  <span>{op.operators} · {(op.actions || 0).toLocaleString('sr-RS')}</span>
                 </div>
               ))}
             </div>

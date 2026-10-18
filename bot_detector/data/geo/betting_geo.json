@@ -1,0 +1,335 @@
+{
+  "total": 1668,
+  "matched": 266,
+  "by_opstina": {
+    "Beograd-Novi Beograd": 21,
+    "Beograd-Palilula": 16,
+    "Subotica": 14,
+    "Sombor": 11,
+    "Novi Pazar": 11,
+    "Kula": 11,
+    "Požarevac": 10,
+    "Vrbas": 9,
+    "Zrenjanin": 9,
+    "Kruševac": 9,
+    "Sjenica": 8,
+    "Beograd-Zemun": 8,
+    "Niš": 7,
+    "Kraljevo": 7,
+    "Kikinda": 7,
+    "Smederevo": 6,
+    "Stara Pazova": 6,
+    "Vršac": 6,
+    "Inđija": 6,
+    "Užice": 6,
+    "Šabac": 6,
+    "Čačak": 5,
+    "Bačka Palanka": 5,
+    "Šid": 5,
+    "Temerin": 5,
+    "Sremska Mitrovica": 4,
+    "Negotin": 4,
+    "Bela Crkva": 4,
+    "Apatin": 3,
+    "Novi Bečej": 3,
+    "Pančevo": 3,
+    "Kovin": 3,
+    "Jagodina": 3,
+    "Loznica": 3,
+    "Valjevo": 3,
+    "Osečina": 3,
+    "Ruma": 2,
+    "Kragujevac": 2,
+    "Pećinci": 2,
+    "Bačka Topola": 2,
+    "Vranje": 2,
+    "Vladičin Han": 2,
+    "Lučani": 2,
+    "Aranđelovac": 1,
+    "Nova Varoš": 1
+  },
+  "unmatched_top": {
+    "Tehnika": 85,
+    "Nzango": 11,
+    "Nkayi Marche Mabombo": 10,
+    "Nkonsamba 1": 8,
+    "Gendarmerie Bifouiti": 8,
+    "Maxi 80": 7,
+    "Makayabou 418": 7,
+    "Bertoua Bodomo": 6,
+    "Rue Mbochis": 6,
+    "Owando": 5,
+    "Bunker 61": 5,
+    "Kinkala": 5,
+    "Maxi 36": 5,
+    "Scooorebet 13": 5,
+    "Bakadila": 5,
+    "Obala 2": 5,
+    "Augustinbis 5": 5,
+    "Mbida 5": 5,
+    "Nganga Lingolo": 5,
+    "Dolisie Baloumbou": 5,
+    "Avenue Reine Ngalifourou": 4,
+    "Mfou 1": 4,
+    "Maxi 79": 4,
+    "Mpita": 4,
+    "Rue Mboko": 4,
+    "LUniversel 14": 4,
+    "Igne 45": 4,
+    "Tostao": 4,
+    "Maxi 19": 4,
+    "Douane Kousseri": 4,
+    "Sylvia 11": 4,
+    "Jacques Opangault": 4,
+    "Scooorebet 13 2": 4,
+    "Scooorebet 20": 4,
+    "Ebolowa-si2": 4,
+    "Dimitrija Tucovica 2": 4,
+    "Liman": 4,
+    "Bar Centar": 4,
+    "New Bell Casino": 4,
+    "Maxi 35": 4
+  },
+  "overlap": [
+    {
+      "opstina": "Beograd-Novi Beograd",
+      "shops": 21,
+      "operators": 33,
+      "centroids": 1,
+      "max_tw_org": 0.05,
+      "max_cc_org": 0.692
+    },
+    {
+      "opstina": "Beograd-Palilula",
+      "shops": 16,
+      "operators": 60,
+      "centroids": 0,
+      "max_tw_org": 0.12,
+      "max_cc_org": 0.609
+    },
+    {
+      "opstina": "Subotica",
+      "shops": 14,
+      "operators": 31,
+      "centroids": 0,
+      "max_tw_org": 0.276,
+      "max_cc_org": 0.122
+    },
+    {
+      "opstina": "Sombor",
+      "shops": 11,
+      "operators": 21,
+      "centroids": 0,
+      "max_tw_org": 0.436,
+      "max_cc_org": 0.339
+    },
+    {
+      "opstina": "Novi Pazar",
+      "shops": 11,
+      "operators": 27,
+      "centroids": 1,
+      "max_tw_org": 0.109,
+      "max_cc_org": 0.27
+    },
+    {
+      "opstina": "Kula",
+      "shops": 11,
+      "operators": 37,
+      "centroids": 1,
+      "max_tw_org": 1.0,
+      "max_cc_org": 0.216
+    },
+    {
+      "opstina": "Požarevac",
+      "shops": 10,
+      "operators": 19,
+      "centroids": 0,
+      "max_tw_org": 0.034,
+      "max_cc_org": 0.036
+    },
+    {
+      "opstina": "Vrbas",
+      "shops": 9,
+      "operators": 19,
+      "centroids": 0,
+      "max_tw_org": 0.323,
+      "max_cc_org": 0.113
+    },
+    {
+      "opstina": "Zrenjanin",
+      "shops": 9,
+      "operators": 25,
+      "centroids": 0,
+      "max_tw_org": 0.339,
+      "max_cc_org": 0.157
+    },
+    {
+      "opstina": "Kruševac",
+      "shops": 9,
+      "operators": 55,
+      "centroids": 0,
+      "max_tw_org": 0.12,
+      "max_cc_org": 0.263
+    },
+    {
+      "opstina": "Sjenica",
+      "shops": 8,
+      "operators": 12,
+      "centroids": 0,
+      "max_tw_org": 0.121,
+      "max_cc_org": 0.502
+    },
+    {
+      "opstina": "Beograd-Zemun",
+      "shops": 8,
+      "operators": 24,
+      "centroids": 0,
+      "max_tw_org": 0.031,
+      "max_cc_org": 0.097
+    },
+    {
+      "opstina": "Niš",
+      "shops": 7,
+      "operators": 5,
+      "centroids": 0,
+      "max_tw_org": 0,
+      "max_cc_org": 0
+    },
+    {
+      "opstina": "Kraljevo",
+      "shops": 7,
+      "operators": 76,
+      "centroids": 0,
+      "max_tw_org": 0.461,
+      "max_cc_org": 0.071
+    },
+    {
+      "opstina": "Kikinda",
+      "shops": 7,
+      "operators": 95,
+      "centroids": 1,
+      "max_tw_org": 0.385,
+      "max_cc_org": 0.109
+    },
+    {
+      "opstina": "Smederevo",
+      "shops": 6,
+      "operators": 63,
+      "centroids": 0,
+      "max_tw_org": 0.035,
+      "max_cc_org": 0.166
+    },
+    {
+      "opstina": "Stara Pazova",
+      "shops": 6,
+      "operators": 26,
+      "centroids": 0,
+      "max_tw_org": 0.504,
+      "max_cc_org": 0.026
+    },
+    {
+      "opstina": "Vršac",
+      "shops": 6,
+      "operators": 50,
+      "centroids": 0,
+      "max_tw_org": 0.299,
+      "max_cc_org": 0.074
+    },
+    {
+      "opstina": "Inđija",
+      "shops": 6,
+      "operators": 6,
+      "centroids": 0,
+      "max_tw_org": 0.296,
+      "max_cc_org": 0.017
+    },
+    {
+      "opstina": "Užice",
+      "shops": 6,
+      "operators": 59,
+      "centroids": 0,
+      "max_tw_org": 0.289,
+      "max_cc_org": 0.469
+    },
+    {
+      "opstina": "Šabac",
+      "shops": 6,
+      "operators": 104,
+      "centroids": 0,
+      "max_tw_org": 0.172,
+      "max_cc_org": 0.251
+    },
+    {
+      "opstina": "Čačak",
+      "shops": 5,
+      "operators": 62,
+      "centroids": 2,
+      "max_tw_org": 0.295,
+      "max_cc_org": 0.227
+    },
+    {
+      "opstina": "Bačka Palanka",
+      "shops": 5,
+      "operators": 30,
+      "centroids": 0,
+      "max_tw_org": 0.158,
+      "max_cc_org": 0.1
+    },
+    {
+      "opstina": "Šid",
+      "shops": 5,
+      "operators": 46,
+      "centroids": 0,
+      "max_tw_org": 0.018,
+      "max_cc_org": 0.034
+    },
+    {
+      "opstina": "Temerin",
+      "shops": 5,
+      "operators": 28,
+      "centroids": 0,
+      "max_tw_org": 0.1,
+      "max_cc_org": 0.013
+    },
+    {
+      "opstina": "Sremska Mitrovica",
+      "shops": 4,
+      "operators": 17,
+      "centroids": 0,
+      "max_tw_org": 0.095,
+      "max_cc_org": 0.102
+    },
+    {
+      "opstina": "Negotin",
+      "shops": 4,
+      "operators": 16,
+      "centroids": 0,
+      "max_tw_org": 0.064,
+      "max_cc_org": 0.0
+    },
+    {
+      "opstina": "Bela Crkva",
+      "shops": 4,
+      "operators": 66,
+      "centroids": 0,
+      "max_tw_org": 0.504,
+      "max_cc_org": 0.054
+    },
+    {
+      "opstina": "Apatin",
+      "shops": 3,
+      "operators": 4,
+      "centroids": 0,
+      "max_tw_org": 0,
+      "max_cc_org": 0.033
+    },
+    {
+      "opstina": "Novi Bečej",
+      "shops": 3,
+      "operators": 42,
+      "centroids": 0,
+      "max_tw_org": 0.302,
+      "max_cc_org": 0.272
+    }
+  ]
+}
