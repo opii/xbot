@@ -89,7 +89,9 @@ dup/lead/template/reg/farm/pseudonyms/toxicity/infiltrator; `template` koristi C
 `/api/directives?top=` (taksonomija+lanac+SS/ČET izvor), `/api/coordinators`
 (hijerarhija Region→Okrug→Opština + raspon kontrole), `/api/cascade` (SS prioritet
 + vrh koplja + ritam + izdavač→okrug), `/api/voter_geoip` (države/ASN voter mašina
-+ udeo Afrike + tajming). Node id šema: `op:<id>`, `acc:<id>`, `tgt:<handle>`,
++ udeo Afrike + tajming), `/api/voter_timing` (cirkadijalna analiza: satnica po
+državi), `/api/export/investigation_dossier` (ceo dosije, Markdown download).
+Node id šema: `op:<id>`, `acc:<id>`, `tgt:<handle>`,
 `portal:<name>`, `news:<vid>`. Operater nosi `auto_score` (+komponente),
 `lead_score`, `template_frac`, `reg_score`, `dup_ratio`, `role`, `farm_ratio`/
 `farm_machine`, `shift_archetype`/`work_hours_pct`/`weekend_ratio`, `tw_org`/`cc_org`,
@@ -97,7 +99,8 @@ dup/lead/template/reg/farm/pseudonyms/toxicity/infiltrator; `template` koristi C
 FE: levi meni; pogledi Pregled/Geografija/Uloge/Smene/Portali/Organizatori/Master, bihevioralne
 metrike (…/farm), Kampanje, Komanda (Task-masteri / Komandna odgovornost & Voter /
 📋 Direktive / 🏛 Koordinatori / ⏱ Kaskada), Voter infrastruktura (🌍 Voter/GeoIP —
-Afrika); denoising klizač „min jačina veze" + „sakrij izolovane".
+Afrika, sa satnicom mašina Srbija vs strano); denoising klizač „min jačina veze"
++ „sakrij izolovane"; u Alatkama dugme „📑 Istraživački dosije" (download).
 
 ## Kako pokrenuti
 ```bash
@@ -125,7 +128,9 @@ Jedan `load_graph.py` gradi sve (graf + organizatori + skorovi + burstevi, ~3min
 Dodatne analize (van `load_graph.py`, svaka piše `data/geo/*.json` i ima UI/API):
 voter GeoIP, kladionice↔opštine, task-masteri, komandna odgovornost & voter,
 **analiza direktiva** (`directives.py` → „📋 Direktive"), **hijerarhija koordinatora**
-(`coordinators.py` → „🏛 Koordinatori") i **vremenska kaskada** (`cascade.py` → „⏱ Kaskada").
+(`coordinators.py` → „🏛 Koordinatori"), **vremenska kaskada** (`cascade.py` → „⏱ Kaskada"),
+**cirkadijalni režim** (`voter_timing.py` → satnica u GeoIP pogledu), **korporativni
+tragovi** (`betting_corporate.py`) i **generator dosijea** (`/api/export/investigation_dossier`).
 
 ## Ključni nalazi (zaključci)
 
@@ -174,6 +179,17 @@ ljudi koji rade u smenama — ali je koordinacija vrlo jaka i merljiva.** Dokazi
   Offline GeoIP: `src/analysis/voter_geoip.py` → `data/geo/voter_geoip.json`;
   u UI pogled „🌍 Voter/GeoIP (Afrika)" preko `/api/voter_geoip` (Afrika 66% IP,
   Kamerun #1 sa 472 — ispred Srbije 216).
+- **Cirkadijalni režim (radno vreme vs 24/7).** Glavni tok glasanja
+  (`knv_voter_vreme`, 4,49M) ima jasan noćni pad (00–08h = 7,7%, min 3–4h) = **nije
+  ravan 24/7 daemon**, prati dnevni ritam uz rep do ~22h. Srpske mašine se javljaju
+  naglo u **9h** (otvaranje lokala → ljudski start), strane (afričke) raspoređenije
+  sa jačim večernjim/noćnim repom (pre ostaju online). Granica: podela po državi
+  koristi `vr_vreme`/`vrgc` (glavni tok nema državu). `src/analysis/voter_timing.py`.
+- **Korporativni tragovi kladionica (bez vlasništva).** 182 mašine nose brend u
+  `vr_naziv_ss` (Maxi 92/87 strano, Scooorebet 59 sve strano, Joker, Roma, Casino).
+  Vlasništvo NIJE u bazi → APR/UIS; „Scooorebet"(Afrika)≠„Soccerbet"(Srbija) bez
+  primarnog izvora. `src/analysis/betting_corporate.py`,
+  [`docs/vlasnicki_profil_kladionica.md`](docs/vlasnicki_profil_kladionica.md).
 - **Direktive (šta se naređuje).** 99% tviter smernica je čista akcija
   (`odgovaramo`/`fv`/`kv`/`rt`); eksplicitno napadačkih samo 2.712, odbrambenih
   1.446. Ton napada se vidi u IZBORU METE, ne u tekstu: 587 eksplicitnih

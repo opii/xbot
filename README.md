@@ -60,6 +60,14 @@ koliko poena). Podaci pokazuju:
 - **Kaskada (SS → teren):** centralne direktive propagiraju **17,6% brže** (582s vs
   707s do prve reakcije); „vrh koplja" (prvi reagent) su Novi Sad, Beograd, Zrenjanin;
   SS se izvršava **prekoregionalno** (centralni kanal) ([`docs/analiza_kaskade.md`](docs/analiza_kaskade.md)).
+- **Cirkadijalni režim:** glasanje ima jasan noćni pad (00–08h = 7,7%) — **nije ravan
+  24/7 daemon**; srpske mašine „se bude" u 9h (otvaranje lokala), strane raspoređenije
+  sa noćnim repom (`src/analysis/voter_timing.py`, satnica u „🌍 Voter / GeoIP").
+- **Korporativni tragovi kladionica:** 182 mašine sa brendom (Maxi/Scooorebet/Joker)
+  — vlasništvo NIJE u bazi, zahteva APR/Upravu za igre na sreću; brend ≠ dokaz
+  ([`docs/vlasnicki_profil_kladionica.md`](docs/vlasnicki_profil_kladionica.md)).
+- **📑 Istraživački dosije:** jedan klik u „Alatke" generiše ceo formalni izveštaj
+  (Markdown) sa fer-play granicama (`/api/export/investigation_dossier`).
 
 ## 🌍 Voter infrastruktura — GeoIP nalazi
 

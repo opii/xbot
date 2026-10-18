@@ -8,8 +8,9 @@ Node id šema za frontend: 'op:<id>', 'acc:<id>', 'tgt:<handle>'.
 import json
 import math
 import os
+from datetime import datetime
 
-from fastapi import FastAPI, Query
+from fastapi import FastAPI, Query, Response
 from fastapi.middleware.cors import CORSMiddleware
 from psycopg2.pool import ThreadedConnectionPool
 from neo4j import GraphDatabase
@@ -916,6 +917,7 @@ def _load_json_geo(fname):
 
 VOTER_GEOIP = _load_json_geo("voter_geoip.json")
 VOTER_TIMING = _load_json_geo("voter_timing.json")
+BETTING_CORP = _load_json_geo("betting_corporate.json")
 
 # ISO-2 kodovi afričkih država prisutnih u voter podacima (za udeo Afrike)
 _AFRICA = {"CM": "Kamerun", "CG": "Kongo (Brazavil)", "CD": "DR Kongo", "TZ": "Tanzanija",
@@ -977,6 +979,11 @@ def voter_geoip():
             "buckets": t.get("latency", {}).get("buckets", {}),
             "vote_hours": t.get("vote_hours", []),
             "vote_night_ratio": t.get("vote_night_ratio"),
+            "vote_night_0008": t.get("vote_night_0008"),
+            "machine_hours": t.get("machine_hours", {}),
+            "machine_night_0008": t.get("machine_night_0008", {}),
+            "custom_hours": t.get("custom_hours", {}),
+            "verdict": t.get("verdict"),
         },
         "note": ("Velik deo voter mašina je OZNAČEN imenima uplatnih mesta/brendova "
                  "kladionica (polje vr_naziv_ss: Scooorebet/Maxi/Joker + srpske "
@@ -985,6 +992,146 @@ def voter_geoip():
                  "državu/ASN; operateri NEMAJU IP (ovo je geografija VOTER mašina, ne "
                  "operatera). Vidi docs/voter_kladionice_infrastruktura.md."),
     }
+
+
+def _fmt(n):
+    try:
+        return f"{int(n):,}".replace(",", ".")
+    except (TypeError, ValueError):
+        return str(n)
+
+
+def _build_dossier():
+    """Sintetiše sve module u formalni Markdown istraživački dosije. Brojke se
+    čitaju iz generisanih JSON-ova (žive sa analizom); fer-play granice su ugrađene."""
+    cv, dr, co = COMMAND_VOTER, DIRECTIVES, COORDINATORS
+    ca, gi, ti = CASCADE, VOTER_GEOIP, VOTER_TIMING
+    bc, tm = BETTING_CORP, TASKMASTERS
+    cve = (co or {}).get("command_vs_execution", {})
+    ssp = (ca or {}).get("ss_priority", {})
+    gi_c = gi or {}
+    countries = gi_c.get("country_ip", {}) or gi_c.get("countries", {})
+    africa_ip = sum(v for k, v in countries.items() if k in _AFRICA)
+    total_ip = sum(countries.values()) or 1
+    africa_share = africa_ip / total_ip
+    africa_countries = {_CC_NAME.get(k, k): v for k, v in
+                        sorted(((k, v) for k, v in countries.items() if k in _AFRICA),
+                               key=lambda kv: kv[1], reverse=True)}
+    asn_sorted = sorted((gi_c.get("asn", {}) or {}).items(), key=lambda kv: kv[1], reverse=True)
+    L = []
+    a = L.append
+    a("# Istraživački dosije — koordinisana astroturfing mreža (Cacix)\n")
+    a(f"**Generisano:** {datetime.now().isoformat(timespec='seconds')}  ")
+    a("**Izvor:** interna baza `progress` (ground-truth sistema), Neo4j graf, offline GeoIP.  ")
+    a("**Status:** radni dokument. Fer-play granice atribucije su sastavni deo svakog nalaza.\n")
+    a("---\n")
+
+    # 1
+    a("## 1. Izvršni rezime\n")
+    a("Reč je o **unutrašnjem ground-truth sistemu** koordinisane mreže naloga koja "
+      "svojim članovima zadaje zadatke na društvenim mrežama i portalima i beleži ko je "
+      "šta uradio. Analiza pokazuje:\n")
+    a("- **Organizovani ljudi u smenama**, ne klasična automatizacija (auto_score max ~0,45; "
+      "vrh aktivnosti 9–16h; pad vikendom).")
+    a(f"- **Komanda je odvojena od izvršenja:** {_fmt(cve.get('coordinators_total','?'))} formalnih "
+      f"koordinatora, ali **{cve.get('are_centroids','?')}** su mrežni centroidi.")
+    a("- **550M+ automatskih glasova** sa terminala u uplatnim mestima kladionica u Srbiji i "
+      f"Africi; **{int(africa_share*100)}% distinct IP iz Afrike**.")
+    a(f"- **Centralne direktive (SS) imaju prioritet** i propagiraju ~{ssp.get('speedup_pct','?')}% "
+      "brže; vrh koplja je Vojvodina/Beograd.")
+    a("- **Granica (fer play):** NE postoji veza mašina↔operater; vlasništvo kladionica NIJE u "
+      "bazi. Zaključci o mehanizmu i vlasništvu su hipoteze/metodologija, ne dokaz.\n")
+
+    # 2
+    a("## 2. Komandna struktura\n")
+    a(f"- **Task-masteri (ko zadaje):** {_fmt((tm or {}).get('count','?'))} ljudi kreira sve "
+      f"portal-zadatke; {_fmt((tm or {}).get('coordinators','?'))} su koordinatori.")
+    a(f"- **Nosioci VOTER privilegija:** {_fmt((cv or {}).get('count','?'))} lica "
+      f"(eksplicitne privilegije), {_fmt((cv or {}).get('coordinators','?'))} koordinatora, "
+      f"{_fmt((cv or {}).get('with_terminals','?'))} u opštini sa terminalima.")
+    lv = (co or {}).get("levels", {})
+    a(f"- **Hijerarhija koordinatora (geografska):** region {lv.get('region','?')}, okrug "
+      f"{lv.get('okrug','?')}, opština {lv.get('opstina','?')} (+{lv.get('deputies','?')} zamenika).")
+    a(f"- **Komanda ≠ izvršenje:** od {_fmt(cve.get('coordinators_total','?'))} koordinatora u grafu "
+      f"{_fmt(cve.get('in_graph','?'))}, centroida **{cve.get('are_centroids','?')}**, SS-izdavača "
+      f"{cve.get('are_ss_issuers','?')}. Formalna titula i mrežna moć su razdvojeni slojevi.")
+    top = [p for p in (cv or {}).get("people", [])][:5]
+    if top:
+        a("\n  Istaknuti (prava + uloge + kreditirani glasovi — NE dokaz pokretanja mašina):")
+        for p in top:
+            a(f"  - {p.get('ime','?')}: {_fmt(p.get('votes_credited',0))} glasova"
+              f"{' · koordinator' if p.get('coordinator') else ''}"
+              f"{' · '+p['opstina'] if p.get('opstina') else ''}")
+    a("")
+
+    # 3
+    a("## 3. Infrastruktura uplatnih mesta i Afrika\n")
+    a(f"- **Mašine:** {_fmt((bc or {}).get('machines_total','?'))} ukupno — "
+      f"{_fmt((bc or {}).get('machines_serbia','?'))} Srbija, {_fmt((bc or {}).get('machines_foreign','?'))} strano.")
+    if (bc or {}).get("brands"):
+        a("- **Brendovi (iz labele mašine `vr_naziv_ss`, tragovi):** "
+          + ", ".join(f"{b['brand']} {b['total']} (strano {b['foreign']})" for b in bc["brands"][:5]) + ".")
+    a(f"- **GeoIP:** {_fmt(gi_c.get('foreign','?'))}/{_fmt(gi_c.get('matched','?'))} mašina strano; "
+      f"Afrika {int(africa_share*100)}% distinct IP.")
+    if africa_countries:
+        a("  - Afričke države (IP): " + ", ".join(f"{k} {v}" for k, v in list(africa_countries.items())[:6]) + ".")
+    if asn_sorted:
+        a("  - Vodeći ASN: " + ", ".join(f"{name.split(' · ')[0]}={n}" for name, n in asn_sorted[:5]) + ".")
+    a("- **Instaliran softver:** verzionisan klijent (`vr_verzija` 1.0.2.172–177).")
+    a("- **Regulatorna izloženost (okvir, ne presuda):** ako primarni registar (APR / Uprava za "
+      "igre na sreću) potvrdi da licencirani priređivač drži terminale korišćene za političke "
+      "sajber aktivnosti → osnov za zloupotrebu koncesije. **Brend/lokacija su tragovi, ne dokaz "
+      "vlasništva; „Scooorebet“ (Afrika) se NE izjednačava sa srpskim lancima bez primarnog izvora.**\n")
+
+    # 4
+    a("## 4. Vremenski mehanizam\n")
+    a(f"- **SS kaskada:** centralne direktive propagiraju ~{ssp.get('speedup_pct','?')}% brže "
+      f"(medijana prve reakcije {ssp.get('ss',{}).get('median_s','?')}s vs "
+      f"{ssp.get('baseline',{}).get('median_s','?')}s).")
+    fm = (ca or {}).get("first_mover_all", [])[:3]
+    if fm:
+        a("- **Vrh koplja (prvi reagent):** " + ", ".join(f"{r['okrug'].replace(' okrug','')} ({_fmt(r['first_moves'])})" for r in fm) + ".")
+    if (ti or {}).get("verdict"):
+        a(f"- **Satnica mašina:** {ti['verdict']}")
+    a("")
+
+    # 5
+    a("## 5. Pravni osnov i fer-play atribucija\n")
+    a("**Citirani osnov (okvir, ne pravna presuda — nismo pravnici):**")
+    a("- Budimpeštanska konvencija o sajber kriminalu — čl. 5 (ometanje sistema) i čl. 6 "
+      "(zloupotreba uređaja: neovlašćeni bot-klijent na komercijalnim terminalima).")
+    a("- Zloupotreba kockarske licence/koncesije (terminali za igre na sreću korišćeni za "
+      "političke sajber operacije u Srbiji i Africi).")
+    a("- Realna izloženost je po **domaćim zakonima** svake jurisdikcije.\n")
+    a("**Granice atribucije (obavezno):**")
+    a("- NE postoji spojni ključ `voter_racunari` (mašina/IP) ↔ `knv_voter_*` (glas kreditiran "
+      "operateru) → mehanizam „operater → daljinski terminal → glas“ je **hipoteza**, ne dokaz.")
+    a("- Vlasništvo uplatnih mesta NIJE u bazi → zahteva APR/UIS; ne imenovati pojedince bez "
+      "primarnog izvora.")
+    a("- Raspon kontrole koordinatora = geografska nadležnost, ne dokaz pojedinačnog naređenja.")
+    a("- Kaskada (redosled/latencija) = korelacija (inferirana propagacija).\n")
+    a("---\n")
+    a("*Detaljni moduli: `docs/analiza_direktiva.md`, `docs/analiza_koordinatora.md`, "
+      "`docs/analiza_kaskade.md`, `docs/komandna_odgovornost_i_pravni_osnov.md`, "
+      "`docs/voter_kladionice_infrastruktura.md`, `docs/vlasnicki_profil_kladionica.md`.*")
+    return "\n".join(L)
+
+
+@app.get("/api/export/investigation_dossier")
+def export_investigation_dossier():
+    """Generiše i vraća kompletan istraživački dosije (Markdown, download)."""
+    md = _build_dossier()
+    fname = f"cacix_dosije_{datetime.now().strftime('%Y%m%d')}.md"
+    return Response(content=md, media_type="text/markdown; charset=utf-8",
+                    headers={"Content-Disposition": f'attachment; filename="{fname}"'})
+
+
+@app.get("/api/voter_timing")
+def voter_timing():
+    """Cirkadijalna analiza voter glasanja: satnica (overall + po državi mašine:
+    Srbija vs strano/Afrika), noćni udeo (00–08h = lokal zaključan), latencija.
+    Odgovara na: da li su mašine radile samo dok je lokal otvoren ili 24/7."""
+    return VOTER_TIMING or {}
 
 
 @app.get("/api/cascade")

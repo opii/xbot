@@ -73,10 +73,60 @@ def main():
     cnight = sum(chours[0:6]) / ct
     print(f"  noćni udeo: glasanje {100*vnight:.1f}% vs komentari {100*cnight:.1f}%", flush=True)
 
+    # --- Cirkadijalna analiza po državi: radno vreme lokala vs 24/7 daemon ----
+    # Kamerun/Kongo su UTC+1 (WAT) = isto kao Srbija (CET) → satnice uporedive.
+    # Izvor sa državom: voter_racunari.vr_vreme (check-in mašine, 1 po mašini) i
+    # voter_racunari_glasanje_custom (glasanje vezano za mašinu). Glavni tok
+    # (knv_voter_vreme) NEMA državu/mašinu — koristi se kao overall signal.
+    print("Cirkadijalna analiza po državi (Srbija vs strano/Afrika) ...", flush=True)
+    TS = r"~ '^[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}$'"
+
+    def q(s, a=None):
+        cur.execute(s, a); return cur.fetchall()
+
+    def hours24(rows):
+        h = [0] * 24
+        for hh, c in rows:
+            if hh and str(hh).isdigit():
+                h[int(hh)] = c
+        return h
+
+    def night0008(h):
+        t = sum(h)
+        return round(sum(h[0:8]) / t, 4) if t else 0  # 00–08h = lokal zaključan
+
+    mach, cust = {}, {}
+    for lbl, srb in (("serbia", 1), ("foreign", 0)):
+        mach[lbl] = hours24(q(f"SELECT substr(vr_vreme,12,2), count(*) FROM voter_racunari "
+                              f"WHERE vr_srbija=%s AND vr_vreme {TS} GROUP BY 1", (srb,)))
+        cust[lbl] = hours24(q(f"SELECT substr(g.vrgc_vreme,12,2), count(*) "
+                              f"FROM voter_racunari_glasanje_custom g "
+                              f"JOIN voter_racunari r ON r.vr_id=g.vrgc_racunar_id "
+                              f"WHERE r.vr_srbija=%s AND g.vrgc_vreme {TS} GROUP BY 1", (srb,)))
+
+    vote_n0008 = night0008(vhours)
+    peak_srb = mach["serbia"].index(max(mach["serbia"])) if sum(mach["serbia"]) else None
+    peak_for = mach["foreign"].index(max(mach["foreign"])) if sum(mach["foreign"]) else None
+    verdict = (
+        f"Glavni tok glasanja ima jasan noćni pad (00–08h = {round(vote_n0008*100,1)}%; "
+        f"minimum oko 3–4h), dakle NIJE ravan 24/7 daemon — prati dnevni ritam, uz dug "
+        f"rep do kasno uveče (~22h). Srpske mašine se najčešće javljaju u {peak_srb}h "
+        f"(otvaranje lokala → ljudski start); strane (afričke) su raspoređenije, sa "
+        f"jačim večernjim/noćnim repom (pre ostaju upaljene i umrežene). "
+        f"Napomena: podela po državi koristi check-in mašina (vr_vreme) i custom "
+        f"glasanje (vrgc) — glavni tok knv nema državu/mašinu (granica podatka).")
+    print(f"  glasanje 00–08h={round(vote_n0008*100,1)}% · srpski peak {peak_srb}h · strani peak {peak_for}h", flush=True)
+
     with open(OUT, "w", encoding="utf-8") as fh:
         json.dump({"latency": lat, "vote_hours": vhours, "comment_hours": chours,
                    "vote_night_ratio": round(vnight, 4),
-                   "comment_night_ratio": round(cnight, 4)}, fh, ensure_ascii=False, indent=2)
+                   "comment_night_ratio": round(cnight, 4),
+                   "vote_night_0008": vote_n0008,
+                   "machine_hours": mach,
+                   "machine_night_0008": {k: night0008(v) for k, v in mach.items()},
+                   "custom_hours": cust,
+                   "custom_night_0008": {k: night0008(v) for k, v in cust.items()},
+                   "verdict": verdict}, fh, ensure_ascii=False, indent=2)
     print(f"[OK] {OUT}")
 
 

@@ -491,6 +491,12 @@ export default function GraphExplorer() {
             <button onClick={() => fileRef.current?.click()} style={btnStyle} title="Učitaj JSON">⤒ Učitaj</button>
             <input ref={fileRef} type="file" accept="application/json,.json" style={{ display: 'none' }} onChange={(e) => { if (e.target.files[0]) importJSON(e.target.files[0]); e.target.value = ''; }} />
           </div>
+          <button
+            onClick={() => { const a = document.createElement('a'); a.href = `${API}/api/export/investigation_dossier`; a.download = ''; document.body.appendChild(a); a.click(); a.remove(); }}
+            title="Preuzmi kompletan istraživački izveštaj (Markdown)"
+            style={{ width: '100%', marginTop: '0.5rem', padding: '0.55rem', borderRadius: 10, cursor: 'pointer', fontWeight: 600, fontSize: '0.82rem', color: '#0b1220', background: 'linear-gradient(90deg,#fbbf24,#f59e0b)', border: 'none' }}>
+            📑 Istraživački dosije (Dossier)
+          </button>
         </Section>
       </aside>
 
@@ -1048,8 +1054,38 @@ export default function GraphExplorer() {
                 <div key={h} title={`${h}h: ${v}`} style={{ flex: 1, height: `${Math.max(2, (v / mx) * 30)}px`, background: '#fb7185', opacity: 0.75, borderRadius: 1 }} />
               )); })()}
             </div>
-            <div style={{ fontSize: '0.6rem', color: 'var(--text-muted)' }}>glasovi po satu (0–23h)</div>
+            <div style={{ fontSize: '0.6rem', color: 'var(--text-muted)' }}>glasovi po satu (0–23h) · noć 00–08h {Math.round((geoipData.timing.vote_night_0008 || 0) * 100)}%</div>
           </>}
+
+          {/* SATNICA MAŠINA: SRBIJA vs STRANO/AFRIKA */}
+          {geoipData.timing?.machine_hours?.serbia && (
+            <>
+              <div style={{ fontWeight: 600, fontSize: '0.8rem', color: '#fb7185', margin: '0.5rem 0 0.2rem' }}>Satnica rada mašina (check-in)</div>
+              <div style={{ color: 'var(--text-muted)', fontSize: '0.66rem', marginBottom: '0.2rem' }}>radno vreme lokala vs 24/7 · ▮ Srbija · ▮ strano/Afrika (oblik normalizovan)</div>
+              {[['serbia', '#60a5fa', 'Srbija'], ['foreign', '#fb7185', 'Strano/Afrika']].map(([k, col, lbl]) => {
+                const arr = geoipData.timing.machine_hours[k] || [];
+                const mx = Math.max(1, ...arr);
+                const n0008 = Math.round((geoipData.timing.machine_night_0008?.[k] || 0) * 100);
+                return (
+                  <div key={k} style={{ marginBottom: '0.3rem' }}>
+                    <div style={{ fontSize: '0.64rem', color: 'var(--text-muted)', display: 'flex', justifyContent: 'space-between' }}>
+                      <span style={{ color: col }}>▮ {lbl}</span><span>noć 00–08h {n0008}%</span>
+                    </div>
+                    <div style={{ display: 'flex', alignItems: 'flex-end', gap: 1, height: 28 }}>
+                      {arr.map((v, h) => (
+                        <div key={h} title={`${h}h: ${v}`} style={{ flex: 1, height: `${Math.max(2, (v / mx) * 28)}px`, background: col, opacity: h < 8 ? 0.45 : 0.85, borderRadius: 1 }} />
+                      ))}
+                    </div>
+                  </div>
+                );
+              })}
+              {geoipData.timing.verdict && (
+                <div style={{ fontSize: '0.66rem', color: 'var(--text-main)', background: 'rgba(251,113,133,0.1)', border: '1px solid rgba(251,113,133,0.3)', borderRadius: 6, padding: '0.35rem 0.45rem', marginTop: '0.2rem', lineHeight: 1.4 }}>
+                  {geoipData.timing.verdict}
+                </div>
+              )}
+            </>
+          )}
 
           <div style={{ color: '#fbbf24', fontSize: '0.66rem', marginTop: '0.6rem', lineHeight: 1.45 }}>
             ⚠ Fer play: IP daje samo državu/ASN. „Kladionica" dolazi iz labele mašine (vr_naziv_ss: Scooorebet/Maxi/Joker + filijale) — inferencija, ne hard-dokaz. Mašine imaju verzionisan klijent (vr_verzija) = instaliran softver; mehanizam „srpski operater → daljinski terminal → glas" je VERODOSTOJNA HIPOTEZA (nema veze mašina↔operater u bazi), ne dokaz.
