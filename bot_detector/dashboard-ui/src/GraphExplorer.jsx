@@ -628,6 +628,17 @@ export default function GraphExplorer() {
             <Stat label="Retvitova" v={detail.rts} />
             <Stat label="Odgovora" v={detail.replies} />
           </div>
+          {detail.points && detail.points.total > 0 && (
+            <div style={{ marginTop: '0.8rem', border: '1px solid rgba(52,211,153,0.4)', borderRadius: 10, padding: '0.55rem 0.7rem', background: 'rgba(52,211,153,0.08)' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
+                <span style={{ color: '#34d399', fontWeight: 600, fontSize: '0.82rem' }}>🎯 Partijski bodovi</span>
+                <span style={{ color: '#34d399', fontWeight: 700, fontSize: '1.05rem' }}>{detail.points.total.toLocaleString('sr-RS')}</span>
+              </div>
+              <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)', marginTop: '0.2rem' }}>
+                {detail.points.active_days} aktivnih dana · najbolji dan {detail.points.best_day} · Q{detail.points.quote.toLocaleString('sr-RS')} / R{detail.points.reply.toLocaleString('sr-RS')} / ♥{detail.points.like.toLocaleString('sr-RS')}
+              </div>
+            </div>
+          )}
           {behav && behav.actions > 0 && (
             <div style={{ marginTop: '1rem' }}>
               <div style={{ fontWeight: 600, color: 'var(--text-main)', fontSize: '0.9rem' }}>Bihevioralni profil</div>

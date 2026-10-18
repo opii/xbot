@@ -76,6 +76,22 @@ def op_targets(op_id, limit, frm=None, to=None):
     return [{"handle": h, "actions": a, "rts": r} for h, a, r in rows if h]
 
 
+def op_points(op_id):
+    """Partijski bodovi operatera (izvestaj_dnevni): ukupno + razbijeno po akciji."""
+    rows = pg("""SELECT sum(iz_ukupno_bodovi), sum(iz_twitter_quote), sum(iz_twitter_reply),
+                        sum(iz_twitter_like), sum(iz_twitter_retweet),
+                        sum(iz_komentari_objavljeni), count(DISTINCT iz_datum),
+                        max(iz_ukupno_bodovi)
+                 FROM izvestaj_dnevni WHERE iz_korisnik_id = %s""", (op_id,))
+    if not rows or rows[0][0] is None:
+        return None
+    r = rows[0]
+    return {"total": int(r[0] or 0), "quote": int(r[1] or 0), "reply": int(r[2] or 0),
+            "like": int(r[3] or 0), "retweet": int(r[4] or 0),
+            "komentari": int(r[5] or 0), "active_days": int(r[6] or 0),
+            "best_day": round(float(r[7] or 0), 1)}
+
+
 def op_node(rec):
     return {
         "id": f"op:{rec['id']}", "type": "operator",
@@ -197,6 +213,7 @@ def operator_detail(op_id: int, frm: str = None, to: str = None):
         o = dict(rec["o"])
     detail = op_node(o)
     detail["top_targets"] = op_targets(op_id, 15, frm, to)
+    detail["points"] = op_points(op_id)
     return detail
 
 
