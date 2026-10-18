@@ -343,20 +343,19 @@ Polja operatera: `co_degree`/`cc_degree`, `tw_org`/`cc_org`, `tw_community`/`cc_
 ```
 bot_detector/
 ├── docker-compose.yml           # Postgres + Neo4j + graph_loader (profil "init")
+├── rebuild.sh                   # uvoz + graf + geoip + analize jednim pozivom
+├── requirements.txt
+├── data/                        # progress_baza_podataka.sqlite3 (van gita) + data/geo/*.json
 ├── src/
 │   ├── import_progress_db.py    # SQLite → Postgres (šema progress)
-│   ├── api/main.py              # FastAPI
+│   ├── api/main.py              # FastAPI (svi endpointi + dosije)
 │   ├── graph/
 │   │   ├── load_graph.py        # Postgres → Neo4j + izvedene tabele + poziva donja dva
 │   │   ├── detect_organizers.py # zajednice + centralnost (networkx)
 │   │   └── behavior_scores.py   # automatizacija, lead-lag, šabloni, uloge, ritam + burstevi
-│   └── modules/                 # (legacy) stari PoC moduli nad mock CSV-om
+│   └── analysis/                # 17 modula (voter GeoIP, kaskada, direktive, grupe, nadzor…)
 └── dashboard-ui/                # React + Vite explorer
 ```
-
-> ℹ️ Moduli u `src/modules/` (`temporal_analysis`, `nlp_analysis`,
-> `network_analysis`, `ensemble_model`) su iz ranijeg PoC-a nad sintetičkim CSV
-> podacima i nisu deo aktuelnog toka.
 
 ---
 
