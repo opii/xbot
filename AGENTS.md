@@ -29,10 +29,12 @@ i merimo ponašanje**.
 
 ## Arhitektura
 - **Postgres** (`progress`): sve tabele + izvedene `target_popularity`,
-  `news_popularity`.
+  `news_popularity`, `target_bursts`.
 - **Neo4j**: operaterska mreža. Čvorovi `Operator`, `Account`; veze `CONTROLS`,
-  `CO_ACTED` (tviter), `CO_COMMENTED` (komentari). Operateri nose: `co_degree`,
-  `cc_degree`, komentar-statistiku, i po sloju `{tw,cc}_community/_pagerank/_betweenness/_org/_organizer`.
+  `CO_ACTED` (tviter), `CO_COMMENTED` (komentari), `CO_TEMPLATE` (deljeni tekst).
+  Operateri nose: `co_degree`/`cc_degree`, komentar-statistiku, bihevioralne skorove
+  (`auto_score`, `lead_score`, `template_frac`, `reg_score`, `dup_ratio`, `role`),
+  i po sloju `{tw,cc}_community/_pagerank/_betweenness/_org/_organizer`.
 - **Amplifikacija** (operater→meta, 9,4M parova) se NE drži u Neo4j — servira se
   uživo iz Postgresa.
 - **API**: FastAPI [`bot_detector/src/api/main.py`](bot_detector/src/api/main.py) na `:8000`.
@@ -47,8 +49,12 @@ i merimo ponašanje**.
   networkx: odsecanje težina p5–p95 (`--lo/--hi`), Louvain zajednice, PageRank +
   betweenness, `organizer_score`, centroid po zajednici; upisuje u Neo4j.
 - [`src/graph/behavior_scores.py`](bot_detector/src/graph/behavior_scores.py) —
-  skor automatizacije po operateru (night_ratio + hour_entropy + short_lat_frac,
-  prigušeno `min(1, akcije/50)`); upisuje `auto_score` + komponente u Neo4j.
+  cela bihevioralna analiza (upisuje na Operator čvorove + Postgres tabele):
+  `auto_score` (night+entropy+short_lat, prigušeno `min(1,akcije/50)`), `lead_score`
+  (ko prvi na meti), `template_frac` + `CO_TEMPLATE` veze (deljeni tekst),
+  `dup_ratio`, `reg_score` (regularnost ritma), `role` (Pojačivač/Odgovarač/Mešovit),
+  i tabele `target_bursts`/`target_popularity`/`news_popularity`.
+  Napomena: `avg`/`stddev_pop` vraćaju Decimal — kastuj u `float()` pre Neo4j upisa.
 
 Napomena: `load_graph.py` na kraju poziva i `detect_organizers` i
 `behavior_scores`, pa jedan poziv uradi sve (~85s).
@@ -58,13 +64,16 @@ Napomena: `load_graph.py` na kraju poziva i `detect_organizers` i
 `/api/operator/{id}`, `/api/target/{handle}`, `/api/account/{id}`, `/api/search`,
 `/api/regions`, `/api/organizers?layer=&only_centroids=`, `/api/crosslayer`
 (master koordinatori), `/api/behavior/{id}` (ritam/radni dani/latencija/timeline/
-miks/duplikati), `/api/behavior_top?layer=` (po skoru automatizacije),
-`/api/behavior_cohort` (decili), `/api/path?a=&b=&layer=&max_pop=` (najkraća
-putanja + spone), `/api/stats`, `/api/export/operator/{id}`. Node id šema:
-`op:<id>`, `acc:<id>`, `tgt:<handle>`, `portal:<name>`, `news:<vid>`. Operater
-nosi i `auto_score` (+ `night_ratio`/`hour_entropy`/`short_lat_frac`),
-`tw_org`/`cc_org`, `tw_community`/`cc_community`. FE režimi bojenja: ★ Organizatori,
-⚑ Master, ⏱ Automatizacija.
+miks/duplikati), `/api/behavior_top?metric=&layer=` (metrike: auto/night/short_lat/
+dup/lead/template/reg; `template` koristi CO_TEMPLATE), `/api/behavior_cohort`
+(decili), `/api/bursts` + `/api/burst/{tid}` (kampanje/nalet po minutu + lideri),
+`/api/path?a=&b=&layer=&max_pop=` (putanja + spone), `/api/stats`,
+`/api/export/operator/{id}`. Node id šema: `op:<id>`, `acc:<id>`, `tgt:<handle>`,
+`portal:<name>`, `news:<vid>`. Operater nosi `auto_score` (+komponente),
+`lead_score`, `template_frac`, `reg_score`, `dup_ratio`, `role`, `tw_org`/`cc_org`,
+`tw_community`/`cc_community`. Slojevi veza: CO_ACTED, CO_COMMENTED, CO_TEMPLATE.
+FE: levi meni; pogledi Pregled/Uloge/Organizatori/Master, bihevioralne metrike,
+Kampanje; denoising klizač „min jačina veze" + „sakrij izolovane".
 
 ## Kako pokrenuti
 ```bash
@@ -82,10 +91,12 @@ Napomena o okruženju (host): `./venv/bin/python` je venv; `docker` postoji,
 sopstvenu ljusku jer komanda sadrži reč) — gasi po portu preko `ss`.
 
 ## Stanje (2026-10-18)
-Gotovo i provereno: uvoz, graf oba sloja, overview/expand/filteri/period,
-putanje (+diskriminativne spone), izvoz/uvoz, detekcija organizatora,
-`/api/crosslayer` i `/api/behavior`. **Delimično:** frontend za master-režim i
-bihevioralni panel (backend radi; UI u `GraphExplorer.jsx` nije dovršen).
+Kompletno i provereno (backend + frontend, gurnuto na GitHub): uvoz, graf tri
+sloja (CO_ACTED/CO_COMMENTED/CO_TEMPLATE), levi meni sa svim pogledima
+(Pregled/Uloge/Organizatori/Master), bihevioralne metrike (auto/night/short_lat/
+dup/lead/template/reg) + pun profil, Kampanje (burstevi + timeline), putanje
+(+diskriminativne spone), denoising (klizač + sakrij izolovane), izvoz/uvoz.
+Jedan `load_graph.py` gradi sve (graf + organizatori + skorovi + burstevi, ~3min).
 
 ## Pravila (važno)
 - Čvorovi su **realni ljudi** (operateri), ne anonimni botovi — rukuj imenima

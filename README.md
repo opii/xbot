@@ -37,7 +37,12 @@ Zato je operater stabilna, pouzdana jedinica, a sama mreža predstavlja
 | **Detekcija organizatora** | odsecanje težina p5–p95, Louvain zajednice, PageRank + betweenness → centroid po zajednici |
 | **Master koordinatori** | operateri jaki u OBA sloja: `master = √(tw_org · cc_org)` |
 | **Putanje** | najkraća veza između dva operatera + konkretne spone (mete/vesti) po skoku |
-| **Bihevioralni profil** | ritam po satu, noćna aktivnost, latencija zadatak→akcija, miks akcija, aktivni dani |
+| **Bihevioralni profil** | ritam po satu, radni dani, latencija zadatak→akcija, miks akcija, dnevni timeline, duplikati komentara |
+| **Skor automatizacije** | noćna aktivnost + ravnomernost (24/7) + kratke latencije (prigušeno po količini) |
+| **Lead-lag + burstevi** | ko prvi reaguje na metu (`lead_score`) i nalet operatera u prvih 10 min po meti (kampanje) |
+| **Mreža šablona teksta** | treći sloj `CO_TEMPLATE`: operateri koji dele isti konzervirani komentar |
+| **Uloge** | Pojačivač / Odgovarač / Mešovit po dominantnom tipu akcije |
+| **Regularnost ritma** | pravilnost razmaka između akcija (viši = bot-like) |
 
 ---
 
@@ -117,21 +122,24 @@ npm run dev
 
 ## 🖥️ Explorer — kako se koristi
 
-- **Sloj:** prekidač *Tviter / Komentari* menja mrežu, bojenje i razlistavanje.
-- **Razlistavanje:** klik na operatera širi naloge, ko-aktere i mete (ili
-  ko-komentatore i portale).
-- **Filteri:** okrug / opština (lokalni klaster) i vremenski period (mete i izvoz).
-- **★ Organizatori:** boji po zajednici, centroide označava zvezdom, panel rangira
-  po skoru.
-- **⚑ Master:** operateri jaki u oba sloja, obojeni po master skoru.
-- **⏱ Automatizacija:** boji po skoru automatizacije (noćna aktivnost +
-  ravnomernost 24/7 + kratke latencije), panel rangira najsumnjivije.
-- **Putanja:** klik na dva operatera → najkraća veza sa sponama; čekboks "samo
-  diskriminativne spone".
-- **Bihevioralni panel** (klik na operatera): skor automatizacije sa percentilom u
-  mreži, komponente, ritam po satu, radni dani, histogram latencije, dnevni
-  timeline, miks akcija i (za komentatore) udeo duplikata teksta + portali.
-- **Izvoz/uvoz:** JSON/CSV platna ili ceo klaster operatera; uvoz vraća JSON nazad.
+Interfejs je **levi meni** (Sloj / Pogled / Bihevioralna analiza / Kampanje /
+Filteri / Alatke):
+
+- **Sloj:** *Tviter / Komentari* menja mrežu, bojenje i razlistavanje.
+- **Pogled:** Pregled (povezanost) · **Uloge** (Pojačivač/Odgovarač/Mešovit) ·
+  **★ Organizatori** (zajednice, centroidi) · **⚑ Master** (oba sloja).
+- **Bihevioralna analiza** (boji i rangira graf po): skor automatizacije · noćna
+  aktivnost · kratke latencije · duplikati komentara · **Lider — prvi na meti** ·
+  **Deljeni šabloni** · **Regularnost ritma**.
+- **Kampanje:** **⚡ Burstevi** — najsinhronizovaniji udari; klik → vremenska linija
+  po minutu + lideri (ofset u sekundama).
+- **Filteri:** okrug / opština · period (mete/profil/izvoz) · tipovi čvorova ·
+  **klizač „min jačina veze"** i **„sakrij izolovane"** (sečenje šuma/hairball-a).
+- **Alatke:** pretraga · **Putanja** (klik na dva operatera, + diskriminativne
+  spone) · Reset · izvoz JSON/CSV/klaster · učitaj.
+- **Bihevioralni panel** (klik na operatera): skor automatizacije sa percentilom,
+  komponente, ritam po satu, radni dani, histogram latencije, dnevni timeline,
+  miks akcija i (za komentatore) duplikati + portali.
 
 ---
 
@@ -143,8 +151,10 @@ npm run dev
 | `/api/expand/{id}?layer=&frm=&to=` | susedi (nalozi/ko-akteri/mete ili ko-komentatori/portali) |
 | `/api/operator/{id}` | detalji + top mete |
 | `/api/behavior/{id}` | bihevioralni profil (ritam, radni dani, latencija, timeline, miks, duplikati) |
-| `/api/behavior_top?layer=&limit=` | operateri po skoru automatizacije |
+| `/api/behavior_top?metric=&layer=` | rang po metrici: `auto`/`night`/`short_lat`/`dup`/`lead`/`template`/`reg` (+ veze) |
 | `/api/behavior_cohort` | decili metrika kroz sve operatere |
+| `/api/bursts?limit=&min_ops=` | najsinhronizovanije kampanje (mete) |
+| `/api/burst/{tid}` | vremenska linija kampanje po minutu + lideri + operateri |
 | `/api/organizers?layer=&only_centroids=` | organizatori/centroidi |
 | `/api/crosslayer` | master koordinatori (oba sloja) |
 | `/api/path?a=&b=&layer=&max_pop=` | najkraća putanja + spone |
@@ -154,7 +164,9 @@ npm run dev
 
 Node id šema: `op:<id>`, `acc:<id>`, `tgt:<handle>`, `portal:<name>`, `news:<vid>`.
 Polja operatera: `co_degree`/`cc_degree`, `tw_org`/`cc_org`, `tw_community`/`cc_community`,
-`auto_score` (+ `night_ratio`, `hour_entropy`, `short_lat_frac`).
+`auto_score` (+ `night_ratio`, `hour_entropy`, `short_lat_frac`), `lead_score`,
+`template_frac`, `reg_score`, `dup_ratio`, `role`. Slojevi veza: `CO_ACTED`,
+`CO_COMMENTED`, `CO_TEMPLATE`.
 
 ---
 
@@ -169,7 +181,7 @@ bot_detector/
 │   ├── graph/
 │   │   ├── load_graph.py        # Postgres → Neo4j + izvedene tabele + poziva donja dva
 │   │   ├── detect_organizers.py # zajednice + centralnost (networkx)
-│   │   └── behavior_scores.py   # skor automatizacije po operateru
+│   │   └── behavior_scores.py   # automatizacija, lead-lag, šabloni, uloge, ritam + burstevi
 │   └── modules/                 # (legacy) stari PoC moduli nad mock CSV-om
 └── dashboard-ui/                # React + Vite explorer
 ```
