@@ -824,6 +824,42 @@ def _load_betting():
 BETTING_BY_OPSTINA = _load_betting()
 
 
+def _load_taskmasters():
+    try:
+        p = os.path.join(os.path.dirname(__file__), "..", "..", "data", "geo", "task_masters.json")
+        with open(p, encoding="utf-8") as f:
+            return json.load(f)
+    except Exception:  # noqa: BLE001
+        return {"masters": [], "count": 0, "coordinators": 0}
+
+
+TASKMASTERS = _load_taskmasters()
+
+
+@app.get("/api/taskmasters")
+def taskmasters(limit: int = Query(40, le=135)):
+    """Kreatori zadataka za portale (komandni sloj) + koordinatorske uloge."""
+    out = []
+    for m in TASKMASTERS.get("masters", [])[:limit]:
+        roles = []
+        if m.get("ok_koord") or m.get("okrug_koord_tbl"):
+            roles.append("okrug")
+        if m.get("op_koord") or m.get("opstina_koord_tbl"):
+            roles.append("opština")
+        if m.get("reg_koord"):
+            roles.append("region")
+        out.append({
+            "id": m["id"], "ime": m.get("ime") or f"#{m['id']}",
+            "tasks": m["tasks"], "portals": m.get("portals"),
+            "okrug": m.get("okrug"), "opstina": m.get("opstina"),
+            "roles": roles, "centroid": m.get("centroid", False),
+            "in_graph": m.get("in_graph", False), "max_org": m.get("max_org", 0),
+        })
+    return {"count": TASKMASTERS.get("count", 0),
+            "coordinators": TASKMASTERS.get("coordinators", 0),
+            "masters": out}
+
+
 @app.get("/api/geo")
 def geo():
     """Rangiranje okruga i opština po broju operatera i akcija (sve operatere),

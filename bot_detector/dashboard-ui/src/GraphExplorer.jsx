@@ -110,6 +110,7 @@ export default function GraphExplorer() {
   const [burstList, setBurstList] = useState([]);
   const [burstInfo, setBurstInfo] = useState(null);
   const [geoData, setGeoData] = useState([]);
+  const [tmData, setTmData] = useState(null);
 
   const merge = useCallback((incoming) => {
     setData((prev) => {
@@ -154,13 +155,15 @@ export default function GraphExplorer() {
     setViewState(v); setMinShared(0);
     if (v === 'behav' && metric) setBehavMetric(metric);
     if (v === 'bursts') loadBursts();
+    else if (v === 'command') { setDetail(null); setPathInfo(null); setBurstInfo(null); }
     else loadView(v, metric || behavMetric);
   };
 
-  useEffect(() => { if (view === 'bursts') loadBursts(); else loadView(view); }, [layer]); // eslint-disable-line
+  useEffect(() => { if (view === 'bursts') loadBursts(); else if (view !== 'command') loadView(view); }, [layer]); // eslint-disable-line
   useEffect(() => { fetch(`${API}/api/regions`).then((r) => r.json()).then((d) => setOkruzi(d.okruzi || [])).catch(() => {}); }, []);
   useEffect(() => { fetch(`${API}/api/behavior_cohort`).then((r) => r.json()).then(setCohort).catch(() => {}); }, []);
   useEffect(() => { fetch(`${API}/api/geo`).then((r) => r.json()).then((d) => setGeoData(d.okruzi || [])).catch(() => {}); }, []);
+  useEffect(() => { fetch(`${API}/api/taskmasters?limit=40`).then((r) => r.json()).then(setTmData).catch(() => {}); }, []);
   useEffect(() => {
     const upd = () => wrapRef.current && setDim({ w: wrapRef.current.offsetWidth, h: 640 });
     upd(); window.addEventListener('resize', upd);
@@ -386,6 +389,10 @@ export default function GraphExplorer() {
 
         <Section title="Kampanje">
           <NavItem color="#22d3ee" active={view === 'bursts'} onClick={() => setView('bursts')}>⚡ Burstevi (nalet na metu)</NavItem>
+        </Section>
+
+        <Section title="Komanda">
+          <NavItem color="#f43f5e" active={view === 'command'} onClick={() => setView('command')}>⌘ Task-masteri (ko zadaje)</NavItem>
         </Section>
 
         <Section title="Filteri">
@@ -671,6 +678,27 @@ export default function GraphExplorer() {
                   <span>{op.operators} · {(op.actions || 0).toLocaleString('sr-RS')}</span>
                 </div>
               ))}
+            </div>
+          ))}
+        </div>
+      )}
+
+      {view === 'command' && !detail && !pathInfo && tmData && (
+        <div style={panelStyle}>
+          <div style={{ fontWeight: 600, color: 'var(--text-main)' }}>Komanda — task-masteri</div>
+          <div style={{ color: 'var(--text-muted)', fontSize: '0.78rem', margin: '0.3rem 0 0.7rem' }}>
+            {tmData.count} ljudi kreira SVE zadatke za portale; {tmData.coordinators} su koordinatori. Komandni sloj je IZNAD izvršnog (operatera). Klik = učitaj (ako je u grafu).
+          </div>
+          {tmData.masters.map((m) => (
+            <div key={m.id} onClick={() => m.in_graph && onNodeClick({ id: `op:${m.id}`, type: 'operator' })}
+              style={{ padding: '0.35rem 0', borderBottom: '1px solid var(--glass-border)', cursor: m.in_graph ? 'pointer' : 'default' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.85rem' }}>
+                <span style={{ color: m.centroid ? '#fde047' : 'var(--text-main)' }}>{m.centroid && '★ '}{m.ime}</span>
+                <span style={{ color: '#f43f5e', fontWeight: 600 }}>{m.tasks.toLocaleString('sr-RS')}</span>
+              </div>
+              <div style={{ color: 'var(--text-muted)', fontSize: '0.72rem' }}>
+                {m.roles.length ? `koord: ${m.roles.join('/')}` : '—'}{m.okrug ? ` · ${m.okrug}` : ''}
+              </div>
             </div>
           ))}
         </div>
