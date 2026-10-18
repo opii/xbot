@@ -40,6 +40,52 @@ koliko poena). Podaci pokazuju:
   slede afrički provajderi (CAMNET Kamerun 472 IP, MTN, Orange, Congo Telecom…).
   Offline GeoIP: [`src/analysis/voter_geoip.py`](bot_detector/src/analysis/voter_geoip.py).
 
+## 🌍 Voter infrastruktura — GeoIP nalazi
+
+Automatsko glasanje (plus/minus na komentare, ~550M klikova; tabela
+`voter_racunari`, 1.668 zapisa / 1.087 distinct IP) radi uglavnom iz
+**inostranstva**: **63% zapisa i 80% distinct IP-jeva je van Srbije**. GeoIP je
+rađen **offline** (iptoasn, IP-jevi se ne šalju nikuda) — skripta
+[`src/analysis/voter_geoip.py`](bot_detector/src/analysis/voter_geoip.py).
+
+**Top države (po zapisima / distinct IP):**
+
+| Država | Zapisa | IP |
+| --- | --- | --- |
+| 🇷🇸 Srbija | 619 | 216 |
+| 🇨🇲 Kamerun | 503 | **472** |
+| 🇨🇬 Kongo | 162 | 155 |
+| 🇹🇿 Tanzanija | 93 | 49 |
+| 🇨🇮 Obala Slonovače | 68 | 35 |
+| 🇧🇦 BiH | 60 | 51 |
+| 🇲🇪 Crna Gora | 59 | 50 |
+| 🇮🇹 Italija | 42 | 1 |
+| 🇵🇪 Peru | 14 | 13 |
+| 🇨🇾 Kipar | 14 | 13 |
+| 🇺🇸 SAD | 9 | 9 |
+| 🇲🇹 Malta | 8 | 7 |
+
+**Top ASN / provajderi:**
+
+| # | ASN · provajder | Zapisa |
+| --- | --- | --- |
+| 1 | AS8400 TELEKOM-AS (MTS, 🇷🇸) | 251 |
+| 2 | AS15964 CAMNET (🇨🇲 Kamerun) | 195 |
+| 3 | AS30992 MTN Cameroon | 172 |
+| 4 | AS9125 Orion Telekom (🇷🇸) | 140 |
+| 5 | AS36912 Orange Cameroon | 124 |
+| 6 | AS198370 JG-ASN (🇷🇸) | 107 |
+| 7 | AS37451 Congo Telecom | 93 |
+| 8 | AS36924 GVA-Canalbox (🇨🇮) | 68 |
+| 9 | AS328436 Flashnet (🇹🇿) | 68 |
+| 10 | AS31042 SBB — Serbia BroadBand (🇷🇸) | 54 |
+| 11 | AS25144 Telekom Srpske (🇧🇦) | 53 |
+
+**Zaključak:** voter mašinerija kombinuje domaće ISP-jeve (Telekom/MTS, Orion, SBB)
+sa **zakupljenim stranim proksijima**, pre svega **afričkim mobilnim/ISP opsezima**
+(Kamerun masovno — 472 IP, Kongo, Tanzanija, Obala Slonovače) — klasična proxy
+taktika za zaobilaženje geo-detekcije i moderacije srpskih portala.
+
 ## 🧭 Pristup: operater-centričan
 
 Čvor nije pojedinačni nalog nego **operater** (osoba-`korisnik` koja upravlja
