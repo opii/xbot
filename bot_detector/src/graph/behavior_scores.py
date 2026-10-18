@@ -141,6 +141,36 @@ def run(drv=None):
     dup_rows = [{"id": op, "dup": round(1 - (dist / tot), 4) if tot else 0.0}
                 for op, tot, dist in cur.fetchall()]
 
+    print("Računanje udela deljenih šablona (konzerviran tekst) ...", flush=True)
+    # template_frac = udeo komentara operatera čiji tekst koristi >=3 operatera
+    cur.execute(r"""
+        WITH norm AS (
+            SELECT vkk_korisnik_id op,
+                   lower(btrim(regexp_replace(vkk_komentar, '\s+', ' ', 'g'))) t
+            FROM arhiva_vesti_korisnici_komentari
+            WHERE vkk_simulacija = 0 AND length(vkk_komentar) >= 15),
+        cnt AS (SELECT t, count(DISTINCT op) nop FROM norm GROUP BY t)
+        SELECT n.op, count(*) total, count(*) FILTER (WHERE c.nop >= 3) shared_n
+        FROM norm n JOIN cnt c USING(t) GROUP BY n.op
+    """)
+    tpl_rows = [{"id": op, "tf": round(sh / tot, 4) if tot else 0.0}
+                for op, tot, sh in cur.fetchall()]
+
+    print("Računanje CO_TEMPLATE veza (deljeni šabloni) ...", flush=True)
+    cur.execute(r"""
+        WITH norm AS (
+            SELECT DISTINCT vkk_korisnik_id op,
+                   lower(btrim(regexp_replace(vkk_komentar, '\s+', ' ', 'g'))) t
+            FROM arhiva_vesti_korisnici_komentari
+            WHERE vkk_simulacija = 0 AND length(vkk_komentar) >= 15),
+        tpl AS (SELECT t FROM norm GROUP BY t HAVING count(*) BETWEEN 3 AND 60),
+        ot AS (SELECT n.op, n.t FROM norm n JOIN tpl USING(t))
+        SELECT x.op, y.op, count(*) shared
+        FROM ot x JOIN ot y ON x.t = y.t AND x.op < y.op
+        GROUP BY x.op, y.op HAVING count(*) >= 3
+    """)
+    ct_rows = [{"a": r[0], "b": r[1], "shared": r[2]} for r in cur.fetchall()]
+
     print(f"Upis auto_score za {len(rows):,} operatera ...", flush=True)
     with drv.session() as s:
         s.run("MATCH (o:Operator) SET o.auto_score=0, o.dup_ratio=0, o.lead_score=0, o.lead_n=0")
@@ -161,6 +191,20 @@ def run(drv=None):
                 UNWIND $rows AS r
                 MATCH (o:Operator {id: r.id}) SET o.lead_score=r.lead, o.lead_n=r.ln
             """, rows=lead_rows[i:i + 5000])
+        s.run("MATCH (o:Operator) SET o.template_frac = 0")
+        for i in range(0, len(tpl_rows), 5000):
+            s.run("""
+                UNWIND $rows AS r
+                MATCH (o:Operator {id: r.id}) SET o.template_frac = r.tf
+            """, rows=tpl_rows[i:i + 5000])
+        s.run("MATCH ()-[c:CO_TEMPLATE]-() DELETE c")
+        for i in range(0, len(ct_rows), 5000):
+            s.run("""
+                UNWIND $rows AS r
+                MATCH (a:Operator {id: r.a}), (b:Operator {id: r.b})
+                MERGE (a)-[c:CO_TEMPLATE]-(b) SET c.shared = r.shared
+            """, rows=ct_rows[i:i + 5000])
+        print(f"  template_frac: {len(tpl_rows):,} op · CO_TEMPLATE: {len(ct_rows):,} veza", flush=True)
         top = s.run("MATCH (o:Operator) WHERE o.auto_score > 0 "
                     "RETURN o.ime AS ime, o.auto_score AS a "
                     "ORDER BY a DESC LIMIT 5").data()

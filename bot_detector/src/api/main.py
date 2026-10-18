@@ -98,6 +98,7 @@ def op_node(rec):
         "dup_ratio_g": rec.get("dup_ratio") or 0,
         "lead_score": rec.get("lead_score") or 0,
         "lead_n": rec.get("lead_n") or 0,
+        "template_frac": rec.get("template_frac") or 0,
         # veličina čvora raste logaritamski sa brojem akcija (~2..7)
         "val": round(2 + 1.1 * math.log10((rec.get("actions") or 0) + 1), 2),
     }
@@ -530,6 +531,7 @@ def behavior(op_id: int):
 BEHAV_METRIC = {
     "auto": "auto_score", "night": "night_ratio", "short_lat": "short_lat_frac",
     "entropy": "hour_entropy", "dup": "dup_ratio", "lead": "lead_score",
+    "template": "template_frac",
 }
 
 
@@ -537,10 +539,14 @@ BEHAV_METRIC = {
 def behavior_top(layer: str = "twitter", limit: int = Query(40, le=150),
                  metric: str = "auto"):
     """Operateri rangirani po izabranoj bihevioralnoj metrici + veze među njima.
-    metric: auto | night | short_lat | entropy | dup"""
+    metric: auto | night | short_lat | entropy | dup | lead | template"""
     prop = BEHAV_METRIC.get(metric, "auto_score")
-    rel, ltype = (("CO_COMMENTED", "co_commented") if layer == "comments"
-                  else ("CO_ACTED", "co_acted"))
+    if metric == "template":
+        rel, ltype = "CO_TEMPLATE", "co_template"
+    elif layer == "comments":
+        rel, ltype = "CO_COMMENTED", "co_commented"
+    else:
+        rel, ltype = "CO_ACTED", "co_acted"
     q = f"""
     MATCH (o:Operator) WHERE o.{prop} > 0
     WITH o ORDER BY o.{prop} DESC LIMIT $limit

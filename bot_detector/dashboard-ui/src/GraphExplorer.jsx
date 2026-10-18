@@ -19,6 +19,7 @@ const METRICS = {
   short_lat: { field: 'short_lat_frac', base: 0, norm: 0.3, label: 'Kratke latencije (<2min)' },
   dup: { field: 'dup_ratio_g', base: 0, norm: 1, label: 'Duplikati komentara' },
   lead: { field: 'lead_score', base: 0.3, norm: 0.72, label: 'Lider — prvi na meti' },
+  template: { field: 'template_frac', base: 0, norm: 0.6, label: 'Deljeni šabloni (konzerviran tekst)' },
 };
 const metricColor = (v, m) => operatorColorN(((v || 0) - m.base) / (m.norm - m.base));
 const communityColor = (c) => (c == null ? '#64748b' : COMMUNITY_PALETTE[c % COMMUNITY_PALETTE.length]);
@@ -37,6 +38,7 @@ const LINK_STYLE = {
   co_acted: { color: 'rgba(245,158,11,0.55)', width: 2 },
   amplifies: { color: 'rgba(192,132,252,0.35)', width: 1 },
   co_commented: { color: 'rgba(52,211,153,0.5)', width: 2 },
+  co_template: { color: 'rgba(232,121,249,0.55)', width: 2 },
   comments_on: { color: 'rgba(45,212,191,0.3)', width: 1 },
   commented_on: { color: 'rgba(45,212,191,0.3)', width: 1 },
 };
@@ -72,6 +74,8 @@ export default function GraphExplorer() {
   const [fOkrug, setFOkrug] = useState('');
   const [fOpstina, setFOpstina] = useState('');
   const [show, setShow] = useState({ accounts: true, targets: true, coacted: true });
+  const [minShared, setMinShared] = useState(0);
+  const [hideOrphans, setHideOrphans] = useState(false);
   const [frm, setFrm] = useState('');
   const [to, setTo] = useState('');
   const [pathMode, setPathMode] = useState(false);
@@ -124,7 +128,7 @@ export default function GraphExplorer() {
   }, []);
 
   const setView = (v, metric) => {
-    setViewState(v);
+    setViewState(v); setMinShared(0);
     if (v === 'behav' && metric) setBehavMetric(metric);
     if (v === 'bursts') loadBursts();
     else loadView(v, metric || behavMetric);
@@ -244,9 +248,12 @@ export default function GraphExplorer() {
 
   const opstineForOkrug = (okruzi.find((o) => o.okrug === fOkrug) || {}).opstine || [];
   const nid = (x) => (typeof x === 'object' ? x.id : x);
+  const CO_TYPES = new Set(['co_acted', 'co_commented', 'co_template']);
+  // adaptivni maksimum klizača: najjača koordinaciona veza na platnu
+  const maxW = data.links.reduce((m, l) => (CO_TYPES.has(l.type) ? Math.max(m, l.shared || 0) : m), 10);
   const visibleData = (() => {
     const vis = new Set();
-    const nodes = data.nodes.filter((n) => {
+    let nodes = data.nodes.filter((n) => {
       if (n.type === 'account' && !show.accounts) return false;
       if (n.type === 'target' && !show.targets) return false;
       vis.add(n.id); return true;
@@ -255,8 +262,15 @@ export default function GraphExplorer() {
       if (l.type === 'co_acted' && !show.coacted) return false;
       if (l.type === 'controls' && !show.accounts) return false;
       if (l.type === 'amplifies' && !show.targets) return false;
+      // klizač jačine: seče slabe koordinacione veze (šum / hairball)
+      if (CO_TYPES.has(l.type) && (l.shared || 0) < minShared) return false;
       return vis.has(nid(l.source)) && vis.has(nid(l.target));
     });
+    if (hideOrphans) {
+      const deg = new Set();
+      for (const l of links) { deg.add(nid(l.source)); deg.add(nid(l.target)); }
+      nodes = nodes.filter((n) => n.type !== 'operator' || deg.has(n.id) || n.id === selected);
+    }
     return { nodes, links };
   })();
 
@@ -359,6 +373,13 @@ export default function GraphExplorer() {
               <input type="checkbox" checked={show[k]} onChange={(e) => setShow((s) => ({ ...s, [k]: e.target.checked }))} />{lbl}
             </label>
           ))}
+          <div style={{ color: 'var(--text-muted)', fontSize: '0.7rem', margin: '0.5rem 0 0.1rem' }}>
+            Min jačina veze: <b style={{ color: 'var(--text-main)' }}>{minShared}</b> / {maxW} <span style={{ fontSize: '0.64rem' }}>(seče šum)</span>
+          </div>
+          <input type="range" min="0" max={maxW} value={Math.min(minShared, maxW)} step={Math.max(1, Math.floor(maxW / 50))} onChange={(e) => setMinShared(+e.target.value)} style={{ width: '100%' }} />
+          <label style={{ display: 'flex', gap: '0.35rem', alignItems: 'center', cursor: 'pointer', fontSize: '0.8rem', color: 'var(--text-muted)', padding: '0.1rem 0' }}>
+            <input type="checkbox" checked={hideOrphans} onChange={(e) => setHideOrphans(e.target.checked)} /> sakrij izolovane
+          </label>
         </Section>
 
         <Section title="Alatke">
@@ -420,10 +441,11 @@ export default function GraphExplorer() {
           ref={fgRef} width={dim.w} height={dim.h} graphData={visibleData}
           nodeRelSize={4} nodeVal={(n) => n.val || 1} nodeColor={nodeColor}
           linkColor={(l) => (LINK_STYLE[l.type] || {}).color || 'rgba(255,255,255,0.1)'}
-          linkWidth={(l) => (l.type === 'co_acted' || l.type === 'co_commented' ? Math.min(6, 1 + (l.shared || 0) / 4) : (LINK_STYLE[l.type] || {}).width || 1)}
+          linkWidth={(l) => (CO_TYPES.has(l.type) ? Math.min(6, 1 + (l.shared || 0) / 4) : (LINK_STYLE[l.type] || {}).width || 1)}
           linkLabel={(l) => (
             l.type === 'co_acted' ? `deli ${l.shared} zajedničkih meta`
               : l.type === 'co_commented' ? `deli ${l.shared} zajedničkih vesti`
+                : l.type === 'co_template' ? `deli ${l.shared} istih šablona`
                 : l.type === 'amplifies' ? `${l.actions} akcija na meti`
                   : l.type === 'comments_on' ? `${l.comments} komentara na portalu`
                     : l.type === 'commented_on' ? `${l.comments} komentara` : 'kontroliše nalog'
@@ -641,7 +663,8 @@ function ListPanel({ view, behavMetric, layer, nodes, onPick }) {
       : behavMetric === 'dup' ? 'Udeo ponovljenog teksta u komentarima (copy-paste).'
         : behavMetric === 'night' ? 'Udeo akcija u noćnim satima (00–05h).'
           : behavMetric === 'lead' ? 'Koliko često operater PRVI reaguje na metu (1 = stalno prvi). Pokretači kampanja.'
-            : 'Udeo akcija < 2 min od objave zadatka.';
+            : behavMetric === 'template' ? 'Udeo komentara sa tekstom koji dele i drugi (konzervirana poruka). Veze = deljeni šabloni.'
+              : 'Udeo akcija < 2 min od objave zadatka.';
     valOf = (n) => n[m.field] || 0;
     colorOf = (n) => metricColor(n[m.field], m);
   }
