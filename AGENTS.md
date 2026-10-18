@@ -15,6 +15,16 @@ obrisano. Mreža je dakle *ground-truth* koordinacije, ne pretpostavljeni botovi
 Ne radimo klasifikaciju "da li je nalog bot" — **mapiramo postojeću koordinaciju
 i merimo ponašanje**.
 
+## Značaj dataseta (zašto je jedinstven)
+
+U akademskim/OSINT istraživanjima astroturfinga (Stanford Internet Observatory,
+Graphika, DFRLab) mreža se posmatra **spolja** (API/skrejper) i *nagađa* se ko je
+bot. Ovde imamo **unutrašnji ground-truth samog sistema**: tačno se zna ko je
+operater, ko mu je dao zadatak, sa koje mašine je radio, koja je bila direktiva
+(`tu_smernica`) i koliko je poena dobio (`izvestaj_dnevni`). Zato Cacix ne nagađa
+— on **mapira i meri** stvarnu koordinaciju. Rukovati u skladu s tim (realni
+ljudi, osetljivi podaci — vidi Pravila).
+
 ## Podaci
 - Izvor: `bot_detector/data/progress_baza_podataka.sqlite3` (~4,8 GB, van gita).
 - Uvezeno 1:1 u Postgres šemu `progress` skriptom
@@ -116,11 +126,15 @@ ljudi koji rade u smenama — ali je koordinacija vrlo jaka i merljiva.** Dokazi
 - **Hardverska farma.** 1.938 operatera izvršava deo akcija preko namenskih
   serverskih mašina: **KANCELARIJASBB** (1.241 op), **INDJIJA2** (411), **INDJIJA1**
   (286). Ukupno 191.390 akcija (09/2024–06/2025).
-- **Orkestracija je jaka.** Burstevi: kampanje gde npr. 306 operatera udari metu,
-  od čega **262 u prvih 10 min** (sinhronija 0,86), a lideri reaguju u razmaku od
-  **sekundi** (0s, 2s, 5s…). Lideri (`lead_score` ~0,72) prvi reaguju na 10–17k meta.
-- **Konzervirana poruka.** Duplikati komentara do **96%**; neki operateri imaju
-  **100% šablonskog teksta** (`template_frac`); 22k šablona deli ≥3 operatera.
+- **Orkestracija je jaka (vojnička sinhronija).** U **12% kampanja (~4.800 od
+  39.143)** preko **85% operatera reaguje u prvih 10 min** (medijana sinhronije je
+  niža, ~0,18 — nisu sve kampanje jednako tesne). U najtešnjim lideri reaguju u
+  razmaku od **sekundi** (0s, 2s, 5s…). Lideri (`lead_score` ~0,72) prvi na 10–17k meta.
+- **Industrija lažnih identiteta (astroturfing).** U komentarima na vestima jedan
+  operater piše pod stotinama/hiljadama pseudonima (kolona `vkk_autor`): npr. op
+  **#7418** = 17.088 komentara pod **2.378** imena; op **#6206** = 79.951 komentar
+  pod **1.338** imena. Uz to duplikati do **96%** i **100% šablonskog teksta**
+  (`template_frac`); 22k identičnih šablona vrti cela mreža.
 - **Uloge.** Mreža je prvenstveno „Odgovarači" (uputstvo zadataka je „odgovaramo").
 - **Mete.** Masovne mete (npr. `@sns_srbija` — dira je 3.608 operatera) su šum za
   povezivanje; prava koordinacija se vidi na retkim, deljenim metama.
@@ -200,6 +214,15 @@ granu u `nodeColor` (`view==='xxx'`), `NavItem` u sekciji POGLED, i granu u
 
 ## Roadmap (otvoreno / sledeće)
 
+- **Pseudonimi kao metrika** (lako, jako): `pseudonyms` = distinct `vkk_autor` po
+  operateru (astroturfing identiteti). Već verifikovano: #7418→2.378, #6206→1.338.
+  Dodati kao bihevioralnu metriku (obrazac u „Kako proširiti").
+- **Direktive u zadacima**: analiza `tu_smernica` (šta se tačno traži) i veza
+  direktiva→meta→reakcija.
+- **Tretman portala**: razlika u ponašanju prema opozicionim portalima vs tabloidi
+  (`arhiva_vesti_unos.vu_portal` + glasanje `voter`/`izvestaj_voter`).
+- **Analiza koordinatora**: hijerarhija (`koordinatori_korisnici`, okrug/opština)
+  i ko kome dodeljuje zadatke.
 - Sinhroni start/stop: preklopljeni dnevni timeline-ovi više operatera (kampanje
   kroz vreme).
 - Životni ciklus naloga: kad se nalozi prave/brišu u odnosu na kampanje.

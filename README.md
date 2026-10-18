@@ -15,6 +15,21 @@ kako izgleda vremenski obrazac aktivnosti (ljudski rad u smenama vs automatizaci
 
 ---
 
+## 🔑 Ključni nalazi
+
+Za razliku od spoljne OSINT analize koja *nagađa* ko je bot, ovde postoji
+**unutrašnji ground-truth** (ko, kome, sa koje mašine, po kojoj direktivi, za
+koliko poena). Podaci pokazuju:
+
+- **Ljudi u javnom sektoru, ne AI botovi:** 311 operatera radi pon–pet 08–16h;
+  131 ima 100% aktivnosti u radno vreme (0% vikend/noć).
+- **Fizička farma mašina:** 191.390 akcija preko servera KANCELARIJASBB /
+  INDJIJA1 / INDJIJA2 (~1.938 operatera).
+- **Industrija lažnih identiteta:** jedan operater pod hiljadama pseudonima
+  (#7418 → 2.378 imena na 17k komentara); do 96% duplikata, 100% šablonskog teksta.
+- **Vojnička sinhronija:** u 12% kampanja >85% operatera reaguje u prvih 10 min;
+  lideri u razmaku od sekundi.
+
 ## 🧭 Pristup: operater-centričan
 
 Čvor nije pojedinačni nalog nego **operater** (osoba-`korisnik` koja upravlja
