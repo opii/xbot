@@ -96,6 +96,8 @@ def op_node(rec):
         "hour_entropy": rec.get("hour_entropy") or 0,
         "short_lat_frac": rec.get("short_lat_frac") or 0,
         "dup_ratio_g": rec.get("dup_ratio") or 0,
+        "lead_score": rec.get("lead_score") or 0,
+        "lead_n": rec.get("lead_n") or 0,
         # veličina čvora raste logaritamski sa brojem akcija (~2..7)
         "val": round(2 + 1.1 * math.log10((rec.get("actions") or 0) + 1), 2),
     }
@@ -527,7 +529,7 @@ def behavior(op_id: int):
 
 BEHAV_METRIC = {
     "auto": "auto_score", "night": "night_ratio", "short_lat": "short_lat_frac",
-    "entropy": "hour_entropy", "dup": "dup_ratio",
+    "entropy": "hour_entropy", "dup": "dup_ratio", "lead": "lead_score",
 }
 
 
@@ -562,6 +564,74 @@ def behavior_top(layer: str = "twitter", limit: int = Query(40, le=150),
                 links.append({"source": f"op:{a}", "target": f"op:{b}",
                               "type": ltype, "shared": e["shared"]})
     return {"nodes": nodes, "links": links}
+
+
+@app.get("/api/bursts")
+def bursts(limit: int = Query(40, le=200), min_ops: int = 10):
+    """Najsinhronizovanije kampanje (mete) — nalet operatera u prvih 10 min."""
+    rows = pg("""
+        SELECT tid, handle, nops, peak10, span_min, synchrony
+        FROM target_bursts
+        WHERE nops >= %s AND handle <> ''
+        ORDER BY peak10 DESC, synchrony DESC
+        LIMIT %s
+    """, (min_ops, limit))
+    return {"campaigns": [
+        {"tid": r[0], "handle": r[1], "operators": r[2], "peak10": r[3],
+         "span_min": r[4], "synchrony": float(r[5])} for r in rows]}
+
+
+@app.get("/api/burst/{tid}")
+def burst(tid: int):
+    """Vremenska linija jedne kampanje: nalet po minutu + prvi (lideri) +
+    operateri kao čvorovi oko mete."""
+    ft = pg("""
+        SELECT a.tuka_korisnik_id,
+               extract(epoch FROM (min(a.tuka_vreme::timestamp) - c.t0)) AS off
+        FROM arhiva_twitter_unos_korisnici_akcije a
+        CROSS JOIN (SELECT min(tuka_vreme::timestamp) t0
+                    FROM arhiva_twitter_unos_korisnici_akcije
+                    WHERE tuka_twitter_id = %s) c
+        WHERE a.tuka_twitter_id = %s
+        GROUP BY a.tuka_korisnik_id, c.t0
+    """, (tid, tid))
+    if not ft:
+        return {"found": False}
+    offs = sorted(o for _, o in ft)
+    # nalet po minutu u prvih 60 min + ostatak
+    mins = [0] * 61
+    for o in offs:
+        m = int(o // 60)
+        mins[m if m < 60 else 60] += 1
+    hrow = pg("SELECT handle, nops, peak10, span_min, synchrony "
+              "FROM target_bursts WHERE tid = %s", (tid,))
+    meta = ({"handle": hrow[0][0], "operators": hrow[0][1], "peak10": hrow[0][2],
+             "span_min": hrow[0][3], "synchrony": float(hrow[0][4])} if hrow else {})
+    # lideri (prvih 12 po vremenu) sa imenima
+    order = sorted(ft, key=lambda x: x[1])[:12]
+    ids = [op for op, _ in order]
+    names = {}
+    if ids:
+        for r in pg("""
+            SELECT k_id, NULLIF(trim(coalesce(k_ime,'')||' '||coalesce(k_prezime,'')),'')
+            FROM korisnici WHERE k_id = ANY(%s)
+        """, (ids,)):
+            names[r[0]] = r[1]
+    leaders = [{"id": op, "ime": names.get(op) or f"#{op}", "off_s": round(o)}
+               for op, o in order]
+    # operateri kao čvorovi oko mete (iz Neo4j, puni op_node)
+    allids = [op for op, _ in ft][:120]
+    nodes, links = [], []
+    h = meta.get("handle", str(tid))
+    tgt = f"tgt:{h}"
+    nodes.append({"id": tgt, "type": "target", "label": f"@{h}", "val": 4})
+    with driver.session() as s:
+        for r in s.run("MATCH (o:Operator) WHERE o.id IN $ids RETURN o", ids=allids):
+            o = dict(r["o"])
+            nodes.append(op_node(o))
+            links.append({"source": f"op:{o['id']}", "target": tgt, "type": "amplifies"})
+    return {"found": True, "tid": tid, "meta": meta, "minutes": mins,
+            "leaders": leaders, "nodes": nodes, "links": links}
 
 
 @app.get("/api/behavior_cohort")

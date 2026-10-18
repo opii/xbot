@@ -12,13 +12,15 @@ const COMMUNITY_PALETTE = [
   '#60a5fa', '#f472b6', '#34d399', '#fbbf24', '#a78bfa', '#fb7185',
   '#22d3ee', '#a3e635', '#f97316', '#e879f9', '#4ade80', '#38bdf8',
 ];
-// bihevioralne metrike za meni: polje na čvoru, normalizacija za boju, naziv
+// bihevioralne metrike za meni: polje na čvoru, opseg boje [base,norm], naziv
 const METRICS = {
-  auto: { field: 'auto_score', norm: 0.45, label: 'Skor automatizacije' },
-  night: { field: 'night_ratio_g', norm: 1, label: 'Noćna aktivnost' },
-  short_lat: { field: 'short_lat_frac', norm: 0.3, label: 'Kratke latencije (<2min)' },
-  dup: { field: 'dup_ratio_g', norm: 1, label: 'Duplikati komentara' },
+  auto: { field: 'auto_score', base: 0, norm: 0.45, label: 'Skor automatizacije' },
+  night: { field: 'night_ratio_g', base: 0, norm: 1, label: 'Noćna aktivnost' },
+  short_lat: { field: 'short_lat_frac', base: 0, norm: 0.3, label: 'Kratke latencije (<2min)' },
+  dup: { field: 'dup_ratio_g', base: 0, norm: 1, label: 'Duplikati komentara' },
+  lead: { field: 'lead_score', base: 0.3, norm: 0.72, label: 'Lider — prvi na meti' },
 };
+const metricColor = (v, m) => operatorColorN(((v || 0) - m.base) / (m.norm - m.base));
 const communityColor = (c) => (c == null ? '#64748b' : COMMUNITY_PALETTE[c % COMMUNITY_PALETTE.length]);
 const communityOf = (n, layer) => (layer === 'comments' ? n.cc_community : n.tw_community);
 const isOrganizer = (n, layer) => (layer === 'comments' ? n.cc_organizer : n.tw_organizer);
@@ -77,8 +79,10 @@ export default function GraphExplorer() {
   const [pathInfo, setPathInfo] = useState(null);
   const [discrim, setDiscrim] = useState(true);
   const [layer, setLayer] = useState('twitter');
-  const [view, setViewState] = useState('overview'); // overview|organizers|master|behav
+  const [view, setViewState] = useState('overview'); // overview|organizers|master|behav|bursts
   const [behavMetric, setBehavMetric] = useState('auto');
+  const [burstList, setBurstList] = useState([]);
+  const [burstInfo, setBurstInfo] = useState(null);
 
   const merge = useCallback((incoming) => {
     setData((prev) => {
@@ -106,13 +110,27 @@ export default function GraphExplorer() {
     fetch(API + url).then((r) => r.json()).then(setData).catch(console.error);
   }, [behavMetric, layer, fOkrug, fOpstina]);
 
+  const loadBursts = useCallback(() => {
+    setDetail(null); setSelected(null); setPathInfo(null); setBurstInfo(null);
+    setData({ nodes: [], links: [] });
+    fetch(`${API}/api/bursts?limit=40`).then((r) => r.json()).then((d) => setBurstList(d.campaigns || [])).catch(console.error);
+  }, []);
+
+  const openBurst = useCallback((tid) => {
+    setBusy(true);
+    fetch(`${API}/api/burst/${tid}`).then((r) => r.json()).then((d) => {
+      if (d.found) { setData({ nodes: d.nodes, links: d.links }); setBurstInfo(d); setDetail(null); setSelected(null); }
+    }).finally(() => setBusy(false));
+  }, []);
+
   const setView = (v, metric) => {
     setViewState(v);
     if (v === 'behav' && metric) setBehavMetric(metric);
-    loadView(v, metric || behavMetric);
+    if (v === 'bursts') loadBursts();
+    else loadView(v, metric || behavMetric);
   };
 
-  useEffect(() => { loadView(view); }, [layer]); // eslint-disable-line
+  useEffect(() => { if (view === 'bursts') loadBursts(); else loadView(view); }, [layer]); // eslint-disable-line
   useEffect(() => { fetch(`${API}/api/regions`).then((r) => r.json()).then((d) => setOkruzi(d.okruzi || [])).catch(() => {}); }, []);
   useEffect(() => { fetch(`${API}/api/behavior_cohort`).then((r) => r.json()).then(setCohort).catch(() => {}); }, []);
   useEffect(() => {
@@ -190,7 +208,7 @@ export default function GraphExplorer() {
   }, [expand, merge]);
 
   const reset = () => {
-    setFOkrug(''); setFOpstina(''); setPathMode(false); setPathA(null); setPathInfo(null);
+    setFOkrug(''); setFOpstina(''); setPathMode(false); setPathA(null); setPathInfo(null); setBurstInfo(null);
     setViewState('overview'); loadView('overview', behavMetric, '', '');
   };
 
@@ -215,7 +233,7 @@ export default function GraphExplorer() {
 
   const nodeColor = (n) => {
     if (n.type === 'operator') {
-      if (view === 'behav') { const m = METRICS[behavMetric]; return operatorColorN(Math.min(1, (n[m.field] || 0) / m.norm)); }
+      if (view === 'behav') return metricColor(n[METRICS[behavMetric].field], METRICS[behavMetric]);
       if (view === 'master') return operatorColorN(n.master || 0);
       if (view === 'organizers') return communityColor(communityOf(n, layer));
       return operatorColorN(((layer === 'comments' ? n.cc_degree : n.co_degree) || 0) / DEG_MAX[layer]);
@@ -280,7 +298,8 @@ export default function GraphExplorer() {
   const colorLegend = view === 'organizers' ? 'boja = zajednica · ★ centroid'
     : view === 'master' ? 'boja = master skor (oba sloja)'
       : view === 'behav' ? `boja = ${METRICS[behavMetric].label}`
-        : 'boja = povezanost (slab→jak)';
+        : view === 'bursts' ? 'operateri jedne kampanje oko mete'
+          : 'boja = povezanost (slab→jak)';
 
   const LAYER_BTN = (k, lbl) => (
     <button key={k} onClick={() => setLayer(k)} style={{
@@ -311,6 +330,10 @@ export default function GraphExplorer() {
             <NavItem key={k} color="#f97316" active={view === 'behav' && behavMetric === k} onClick={() => setView('behav', k)}>{m.label}</NavItem>
           ))}
           <div style={{ color: 'var(--text-muted)', fontSize: '0.68rem', marginTop: '0.3rem' }}>klik na operatera = pun profil</div>
+        </Section>
+
+        <Section title="Kampanje">
+          <NavItem color="#22d3ee" active={view === 'bursts'} onClick={() => setView('bursts')}>⚡ Burstevi (nalet na metu)</NavItem>
         </Section>
 
         <Section title="Filteri">
@@ -494,9 +517,49 @@ export default function GraphExplorer() {
         </div>
       )}
 
-      {!detail && !pathInfo && view !== 'overview' && (
+      {!detail && !pathInfo && ['organizers', 'master', 'behav'].includes(view) && (
         <div style={panelStyle}>
           <ListPanel view={view} behavMetric={behavMetric} layer={layer} nodes={data.nodes} onPick={onNodeClick} />
+        </div>
+      )}
+
+      {view === 'bursts' && !detail && !burstInfo && (
+        <div style={panelStyle}>
+          <div style={{ fontWeight: 600, color: 'var(--text-main)' }}>Kampanje — burstevi</div>
+          <div style={{ color: 'var(--text-muted)', fontSize: '0.78rem', margin: '0.3rem 0 0.7rem' }}>
+            Mete sortirane po broju operatera koji naleti u prvih 10 min. Klik = vremenska linija + lideri.
+          </div>
+          {burstList.map((c) => (
+            <div key={c.tid} onClick={() => openBurst(c.tid)} style={{ padding: '0.4rem 0', borderBottom: '1px solid var(--glass-border)', cursor: 'pointer' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.85rem' }}>
+                <span style={{ color: NODE_COLOR.target }}>@{c.handle}</span>
+                <span style={{ color: '#22d3ee', fontWeight: 600 }}>{c.peak10} / {c.operators}</span>
+              </div>
+              <div style={{ color: 'var(--text-muted)', fontSize: '0.72rem' }}>u 10min · sinhronija {c.synchrony.toFixed(2)} · span {c.span_min}min</div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {burstInfo && !detail && (
+        <div style={panelStyle}>
+          <div style={{ fontWeight: 600, color: 'var(--text-main)', display: 'flex', justifyContent: 'space-between' }}>
+            Kampanja: @{burstInfo.meta.handle}
+            <span onClick={() => setBurstInfo(null)} style={{ cursor: 'pointer', color: 'var(--text-muted)' }}>×</span>
+          </div>
+          <div style={{ color: 'var(--text-muted)', fontSize: '0.78rem', margin: '0.3rem 0 0.6rem' }}>
+            {burstInfo.meta.operators} operatera · {burstInfo.meta.peak10} u prvih 10min (sinhronija {burstInfo.meta.synchrony.toFixed(2)}) · span {burstInfo.meta.span_min}min
+          </div>
+          <SubH>Nalet po minutu (prvih 60 min, poslednji = kasnije)</SubH>
+          <Bars values={burstInfo.minutes} highlight={(i) => i === 60} />
+          <SubH>Lideri (prvi na meti)</SubH>
+          {burstInfo.leaders.map((l, i) => (
+            <div key={l.id} onClick={() => onNodeClick({ id: `op:${l.id}`, type: 'operator' })}
+              style={{ display: 'flex', justifyContent: 'space-between', padding: '0.2rem 0', borderBottom: '1px solid var(--glass-border)', cursor: 'pointer', fontSize: '0.84rem' }}>
+              <span><span style={{ color: 'var(--text-muted)' }}>{i + 1}.</span> {l.ime}</span>
+              <span style={{ color: l.off_s <= 10 ? '#f97316' : 'var(--text-muted)' }}>+{l.off_s}s</span>
+            </div>
+          ))}
         </div>
       )}
 
@@ -576,9 +639,11 @@ function ListPanel({ view, behavMetric, layer, nodes, onPick }) {
     title = m.label;
     note = behavMetric === 'auto' ? 'Noćna aktivnost + ravnomernost (24/7) + kratke latencije, prigušeno po količini akcija.'
       : behavMetric === 'dup' ? 'Udeo ponovljenog teksta u komentarima (copy-paste).'
-        : behavMetric === 'night' ? 'Udeo akcija u noćnim satima (00–05h).' : 'Udeo akcija < 2 min od objave zadatka.';
+        : behavMetric === 'night' ? 'Udeo akcija u noćnim satima (00–05h).'
+          : behavMetric === 'lead' ? 'Koliko često operater PRVI reaguje na metu (1 = stalno prvi). Pokretači kampanja.'
+            : 'Udeo akcija < 2 min od objave zadatka.';
     valOf = (n) => n[m.field] || 0;
-    colorOf = (n) => operatorColorN(Math.min(1, (n[m.field] || 0) / m.norm));
+    colorOf = (n) => metricColor(n[m.field], m);
   }
   const rows = [...ops].sort((a, b) => valOf(b) - valOf(a)).slice(0, 25);
   return (
