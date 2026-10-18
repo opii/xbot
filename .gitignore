@@ -3,3 +3,7 @@ bot_detector/dashboard-ui/node_modules/
 __pycache__/
 *.pyc
 .DS_Store
+
+# Lokalna baza podataka (prevelika i sadrži osetljive podatke)
+*.sqlite3
+bot_detector/data/*.sqlite3

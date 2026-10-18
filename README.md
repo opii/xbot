@@ -1,83 +1,196 @@
-# Cacix Bot Hunter 🕵️‍♂️🤖
+# Cacix 🕵️‍♂️🤖
 
-Cacix Bot Hunter je sistem za **bihevioralnu i mrežnu analizu (Data Science)** dizajniran za otkrivanje bot farmi, astroturfing kampanja i koordinisanog neautentičnog ponašanja na X-u (Twitter), a da pritom uopšte ne koristi IP adrese korisnika.
+Cacix je sistem za **mrežnu i bihevioralnu analizu** koordinisane mreže naloga.
+Radi nad realnom bazom jedne organizacije koja svojim članovima dodeljuje zadatke
+na društvenim mrežama (lajk/retvit/odgovor/citat na tvit, komentarisanje vesti) i
+beleži ko je šta uradio.
 
-Sistem se oslanja isključivo na metapodatke (vreme, tekst, relacije) kako bi izolovao bot mreže koje platforma pokušava da sakrije.
+Umesto da pogađa "da li je nalog bot", Cacix **mapira postojeću koordinaciju** i
+meri ponašanje: ko sa kim deli iste mete, ko su organizatori (centralni čvorovi) i
+kako izgleda vremenski obrazac aktivnosti (ljudski rad u smenama vs automatizacija).
 
----
-
-## ⚠️ Napomena za "Real-World" upotrebu (I zašto je to trenutno bezveze)
-
-U idealnom svetu, ovaj sistem bi bio direktno povezan na Twitter Stream i hvatao botove uživo. Međutim, **stvarnost je trenutno prilično obeshrabrujuća**. 
-
-Nakon Maskovog preuzimanja i promene politike API-ja (prelazak na *Pay-per-use Credit Model* gde se svako čitanje tvita naplaćuje), slobodno skrejpovanje ili jeftino korišćenje X API-ja je u potpunosti mrtvo. Da biste ovaj sistem koristili na realnim podacima u praksi, bio bi vam potreban **papreno skup Enterprise X API nalog** (koji košta hiljade, pa i desetine hiljada dolara mesečno zavisno od obima). Skrejpovanje "na divlje" bez API-ja (poput Nitter-a) je takođe blokirano.
-
-Zbog ove prilično bezvezne situacije sa monopolizacijom javnih podataka, ovaj projekat funkcioniše kao **Proof of Concept (PoC)**. Opremljen je generatorom koji sintetiše ultra-realistične scenarije (hiljade tvitova, stotine botova, astroturfing kampanje i NLP spam) kako biste mogli da testirate i vizuelizujete detekciju na delu.
-
-### 🕵️ Gde nabaviti prave, aktuelne podatke (Workaround)?
-Ukoliko želite da koristite ovaj sistem na stvarnim podacima iz Srbije (ili bilo koje druge države) danas, bez plaćanja hiljada dolara Twitteru, trenutno jedina isplativa "siva zona" jeste korišćenje *Third-Party* cloud scraper-a (Data Brokera) kao što su **[Apify](https://apify.com/)** ili **[PhantomBuster](https://phantombuster.com/)**. 
-Ovi servisi poseduju infrastrukturu i proxy servere kojima zaobilaze limite. Preko njih možete zakupiti tzv. *Twitter Scraper Actor*, uneti željeni hashtag (npr. `#izbori`) ili profil, i za malu sumu (cca $10) dobiti eksportovane desetine hiljada pravih, svežih tvitova u obliku CSV ili JSON fajla, koji onda možete učitati u ovaj sistem.
+📄 **Detaljna dokumentacija (grafovi + bihevioralna analiza):**
+<https://claude.ai/code/artifact/f44e1f1b-8ec4-4b85-bb11-19f820042143>
+🤖 Orijentir za AI agente: [`AGENTS.md`](AGENTS.md)
 
 ---
 
-## 🧠 Arhitektura Sistema (Ensemble Model)
+## 🧭 Pristup: operater-centričan
 
-Sistem računa jedinstveni **Bot Skor (0-100%)** kombinujući rezultate tri nezavisna modula:
+Čvor nije pojedinačni nalog nego **operater** (osoba-`korisnik` koja upravlja
+nalozima). Razlog:
 
-1. **Modul za Vremensku Analizu (Temporal Analysis):** Koristi Pandas i tehniku "klizećeg prozora" (Rolling window) da pronađe "rafale" retvitova unutar par sekundi (ili milisekundi).
-2. **Modul za Mrežni Graf (Network Analysis):** Koristi `NetworkX` za detekciju tzv. *Star Graph* topologije (Astroturfing). Prati ko retvituje koga i flaguje izolovane klastere koji veštački "pumpaju" jednog političara ili influensera.
-3. **Modul za Analizu Teksta (NLP):** Koristi *TF-IDF* i kosinusnu sličnost (Cosine Similarity) za prepoznavanje farmi koje tvituju identičan tekst (sa minimalnim varijacijama kako bi izbegle ban).
+- akcije su u bazi pripisane operateru, ne nalogu;
+- ~97% registrovanih naloga je obrisano.
 
----
-
-## 🛠️ Tehnološki Stack
-* **Jezik:** Python (Data Science i API) & JavaScript (Frontend)
-* **Baze:** **PostgreSQL** (za metapodatke i skorove) i **Neo4j** (Graph baza za iscrtavanje bot mreža).
-* **Backend API:** FastAPI
-* **Frontend:** React + Vite (sa custom Glassmorphism UI)
+Zato je operater stabilna, pouzdana jedinica, a sama mreža predstavlja
+*ground-truth* oznake koordinacije — ne pretpostavljene botove.
 
 ---
 
-## 🚀 Instalacija i Pokretanje
+## 🧠 Šta sistem radi
 
-### 1. Pokretanje Baza Podataka
-Projekat koristi Docker za baze podataka. U root folderu pokrenite:
+| Analiza | Opis |
+| --- | --- |
+| **Dva sloja koordinacije** | `CO_ACTED` (zajedničko delovanje na iste tvitove) i `CO_COMMENTED` (komentarisanje istih vesti po portalima) |
+| **Diskriminativne veze** | veze se grade preko *retkih* deljenih meta; masovne mete koje gura cela mreža (npr. `@sns_srbija`) se izostavljaju |
+| **Detekcija organizatora** | odsecanje težina p5–p95, Louvain zajednice, PageRank + betweenness → centroid po zajednici |
+| **Master koordinatori** | operateri jaki u OBA sloja: `master = √(tw_org · cc_org)` |
+| **Putanje** | najkraća veza između dva operatera + konkretne spone (mete/vesti) po skoku |
+| **Bihevioralni profil** | ritam po satu, noćna aktivnost, latencija zadatak→akcija, miks akcija, aktivni dani |
+
+---
+
+## 🗄️ Podaci
+
+Izvor je `bot_detector/data/progress_baza_podataka.sqlite3` (~4,8 GB), uvezen 1:1
+u PostgreSQL šemu `progress` (57 tabela, ~12 GB sa indeksima). Baza se **ne drži
+u gitu** (`*.sqlite3` je u `.gitignore`).
+
+Ključne tabele:
+
+| Tabela | Sadržaj | Redova |
+| --- | --- | --- |
+| `arhiva_twitter_unos` | zadaci (link ciljnog tvita + uputstvo) | 532.098 |
+| `arhiva_twitter_unos_korisnici_akcije` | akcije (0=lajk,1=retvit,2=odgovor,3=citat) | 11.792.266 |
+| `arhiva_vesti_korisnici_komentari` | komentari na vestima po portalima | 16.328.946 |
+| `korisnici` | operateri (ime, okrug/opština, pozicija) | 9.314 |
+| `korisnici_twitter_nalozi` | nalozi pod kontrolom operatera | 24.801 |
+
+---
+
+## 🛠️ Tehnološki stack
+
+- **Jezik:** Python (uvoz, graf, API) + JavaScript (frontend)
+- **Baze:** PostgreSQL (`progress` šema) + Neo4j (operaterska mreža)
+- **Backend:** FastAPI
+- **Graf/analiza:** NetworkX (zajednice, centralnost)
+- **Frontend:** React + Vite + `react-force-graph-2d`
+
+---
+
+## 🚀 Instalacija i pokretanje
+
+### 1. Baze (Docker)
 ```bash
-docker compose up -d
+cd bot_detector
+docker compose up -d        # Postgres :5432, Neo4j :7474/:7687 (perzistentni volumeni)
 ```
-*(Ovo će podići Postgres na portu `5432` i Neo4j na portovima `7687`/`7474`)*
 
-### 2. Podešavanje Python Okruženja
+### 2. Python okruženje
 ```bash
 cd bot_detector
 python3 -m venv venv
 source venv/bin/activate
-pip install -r requirements.txt # (pandas, scikit-learn, networkx, fastapi, psycopg2-binary, neo4j)
+pip install -r requirements.txt   # pandas, networkx, fastapi, uvicorn, psycopg2-binary, neo4j
 ```
 
-### 3. Generisanje Podataka i Pokretanje Modela
-Unutar `src/modules` pokrenite simulaciju i model:
+### 3. Uvoz baze (jednom)
+Ako je `progress` šema prazna, uvezi SQLite u Postgres:
 ```bash
-cd bot_detector/src/modules
-# 1. Generiše gigantski realistični dataset (Astroturfing, Kripto Spam, Pravi ljudi)
-python simulate_real_world.py 
-# 2. Pušta podatke kroz 3 modula i čuva rezultate u Postgres i Neo4j
-python ensemble_model.py 
+./venv/bin/python src/import_progress_db.py
+```
+Idempotentno je (preskače već uvezene tabele; `--force` za ponovni uvoz).
+
+### 4. Gradnja grafa + detekcija organizatora
+```bash
+./venv/bin/python src/graph/load_graph.py
+```
+Gradi Neo4j graf (oba sloja) + izvedene tabele (`target_popularity`,
+`news_popularity`) i na kraju računa organizatore/zajednice.
+Alternativa (kontejnerizovano): `docker compose --profile init up graph_loader --build`.
+
+### 5. Backend (FastAPI)
+```bash
+./venv/bin/python -m uvicorn api.main:app --host 0.0.0.0 --port 8000 --app-dir src
 ```
 
-### 4. Pokretanje Dashboard-a
-**Backend (FastAPI):**
+### 6. Frontend (React/Vite)
 ```bash
-cd bot_detector
-python src/api/main.py
-```
-**Frontend (React/Vite):**
-```bash
-cd bot_detector/dashboard-ui
+cd dashboard-ui
 npm install
 npm run dev
 ```
-👉 Posetite **http://localhost:5173** da vidite grafički interfejs!
+👉 Otvori **http://localhost:5173**
 
 ---
-*Projekat razvijen u svrhu istraživanja ponašanja bot mreža i analize grafova.*
+
+## 🖥️ Explorer — kako se koristi
+
+- **Sloj:** prekidač *Tviter / Komentari* menja mrežu, bojenje i razlistavanje.
+- **Razlistavanje:** klik na operatera širi naloge, ko-aktere i mete (ili
+  ko-komentatore i portale).
+- **Filteri:** okrug / opština (lokalni klaster) i vremenski period (mete i izvoz).
+- **★ Organizatori:** boji po zajednici, centroide označava zvezdom, panel rangira
+  po skoru.
+- **⚑ Master:** operateri jaki u oba sloja, obojeni po master skoru.
+- **⏱ Automatizacija:** boji po skoru automatizacije (noćna aktivnost +
+  ravnomernost 24/7 + kratke latencije), panel rangira najsumnjivije.
+- **Putanja:** klik na dva operatera → najkraća veza sa sponama; čekboks "samo
+  diskriminativne spone".
+- **Bihevioralni panel** (klik na operatera): skor automatizacije sa percentilom u
+  mreži, komponente, ritam po satu, radni dani, histogram latencije, dnevni
+  timeline, miks akcija i (za komentatore) udeo duplikata teksta + portali.
+- **Izvoz/uvoz:** JSON/CSV platna ili ceo klaster operatera; uvoz vraća JSON nazad.
+
+---
+
+## 📡 API (ključni endpointi)
+
+| Endpoint | Vraća |
+| --- | --- |
+| `/api/overview?layer=&okrug=&opstina=` | najpovezaniji operateri + veze |
+| `/api/expand/{id}?layer=&frm=&to=` | susedi (nalozi/ko-akteri/mete ili ko-komentatori/portali) |
+| `/api/operator/{id}` | detalji + top mete |
+| `/api/behavior/{id}` | bihevioralni profil (ritam, radni dani, latencija, timeline, miks, duplikati) |
+| `/api/behavior_top?layer=&limit=` | operateri po skoru automatizacije |
+| `/api/behavior_cohort` | decili metrika kroz sve operatere |
+| `/api/organizers?layer=&only_centroids=` | organizatori/centroidi |
+| `/api/crosslayer` | master koordinatori (oba sloja) |
+| `/api/path?a=&b=&layer=&max_pop=` | najkraća putanja + spone |
+| `/api/target/{handle}`, `/api/account/{id}` | reverzno razlistavanje |
+| `/api/regions`, `/api/search?q=`, `/api/stats` | šifarnici, pretraga, brojači |
+| `/api/export/operator/{id}` | ceo klaster (JSON) |
+
+Node id šema: `op:<id>`, `acc:<id>`, `tgt:<handle>`, `portal:<name>`, `news:<vid>`.
+Polja operatera: `co_degree`/`cc_degree`, `tw_org`/`cc_org`, `tw_community`/`cc_community`,
+`auto_score` (+ `night_ratio`, `hour_entropy`, `short_lat_frac`).
+
+---
+
+## 📁 Struktura
+
+```
+bot_detector/
+├── docker-compose.yml           # Postgres + Neo4j + graph_loader (profil "init")
+├── src/
+│   ├── import_progress_db.py    # SQLite → Postgres (šema progress)
+│   ├── api/main.py              # FastAPI
+│   ├── graph/
+│   │   ├── load_graph.py        # Postgres → Neo4j + izvedene tabele + poziva donja dva
+│   │   ├── detect_organizers.py # zajednice + centralnost (networkx)
+│   │   └── behavior_scores.py   # skor automatizacije po operateru
+│   └── modules/                 # (legacy) stari PoC moduli nad mock CSV-om
+└── dashboard-ui/                # React + Vite explorer
+```
+
+> ℹ️ Moduli u `src/modules/` (`temporal_analysis`, `nlp_analysis`,
+> `network_analysis`, `ensemble_model`) su iz ranijeg PoC-a nad sintetičkim CSV
+> podacima i nisu deo aktuelnog toka.
+
+---
+
+## ⚖️ Ograničenja, etika i privatnost
+
+- **Realni ljudi.** Čvorovi su stvarni operateri, ne anonimni botovi. Imena i
+  lokacije pripadaju realnim osobama — koristiti odgovorno; za deljenje van tima
+  pseudonimizovati u ID-jeve.
+- **Ne "da li je bot".** Sistem meri koordinaciju i ponašanje; vremenski obrasci
+  (rad u smenama) pokazuju organizovane ljude, ne nužno automatizaciju.
+- **Osetljivi podaci.** Baza sadrži lozinke, telefone, OAuth tokene i sl. Oni se
+  **ne koriste**; sistem ne gradi ništa što bi pristupalo tuđim nalozima.
+- **Pragovi su izbor.** Gustina grafa, zajednice i centroidi zavise od pragova
+  (`ceil/min`, `p5–p95`) — rezultate čitati uz te parametre.
+
+---
+*Projekat za istraživanje koordinisanog ponašanja mreža naloga i analizu grafova.*
