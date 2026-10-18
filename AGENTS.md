@@ -15,6 +15,11 @@ obrisano. Mreža je dakle *ground-truth* koordinacije, ne pretpostavljeni botovi
 Ne radimo klasifikaciju "da li je nalog bot" — **mapiramo postojeću koordinaciju
 i merimo ponašanje**.
 
+## 🎯 GLAVNI CILJ (Primarni fokus istraživanja)
+**Povezivanje fizičke infrastrukture za glasanje (uplatna mesta kladionica u Srbiji i Africi) sa operaterskom mrežom (centroidi, koordinatori, master čvorovi).**
+Otkriveno je da je voter mašinerija (550M lažnih glasova) radila direktno sa terminala u uplatnim mestima kladionica u Srbiji (`Borca`, `Pozarevac Centar`, `Zrenjanin 3`, `Roma NBG`...) i njihovih franšiza u Africi (`Scooorebet 13`, Brazavil, Bertoua...).
+**Zadatak za agente:** mapirati koji koordinatori iz baze zadaju zadatke za ove portale, koji centroidi zajednica u Neo4j grafu upravljaju tim opštinama/klasterima, i kako se vremenski sinhronizuju komentari operatera sa automatskim voter udarima sa terminala kladionica. Detaljan izveštaj: [`docs/voter_kladionice_infrastruktura.md`](docs/voter_kladionice_infrastruktura.md).
+
 ## Značaj dataseta (zašto je jedinstven)
 
 U akademskim/OSINT istraživanjima astroturfinga (Stanford Internet Observatory,
@@ -146,12 +151,17 @@ ljudi koji rade u smenama — ali je koordinacija vrlo jaka i merljiva.** Dokazi
   komentara uz ~0,9% prolaznosti (moderacija seče 99%), a mreža ih i dalje zasipa;
   tabloidi ~32% prolaznosti. Npr. #6206 je poslao 31.653 komentara na kritičke
   medije od kojih je prošao **1**. 302 operatera su „Infiltratori".
-- **Strana/afrička voter infrastruktura.** Automatsko glasanje (`voter_racunari`,
-  550M klikova) ide iz inostranstva: **63% zapisa / 80% distinct IP van Srbije**.
-  Najveći ASN je AS8400 TELEKOM-AS (MTS, RS, 251 zapis), ali odmah iza su **afrički
-  provajderi**: CAMNET (Kamerun, 472 IP!), MTN & Orange Cameroon, Congo Telecom,
-  Tanzanija, Côte d'Ivoire; plus Crna Gora, BiH, Kipar, Malta, Peru. GeoIP offline
-  preko iptoasn: `src/analysis/voter_geoip.py` → `data/geo/voter_geoip.json`.
+- **Kladioničarska i strana/afrička voter infrastruktura.** Automatsko glasanje
+  (`voter_racunari`, 550M klikova) radilo je sa terminala **uplatnih mesta kladionica
+  u Srbiji i Africi** (kolona `vr_naziv_ss`): domaća uplatna mesta (`Borca`,
+  `Pozarevac Centar`, `Zrenjanin 3`, `Roma NBG`, `Krusevac Bronks 2`, `Enjub Blok 45`...)
+  i afričke franšize pod brendom **`Scooorebet 13`**, `Casino`, `Joker` u Kongu
+  (Brazavil/Rue Mbochis, Nkayi) i Kamerunu (Bertoua, Nkongsamba). **63% zapisa / 80%
+  distinct IP van Srbije**. Najveći domaći ASN je AS8400 TELEKOM-AS (MTS, 251), ali
+  najveći strani otisak su **afrički mobilni provajderi**: CAMNET Kamerun (472 IP!),
+  MTN, Orange Cameroon, Congo Telecom, Tanzanija, Obala Slonovače. Detaljna studija:
+  [`docs/voter_kladionice_infrastruktura.md`](docs/voter_kladionice_infrastruktura.md).
+  Offline GeoIP: `src/analysis/voter_geoip.py` → `data/geo/voter_geoip.json`.
 - **Mete.** Masovne mete (npr. `@sns_srbija` — dira je 3.608 operatera) su šum za
   povezivanje; prava koordinacija se vidi na retkim, deljenim metama.
 
@@ -244,6 +254,10 @@ granu u `nodeColor` (`view==='xxx'`), `NavItem` u sekciji POGLED, i granu u
 
 ## Roadmap (otvoreno / sledeće)
 
+- 🎯 **#1 PRIORITET: Povezivanje centroida grafa i koordinatora sa Voter infrastrukturom**:
+  - Povezivanje kreatora vesti (`vu_korisnik_id`, `vu_zatvorio_korisnik_id`) sa koordinatorskim strukturama (`koordinatori_korisnici`, `okrug_koordinator`, `opstina_koordinator`).
+  - Korelacija centroida zajednica u Neo4j grafu (visoki `cc_org`/`tw_org`) sa geografskim lokacijama gde se nalaze uplatna mesta (npr. Požarevac, Novi Beograd, Kruševac, Zrenjanin).
+  - Vremenska sinhronija: zadavanje vesti sa direktivom (`vu_smernica` npr. "500", "max") → objava prvih šablonskih komentara (`CO_TEMPLATE`) → automatski talas glasanja sa afričkih i domaćih terminala kladionica.
 - **Pseudonimi kao metrika** (lako, jako): `pseudonyms` = distinct `vkk_autor` po
   operateru (astroturfing identiteti). Već verifikovano: #7418→2.378, #6206→1.338.
   Dodati kao bihevioralnu metriku (obrazac u „Kako proširiti").
@@ -251,8 +265,6 @@ granu u `nodeColor` (`view==='xxx'`), `NavItem` u sekciji POGLED, i granu u
   direktiva→meta→reakcija.
 - **Tretman portala**: razlika u ponašanju prema opozicionim portalima vs tabloidi
   (`arhiva_vesti_unos.vu_portal` + glasanje `voter`/`izvestaj_voter`).
-- **Analiza koordinatora**: hijerarhija (`koordinatori_korisnici`, okrug/opština)
-  i ko kome dodeljuje zadatke.
 - Sinhroni start/stop: preklopljeni dnevni timeline-ovi više operatera (kampanje
   kroz vreme).
 - Životni ciklus naloga: kad se nalozi prave/brišu u odnosu na kampanje.
