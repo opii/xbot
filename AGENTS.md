@@ -146,6 +146,12 @@ ljudi koji rade u smenama — ali je koordinacija vrlo jaka i merljiva.** Dokazi
   komentara uz ~0,9% prolaznosti (moderacija seče 99%), a mreža ih i dalje zasipa;
   tabloidi ~32% prolaznosti. Npr. #6206 je poslao 31.653 komentara na kritičke
   medije od kojih je prošao **1**. 302 operatera su „Infiltratori".
+- **Strana/afrička voter infrastruktura.** Automatsko glasanje (`voter_racunari`,
+  550M klikova) ide iz inostranstva: **63% zapisa / 80% distinct IP van Srbije**.
+  Najveći ASN je AS8400 TELEKOM-AS (MTS, RS, 251 zapis), ali odmah iza su **afrički
+  provajderi**: CAMNET (Kamerun, 472 IP!), MTN & Orange Cameroon, Congo Telecom,
+  Tanzanija, Côte d'Ivoire; plus Crna Gora, BiH, Kipar, Malta, Peru. GeoIP offline
+  preko iptoasn: `src/analysis/voter_geoip.py` → `data/geo/voter_geoip.json`.
 - **Mete.** Masovne mete (npr. `@sns_srbija` — dira je 3.608 operatera) su šum za
   povezivanje; prava koordinacija se vidi na retkim, deljenim metama.
 

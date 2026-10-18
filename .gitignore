@@ -7,3 +7,6 @@ __pycache__/
 # Lokalna baza podataka (prevelika i sadrži osetljive podatke)
 *.sqlite3
 bot_detector/data/*.sqlite3
+
+# GeoIP reference dataset (regenerabilan download)
+bot_detector/data/geo/*.gz

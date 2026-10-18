@@ -35,6 +35,10 @@ koliko poena). Podaci pokazuju:
 - **Tretman portala:** 302 „Infiltratora" zasipaju kritičke medije (0,9%
   prolaznosti, 99% blokade) — #6206 poslao 31.653 komentara, prošao 1 — dok
   tabloidi puštaju ~32%.
+- **Strana voter infrastruktura:** automatsko glasanje (550M klikova) ide iz
+  inostranstva — 63% zapisa van Srbije; najjači ASN je Telekom/MTS, ali odmah iza
+  slede afrički provajderi (CAMNET Kamerun 472 IP, MTN, Orange, Congo Telecom…).
+  Offline GeoIP: [`src/analysis/voter_geoip.py`](bot_detector/src/analysis/voter_geoip.py).
 
 ## 🧭 Pristup: operater-centričan
 
