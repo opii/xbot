@@ -85,13 +85,15 @@ miks/duplikati), `/api/behavior_top?metric=&layer=` (metrike: auto/night/short_l
 dup/lead/template/reg/farm/pseudonyms/toxicity/infiltrator; `template` koristi CO_TEMPLATE), `/api/behavior_cohort`
 (decili), `/api/bursts` + `/api/burst/{tid}` (kampanje/nalet po minutu + lideri),
 `/api/path?a=&b=&layer=&max_pop=` (putanja + spone), `/api/stats`,
-`/api/export/operator/{id}`. Node id šema: `op:<id>`, `acc:<id>`, `tgt:<handle>`,
+`/api/export/operator/{id}`, `/api/taskmasters`, `/api/command_voter`,
+`/api/directives?top=` (taksonomija+lanac+SS/ČET izvor). Node id šema: `op:<id>`, `acc:<id>`, `tgt:<handle>`,
 `portal:<name>`, `news:<vid>`. Operater nosi `auto_score` (+komponente),
 `lead_score`, `template_frac`, `reg_score`, `dup_ratio`, `role`, `farm_ratio`/
 `farm_machine`, `shift_archetype`/`work_hours_pct`/`weekend_ratio`, `tw_org`/`cc_org`,
 `tw_community`/`cc_community`. Slojevi veza: CO_ACTED, CO_COMMENTED, CO_TEMPLATE.
 FE: levi meni; pogledi Pregled/Geografija/Uloge/Smene/Portali/Organizatori/Master, bihevioralne
-metrike (…/farm), Kampanje; denoising klizač „min jačina veze" + „sakrij izolovane".
+metrike (…/farm), Kampanje, Komanda (Task-masteri / Komandna odgovornost & Voter /
+📋 Direktive); denoising klizač „min jačina veze" + „sakrij izolovane".
 
 ## Kako pokrenuti
 ```bash
@@ -116,6 +118,9 @@ short_lat/dup/lead/template/reg/farm) + pun profil sa bedževima (farma, arhetip
 Kampanje (burstevi + timeline), putanje (+diskriminativne spone), denoising
 (klizač + sakrij izolovane + Serrano backbone), izvoz/uvoz. Veze nose `backbone`.
 Jedan `load_graph.py` gradi sve (graf + organizatori + skorovi + burstevi, ~3min).
+Dodatne analize (van `load_graph.py`, svaka piše `data/geo/*.json` i ima UI/API):
+voter GeoIP, kladionice↔opštine, task-masteri, komandna odgovornost & voter, i
+**analiza direktiva** (`src/analysis/directives.py` → `/api/directives` → „📋 Direktive").
 
 ## Ključni nalazi (zaključci)
 
@@ -162,6 +167,18 @@ ljudi koji rade u smenama — ali je koordinacija vrlo jaka i merljiva.** Dokazi
   MTN, Orange Cameroon, Congo Telecom, Tanzanija, Obala Slonovače. Detaljna studija:
   [`docs/voter_kladionice_infrastruktura.md`](docs/voter_kladionice_infrastruktura.md).
   Offline GeoIP: `src/analysis/voter_geoip.py` → `data/geo/voter_geoip.json`.
+- **Direktive (šta se naređuje).** 99% tviter smernica je čista akcija
+  (`odgovaramo`/`fv`/`kv`/`rt`); eksplicitno napadačkih samo 2.712, odbrambenih
+  1.446. Ton napada se vidi u IZBORU METE, ne u tekstu: 587 eksplicitnih
+  napad-odgovora na opoziciju vs **113.991** odgovora na iste opozicione mete pod
+  generičkim „odgovaramo". Najtešnja sinhronija je **pro-režim amplifikacija**
+  (`neutral→režim` burst10=0,304, duplo iznad proseka). Moderacija: kritički mediji
+  propuštaju ~3%, tabloidi 33–49% (napad-ton na tabloidu 40,8%). Postoji **centralni
+  komandni izvor**: 1.099 „super specijal (SS)" + 70 „iz četa" direktiva, 30
+  izdavača; većina izdavača SS-a NIJE jaka u grafu (org≈0) = zaseban administrativni
+  komandni sloj. **Fer play:** kreator = ko je UNEO smernicu; „Šef/čet" u tekstu
+  referišu na uzvodnog lidera koji NIJE nužno red u bazi. Detalji:
+  [`docs/analiza_direktiva.md`](docs/analiza_direktiva.md).
 - **Mete.** Masovne mete (npr. `@sns_srbija` — dira je 3.608 operatera) su šum za
   povezivanje; prava koordinacija se vidi na retkim, deljenim metama.
 
@@ -233,6 +250,24 @@ vs `izvestaj_dnevni`). `tuka_korisnik_id`→`korisnici.k_id` (akcije pripisane
 operateru). Komentari: samo `vkk_simulacija=0` su realni. Handle mete se vadi iz
 `tu_link_tvita`. Neo4j Cypher alias traži `AS`. Decimal iz PG → `float()`.
 
+**Direktive (`tu_smernica`/`vu_smernica`) — taksonomija + lanac — heuristike:**
+- **Taksonomija** (na NORMALIZOVANOM tekstu: lower + ćirilica→latinica + bez
+  dijakritika): 4 dimenzije — `action` (tviter pouzdano iz `tu_akcija` 0/1/2/3,
+  inače iz teksta), `tone` (napad=`brutalno|zezamo|sprdamo|hejt|resavamo|pukli|
+  lazov|razbij|rafal`, odbrana=`branim|hvalim|podrsk|slavim|cestit|cuvamo`, inače
+  neutral), `source` (SS=`super ?spec|iz ss`, ČET=`iz cet|video iz cet`,
+  ŠEF=`sef|sefov`, automatika=`vu_automatika_kreirala`), `cross` (deljenje na
+  mrežama). Generičko „odgovaramo" NIJE napad (isto kao toksičnost).
+- **Lanac**: ton × klasa mete (`tu_link_tvita` handle → opozicija/režim/ostalo) +
+  reakcija (medijana latencije `tuka_vreme−tu_kreirano_vreme`, `burst10`=udeo <10min).
+  Za vesti: klasa portala × prolaznost moderacije (`objavljeno/prijavljeno`). Ton/
+  lanac koriste RAW AGG/SUP regex (konzistentno sa toksičnošću); taksonomija radi
+  na normalizovanom tekstu — mala neslaganja u brojevima su očekivana.
+- **Centralni izvor**: izdavač = `tu_kreirano_korisnik_id`/`vu_korisnik_id` sa
+  SS/ČET oznakom; spoj na `korisnici`+koordinatore+graf (org). **GRANICA (fer
+  play):** kreator = ko je UNEO; „Šef/čet" referišu na uzvodnog lidera koji NIJE
+  nužno u bazi — NE izjednačavati kreatora sa „Šefom".
+
 **Komanda ↔ voter ↔ kladionice (Faza A/B/C + odgovornost) — heuristike:**
 - **Task-master**: `vu_korisnik_id` iz `arhiva_vesti_unos`, rang po `count(*)`.
   Koordinator = flag u `koordinatori_korisnici`/`okrug/opstina_koordinator`.
@@ -281,8 +316,11 @@ granu u `nodeColor` (`view==='xxx'`), `NavItem` u sekciji POGLED, i granu u
 - **Pseudonimi kao metrika** (lako, jako): `pseudonyms` = distinct `vkk_autor` po
   operateru (astroturfing identiteti). Već verifikovano: #7418→2.378, #6206→1.338.
   Dodati kao bihevioralnu metriku (obrazac u „Kako proširiti").
-- **Direktive u zadacima**: analiza `tu_smernica` (šta se tačno traži) i veza
-  direktiva→meta→reakcija.
+- ✅ **Direktive u zadacima** (URAĐENO): taksonomija + lanac direktiva→meta→reakcija
+  + centralni izvor SS/ČET. `src/analysis/directives.py`, `/api/directives`, UI
+  „📋 Direktive", [`docs/analiza_direktiva.md`](docs/analiza_direktiva.md).
+  Sledeće (dublje): hijerarhija koordinatora — ko kome prosleđuje SS smernice
+  (kaskada izdavač→koordinator→operater kroz vreme).
 - **Tretman portala**: razlika u ponašanju prema opozicionim portalima vs tabloidi
   (`arhiva_vesti_unos.vu_portal` + glasanje `voter`/`izvestaj_voter`).
 - Sinhroni start/stop: preklopljeni dnevni timeline-ovi više operatera (kampanje

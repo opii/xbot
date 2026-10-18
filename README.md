@@ -46,6 +46,11 @@ koliko poena). Podaci pokazuju:
   eksplicitne VOTER privilegije. **Fer play:** podaci NE vezuju osobu za konkretnu
   (afričku) mašinu — atribucija je prava+uloge+ko-lokacija, ne pravna presuda
   ([`docs/komandna_odgovornost_i_pravni_osnov.md`](docs/komandna_odgovornost_i_pravni_osnov.md)).
+- **Direktive:** 99% smernica je čista akcija; ton napada je u IZBORU METE, ne u
+  tekstu (587 eksplicitnih napad-odgovora na opoziciju vs 113.991 pod generičkim
+  „odgovaramo"). Najtešnja sinhronija = pro-režim amplifikacija. Postoji centralni
+  izvor „super specijal / Šefov video iz četa" (30 izdavača), odvojen od izvršnih
+  centroida ([`docs/analiza_direktiva.md`](docs/analiza_direktiva.md)).
 
 ## 🌍 Voter infrastruktura — GeoIP nalazi
 

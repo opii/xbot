@@ -869,6 +869,38 @@ def command_voter(limit: int = Query(61, le=61)):
             "people": people}
 
 
+def _load_directives():
+    try:
+        p = os.path.join(os.path.dirname(__file__), "..", "..", "data", "geo", "directives.json")
+        with open(p, encoding="utf-8") as f:
+            return json.load(f)
+    except Exception:  # noqa: BLE001
+        return {}
+
+
+DIRECTIVES = _load_directives()
+
+
+@app.get("/api/directives")
+def directives(top: int = Query(25, le=40)):
+    """Analiza direktiva (smernica): taksonomija (akcija/ton/izvor/cross-platform),
+    lanac direktiva→meta→reakcija, i centralni komandni izvor (SS/ČET/ŠEF).
+    FER PLAY: kreator = ko je UNEO zadatak; „Šef/čet“ u tekstu referišu na uzvodnog
+    lidera koji NIJE nužno red u bazi (vidi disclaimer u command_source)."""
+    d = DIRECTIVES
+    cs = dict(d.get("command_source", {}))
+    cs["top_issuers"] = cs.get("top_issuers", [])[:top]
+    return {
+        "generated": d.get("generated"),
+        "twitter": d.get("twitter", {}),
+        "news": d.get("news", {}),
+        "chain": d.get("chain", {}),
+        "command_source": cs,
+        "examples": d.get("examples", {}),
+        "defs": d.get("defs", {}),
+    }
+
+
 @app.get("/api/taskmasters")
 def taskmasters(limit: int = Query(40, le=135)):
     """Kreatori zadataka za portale (komandni sloj) + koordinatorske uloge."""

@@ -1,0 +1,1391 @@
+{
+  "generated": "2026-10-18T06:02:36",
+  "twitter": {
+    "total": 498648,
+    "by_action": {
+      "lajk": 68395,
+      "retvit": 22696,
+      "odgovor": 368493,
+      "citat": 39064
+    },
+    "by_tone": {
+      "neutral": 494490,
+      "napad": 2712,
+      "odbrana": 1446
+    },
+    "by_source": {
+      "bez": 496214,
+      "SS": 1109,
+      "CET": 64,
+      "SEF": 1261
+    },
+    "cross_platform": 72,
+    "monthly": [
+      {
+        "ym": "2023-02",
+        "total": 1775,
+        "napad": 0,
+        "odbrana": 0,
+        "ss": 0,
+        "cet": 0
+      },
+      {
+        "ym": "2023-03",
+        "total": 18267,
+        "napad": 14,
+        "odbrana": 8,
+        "ss": 27,
+        "cet": 0
+      },
+      {
+        "ym": "2023-04",
+        "total": 14050,
+        "napad": 0,
+        "odbrana": 0,
+        "ss": 0,
+        "cet": 0
+      },
+      {
+        "ym": "2023-05",
+        "total": 30508,
+        "napad": 6,
+        "odbrana": 4,
+        "ss": 9,
+        "cet": 0
+      },
+      {
+        "ym": "2023-06",
+        "total": 21581,
+        "napad": 226,
+        "odbrana": 0,
+        "ss": 4,
+        "cet": 0
+      },
+      {
+        "ym": "2023-07",
+        "total": 11646,
+        "napad": 81,
+        "odbrana": 3,
+        "ss": 0,
+        "cet": 0
+      },
+      {
+        "ym": "2023-08",
+        "total": 10875,
+        "napad": 9,
+        "odbrana": 2,
+        "ss": 0,
+        "cet": 0
+      },
+      {
+        "ym": "2023-09",
+        "total": 14736,
+        "napad": 70,
+        "odbrana": 16,
+        "ss": 8,
+        "cet": 0
+      },
+      {
+        "ym": "2023-10",
+        "total": 17305,
+        "napad": 87,
+        "odbrana": 2,
+        "ss": 6,
+        "cet": 1
+      },
+      {
+        "ym": "2023-11",
+        "total": 17869,
+        "napad": 54,
+        "odbrana": 1,
+        "ss": 45,
+        "cet": 2
+      },
+      {
+        "ym": "2023-12",
+        "total": 23629,
+        "napad": 57,
+        "odbrana": 7,
+        "ss": 0,
+        "cet": 0
+      },
+      {
+        "ym": "2024-01",
+        "total": 14827,
+        "napad": 95,
+        "odbrana": 21,
+        "ss": 33,
+        "cet": 2
+      },
+      {
+        "ym": "2024-02",
+        "total": 15442,
+        "napad": 80,
+        "odbrana": 73,
+        "ss": 25,
+        "cet": 0
+      },
+      {
+        "ym": "2024-03",
+        "total": 15644,
+        "napad": 113,
+        "odbrana": 98,
+        "ss": 13,
+        "cet": 0
+      },
+      {
+        "ym": "2024-04",
+        "total": 12226,
+        "napad": 137,
+        "odbrana": 176,
+        "ss": 7,
+        "cet": 0
+      },
+      {
+        "ym": "2024-05",
+        "total": 14219,
+        "napad": 229,
+        "odbrana": 106,
+        "ss": 2,
+        "cet": 0
+      },
+      {
+        "ym": "2024-06",
+        "total": 11771,
+        "napad": 116,
+        "odbrana": 86,
+        "ss": 3,
+        "cet": 0
+      },
+      {
+        "ym": "2024-07",
+        "total": 13414,
+        "napad": 131,
+        "odbrana": 88,
+        "ss": 0,
+        "cet": 0
+      },
+      {
+        "ym": "2024-08",
+        "total": 16614,
+        "napad": 159,
+        "odbrana": 87,
+        "ss": 102,
+        "cet": 1
+      },
+      {
+        "ym": "2024-09",
+        "total": 15419,
+        "napad": 87,
+        "odbrana": 96,
+        "ss": 17,
+        "cet": 0
+      },
+      {
+        "ym": "2024-10",
+        "total": 11962,
+        "napad": 71,
+        "odbrana": 73,
+        "ss": 9,
+        "cet": 0
+      },
+      {
+        "ym": "2024-11",
+        "total": 19053,
+        "napad": 86,
+        "odbrana": 89,
+        "ss": 332,
+        "cet": 3
+      },
+      {
+        "ym": "2024-12",
+        "total": 27250,
+        "napad": 165,
+        "odbrana": 132,
+        "ss": 317,
+        "cet": 0
+      },
+      {
+        "ym": "2025-01",
+        "total": 30771,
+        "napad": 119,
+        "odbrana": 107,
+        "ss": 80,
+        "cet": 0
+      },
+      {
+        "ym": "2025-02",
+        "total": 23901,
+        "napad": 57,
+        "odbrana": 90,
+        "ss": 18,
+        "cet": 0
+      },
+      {
+        "ym": "2025-03",
+        "total": 30958,
+        "napad": 66,
+        "odbrana": 37,
+        "ss": 41,
+        "cet": 0
+      },
+      {
+        "ym": "2025-04",
+        "total": 19620,
+        "napad": 39,
+        "odbrana": 39,
+        "ss": 1,
+        "cet": 0
+      },
+      {
+        "ym": "2025-05",
+        "total": 13985,
+        "napad": 35,
+        "odbrana": 26,
+        "ss": 0,
+        "cet": 0
+      },
+      {
+        "ym": "2025-06",
+        "total": 9331,
+        "napad": 18,
+        "odbrana": 9,
+        "ss": 0,
+        "cet": 0
+      }
+    ]
+  },
+  "news": {
+    "total": 61775,
+    "by_action": {
+      "deljenje": 3628,
+      "lajk": 44881,
+      "ostalo": 8551,
+      "odgovor": 999,
+      "komentar": 3697,
+      "citat": 19
+    },
+    "by_tone": {
+      "neutral": 58265,
+      "napad": 3266,
+      "odbrana": 244
+    },
+    "by_source": {
+      "bez": 51449,
+      "automatika": 1736,
+      "SEF": 6395,
+      "CET": 2195
+    },
+    "cross_platform": 9055,
+    "monthly": [
+      {
+        "ym": "2023-01",
+        "total": 69,
+        "napad": 0,
+        "odbrana": 2,
+        "ss": 0,
+        "cet": 0
+      },
+      {
+        "ym": "2023-02",
+        "total": 52,
+        "napad": 0,
+        "odbrana": 0,
+        "ss": 0,
+        "cet": 0
+      },
+      {
+        "ym": "2023-03",
+        "total": 942,
+        "napad": 2,
+        "odbrana": 0,
+        "ss": 0,
+        "cet": 0
+      },
+      {
+        "ym": "2023-04",
+        "total": 505,
+        "napad": 6,
+        "odbrana": 2,
+        "ss": 0,
+        "cet": 0
+      },
+      {
+        "ym": "2023-05",
+        "total": 1374,
+        "napad": 17,
+        "odbrana": 7,
+        "ss": 0,
+        "cet": 0
+      },
+      {
+        "ym": "2023-06",
+        "total": 1537,
+        "napad": 83,
+        "odbrana": 5,
+        "ss": 0,
+        "cet": 0
+      },
+      {
+        "ym": "2023-07",
+        "total": 1135,
+        "napad": 39,
+        "odbrana": 0,
+        "ss": 0,
+        "cet": 0
+      },
+      {
+        "ym": "2023-08",
+        "total": 735,
+        "napad": 7,
+        "odbrana": 0,
+        "ss": 0,
+        "cet": 0
+      },
+      {
+        "ym": "2023-09",
+        "total": 1310,
+        "napad": 75,
+        "odbrana": 0,
+        "ss": 0,
+        "cet": 0
+      },
+      {
+        "ym": "2023-10",
+        "total": 1434,
+        "napad": 35,
+        "odbrana": 50,
+        "ss": 0,
+        "cet": 0
+      },
+      {
+        "ym": "2023-11",
+        "total": 2294,
+        "napad": 101,
+        "odbrana": 20,
+        "ss": 0,
+        "cet": 0
+      },
+      {
+        "ym": "2023-12",
+        "total": 2448,
+        "napad": 132,
+        "odbrana": 2,
+        "ss": 0,
+        "cet": 2
+      },
+      {
+        "ym": "2024-01",
+        "total": 1132,
+        "napad": 83,
+        "odbrana": 1,
+        "ss": 0,
+        "cet": 15
+      },
+      {
+        "ym": "2024-02",
+        "total": 1529,
+        "napad": 89,
+        "odbrana": 19,
+        "ss": 0,
+        "cet": 16
+      },
+      {
+        "ym": "2024-03",
+        "total": 1978,
+        "napad": 90,
+        "odbrana": 0,
+        "ss": 0,
+        "cet": 0
+      },
+      {
+        "ym": "2024-04",
+        "total": 1625,
+        "napad": 70,
+        "odbrana": 0,
+        "ss": 0,
+        "cet": 0
+      },
+      {
+        "ym": "2024-05",
+        "total": 2448,
+        "napad": 61,
+        "odbrana": 1,
+        "ss": 0,
+        "cet": 0
+      },
+      {
+        "ym": "2024-06",
+        "total": 1839,
+        "napad": 86,
+        "odbrana": 38,
+        "ss": 0,
+        "cet": 0
+      },
+      {
+        "ym": "2024-07",
+        "total": 1889,
+        "napad": 59,
+        "odbrana": 0,
+        "ss": 0,
+        "cet": 0
+      },
+      {
+        "ym": "2024-08",
+        "total": 1558,
+        "napad": 81,
+        "odbrana": 1,
+        "ss": 0,
+        "cet": 0
+      },
+      {
+        "ym": "2024-09",
+        "total": 1950,
+        "napad": 5,
+        "odbrana": 0,
+        "ss": 0,
+        "cet": 0
+      },
+      {
+        "ym": "2024-10",
+        "total": 1728,
+        "napad": 1,
+        "odbrana": 0,
+        "ss": 0,
+        "cet": 0
+      },
+      {
+        "ym": "2024-11",
+        "total": 2467,
+        "napad": 56,
+        "odbrana": 71,
+        "ss": 0,
+        "cet": 0
+      },
+      {
+        "ym": "2024-12",
+        "total": 2778,
+        "napad": 71,
+        "odbrana": 1,
+        "ss": 0,
+        "cet": 0
+      },
+      {
+        "ym": "2025-01",
+        "total": 3112,
+        "napad": 104,
+        "odbrana": 30,
+        "ss": 0,
+        "cet": 0
+      },
+      {
+        "ym": "2025-02",
+        "total": 3147,
+        "napad": 79,
+        "odbrana": 0,
+        "ss": 0,
+        "cet": 0
+      },
+      {
+        "ym": "2025-03",
+        "total": 5184,
+        "napad": 102,
+        "odbrana": 0,
+        "ss": 0,
+        "cet": 28
+      },
+      {
+        "ym": "2025-04",
+        "total": 2952,
+        "napad": 50,
+        "odbrana": 0,
+        "ss": 0,
+        "cet": 0
+      },
+      {
+        "ym": "2025-05",
+        "total": 2590,
+        "napad": 125,
+        "odbrana": 0,
+        "ss": 0,
+        "cet": 0
+      },
+      {
+        "ym": "2025-06",
+        "total": 2847,
+        "napad": 121,
+        "odbrana": 0,
+        "ss": 0,
+        "cet": 0
+      },
+      {
+        "ym": "2025-07",
+        "total": 2581,
+        "napad": 62,
+        "odbrana": 0,
+        "ss": 0,
+        "cet": 0
+      },
+      {
+        "ym": "2025-08",
+        "total": 2608,
+        "napad": 43,
+        "odbrana": 0,
+        "ss": 0,
+        "cet": 0
+      }
+    ]
+  },
+  "chain": {
+    "twitter_tone_target": [
+      {
+        "tone": "napad",
+        "target": "opozicija",
+        "n": 587,
+        "med_lat_s": 5622.0,
+        "burst10": 0.102
+      },
+      {
+        "tone": "napad",
+        "target": "ostalo",
+        "n": 4552,
+        "med_lat_s": 4248.5,
+        "burst10": 0.103
+      },
+      {
+        "tone": "neutral",
+        "target": "opozicija",
+        "n": 113991,
+        "med_lat_s": 2767.0,
+        "burst10": 0.167
+      },
+      {
+        "tone": "neutral",
+        "target": "ostalo",
+        "n": 279286,
+        "med_lat_s": 3529.0,
+        "burst10": 0.147
+      },
+      {
+        "tone": "neutral",
+        "target": "rezim",
+        "n": 631,
+        "med_lat_s": 1484.0,
+        "burst10": 0.304
+      },
+      {
+        "tone": "odbrana",
+        "target": "opozicija",
+        "n": 1194,
+        "med_lat_s": 3598.0,
+        "burst10": 0.114
+      },
+      {
+        "tone": "odbrana",
+        "target": "ostalo",
+        "n": 2097,
+        "med_lat_s": 3995.0,
+        "burst10": 0.139
+      }
+    ],
+    "news_tone_portal": [
+      {
+        "portal": "kriticki",
+        "tone": "napad",
+        "tasks": 220,
+        "prijavljeno": 8155,
+        "objavljeno": 308,
+        "pass_rate": 0.0378
+      },
+      {
+        "portal": "kriticki",
+        "tone": "neutral",
+        "tasks": 1798,
+        "prijavljeno": 84096,
+        "objavljeno": 2460,
+        "pass_rate": 0.0293
+      },
+      {
+        "portal": "kriticki",
+        "tone": "odbrana",
+        "tasks": 79,
+        "prijavljeno": 3217,
+        "objavljeno": 81,
+        "pass_rate": 0.0252
+      },
+      {
+        "portal": "ostalo",
+        "tone": "napad",
+        "tasks": 1593,
+        "prijavljeno": 46245,
+        "objavljeno": 3109,
+        "pass_rate": 0.0672
+      },
+      {
+        "portal": "ostalo",
+        "tone": "neutral",
+        "tasks": 48275,
+        "prijavljeno": 32014152,
+        "objavljeno": 48742,
+        "pass_rate": 0.0015
+      },
+      {
+        "portal": "ostalo",
+        "tone": "odbrana",
+        "tasks": 106,
+        "prijavljeno": 7695,
+        "objavljeno": 728,
+        "pass_rate": 0.0946
+      },
+      {
+        "portal": "tabloid",
+        "tone": "napad",
+        "tasks": 122,
+        "prijavljeno": 10415,
+        "objavljeno": 4255,
+        "pass_rate": 0.4085
+      },
+      {
+        "portal": "tabloid",
+        "tone": "neutral",
+        "tasks": 9525,
+        "prijavljeno": 3493311,
+        "objavljeno": 116084,
+        "pass_rate": 0.0332
+      },
+      {
+        "portal": "tabloid",
+        "tone": "odbrana",
+        "tasks": 59,
+        "prijavljeno": 5763,
+        "objavljeno": 2853,
+        "pass_rate": 0.4951
+      }
+    ]
+  },
+  "command_source": {
+    "ss_total": 1099,
+    "cet_total": 70,
+    "sef_total": 2382,
+    "central_issuers": 30,
+    "top_issuers": [
+      {
+        "id": 3038,
+        "tw_tasks": 24438,
+        "ss": 192,
+        "cet": 3,
+        "sef": 1,
+        "nw_tasks": 0,
+        "central": 195,
+        "ime": "Lidija Milićević",
+        "pozicija": "NULL",
+        "okrug": "Rasinski okrug",
+        "opstina": "Kruševac",
+        "coordinator": false,
+        "max_org": 0,
+        "centroid": false
+      },
+      {
+        "id": 688,
+        "tw_tasks": 7178,
+        "ss": 152,
+        "cet": 0,
+        "sef": 0,
+        "nw_tasks": 0,
+        "central": 152,
+        "ime": "Branislava  Spevak",
+        "pozicija": "Koo opštine",
+        "okrug": "Južnobački okrug",
+        "opstina": "Bački Petrovac",
+        "coordinator": false,
+        "max_org": 0.011,
+        "centroid": false
+      },
+      {
+        "id": 299,
+        "tw_tasks": 27525,
+        "ss": 145,
+        "cet": 1,
+        "sef": 2,
+        "nw_tasks": 0,
+        "central": 146,
+        "ime": "Ivana  Ranković",
+        "pozicija": "NULL",
+        "okrug": "Mačvanski okrug",
+        "opstina": "Vladimirci",
+        "coordinator": false,
+        "max_org": 0,
+        "centroid": false
+      },
+      {
+        "id": 314,
+        "tw_tasks": 21790,
+        "ss": 101,
+        "cet": 0,
+        "sef": 0,
+        "nw_tasks": 0,
+        "central": 101,
+        "ime": "Dragoslav  Janjić",
+        "pozicija": "NULL",
+        "okrug": "Mačvanski okrug",
+        "opstina": "Vladimirci",
+        "coordinator": false,
+        "max_org": 0,
+        "centroid": false
+      },
+      {
+        "id": 3465,
+        "tw_tasks": 28495,
+        "ss": 93,
+        "cet": 0,
+        "sef": 0,
+        "nw_tasks": 0,
+        "central": 93,
+        "ime": "Zorica Holasek",
+        "pozicija": "NULL",
+        "okrug": "Srednjobanatski okrug",
+        "opstina": "Zrenjanin",
+        "coordinator": false,
+        "max_org": 0.339,
+        "centroid": false
+      },
+      {
+        "id": 488,
+        "tw_tasks": 8224,
+        "ss": 74,
+        "cet": 0,
+        "sef": 0,
+        "nw_tasks": 0,
+        "central": 74,
+        "ime": "Marija Đukić Bajramović",
+        "pozicija": "NULL",
+        "okrug": "Beograd",
+        "opstina": "Beograd-Savski Venac",
+        "coordinator": false,
+        "max_org": 0.022,
+        "centroid": false
+      },
+      {
+        "id": 1420,
+        "tw_tasks": 20239,
+        "ss": 64,
+        "cet": 0,
+        "sef": 0,
+        "nw_tasks": 161,
+        "central": 64,
+        "ime": "Milica Tmušić",
+        "pozicija": "NULL",
+        "okrug": "Nišavski okrug",
+        "opstina": "Niš",
+        "coordinator": true,
+        "max_org": 0,
+        "centroid": false
+      },
+      {
+        "id": 71,
+        "tw_tasks": 0,
+        "ss": 0,
+        "cet": 61,
+        "sef": 0,
+        "nw_tasks": 1533,
+        "central": 61,
+        "ime": "Bojana Bošković Jovanović",
+        "pozicija": "NULL",
+        "okrug": "Mačvanski okrug",
+        "opstina": "Šabac",
+        "coordinator": false,
+        "max_org": 0.026,
+        "centroid": false
+      },
+      {
+        "id": 471,
+        "tw_tasks": 30018,
+        "ss": 45,
+        "cet": 0,
+        "sef": 0,
+        "nw_tasks": 0,
+        "central": 45,
+        "ime": "Jovana Živanović",
+        "pozicija": "Koo opštine",
+        "okrug": "Braničevski okrug",
+        "opstina": "Malo Crniće",
+        "coordinator": false,
+        "max_org": 0.115,
+        "centroid": false
+      },
+      {
+        "id": 65,
+        "tw_tasks": 5977,
+        "ss": 34,
+        "cet": 0,
+        "sef": 0,
+        "nw_tasks": 1374,
+        "central": 34,
+        "ime": "Nikola Radivojević",
+        "pozicija": "NULL",
+        "okrug": "Beograd",
+        "opstina": "Beograd-Rakovica",
+        "coordinator": false,
+        "max_org": 0.073,
+        "centroid": false
+      },
+      {
+        "id": 3074,
+        "tw_tasks": 16202,
+        "ss": 28,
+        "cet": 0,
+        "sef": 0,
+        "nw_tasks": 0,
+        "central": 28,
+        "ime": "Snežana Živanović",
+        "pozicija": "NULL",
+        "okrug": "Rasinski okrug",
+        "opstina": "Kruševac",
+        "coordinator": false,
+        "max_org": 0,
+        "centroid": false
+      },
+      {
+        "id": 281,
+        "tw_tasks": 20140,
+        "ss": 23,
+        "cet": 2,
+        "sef": 0,
+        "nw_tasks": 0,
+        "central": 25,
+        "ime": "Marija  Mitrović",
+        "pozicija": "NULL",
+        "okrug": "Mačvanski okrug",
+        "opstina": "Mali Zvornik",
+        "coordinator": false,
+        "max_org": 0,
+        "centroid": false
+      },
+      {
+        "id": 2400,
+        "tw_tasks": 54823,
+        "ss": 24,
+        "cet": 0,
+        "sef": 0,
+        "nw_tasks": 80,
+        "central": 24,
+        "ime": "Jelena Bojković",
+        "pozicija": "Koo administracije",
+        "okrug": "Raški okrug",
+        "opstina": "Vrnjačka Banja",
+        "coordinator": false,
+        "max_org": 0.291,
+        "centroid": false
+      },
+      {
+        "id": 72,
+        "tw_tasks": 32649,
+        "ss": 21,
+        "cet": 0,
+        "sef": 0,
+        "nw_tasks": 0,
+        "central": 21,
+        "ime": "Mirjana Kujović",
+        "pozicija": "Koo opštine, Tehnički sekretar za BG",
+        "okrug": "Beograd",
+        "opstina": "Beograd-Obrenovac",
+        "coordinator": true,
+        "max_org": 0.262,
+        "centroid": false
+      },
+      {
+        "id": 433,
+        "tw_tasks": 9037,
+        "ss": 14,
+        "cet": 3,
+        "sef": 0,
+        "nw_tasks": 0,
+        "central": 17,
+        "ime": "Aleksandra Janković",
+        "pozicija": "NULL",
+        "okrug": "Moravički okrug",
+        "opstina": "Gornji Milanovac",
+        "coordinator": false,
+        "max_org": 0.121,
+        "centroid": false
+      },
+      {
+        "id": 7270,
+        "tw_tasks": 5482,
+        "ss": 16,
+        "cet": 0,
+        "sef": 0,
+        "nw_tasks": 0,
+        "central": 16,
+        "ime": "Vukašin Damnjanović",
+        "pozicija": "NULL",
+        "okrug": "Južnobački okrug",
+        "opstina": "Novi Sad - grad",
+        "coordinator": false,
+        "max_org": 0.23,
+        "centroid": false
+      },
+      {
+        "id": 1149,
+        "tw_tasks": 7492,
+        "ss": 15,
+        "cet": 0,
+        "sef": 0,
+        "nw_tasks": 0,
+        "central": 15,
+        "ime": "Verica Piroški",
+        "pozicija": "NULL",
+        "okrug": "Južnobački okrug",
+        "opstina": "Srbobran",
+        "coordinator": false,
+        "max_org": 0.004,
+        "centroid": false
+      },
+      {
+        "id": 2035,
+        "tw_tasks": 17458,
+        "ss": 13,
+        "cet": 0,
+        "sef": 0,
+        "nw_tasks": 0,
+        "central": 13,
+        "ime": "Vladan  Smiljanić",
+        "pozicija": "NULL",
+        "okrug": "Srednjobanatski okrug",
+        "opstina": "Sečanj",
+        "coordinator": false,
+        "max_org": 0,
+        "centroid": false
+      },
+      {
+        "id": 3149,
+        "tw_tasks": 4001,
+        "ss": 11,
+        "cet": 0,
+        "sef": 0,
+        "nw_tasks": 0,
+        "central": 11,
+        "ime": "Milica Jovanović",
+        "pozicija": "NULL",
+        "okrug": "Nišavski okrug",
+        "opstina": "Aleksinac",
+        "coordinator": true,
+        "max_org": 0,
+        "centroid": false
+      },
+      {
+        "id": 2421,
+        "tw_tasks": 18060,
+        "ss": 7,
+        "cet": 0,
+        "sef": 0,
+        "nw_tasks": 0,
+        "central": 7,
+        "ime": "Milomir Japundžić",
+        "pozicija": "Koo opštine",
+        "okrug": "Raški okrug",
+        "opstina": "Vrnjačka Banja",
+        "coordinator": false,
+        "max_org": 0.281,
+        "centroid": false
+      },
+      {
+        "id": 7284,
+        "tw_tasks": 8479,
+        "ss": 6,
+        "cet": 0,
+        "sef": 0,
+        "nw_tasks": 0,
+        "central": 6,
+        "ime": "Daliborka Šušak",
+        "pozicija": "NULL",
+        "okrug": "Južnobački okrug",
+        "opstina": "Novi Sad - grad",
+        "coordinator": false,
+        "max_org": 0.709,
+        "centroid": false
+      },
+      {
+        "id": 1718,
+        "tw_tasks": 9244,
+        "ss": 4,
+        "cet": 0,
+        "sef": 0,
+        "nw_tasks": 0,
+        "central": 4,
+        "ime": "Ivana  Veličković",
+        "pozicija": "NULL",
+        "okrug": "Toplički okrug",
+        "opstina": "Prokuplje",
+        "coordinator": false,
+        "max_org": 0,
+        "centroid": false
+      },
+      {
+        "id": 2802,
+        "tw_tasks": 11381,
+        "ss": 4,
+        "cet": 0,
+        "sef": 0,
+        "nw_tasks": 0,
+        "central": 4,
+        "ime": "Marina Bakoš",
+        "pozicija": "NULL",
+        "okrug": "Braničevski okrug",
+        "opstina": "Požarevac",
+        "coordinator": false,
+        "max_org": 0,
+        "centroid": false
+      },
+      {
+        "id": 2895,
+        "tw_tasks": 14555,
+        "ss": 4,
+        "cet": 0,
+        "sef": 0,
+        "nw_tasks": 1951,
+        "central": 4,
+        "ime": "Violeta Lapatanović",
+        "pozicija": "NULL",
+        "okrug": "Braničevski okrug",
+        "opstina": "Kučevo",
+        "coordinator": false,
+        "max_org": 0.016,
+        "centroid": false
+      },
+      {
+        "id": 252,
+        "tw_tasks": 2651,
+        "ss": 2,
+        "cet": 0,
+        "sef": 0,
+        "nw_tasks": 2,
+        "central": 2,
+        "ime": "Daliborka  Popović",
+        "pozicija": "NULL",
+        "okrug": "Mačvanski okrug",
+        "opstina": "Mali Zvornik",
+        "coordinator": false,
+        "max_org": 0,
+        "centroid": false
+      },
+      {
+        "id": 1075,
+        "tw_tasks": 9709,
+        "ss": 2,
+        "cet": 0,
+        "sef": 0,
+        "nw_tasks": 0,
+        "central": 2,
+        "ime": "Marian Šušnjar",
+        "pozicija": "NULL",
+        "okrug": "Južnobački okrug",
+        "opstina": "Beočin",
+        "coordinator": false,
+        "max_org": 0.267,
+        "centroid": false
+      },
+      {
+        "id": 2306,
+        "tw_tasks": 15792,
+        "ss": 2,
+        "cet": 0,
+        "sef": 0,
+        "nw_tasks": 0,
+        "central": 2,
+        "ime": "Vesna Pašalić",
+        "pozicija": "NULL",
+        "okrug": "Južnobanatski okrug",
+        "opstina": "Vršac",
+        "coordinator": false,
+        "max_org": 0.152,
+        "centroid": false
+      },
+      {
+        "id": 133,
+        "tw_tasks": 7373,
+        "ss": 1,
+        "cet": 0,
+        "sef": 0,
+        "nw_tasks": 0,
+        "central": 1,
+        "ime": "Biljana Gačić",
+        "pozicija": "NULL",
+        "okrug": "Mačvanski okrug",
+        "opstina": "Krupanj",
+        "coordinator": false,
+        "max_org": 0.001,
+        "centroid": false
+      },
+      {
+        "id": 1737,
+        "tw_tasks": 162,
+        "ss": 1,
+        "cet": 0,
+        "sef": 0,
+        "nw_tasks": 0,
+        "central": 1,
+        "ime": "Sara Živković",
+        "pozicija": "NULL",
+        "okrug": "Toplički okrug",
+        "opstina": "Prokuplje",
+        "coordinator": false,
+        "max_org": 0,
+        "centroid": false
+      },
+      {
+        "id": 5151,
+        "tw_tasks": 231,
+        "ss": 1,
+        "cet": 0,
+        "sef": 0,
+        "nw_tasks": 0,
+        "central": 1,
+        "ime": "Jovana Ilić",
+        "pozicija": "NULL",
+        "okrug": "Mačvanski okrug",
+        "opstina": "Krupanj",
+        "coordinator": true,
+        "max_org": 0,
+        "centroid": false
+      },
+      {
+        "id": 2056,
+        "tw_tasks": 0,
+        "ss": 0,
+        "cet": 0,
+        "sef": 820,
+        "nw_tasks": 3205,
+        "central": 0,
+        "ime": "Dragana Nikolić",
+        "pozicija": "NULL",
+        "okrug": "Sremski okrug",
+        "opstina": "Irig",
+        "coordinator": false,
+        "max_org": 0.0,
+        "centroid": false
+      },
+      {
+        "id": 2647,
+        "tw_tasks": 0,
+        "ss": 0,
+        "cet": 0,
+        "sef": 768,
+        "nw_tasks": 4046,
+        "central": 0,
+        "ime": "Dara Praštalo",
+        "pozicija": "NULL",
+        "okrug": "Severnobački okrug",
+        "opstina": "Bačka Topola",
+        "coordinator": false,
+        "max_org": 0.0,
+        "centroid": false
+      },
+      {
+        "id": 2776,
+        "tw_tasks": 0,
+        "ss": 0,
+        "cet": 0,
+        "sef": 683,
+        "nw_tasks": 5464,
+        "central": 0,
+        "ime": "Aleksandar Jovanović",
+        "pozicija": "NULL",
+        "okrug": "Pomoravski okrug",
+        "opstina": "Paraćin",
+        "coordinator": false,
+        "max_org": 0,
+        "centroid": false
+      }
+    ],
+    "disclaimer": "Kreator = ko je zadatak UNEO u sistem. „Šef/čet“ u tekstu referišu na uzvodnog lidera koji NIJE nužno red u bazi — NE izjednačavamo kreatora sa „Šefom“."
+  },
+  "examples": {
+    "napad": [
+      {
+        "text": "odgovaramo brutalno",
+        "n": 994
+      },
+      {
+        "text": "Odgovaramo brutalno",
+        "n": 350
+      },
+      {
+        "text": "Zezamo ih što ih je malo, pukli su ko zvečke",
+        "n": 112
+      },
+      {
+        "text": "brutalno",
+        "n": 107
+      },
+      {
+        "text": "Odgovaramo brutalno!",
+        "n": 92
+      },
+      {
+        "text": "Odgovaramo, brutalno",
+        "n": 89
+      },
+      {
+        "text": "Rešavamo hejtere ",
+        "n": 318
+      },
+      {
+        "text": "odgovaramo hejterima",
+        "n": 214
+      },
+      {
+        "text": "Odgovaramo hejterima",
+        "n": 164
+      },
+      {
+        "text": "Rešavamo hejtere",
+        "n": 148
+      },
+      {
+        "text": "Odgovaramo hejterima koji nas spominju",
+        "n": 86
+      },
+      {
+        "text": "Odgovaramo hejterima koji nas spominju, linkove odgovora kopirajte ovde",
+        "n": 76
+      }
+    ],
+    "odbrana": [
+      {
+        "text": "branimo sefa",
+        "n": 192
+      },
+      {
+        "text": "odgovaramo branimo sefa",
+        "n": 165
+      },
+      {
+        "text": "odgovaramo branimo šefa",
+        "n": 111
+      },
+      {
+        "text": "Odgovaramo, branimo šefa",
+        "n": 106
+      },
+      {
+        "text": "Odgovaramo, branimo sefa",
+        "n": 71
+      },
+      {
+        "text": "branimo šefa",
+        "n": 69
+      },
+      {
+        "text": "Pisemo u komentarima: Vucic je rekao i tako ce i biti - da ce odgovarati svi koji su odgovorni. Ispitace se do sitnih detalja odgovornost svakog pojedinacno. Teska robija ceka one koji su odgovorni za ovu nesrecu. Podrska Vucicu u nameri da se svako i sve ispita do sitnih detalja. Porodicama preminulih saucesce. Niko nece biti zasticen. PISEMO SVOJIM RECIMA NE KOPIRAMO SMERNICU!",
+        "n": 51
+      },
+      {
+        "text": "Pisemo komentare podrske coveku koji se bori sa nasim narodom na KiM protiv Kurtijevog terora. PISEMO SVOJIM RECIMA NE KOPIRAMO SMERNICU!",
+        "n": 49
+      },
+      {
+        "text": "Pisemo da je bivši snajperista u Sarajevu i poznati kriminalac Feđa Štukan kome je danas na aerodromu zabranjen ulazak u Srbiju, je tokom protesta Srbija protiv nasilja pozivao na nasilje, nasilnu promenu vlasti i radikalizaciju protesta.  Štukan je odbio da potpiše zabranu ulaska, sto dalje znači da je znao da ima zabranu ulaska u našu zemlju. Kao i uvek pokusava od sebe da napravi žrtvu uz pomoć Šolakovih medija koji mu daju podršku. NE KOPIRAMO SMERNICU!",
+        "n": 25
+      },
+      {
+        "text": "CIA preko svojih saradnika CRTE i njihovog “istrazivanja” porucila da Vucica narod nece, da je izgubio podrsku naroda. Evo Vucic sam kaze nije problem, ajmo da pitamo narod. SNS ce pomoci u procedurama, jer ni dovoljno poslanika nemaju. Odmah se javili NEEE, jer im smeta STVARNA VOLJA NARODA, da narod PODRZAVA VUCICA I VUCICU VERUJE. Svesni su da je istrazivanje CRTE lazno. PISEMO SVOJIM RECIMA NE KOPIRAMO SMERNICU",
+        "n": 19
+      },
+      {
+        "text": "Pisemo komentare u smislu da su opet doziveli totalni fijasko. Vise ima kerova lutalica od njih koji su se skupili. Kao i svaki put podrska im je izostala. Pitamo im gde su im ljudi na protestu isl NE KOPIRAMO SMERNICU PISEMO SVOJIM RECIMA",
+        "n": 17
+      },
+      {
+        "text": "Pisemo da je bivši snajperista u Sarajevu i poznati kriminalac Feđa Štukan kome je danas na aerodromu zabranjen ulazak u Srbiju, je tokom protesta Srbija protiv nasilja pozivao na nasilje, nasilnu promenu vlasti i radikalizaciju protesta.  Štukan je odbio da potpiše zabranu ulaska, sto dalje znači da je znao da ima zabranu ulaska u našu zemlju. Kao i uvek pokusava od sebe da napravi žrtvu uz pomoć Šolakovih medija koji mu daju podršku. NE KOPIRAMO SMERNICU!",
+        "n": 13
+      }
+    ],
+    "SS": [
+      {
+        "text": "odgovaramo po smernici iz ss",
+        "n": 242
+      },
+      {
+        "text": "Odgovaramo po smernici iz ss",
+        "n": 213
+      },
+      {
+        "text": "odgovaramo po smernici iz super specijala",
+        "n": 195
+      },
+      {
+        "text": "odgovaramo po smernici iz SS",
+        "n": 118
+      },
+      {
+        "text": "Odgovaramo po smernici iz super specijala",
+        "n": 55
+      },
+      {
+        "text": "po smernici iz Super specijala",
+        "n": 24
+      }
+    ],
+    "CET": [
+      {
+        "text": "smernica iz ceta",
+        "n": 1
+      },
+      {
+        "text": "Ovde okacite link objave sa videom iz ceta ",
+        "n": 15
+      },
+      {
+        "text": "Ovde potvrdite da ste podelili video sa Šefom iz ceta",
+        "n": 15
+      },
+      {
+        "text": "Ovde okacite link objave sa videom iz ceta",
+        "n": 3
+      },
+      {
+        "text": "Ovde potvrdite da ste podelili video o opoziciji iz ceta",
+        "n": 2
+      },
+      {
+        "text": "Ovde okacite link objave sa Šefovim videom iz ceta ",
+        "n": 2
+      },
+      {
+        "text": "Ovde okačite link objave videa iz ceta",
+        "n": 2
+      }
+    ]
+  },
+  "defs": {
+    "opp_handles": [
+      "marinikatepic",
+      "kpromeni",
+      "onlinedanas",
+      "n1srbija",
+      "novarsonline",
+      "gjesic",
+      "slobodaipravda",
+      "slobageorgiev",
+      "zdravkoponos",
+      "miranpogacar",
+      "narodnipokrets",
+      "dragandjilas"
+    ],
+    "pro_handles": [
+      "sns_srbija",
+      "avucic",
+      "milos_vucevic",
+      "buducnostsrbijeav",
+      "vucic",
+      "predsednikrs",
+      "sinisamali",
+      "anabrnabic",
+      "srbijanavidiku"
+    ],
+    "agg_regex": "brutalno|zezamo|sprdamo|hejt|lazov|resavamo|pukli",
+    "sup_regex": "branim|hvalim|podr[sš]k|slavim|[cč]estit|cuvamo|čuvamo",
+    "note": "Taksonomija klasifikuje na normalizovanom tekstu (lower + ćirilica→latinica + bez dijakritika). Lanac/izvor koriste isti raw AGG/SUP regex kao toksičnost radi konzistentnosti."
+  }
+}

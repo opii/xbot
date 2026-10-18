@@ -112,6 +112,7 @@ export default function GraphExplorer() {
   const [geoData, setGeoData] = useState([]);
   const [tmData, setTmData] = useState(null);
   const [cvData, setCvData] = useState(null);
+  const [dirData, setDirData] = useState(null);
 
   const merge = useCallback((incoming) => {
     setData((prev) => {
@@ -156,16 +157,18 @@ export default function GraphExplorer() {
     setViewState(v); setMinShared(0);
     if (v === 'behav' && metric) setBehavMetric(metric);
     if (v === 'bursts') loadBursts();
-    else if (v === 'command' || v === 'command_voter') { setDetail(null); setPathInfo(null); setBurstInfo(null); }
+    else if (v === 'command' || v === 'command_voter' || v === 'directives') { setDetail(null); setPathInfo(null); setBurstInfo(null); }
     else loadView(v, metric || behavMetric);
   };
 
-  useEffect(() => { if (view === 'bursts') loadBursts(); else if (view !== 'command' && view !== 'command_voter') loadView(view); }, [layer]); // eslint-disable-line
+  const NO_GRAPH = ['command', 'command_voter', 'directives'];
+  useEffect(() => { if (view === 'bursts') loadBursts(); else if (!NO_GRAPH.includes(view)) loadView(view); }, [layer]); // eslint-disable-line
   useEffect(() => { fetch(`${API}/api/regions`).then((r) => r.json()).then((d) => setOkruzi(d.okruzi || [])).catch(() => {}); }, []);
   useEffect(() => { fetch(`${API}/api/behavior_cohort`).then((r) => r.json()).then(setCohort).catch(() => {}); }, []);
   useEffect(() => { fetch(`${API}/api/geo`).then((r) => r.json()).then((d) => setGeoData(d.okruzi || [])).catch(() => {}); }, []);
   useEffect(() => { fetch(`${API}/api/taskmasters?limit=40`).then((r) => r.json()).then(setTmData).catch(() => {}); }, []);
   useEffect(() => { fetch(`${API}/api/command_voter`).then((r) => r.json()).then(setCvData).catch(() => {}); }, []);
+  useEffect(() => { fetch(`${API}/api/directives?top=25`).then((r) => r.json()).then(setDirData).catch(() => {}); }, []);
   useEffect(() => {
     const upd = () => wrapRef.current && setDim({ w: wrapRef.current.offsetWidth, h: 640 });
     upd(); window.addEventListener('resize', upd);
@@ -396,6 +399,7 @@ export default function GraphExplorer() {
         <Section title="Komanda">
           <NavItem color="#f43f5e" active={view === 'command'} onClick={() => setView('command')}>⌘ Task-masteri (ko zadaje)</NavItem>
           <NavItem color="#f43f5e" active={view === 'command_voter'} onClick={() => setView('command_voter')}>⚖ Komandna odgovornost & Voter</NavItem>
+          <NavItem color="#a78bfa" active={view === 'directives'} onClick={() => setView('directives')}>📋 Direktive (šta se naređuje)</NavItem>
         </Section>
 
         <Section title="Filteri">
@@ -736,6 +740,114 @@ export default function GraphExplorer() {
                 {m.max_org > 0 && ` · org ${m.max_org}`}
                 {m.voter_priority_tasks > 0 && ` · ${m.voter_priority_tasks} voter-prioritet zadataka`}
               </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {view === 'directives' && !detail && !pathInfo && dirData && dirData.twitter && (
+        <div style={{ ...panelStyle, flex: '0 0 360px' }}>
+          <div style={{ fontWeight: 600, color: 'var(--text-main)' }}>📋 Direktive — šta se naređuje</div>
+          <div style={{ color: 'var(--text-muted)', fontSize: '0.72rem', margin: '0.3rem 0 0.5rem', lineHeight: 1.4 }}>
+            Taksonomija smernica (tviter + vesti), lanac direktiva→meta→reakcija i centralni komandni izvor.
+          </div>
+
+          {/* TAKSONOMIJA */}
+          <div style={{ fontWeight: 600, fontSize: '0.8rem', color: '#a78bfa', marginBottom: '0.3rem' }}>Taksonomija</div>
+          {[['Tviter', dirData.twitter], ['Vesti', dirData.news]].map(([lbl, d]) => (
+            <div key={lbl} style={{ marginBottom: '0.5rem' }}>
+              <div style={{ fontSize: '0.76rem', color: 'var(--text-main)' }}>{lbl} · {(d.total || 0).toLocaleString('sr-RS')} direktiva</div>
+              <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)', marginTop: '0.1rem' }}>
+                ton: <span style={{ color: '#ef4444' }}>napad {(d.by_tone?.napad || 0).toLocaleString('sr-RS')}</span>
+                {' · '}<span style={{ color: '#22c55e' }}>odbrana {(d.by_tone?.odbrana || 0).toLocaleString('sr-RS')}</span>
+                {' · '}neutral {(d.by_tone?.neutral || 0).toLocaleString('sr-RS')}
+              </div>
+              <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>
+                izvor: <span style={{ color: '#f59e0b' }}>SS {(d.by_source?.SS || 0).toLocaleString('sr-RS')}</span>
+                {' · '}<span style={{ color: '#f59e0b' }}>ČET {(d.by_source?.CET || 0).toLocaleString('sr-RS')}</span>
+                {' · '}ŠEF {(d.by_source?.SEF || 0).toLocaleString('sr-RS')}
+                {d.by_source?.automatika ? ` · auto ${d.by_source.automatika.toLocaleString('sr-RS')}` : ''}
+                {' · '}cross-platform {(d.cross_platform || 0).toLocaleString('sr-RS')}
+              </div>
+            </div>
+          ))}
+
+          {/* LANAC tviter: ton × meta */}
+          <div style={{ fontWeight: 600, fontSize: '0.8rem', color: '#a78bfa', margin: '0.5rem 0 0.3rem' }}>Lanac: ton → meta → sinhronija</div>
+          <div style={{ color: 'var(--text-muted)', fontSize: '0.68rem', marginBottom: '0.3rem', lineHeight: 1.35 }}>
+            burst = udeo odgovora u prvih 10 min (viši = koordinisanije). Napad-direktive su malobrojne — većina napada ide pod generičkim „odgovaramo" (ton u izboru mete).
+          </div>
+          <table style={{ width: '100%', fontSize: '0.68rem', borderCollapse: 'collapse' }}>
+            <thead><tr style={{ color: 'var(--text-muted)', textAlign: 'left' }}>
+              <th>ton</th><th>meta</th><th style={{ textAlign: 'right' }}>n</th><th style={{ textAlign: 'right' }}>med s</th><th style={{ textAlign: 'right' }}>burst</th>
+            </tr></thead>
+            <tbody>
+              {(dirData.chain?.twitter_tone_target || []).map((r, i) => (
+                <tr key={i} style={{ borderTop: '1px solid var(--glass-border)' }}>
+                  <td style={{ color: r.tone === 'napad' ? '#ef4444' : r.tone === 'odbrana' ? '#22c55e' : 'var(--text-muted)' }}>{r.tone}</td>
+                  <td style={{ color: r.target === 'opozicija' ? '#f87171' : r.target === 'rezim' ? '#60a5fa' : 'var(--text-muted)' }}>{r.target}</td>
+                  <td style={{ textAlign: 'right' }}>{r.n.toLocaleString('sr-RS')}</td>
+                  <td style={{ textAlign: 'right' }}>{r.med_lat_s}</td>
+                  <td style={{ textAlign: 'right', color: r.burst10 >= 0.25 ? '#fbbf24' : 'var(--text-main)' }}>{r.burst10}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+
+          {/* LANAC vesti: ton × portal → prolaznost */}
+          <div style={{ fontWeight: 600, fontSize: '0.8rem', color: '#a78bfa', margin: '0.5rem 0 0.3rem' }}>Lanac: portal → prolaznost moderacije</div>
+          <table style={{ width: '100%', fontSize: '0.68rem', borderCollapse: 'collapse' }}>
+            <thead><tr style={{ color: 'var(--text-muted)', textAlign: 'left' }}>
+              <th>portal</th><th>ton</th><th style={{ textAlign: 'right' }}>zadataka</th><th style={{ textAlign: 'right' }}>prolaz</th>
+            </tr></thead>
+            <tbody>
+              {(dirData.chain?.news_tone_portal || []).filter((r) => r.portal !== 'ostalo').map((r, i) => (
+                <tr key={i} style={{ borderTop: '1px solid var(--glass-border)' }}>
+                  <td style={{ color: r.portal === 'kriticki' ? '#f87171' : '#60a5fa' }}>{r.portal}</td>
+                  <td style={{ color: r.tone === 'napad' ? '#ef4444' : r.tone === 'odbrana' ? '#22c55e' : 'var(--text-muted)' }}>{r.tone}</td>
+                  <td style={{ textAlign: 'right' }}>{r.tasks.toLocaleString('sr-RS')}</td>
+                  <td style={{ textAlign: 'right', color: r.pass_rate != null && r.pass_rate < 0.05 ? '#f87171' : r.pass_rate >= 0.3 ? '#fbbf24' : 'var(--text-main)' }}>
+                    {r.pass_rate != null ? `${(r.pass_rate * 100).toFixed(1)}%` : '—'}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+
+          {/* KOMANDNI IZVOR SS/ČET */}
+          <div style={{ fontWeight: 600, fontSize: '0.8rem', color: '#a78bfa', margin: '0.5rem 0 0.3rem' }}>
+            Centralni izvor (SS / ČET / ŠEF)
+          </div>
+          <div style={{ color: '#fbbf24', fontSize: '0.66rem', margin: '0 0 0.4rem', padding: '0.3rem 0.4rem', border: '1px solid rgba(251,191,36,0.4)', borderRadius: 6, lineHeight: 1.4 }}>
+            ⚠ Fer play: {dirData.command_source?.disclaimer}
+          </div>
+          <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)', marginBottom: '0.3rem' }}>
+            SS {(dirData.command_source?.ss_total || 0).toLocaleString('sr-RS')} · ČET {(dirData.command_source?.cet_total || 0).toLocaleString('sr-RS')} · ŠEF-ref {(dirData.command_source?.sef_total || 0).toLocaleString('sr-RS')} · {dirData.command_source?.central_issuers} izdavača centralnih
+          </div>
+          {(dirData.command_source?.top_issuers || []).map((m) => (
+            <div key={m.id} onClick={() => (m.max_org > 0 || m.centroid) && onNodeClick({ id: `op:${m.id}`, type: 'operator' })}
+              style={{ padding: '0.3rem 0', borderBottom: '1px solid var(--glass-border)', cursor: (m.max_org > 0 || m.centroid) ? 'pointer' : 'default' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.8rem' }}>
+                <span style={{ color: m.centroid ? '#fde047' : 'var(--text-main)' }}>{m.centroid && '★ '}{m.ime || `#${m.id}`}</span>
+                <span style={{ color: '#f59e0b' }}>SS {m.ss} · ČET {m.cet}</span>
+              </div>
+              <div style={{ color: 'var(--text-muted)', fontSize: '0.68rem' }}>
+                {m.coordinator && <span style={{ color: '#60a5fa' }}>koordinator · </span>}
+                {m.sef > 0 && `ŠEF-ref ${m.sef} · `}{m.okrug || '?'}{m.max_org > 0 && ` · org ${m.max_org}`}
+              </div>
+            </div>
+          ))}
+
+          {/* PRIMERI */}
+          <div style={{ fontWeight: 600, fontSize: '0.8rem', color: '#a78bfa', margin: '0.6rem 0 0.3rem' }}>Primeri direktiva</div>
+          {Object.entries(dirData.examples || {}).map(([cat, rows]) => (
+            <div key={cat} style={{ marginBottom: '0.4rem' }}>
+              <div style={{ fontSize: '0.7rem', color: cat === 'napad' ? '#ef4444' : cat === 'odbrana' ? '#22c55e' : '#f59e0b' }}>{cat}</div>
+              {(rows || []).slice(0, 4).map((r, i) => (
+                <div key={i} style={{ fontSize: '0.67rem', color: 'var(--text-muted)', paddingLeft: '0.5rem' }}>
+                  „{r.text}" <span style={{ opacity: 0.6 }}>×{r.n.toLocaleString('sr-RS')}</span>
+                </div>
+              ))}
             </div>
           ))}
         </div>
