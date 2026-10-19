@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-18T13:56:18",
+  "generated": "2026-10-18T20:13:49",
   "ss_priority": {
     "ss": {
       "tasks": 724,
@@ -251,16 +251,16 @@
       "first_rate": 0.125
     },
     {
-      "okrug": "Severnobanatski okrug",
-      "first_moves": 14,
-      "participated": 91,
-      "first_rate": 0.154
-    },
-    {
       "okrug": "Šumadijski okrug",
       "first_moves": 14,
       "participated": 127,
       "first_rate": 0.11
+    },
+    {
+      "okrug": "Severnobanatski okrug",
+      "first_moves": 14,
+      "participated": 91,
+      "first_rate": 0.154
     },
     {
       "okrug": "Rasinski okrug",

@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-18T06:02:36",
+  "generated": "2026-10-18T20:12:40",
   "twitter": {
     "total": 498648,
     "by_action": {
@@ -258,21 +258,21 @@
   "news": {
     "total": 61775,
     "by_action": {
-      "deljenje": 3628,
-      "lajk": 44881,
       "ostalo": 8551,
-      "odgovor": 999,
+      "lajk": 44881,
+      "deljenje": 3628,
       "komentar": 3697,
+      "odgovor": 999,
       "citat": 19
     },
     "by_tone": {
       "neutral": 58265,
-      "napad": 3266,
-      "odbrana": 244
+      "odbrana": 244,
+      "napad": 3266
     },
     "by_source": {
-      "bez": 51449,
       "automatika": 1736,
+      "bez": 51449,
       "SEF": 6395,
       "CET": 2195
     },
