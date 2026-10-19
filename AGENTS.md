@@ -267,6 +267,7 @@ Sve brojke su reproducibilne iz Postgresa/Neo4j nakon `load_graph.py`.
 Svi pragovi su izbori — menjaju gustinu/osetljivost; čitati rezultate uz njih.
 
 **Veze (slojevi koordinacije), svi operater–operater, težina = broj deljenog:**
+(objašnjenje za čitaoce, sa brojkama i tumačenjem: [`docs/slojevi_koordinacije.md`](docs/slojevi_koordinacije.md))
 - `CO_ACTED` (tviter): dele **diskriminativne mete** — tvitove koje dira 2–30
   operatera (ceil izbacuje mase); prag ≥4 deljene mete. `--coact-ceil/min`.
 - `CO_COMMENTED` (komentari): dele vesti koje komentariše 2–20 operatera; prag ≥5.

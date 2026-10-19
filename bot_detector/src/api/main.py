@@ -1408,6 +1408,9 @@ DOCS_META = [
     ("docs/ISTRAZIVACKI_DOSIJE_CACIX.md", "Istraživački dosije", "📑", "Sinteza",
      "Automatski generisan dosije iz žive baze (isti sadržaj kao dugme „Dosije“)."),
 
+    ("docs/slojevi_koordinacije.md", "Slojevi koordinacije", "🧩", "Metodologija",
+     "Šta znači prekidač Tviter/Komentari: CO_ACTED vs CO_COMMENTED, pragovi i tumačenje."),
+
     ("docs/analiza_direktiva.md", "Analiza direktiva", "📋", "Komanda",
      "Taksonomija smernica, lanac direktiva→meta→reakcija, centralni SS/ČET izvor."),
     ("docs/analiza_koordinatora.md", "Analiza koordinatora", "🏛", "Komanda",

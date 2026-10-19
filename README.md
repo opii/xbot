@@ -291,7 +291,10 @@ compose kredencijalima — menjati samo ako baze nisu lokalne.
 Interfejs je **levi meni** (Sloj / Pogled / Bihevioralna analiza / Kampanje /
 Filteri / Alatke):
 
-- **Sloj:** *Tviter / Komentari* menja mrežu, bojenje i razlistavanje.
+- **Sloj:** *Tviter / Komentari* menja mrežu, bojenje i razlistavanje — `CO_ACTED`
+  (dele iste tvitove-mete) nasuprot `CO_COMMENTED` (komentarišu iste vesti). Objašnjenje
+  sa pragovima i tumačenjem: [`docs/slojevi_koordinacije.md`](docs/slojevi_koordinacije.md),
+  dostupno i iz aplikacije preko „ⓘ šta je razlika?“ uz sam prekidač.
 - **Pogled:** Pregled (povezanost) · **Geografija** (okruzi) · **Uloge** (Pojačivač/Odgovarač/Mešovit) ·
   **★ Organizatori** (zajednice, centroidi) · **⚑ Master** (oba sloja).
 - **Bihevioralna analiza** (boji i rangira graf po): skor automatizacije · noćna

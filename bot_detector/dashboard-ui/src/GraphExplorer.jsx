@@ -106,6 +106,7 @@ export default function GraphExplorer() {
   const [pathInfo, setPathInfo] = useState(null);
   const [discrim, setDiscrim] = useState(true);
   const [layer, setLayer] = useState('twitter');
+  const [docsDoc, setDocsDoc] = useState(null);  // dokument za ugrađeni čitač
   const [view, setViewState] = useState('overview'); // overview|organizers|master|behav|bursts
   const [behavMetric, setBehavMetric] = useState('auto');
   const [burstList, setBurstList] = useState([]);
@@ -412,6 +413,17 @@ export default function GraphExplorer() {
           <div style={{ display: 'flex', borderRadius: 8, overflow: 'hidden', border: '1px solid var(--glass-border)' }}>
             {LAYER_BTN('twitter', 'Tviter')}{LAYER_BTN('comments', 'Komentari')}
           </div>
+          <div style={{ color: 'var(--text-muted)', fontSize: '0.68rem', lineHeight: 1.4, marginTop: '0.35rem' }}>
+            {layer === 'twitter'
+              ? 'veza = dele iste tvitove-mete (CO_ACTED)'
+              : 'veza = komentarišu iste vesti (CO_COMMENTED) · gušći sloj, koristi klizač/backbone'}
+            <button onClick={() => { setDocsDoc('docs/slojevi_koordinacije.md'); setView('docs'); }}
+              title="Otvori objašnjenje slojeva u dokumentaciji"
+              style={{ display: 'block', marginTop: '0.2rem', padding: 0, background: 'none', border: 'none',
+                       color: '#60a5fa', fontSize: '0.68rem', fontFamily: 'inherit', cursor: 'pointer' }}>
+              ⓘ šta je razlika?
+            </button>
+          </div>
         </Section>
 
         <Section title="Pogled">
@@ -452,7 +464,7 @@ export default function GraphExplorer() {
         </Section>
 
         <Section title="Dokumentacija">
-          <NavItem color="#fbbf24" active={view === 'docs'} onClick={() => setView('docs')}>📚 Studije i metodologija</NavItem>
+          <NavItem color="#fbbf24" active={view === 'docs'} onClick={() => { setDocsDoc(null); setView('docs'); }}>📚 Studije i metodologija</NavItem>
           <a href="#/docs" target="_blank" rel="noopener noreferrer"
             style={{ display: 'block', color: 'var(--text-muted)', fontSize: '0.68rem', textDecoration: 'none', padding: '0.1rem 0.55rem' }}>
             ↗ otvori kao zasebnu stranicu
@@ -844,7 +856,7 @@ export default function GraphExplorer() {
       )}
 
       {/* ───────────────── DOKUMENTACIJA ───────────────── */}
-      {view === 'docs' && <DocsViewer />}
+      {view === 'docs' && <DocsViewer key={docsDoc || 'index'} initialDoc={docsDoc} />}
 
       {view === 'directives' && !detail && !pathInfo && dirData && dirData.twitter && (
         <div style={widePanel}>
