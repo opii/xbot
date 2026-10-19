@@ -110,8 +110,17 @@ Turaka u Nemačkoj — ali ne zna koliko njih čita *baš tvoj portal*, i izmisl
 izgleda razumno. Tačan broj imaš samo ti, u svojim logovima.
 
 Model daje **skup zemalja koje su legitimno objašnjive** i obrazloženje za svaku.
-Baseline daje **koliko ih se očekuje**. Detektor meri **odstupanje od baseline-a, unutar
-skupa koji je model označio kao objašnjiv** — i posebno gleda sve van tog skupa.
+Baseline daje **koliko ih se očekuje**.
+
+Arhitektura primenjuje **dvo-kapijsku proveru (Two-gate check)**:
+1. **Kapija 1 (Semantička dozvola — LLM):** Da li je zemlja uopšte u `plausible_*` skupu?
+   Ako zemlja X (npr. Kamerun, Kongo ili Vijetnam za srpsku unutrašnju politiku) **nije** na
+   spisku, svaka pojava iznad statističkog šuma (npr. >0,5% saobraćaja) **odmah pali alarm**.
+   Engine tu uopšte ne pita baseline da li je ta zemlja „uobičajena u istoriji sajta“ —
+   semantički neobjašnjiva lokacija se seče na prvoj kapiji.
+2. **Kapija 2 (Statistička raspodela — Baseline):** Za zemlje koje **jesu** u objašnjivom
+   skupu (npr. Austrija, Nemačka), engine meri KL-divergenciju u odnosu na istorijski baseline
+   portala za tu klasu tema.
 
 ---
 
@@ -223,6 +232,11 @@ Napomene koje nisu kozmetičke:
   prvo obara keširanjem i `effort` nivoom, pa tek onda razmatranjem jeftinijeg modela —
   i to merenjem na stvarnim postovima, ne pretpostavkom.
 - **Vertex ima sopstveno partnersko tarifiranje**, različito od prvostrane API cene.
+- **Otpornost na Prompt Injection u telu posta.** Tekst vesti se u `messages` šalje unutar
+  strogo izolovanih XML/JSON blokova (`<article_content>`), uz eksplicitnu sistemsku
+  instrukciju da se sadržaj tretira isključivo kao neprovereni podatak, a ne kao direktiva.
+  Time se sprečava napad gde bi maliciozni autor teksta ili citat u članku pokušao da natera
+  model da npr. Kamerun proglasi za „objašnjivu dijasporu“.
 
 ---
 
@@ -244,6 +258,12 @@ Model bira iz ovog skupa; ne proširuje ga. Proširuje ga pull request.
 `cross_post_cohort` je najvredniji i najčešće izostavljen. Pojedinačan post sa čudnim
 saobraćajem je anegdota; **ista grupa koja se pojavljuje na deset kritičkih tekstova u
 istoj nedelji je obrazac.** To je, konceptualno, `CO_ACTED` iz Cacix-a primenjen uživo.
+
+*Napomena o mobilnom CGNAT-u:* Zbog zaštite privatnosti IP adrese se skraćuju na `/24`.
+U mobilnim mrežama (npr. domaći Telekom ili afrički provajderi poput CAMNET-a), stotine hiljada
+legitimnih korisnika dele iste CGNAT pool-ove. Zato `cross_post_cohort` nikada ne sme da se
+osloni samo na puki mrežni prefiks — kohorta se uvek vezuje za **spregu mrežnog prefiksa i
+bihevioralnog otiska** (isti uski vremenski prozor reakcije, dwell time < 2s, nula interakcije).
 
 ---
 
@@ -339,8 +359,24 @@ propušten bot je šum.
 
 Pošteno nabrojano, jer svaka od ovih stavki može da potopi projekat:
 
-- **Hladan start.** Nov portal ili nova tema nemaju baseline. Rešenje: globalni
-  podrazumevani profil + eksplicitno niska pouzdanost prvih 30 dana; dotad samo logovati.
+- **Hladan start.** Nov portal ili nova tema nemaju baseline. Rešenje: predefinisani
+  regionalni arhetipovi (npr. *srpski informativni portal*, *lokalni vojvođanski medij*) +
+  globalni podrazumevani profil uz eksplicitno nisku pouzdanost prvih 30 dana; dotad samo logovati.
+- **Zagađeni baseline (sindrom kuvane žabe / hronični napad).** Šta ako je portal mesecima
+  ili godinama već pod intenzivnim voter napadom (upravo scenario koji je Cacix otkrio — 550M
+  klikova godinama sa kladioničarskih terminala u Srbiji i Africi)? Ako se baseline naivno
+  izračuna kao prosek istorijskih logova, engine će 15% saobraćaja iz Kameruna proglasiti za
+  „normalno stanje“. Rešenje je četvorostruko:
+  1. *Semantički rez:* Neobjašnjive zemlje nikad ne ulaze u `plausible_*` (Kapija 1 ih seče
+     makar činile 50% istorijskog saobraćaja).
+  2. *Sanitizacija pre baseline-a (Clean Baseline):* Pre računanja istorijskih raspodela,
+     iz logova se filtriraju sesije sa očiglednim botovskim parametrima (dwell time < 3s, 0%
+     skrolovanja, hosting/serverski ASN-ovi).
+  3. *Unakrsno poređenje tema (Cross-topic baseline):* Voter mašine i operateri napadaju
+     politiku, izbore i afere. Niko ne botuje recepte, kulturu ili vremensku prognozu. Mirne
+     rubrike daju čist baseline stvarne publike portala.
+  4. *Bihevioralni sloj nadjačava procente:* Čak i ako napad dolazi iz legitimne zemlje
+     (npr. Nemačka ili domaći Telekom), nedostatak interakcije (`session_behavior`) ruši skor.
 - **Legitiman viralni proboj.** Tekst stvarno može da eksplodira u inostranstvu. Zato
   „neobično" ≠ „neautentično" — i zato red za pregled, a ne blokada.
 - **Adaptacija protivnika.** Ako su pragovi predvidivi, zaobići će ih. Ne izlagati
@@ -390,7 +426,7 @@ razlikuju se od prvostranih.
 
 | Faza | Šta | Zašto prvo |
 | --- | --- | --- |
-| 0 | Telemetrija + baseline iz istorije | **Bez baseline-a ništa drugo nema smisla.** Nema profila, nema modela — samo merenje. |
+| 0 | Telemetrija + **sanitizovani** baseline iz istorije | **Bez čistog baseline-a ništa drugo nema smisla.** Čišćenje logova od očiglednih bot-sesija (<3s) i unakrsno poređenje sa mirnim rubrikama pre računanja normala. Nema profila, nema modela — samo merenje. |
 | 1 | Tri detektora bez LLM-a: `geo_divergence`, `tempo_burst`, `asn_composition`, sa ručnim profilima po portalu | Dokazuje da signal uopšte postoji u podacima |
 | 2 | Profiler na Vertex AI, ali **samo u shadow režimu** — profili se čuvaju i porede sa ručnim | Meri da li model dodaje vrednost pre nego što išta zavisi od njega |
 | 3 | Ostatak kataloga detektora + kompozitni skor + red za pregled | Tek sad sistem nekom koristi |
