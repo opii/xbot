@@ -64,3 +64,13 @@ services:
 volumes:
   postgres_data:
   neo4j_data:
+
+# Podmreža je FIKSIRANA namerno. Docker podrazumevano bira sledeći slobodan opseg;
+# kad su 172.16–172.31 potrošeni (drugi projekti), pređe na 192.168.0.0/20 — što se
+# sudara sa tipičnom kućnom mrežom (192.168.0.x). Posledica: host ne može da dođe do
+# kontejnera (TCP se otvori, ali handshake nema odgovora), pa API puca na Postgres/Bolt.
+networks:
+  default:
+    ipam:
+      config:
+        - subnet: 10.77.0.0/16
