@@ -10,6 +10,14 @@
 
 Tokom analize mehanizma za automatsko glasanje na komentarima vesti (lupanje stotina miliona pluseva i minusa na portalima Blic, Kurir, Alo, Novosti, Klix, Vijesti), GeoIP i ASN analiza je otkrila da je **63% zapisa i 80% unikatnih IP adresa locirano van Srbije**, sa ogromnom koncentracijom u afričkim državama: **Kamerun (472 IP), Kongo (155 IP), Tanzanija (49 IP), Obala Slonovače (35 IP)**.
 
+> **Metodološka napomena — IP adrese nisu uređaji.** Vodeći strani ASN-ovi su mobilni
+> operateri (CAMNET, MTN, Orange Cameroon), a mobilne mreže koriste CGNAT i rotiraju
+> adrese: jedan uređaj kroz dan dobija više IP-ova, a jedan IP može deliti mnogo
+> korisnika. Brojevi iznad mere **mrežnu rasutost**, ne broj terminala. Broj mašina
+> dolazi iz `voter_racunari` (1.668, od toga 930 stranih). Argument o izbegavanju
+> rate-limitinga (§ niže) ovim nije pogođen — za zaštitni mehanizam portala je bitno
+> koliko **različitih adresa** vidi, a to je upravo ono što je izmereno.
+
 Postavilo se ključno istraživačko pitanje: *Da li iza ovih afričkih proksija stoje strane sile (npr. ruske ili kineske operacije uticaja) ili komercijalni botnet?*
 
 Detaljnom analizom kolone `vr_naziv_ss` u tabeli `progress.voter_racunari`, razotkriven je stvarni izvor: **infrastruktura pripada domaćem lancu sportskih kladionica i slot klubova sa razvijenim franšiznim poslovanjem u Africi (brendovi *Scooorebet*, *Casino*, *Joker*, *Maxi*)**.

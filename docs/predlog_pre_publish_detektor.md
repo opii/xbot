@@ -122,6 +122,23 @@ Arhitektura primenjuje **dvo-kapijsku proveru (Two-gate check)**:
    skupu (npr. Austrija, Nemačka), engine meri KL-divergenciju u odnosu na istorijski baseline
    portala za tu klasu tema.
 
+**„Pali alarm" znači signal, ne meru.** Kapija 1 proizvodi ulaz u kompozitni skor i red za
+pregled; sama, bez bihevioralnog ili infrastrukturnog signala, ne pokreće nikakvu automatsku
+meru. To je isto tvrdo pravilo iz §8 i ovde važi bez izuzetka.
+
+**Kapija 1 mora imati povratnu spregu.** Cena zaobilaženja baseline-a je da sve zavisi od
+toga da model nije *zaboravio* zemlju. Propusti li Švedsku (velika srpska zajednica) ili ne
+shvati da tekst o srpskom sportisti u Japanu legitimno privlači japanske čitaoce, dobijaš
+lažni pozitiv — a mreža koja bi ga uhvatila je upravo ta koju smo namerno zaobišli.
+
+Zato: zemlja koju recenzent **dva puta** označi kao legitimnu promoviše se u trajni
+`portal_allowlist`, koji se spaja sa `plausible_*` pri svakoj evaluaciji. Bez toga recenzenti
+mesecima dobijaju isti lažni alarm, prestanu da ga gledaju, i red za pregled postane šum —
+što je najčešći način na koji ovakvi sistemi tiho umru.
+
+Prag od 0,5% je ilustracija, ne vrednost za implementaciju: stvarni prag izvodi engine iz
+`sensitivity` nivoa i veličine uzorka (mali post nema statističku masu za bilo kakav zaključak).
+
 ---
 
 ## 5. Profil posta — ugovor sa modelom
@@ -238,6 +255,13 @@ Napomene koje nisu kozmetičke:
   Time se sprečava napad gde bi maliciozni autor teksta ili citat u članku pokušao da natera
   model da npr. Kamerun proglasi za „objašnjivu dijasporu“.
 
+  Izolacija je ublažavanje, ne garancija. Dve dopune: (a) `plausible_diaspora` se unakrsno
+  proverava sa **statičkom referentnom tabelom** stvarnih dijaspora — zemlja koju model doda
+  van te tabele traži ljudsku potvrdu pre nego što uđe u profil; (b) **`rationale` stringovi
+  su izlaz modela izveden iz neproverenog ulaza** i prikazuju se recenzentu, pa se pri
+  renderovanju tretiraju kao neproveren sadržaj (eskejpovanje, bez HTML-a) — inače je red za
+  pregled vektor i za XSS i za socijalni inženjering recenzenta.
+
 ---
 
 ## 7. Katalog detektora (fiksni engine)
@@ -282,10 +306,14 @@ pogrešno i uvredljivo.
 
 2. **Kakva je infrastruktura?** Ovo je često informativnije od same zemlje. Datacentar
    ili VPN izlaz ne dokazuje ništa — svako može zakupiti server za pet evra. Ali
-   **rezidencijalni ili mobilni ASN** znači fizički uređaj na toj lokaciji. U Cacix
-   podacima je najveći strani otisak upravo niz afričkih *mobilnih* operatera (CAMNET
-   472 IP, MTN, Orange Cameroon, Congo Telecom) — što je mnogo teže objasniti kao
-   anonimizaciju, a mnogo lakše kao stvarne terminale na stvarnim lokacijama.
+   **rezidencijalni ili mobilni ASN** znači da saobraćaj prolazi kroz mrežu krajnjih
+   korisnika na toj lokaciji. U Cacix podacima je najveći strani otisak upravo niz
+   afričkih *mobilnih* operatera (Kamerun 472 distinct IP: CAMNET 195, MTN 172,
+   Orange 124; pa Congo Telecom) — što je mnogo teže objasniti kao jeftinu anonimizaciju
+   nego hosting ASN.
+   **Ali oprez u oba smera:** mobilne mreže koriste CGNAT i rotiraju adrese, pa broj IP-ova
+   nije broj uređaja — ni gore ni dole. Mobilni ASN je *jači* signal od datacentra, ali
+   nije dokaz o broju mašina.
 
 3. **Da li se ponašanje razlikuje od ostatka te iste kohorte?** Beč koji čita kao i
    ostatak dijaspore je normalan. Beč koji glasa za 1,2 sekunde po članku, bez
@@ -375,6 +403,11 @@ Pošteno nabrojano, jer svaka od ovih stavki može da potopi projekat:
   3. *Unakrsno poređenje tema (Cross-topic baseline):* Voter mašine i operateri napadaju
      politiku, izbore i afere. Niko ne botuje recepte, kulturu ili vremensku prognozu. Mirne
      rubrike daju čist baseline stvarne publike portala.
+     **Ograda:** mirne rubrike daju *drugačiju* publiku, ne samo čistiju — čitaoci recepata se
+     geografski i demografski razlikuju od čitalaca politike. Zato se ovaj baseline koristi kao
+     **gornja granica i provera razumnosti** („može li politička rubrika imati 15% Kameruna kad
+     ga ceo portal nema 0,3%?"), a ne kao direktna očekivana raspodela. U suprotnom se jedna
+     pristrasnost zamenjuje drugom.
   4. *Bihevioralni sloj nadjačava procente:* Čak i ako napad dolazi iz legitimne zemlje
      (npr. Nemačka ili domaći Telekom), nedostatak interakcije (`session_behavior`) ruši skor.
 - **Legitiman viralni proboj.** Tekst stvarno može da eksplodira u inostranstvu. Zato

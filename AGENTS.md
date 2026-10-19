@@ -187,8 +187,11 @@ ljudi koji rade u smenama — ali je koordinacija vrlo jaka i merljiva.** Dokazi
   i afričke franšize pod brendom **`Scooorebet 13`**, `Casino`, `Joker` u Kongu
   (Brazavil/Rue Mbochis, Nkayi) i Kamerunu (Bertoua, Nkongsamba). **63% zapisa / 80%
   distinct IP van Srbije**. Najveći domaći ASN je AS8400 TELEKOM-AS (MTS, 251), ali
-  najveći strani otisak su **afrički mobilni provajderi**: CAMNET Kamerun (472 IP!),
-  MTN, Orange Cameroon, Congo Telecom, Tanzanija, Obala Slonovače. Detaljna studija:
+  najveći strani otisak su **afrički mobilni provajderi**: Kamerun ukupno 472 distinct IP
+  (CAMNET 195 + MTN 172 + Orange 124), pa Congo Telecom, Tanzanija, Obala Slonovače.
+  **GRANICA: IP ≠ uređaj** — mobilne mreže rotiraju adrese (CGNAT), pa je 472 mera mrežne
+  rasutosti, a ne broj terminala; broj mašina je u `voter_racunari` (1.668 / 930 stranih).
+  Detaljna studija:
   [`docs/voter_kladionice_infrastruktura.md`](docs/voter_kladionice_infrastruktura.md).
   Offline GeoIP: `src/analysis/voter_geoip.py` → `data/geo/voter_geoip.json`;
   u UI pogled „🌍 Voter/GeoIP (Afrika)" preko `/api/voter_geoip` (Afrika 66% IP,

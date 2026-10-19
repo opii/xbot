@@ -199,6 +199,15 @@ Ovo su **najvažnija ograničenja**; svaka tvrdnja van njih je izmišljena:
    naređenja. **Kaskada** (redosled/latencija) = korelacija (inferirana propagacija).
 7. **Partijski bodovi** = interna ekonomija koju sistem sam dodeljuje; ne izvode se
    zaključci van zabeleženog.
+8. **Broj IP adresa ≠ broj uređaja.** Vodeći strani ASN-ovi su **mobilni operateri**
+   (CAMNET 195, MTN Cameroon 172, Orange Cameroon 124 distinct IP). Mobilne mreže
+   koriste CGNAT i **rotiraju adrese** — jedan uređaj kroz dan prolazi kroz više IP-ova
+   iz pool-a, a istovremeno jedan IP može deliti mnogo korisnika. Zato „Kamerun 472 IP"
+   znači **472 različite mrežne adrese**, a ne 472 terminala; broj IP-ova je mera
+   mrežne rasutosti, ne broja mašina. Nalaz o stranoj infrastrukturi time ne slabi —
+   rasutost kroz **tri operatera i četiri države** (CM 472, CG 155, TZ 49, CI 35) ostaje
+   — ali se iz broja IP-ova **ne sme izvoditi broj uplatnih mesta ili uređaja**. Taj broj
+   dolazi iz `voter_racunari` (1.668 mašina, 930 stranih), ne iz GeoIP-a.
 
 ---
 

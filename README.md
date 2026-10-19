@@ -39,7 +39,8 @@ koliko poena). Podaci pokazuju:
   tabloidi puštaju ~32%.
 - **Strana voter infrastruktura:** automatsko glasanje (550M klikova) ide iz
   inostranstva — 63% zapisa van Srbije; najjači ASN je Telekom/MTS, ali odmah iza
-  slede afrički provajderi (CAMNET Kamerun 472 IP, MTN, Orange, Congo Telecom…).
+  slede afrički provajderi (Kamerun 472 distinct IP: CAMNET 195 + MTN 172 + Orange 124,
+  pa Congo Telecom…; IP ≠ uređaj — mobilne mreže rotiraju adrese).
   Afrika je **66% distinct IP** (Kamerun #1, ispred Srbije). Offline GeoIP:
   [`src/analysis/voter_geoip.py`](bot_detector/src/analysis/voter_geoip.py); u
   exploreru: pogled **„🌍 Voter / GeoIP (Afrika)"**.
