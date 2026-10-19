@@ -1,0 +1,183 @@
+/* Tipografija renderovanog Markdown-a (docs/*.md) — „📚 Dokumentacija" pogled. */
+
+.doc-md {
+  color: var(--text-main);
+  font-size: 0.9rem;
+  line-height: 1.68;
+  word-wrap: break-word;
+}
+
+.doc-md > *:first-child { margin-top: 0; }
+
+.doc-md h1,
+.doc-md h2,
+.doc-md h3,
+.doc-md h4 {
+  color: var(--text-main);
+  font-weight: 650;
+  line-height: 1.3;
+  margin: 1.8rem 0 0.7rem;
+  scroll-margin-top: 1rem;
+}
+
+.doc-md h1 {
+  font-size: 1.5rem;
+  margin-top: 0.4rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.doc-md h2 {
+  font-size: 1.2rem;
+  padding-bottom: 0.35rem;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.doc-md h3 { font-size: 1.02rem; color: #c7d2fe; }
+.doc-md h4 { font-size: 0.92rem; color: var(--text-muted); }
+
+.doc-md p { margin: 0.7rem 0; }
+
+.doc-md ul,
+.doc-md ol { margin: 0.6rem 0; padding-left: 1.4rem; }
+
+.doc-md li { margin: 0.25rem 0; }
+.doc-md li::marker { color: var(--accent-blue); }
+
+.doc-md a {
+  color: #60a5fa;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(96, 165, 250, 0.35);
+}
+
+.doc-md a:hover { color: #93c5fd; border-bottom-color: #93c5fd; }
+
+.doc-md strong { color: #fff; font-weight: 650; }
+
+.doc-md code {
+  font-family: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
+  font-size: 0.82em;
+  padding: 0.12em 0.4em;
+  border-radius: 5px;
+  background: rgba(148, 163, 184, 0.16);
+  color: #fcd34d;
+}
+
+.doc-md pre {
+  margin: 0.9rem 0;
+  padding: 0.85rem 1rem;
+  overflow-x: auto;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.38);
+  border: 1px solid var(--glass-border);
+}
+
+.doc-md pre code {
+  padding: 0;
+  background: none;
+  color: #e2e8f0;
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+
+.doc-md blockquote {
+  margin: 0.9rem 0;
+  padding: 0.1rem 0 0.1rem 0.9rem;
+  border-left: 3px solid var(--accent-orange);
+  color: var(--text-muted);
+  background: rgba(249, 115, 22, 0.05);
+}
+
+.doc-md table {
+  width: 100%;
+  margin: 0.9rem 0;
+  border-collapse: collapse;
+  font-size: 0.8rem;
+  display: block;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.doc-md thead th {
+  position: sticky;
+  top: 0;
+  padding: 0.45rem 0.7rem;
+  text-align: left;
+  font-size: 0.72rem;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  background: #141c33;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.doc-md tbody td {
+  padding: 0.4rem 0.7rem;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.doc-md tbody tr:hover { background: rgba(255, 255, 255, 0.03); }
+
+.doc-md hr {
+  margin: 1.6rem 0;
+  border: none;
+  border-top: 1px solid var(--glass-border);
+}
+
+.doc-md img { max-width: 100%; border-radius: 8px; }
+
+/* Lista dokumenata (leva kolona u pogledu) */
+.doc-item {
+  width: 100%;
+  display: block;
+  margin-bottom: 0.25rem;
+  padding: 0.45rem 0.55rem;
+  border: 1px solid transparent;
+  border-radius: 9px;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.doc-item:hover { background: rgba(255, 255, 255, 0.06); color: var(--text-main); }
+
+.doc-item.active {
+  background: rgba(59, 130, 246, 0.14);
+  border-color: rgba(96, 165, 250, 0.5);
+  color: var(--text-main);
+}
+
+.doc-item .doc-item-desc {
+  display: block;
+  margin-top: 0.15rem;
+  font-size: 0.68rem;
+  line-height: 1.35;
+  color: var(--text-muted);
+  white-space: normal;
+}
+
+/* Sadržaj (TOC) */
+.doc-toc a {
+  display: block;
+  padding: 0.18rem 0.4rem;
+  border-left: 2px solid transparent;
+  border-radius: 0 6px 6px 0;
+  color: var(--text-muted);
+  font-size: 0.74rem;
+  line-height: 1.35;
+  text-decoration: none;
+}
+
+.doc-toc a:hover { color: var(--text-main); background: rgba(255, 255, 255, 0.05); }
+.doc-toc a.lvl-3 { padding-left: 1rem; font-size: 0.71rem; }
+.doc-toc a.active { color: #93c5fd; border-left-color: #60a5fa; }
+
+@media print {
+  .doc-noprint { display: none !important; }
+  .doc-md { color: #000; }
+  .doc-md a { color: #00e; }
+}

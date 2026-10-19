@@ -305,6 +305,11 @@ Filteri / Alatke):
   značajne veze (čist graf, čuva male klastere).
 - **Alatke:** pretraga · **Putanja** (klik na dva operatera, + diskriminativne
   spone) · Reset · izvoz JSON/CSV/klaster · učitaj.
+- **📚 Dokumentacija:** čitač svih studija iz [`docs/`](docs/) direktno u aplikaciji
+  (pretraga po naslovu/opisu, automatski sadržaj dokumenta, međusobni linkovi,
+  preuzimanje `.md`, štampa). Otvara se i kao **zasebna stranica** na
+  [`#/docs`](http://localhost:5173/#/docs) — zgodno za čitanje u drugom tabu ili
+  slanje linka na konkretan dokument (`#/docs/docs/analiza_direktiva.md`).
 - **Bihevioralni panel** (klik na operatera): skor automatizacije sa percentilom,
   komponente, ritam po satu, radni dani, histogram latencije, dnevni timeline,
   miks akcija i (za komentatore) duplikati + portali.
@@ -329,6 +334,7 @@ Filteri / Alatke):
 | `/api/target/{handle}`, `/api/account/{id}` | reverzno razlistavanje |
 | `/api/regions`, `/api/search?q=`, `/api/stats` | šifarnici, pretraga, brojači |
 | `/api/export/operator/{id}` | ceo klaster (JSON) |
+| `/api/docs`, `/api/docs/{id}` | indeks dokumentacije i sirov Markdown iz `docs/` |
 
 Node id šema: `op:<id>`, `acc:<id>`, `tgt:<handle>`, `portal:<name>`, `news:<vid>`.
 Polja operatera: `co_degree`/`cc_degree`, `tw_org`/`cc_org`, `tw_community`/`cc_community`,

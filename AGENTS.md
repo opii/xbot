@@ -94,7 +94,9 @@ državi), `/api/export/investigation_dossier` (ceo dosije, Markdown download),
 `/api/shift_chat` (dnevnik dežurstava), `/api/gamification` (bodovi/kvote),
 `/api/regional_operations` (CG/BiH+proxy), `/api/tactical_groups` (divizije),
 `/api/system_surveillance` (F12/uređaji/SMS), `/api/multiplatform_stats` (6 mreža),
-`/api/voter_kurir`, `/api/voter_custom`.
+`/api/voter_kurir`, `/api/voter_custom`,
+`/api/docs` + `/api/docs/{id}` (indeks i sirov Markdown iz `docs/`; čita se sa
+diska pri svakom zahtevu — izmena .md fajla je odmah vidljiva u UI-ju).
 Node id šema: `op:<id>`, `acc:<id>`, `tgt:<handle>`,
 `portal:<name>`, `news:<vid>`. Operater nosi `auto_score` (+komponente),
 `lead_score`, `template_frac`, `reg_score`, `dup_ratio`, `role`, `farm_ratio`/
@@ -105,7 +107,9 @@ metrike (…/farm), Kampanje, Komanda (Task-masteri / Komandna odgovornost & Vot
 📋 Direktive / 🏛 Koordinatori / ⏱ Kaskada), Voter infrastruktura (🌍 Voter/GeoIP —
 Afrika, sa satnicom mašina Srbija vs strano); Komanda uključuje i „💬 Dnevnik
 dežurstava" i „🎯 Kvote & Bodovanje"; denoising klizač „min jačina veze" + „sakrij
-izolovane"; u Alatkama dugme „📑 Istraživački dosije" (download).
+izolovane"; u Alatkama dugme „📑 Istraživački dosije" (download). Sekcija „Dokumentacija"
+otvara čitač studija iz `docs/` (`DocsViewer.jsx`); isti čitač radi i kao
+zasebna stranica na `#/docs`.
 
 ## Kako pokrenuti
 ```bash

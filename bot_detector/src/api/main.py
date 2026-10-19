@@ -1393,6 +1393,120 @@ def stats():
     return {"operators": ops, "accounts": accs, "co_acted": co}
 
 
+# ───────────────────────── DOKUMENTACIJA (docs/*.md) ─────────────────────────
+# Markdown studije iz repo-a se serviraju UI-ju ("📚 Dokumentacija" pogled) i
+# čitaju se sa diska pri svakom zahtevu — izmena .md fajla je odmah vidljiva.
+
+DOCS_DIR = os.path.normpath(os.path.join(os.path.dirname(__file__), "..", "..", "..", "docs"))
+ROOT_DIR = os.path.normpath(os.path.join(os.path.dirname(__file__), "..", "..", ".."))
+
+# (fajl -> naslov, ikonica, kategorija, kratak opis). Redosled je redosled prikaza;
+# fajlovi koji nisu navedeni dolaze na kraj u kategoriji „Ostalo".
+DOCS_META = [
+    ("docs/CACIX_MASTER_OSINT_WHITEPAPER.md", "Master OSINT Whitepaper", "📕", "Sinteza",
+     "Sveobuhvatan publikabilni izveštaj: svi nalazi, pravni okvir i granice atribucije."),
+    ("docs/ISTRAZIVACKI_DOSIJE_CACIX.md", "Istraživački dosije", "📑", "Sinteza",
+     "Automatski generisan dosije iz žive baze (isti sadržaj kao dugme „Dosije“)."),
+
+    ("docs/analiza_direktiva.md", "Analiza direktiva", "📋", "Komanda",
+     "Taksonomija smernica, lanac direktiva→meta→reakcija, centralni SS/ČET izvor."),
+    ("docs/analiza_koordinatora.md", "Analiza koordinatora", "🏛", "Komanda",
+     "Hijerarhija Region→Okrug→Opština i nalaz „komanda ≠ izvršenje“."),
+    ("docs/analiza_kaskade.md", "Vremenska kaskada", "⏱", "Komanda",
+     "SS prioritet (17,6% brže), vrh koplja po okruzima, prekoregionalni tok."),
+    ("docs/analiza_komanda_i_voter.md", "Komanda i voter", "⚖", "Komanda",
+     "Task-masteri, voter privilegije i veza komandnog sloja sa glasanjem."),
+    ("docs/komandna_odgovornost_i_pravni_osnov.md", "Komandna odgovornost", "§", "Komanda",
+     "Pravni osnov i granice atribucije (šta se sme, a šta ne sme tvrditi)."),
+    ("docs/dnevnik_smena_i_kontrola.md", "Dnevnik smena i kontrola", "💬", "Komanda",
+     "Interni chat smena: primopredaja, kontrola kvaliteta, krizno brisanje."),
+    ("docs/gamifikacija_i_kvote.md", "Gamifikacija i kvote", "🎯", "Komanda",
+     "Partijska ekonomija bodova: quote 4,59 > reply 3,19 > rt 1,59 > lajk 1,49."),
+
+    ("docs/voter_kladionice_infrastruktura.md", "Voter ↔ kladionice", "🎰", "Voter infrastruktura",
+     "Terminali uplatnih mesta u Srbiji i afričke franšize; GeoIP i ASN otisak."),
+    ("docs/vlasnicki_profil_kladionica.md", "Vlasnički profil kladionica", "🏢", "Voter infrastruktura",
+     "Korporativni tragovi brendova u `vr_naziv_ss` (bez tvrdnji o vlasništvu)."),
+    ("docs/voter_mehanizam_kurir_custom.md", "Mehanizam: kurir i custom", "⚙", "Voter infrastruktura",
+     "Relay nalozi i headless JS/XPath injekcija (tajne redigovane)."),
+    ("docs/regionalne_operacije_cg_bih.md", "Regionalne operacije CG/BiH", "📡", "Voter infrastruktura",
+     "Prekogranični voter (CG 11,5M + BiH 6,1M) i proxy mreža."),
+
+    ("docs/takticke_grupe_i_divizije.md", "Taktičke grupe i divizije", "👥", "Operativa",
+     "30 grupa / 1.232 članstva: TikTok divizija, Voter admini, Hit Tvit, Nadzor."),
+    ("docs/nadzor_operatera.md", "Nadzor operatera", "🕵️", "Operativa",
+     "F12 telemetrija, 29.682 uređaja, SMS „Internet Tim“ (2FA, maskirano)."),
+    ("docs/multiplatform_arsenal.md", "Multiplatformski arsenal", "🌐", "Operativa",
+     "51.703 naloga na 6 mreža; 7.178 operatera na 3+ mreže."),
+
+    ("README.md", "README — izgradnja od nule", "🚀", "Projekat",
+     "Instalacija, uvoz baze, gradnja grafa i pokretanje (samo kod + SQLite)."),
+    ("AGENTS.md", "AGENTS.md — orijentir", "🧭", "Projekat",
+     "Arhitektura, heuristike, definicije metrika, pravila rukovanja podacima."),
+]
+_DOCS_BY_REL = {rel: (title, icon, cat, desc) for rel, title, icon, cat, desc in DOCS_META}
+
+
+def _docs_index():
+    """Lista dostupnih dokumenata (samo oni koji stvarno postoje na disku)."""
+    seen, out = set(), []
+    for rel, title, icon, cat, desc in DOCS_META:
+        p = os.path.join(ROOT_DIR, rel)
+        if not os.path.isfile(p):
+            continue
+        seen.add(os.path.normpath(p))
+        st = os.stat(p)
+        out.append({"id": rel, "title": title, "icon": icon, "category": cat,
+                    "description": desc, "bytes": st.st_size,
+                    "modified": datetime.fromtimestamp(st.st_mtime).isoformat(timespec="seconds")})
+    # fajlovi iz docs/ koji nisu u DOCS_META — da nijedan dokument ne „nestane"
+    if os.path.isdir(DOCS_DIR):
+        for fn in sorted(os.listdir(DOCS_DIR)):
+            p = os.path.normpath(os.path.join(DOCS_DIR, fn))
+            if not fn.endswith(".md") or p in seen:
+                continue
+            st = os.stat(p)
+            out.append({"id": f"docs/{fn}", "title": fn[:-3].replace("_", " "), "icon": "📄",
+                        "category": "Ostalo", "description": "", "bytes": st.st_size,
+                        "modified": datetime.fromtimestamp(st.st_mtime).isoformat(timespec="seconds")})
+    return out
+
+
+def _docs_resolve(doc_id):
+    """Mapira id iz zahteva na putanju — SAMO unutar docs/ ili na .md u korenu."""
+    rel = os.path.normpath((doc_id or "").lstrip("/"))
+    if rel.startswith("..") or os.path.isabs(rel) or not rel.endswith(".md"):
+        return None
+    p = os.path.normpath(os.path.join(ROOT_DIR, rel))
+    in_docs = p.startswith(DOCS_DIR + os.sep)
+    in_root = os.path.dirname(p) == ROOT_DIR and rel in _DOCS_BY_REL
+    if not (in_docs or in_root) or not os.path.isfile(p):
+        return None
+    return p
+
+
+@app.get("/api/docs")
+def docs_list():
+    """Indeks dokumentacije za „📚 Dokumentacija" pogled u UI-ju."""
+    return {"docs": _docs_index()}
+
+
+@app.get("/api/docs/{doc_id:path}")
+def docs_get(doc_id: str):
+    """Sirov Markdown jednog dokumenta (frontend ga renderuje)."""
+    p = _docs_resolve(doc_id)
+    if not p:
+        return Response(content=json.dumps({"error": "nepoznat dokument"}),
+                        media_type="application/json", status_code=404)
+    with open(p, encoding="utf-8") as f:
+        text = f.read()
+    meta = _DOCS_BY_REL.get(os.path.normpath(doc_id), (os.path.basename(p), "📄", "Ostalo", ""))
+    st = os.stat(p)
+    return {"id": doc_id, "title": meta[0], "icon": meta[1], "category": meta[2],
+            "description": meta[3], "markdown": text, "bytes": st.st_size,
+            "modified": datetime.fromtimestamp(st.st_mtime).isoformat(timespec="seconds")}
+
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)

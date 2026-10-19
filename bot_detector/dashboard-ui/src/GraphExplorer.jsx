@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
 import ForceGraph2D from 'react-force-graph-2d';
+import DocsViewer from './DocsViewer';
 
 const API = 'http://localhost:8000';
 
@@ -174,7 +175,7 @@ export default function GraphExplorer() {
     else loadView(v, metric || behavMetric);
   };
 
-  const NO_GRAPH = ['command', 'command_voter', 'directives', 'coordinators', 'cascade', 'geoip', 'shift_chat', 'gamification', 'regional_voter', 'tactical_ops'];
+  const NO_GRAPH = ['command', 'command_voter', 'directives', 'coordinators', 'cascade', 'geoip', 'shift_chat', 'gamification', 'regional_voter', 'tactical_ops', 'docs'];
   useEffect(() => { if (view === 'bursts') loadBursts(); else if (!NO_GRAPH.includes(view)) loadView(view); }, [layer]); // eslint-disable-line
   useEffect(() => { fetch(`${API}/api/regions`).then((r) => r.json()).then((d) => setOkruzi(d.okruzi || [])).catch(() => {}); }, []);
   useEffect(() => { fetch(`${API}/api/behavior_cohort`).then((r) => r.json()).then(setCohort).catch(() => {}); }, []);
@@ -448,6 +449,14 @@ export default function GraphExplorer() {
         <Section title="Voter infrastruktura">
           <NavItem color="#fb7185" active={view === 'geoip'} onClick={() => setView('geoip')}>🌍 Voter / GeoIP (Afrika)</NavItem>
           <NavItem color="#fb7185" active={view === 'regional_voter'} onClick={() => setView('regional_voter')}>📡 Prekogranični voter &amp; Relay</NavItem>
+        </Section>
+
+        <Section title="Dokumentacija">
+          <NavItem color="#fbbf24" active={view === 'docs'} onClick={() => setView('docs')}>📚 Studije i metodologija</NavItem>
+          <a href="#/docs" target="_blank" rel="noopener noreferrer"
+            style={{ display: 'block', color: 'var(--text-muted)', fontSize: '0.68rem', textDecoration: 'none', padding: '0.1rem 0.55rem' }}>
+            ↗ otvori kao zasebnu stranicu
+          </a>
         </Section>
 
         <Section title="Filteri">
@@ -833,6 +842,9 @@ export default function GraphExplorer() {
           ))}
         </div>
       )}
+
+      {/* ───────────────── DOKUMENTACIJA ───────────────── */}
+      {view === 'docs' && <DocsViewer />}
 
       {view === 'directives' && !detail && !pathInfo && dirData && dirData.twitter && (
         <div style={widePanel}>
