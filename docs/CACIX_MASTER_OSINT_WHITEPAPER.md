@@ -3,7 +3,7 @@
 
 **Verzija:** 1.0 · **Datum:** Oktobar 2026.
 **Izvor podataka:** interni backend sistema („ground-truth") — SQLite baza
-`progress` (~4,8 GB, 57 tabela) uvezena u PostgreSQL + Neo4j graf + offline GeoIP.
+`progress` (`progress_baza_podataka.sqlite3`, ~4,8 GB, 57 tabela; javno dostupna za preuzimanje na [ocisti.net](https://ocisti.net/)) uvezena u PostgreSQL + Neo4j graf + offline GeoIP.
 **Namena:** istraživačko novinarstvo, akademska zajednica, pravne/pravosudne institucije.
 **Status:** radni analitički dokument. **Fer-play granice atribucije su sastavni deo
 svakog nalaza** (vidi §8).

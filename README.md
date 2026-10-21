@@ -167,7 +167,10 @@ Zato je operater stabilna, pouzdana jedinica, a sama mreža predstavlja
 
 Izvor je `bot_detector/data/progress_baza_podataka.sqlite3` (~4,8 GB), uvezen 1:1
 u PostgreSQL šemu `progress` (57 tabela, ~12 GB sa indeksima). Baza se **ne drži
-u gitu** (`*.sqlite3` je u `.gitignore`).
+u gitu** (`*.sqlite3` je u `.gitignore`), a može se preuzeti:
+- preko sajta **[ocisti.net](https://ocisti.net/#baza-podataka)** (sekcija *Baza podataka*), ili
+- direktno sa **Mega.nz**: <https://mega.nz/file/KDJ1FTDC#SOEiEWxUH19WRJhyxu_QrrsRgl-EubHq31p7r1Xwjq8>
+- automatski pomoću instalacione skripte: `./rebuild.sh --download-only` (ili pri punom `./rebuild.sh`).
 
 Ključne tabele:
 
@@ -196,18 +199,20 @@ Ključne tabele:
 Ovaj vodič pretpostavlja da imaš **isključivo ovaj repozitorijum i SQLite bazu**.
 Sve ostalo (Postgres, Neo4j graf, analitički JSON-ovi, UI) se gradi lokalno.
 
-> ⚡ **Prečica:** posle koraka 0–2 (baza, Docker, venv), koraci **3–5 se rade jednim
-> pozivom**: [`bot_detector/rebuild.sh`](bot_detector/rebuild.sh) (`./rebuild.sh`;
-> `--help` za opcije). Preostaju samo backend (6) i frontend (7).
+> ⚡ **Prečica:** posle koraka 1–2 (Docker, venv), sve ostalo — **uključujući automatsko
+> preuzimanje SQLite baze** i korake **3–5** — radi se **jednim pozivom**:
+> [`bot_detector/rebuild.sh`](bot_detector/rebuild.sh) (`./rebuild.sh`; `--help` za opcije).
+> Preostaju samo backend (6) i frontend (7).
 
 ### 0. Preduslovi
 - **Docker** + **Docker Compose** (za Postgres i Neo4j).
 - **Python 3.11+** (testirano 3.13) i **Node.js 18+** (testirano 22) + `npm`.
-- **Baza `progress_baza_podataka.sqlite3`** (~4,8 GB). **NIJE u repo-u** (`.gitignore`) —
-  postaviti je ručno u `bot_detector/data/`:
-  ```bash
-  cp /putanja/do/progress_baza_podataka.sqlite3 bot_detector/data/
-  ```
+- **Baza `progress_baza_podataka.sqlite3`** (~4,8 GB). **NIJE u repo-u** (`.gitignore`).
+  - **Automatski:** [`./rebuild.sh`](bot_detector/rebuild.sh) (ili `./rebuild.sh --download-only`) sam pronalazi aktuelni Mega.nz link na [ocisti.net](https://ocisti.net/#baza-podataka) (uz fallback na direktan Mega link) i u letu preuzima i dešifruje bazu u `bot_detector/data/`.
+  - **Ručno:** preuzeti sa **[ocisti.net](https://ocisti.net/#baza-podataka)** (direktan link: [Mega.nz](https://mega.nz/file/KDJ1FTDC#SOEiEWxUH19WRJhyxu_QrrsRgl-EubHq31p7r1Xwjq8)) i postaviti u `bot_detector/data/`:
+    ```bash
+    cp /putanja/do/progress_baza_podataka.sqlite3 bot_detector/data/
+    ```
 
 ### 1. Baze (Docker)
 ```bash
@@ -276,7 +281,7 @@ npm run dev
 — promeniti ako je backend drugde).
 
 ### Šta NIJE u repo-u (mora se obezbediti/generisati)
-`*.sqlite3` (ti je daješ) · `data/geo/*.gz` (GeoIP, korak 5) · `venv/` (korak 2) ·
+`*.sqlite3` (preuzima se sa [ocisti.net](https://ocisti.net/)) · `data/geo/*.gz` (GeoIP, korak 5) · `venv/` (korak 2) ·
 `dashboard-ui/node_modules/` i `dist/` (korak 7). Sve ostalo (uklj. analitičke
 `data/geo/*.json`) je u repo-u.
 

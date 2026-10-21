@@ -31,7 +31,7 @@ operater, ko mu je dao zadatak, sa koje mašine je radio, koja je bila direktiva
 ljudi, osetljivi podaci — vidi Pravila).
 
 ## Podaci
-- Izvor: `bot_detector/data/progress_baza_podataka.sqlite3` (~4,8 GB, van gita).
+- Izvor: `bot_detector/data/progress_baza_podataka.sqlite3` (~4,8 GB, van gita; dostupno na <https://ocisti.net/#baza-podataka> / direktan Mega.nz: `https://mega.nz/file/KDJ1FTDC#SOEiEWxUH19WRJhyxu_QrrsRgl-EubHq31p7r1Xwjq8`; `bot_detector/rebuild.sh` je automatski preuzima i dešifruje ako nedostaje lokalno).
 - Uvezeno 1:1 u Postgres šemu `progress` skriptom
   [`bot_detector/src/import_progress_db.py`](bot_detector/src/import_progress_db.py)
   (57 tabela, ~12 GB, idempotentno; `--force` za ponovni uvoz; dekodira `\uXXXX`).
