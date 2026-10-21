@@ -11,8 +11,8 @@ kako izgleda vremenski obrazac aktivnosti (ljudski rad u smenama vs automatizaci
 
 📄 **Master OSINT Whitepaper (sveobuhvatna sinteza, publikabilno):**
 [`docs/CACIX_MASTER_OSINT_WHITEPAPER.md`](docs/CACIX_MASTER_OSINT_WHITEPAPER.md)
-📄 **Detaljna dokumentacija (grafovi + bihevioralna analiza):**
-<https://claude.ai/code/artifact/f44e1f1b-8ec4-4b85-bb11-19f820042143>
+📚 **Tematske studije i metodologija (grafovi, slojevi, komanda, voter):**
+[`docs/`](docs/) (dostupno i kroz ugrađeni čitač u aplikaciji na `#/docs`)
 🤖 Orijentir za AI agente: [`AGENTS.md`](AGENTS.md)
 
 ---

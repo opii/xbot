@@ -447,6 +447,4 @@ granu u `nodeColor` (`view==='xxx'`), `NavItem` u sekciji POGLED, i granu u
 — sveobuhvatan samostalan izveštaj (svi nalazi + pravni okvir + granice atribucije),
 za novinare/akademiju/pravosuđe. Automatski dosije: `/api/export/investigation_dossier`
 → [`docs/ISTRAZIVACKI_DOSIJE_CACIX.md`](docs/ISTRAZIVACKI_DOSIJE_CACIX.md).
-
-Živa dokumentacija (grafovi + bihevioralna analiza) je Claude doc:
-https://claude.ai/code/artifact/f44e1f1b-8ec4-4b85-bb11-19f820042143
+Sve pojedinačne studije i metodologija grafa/slojeva su u [`docs/`](docs/) (u UI čitaču na `#/docs`).
