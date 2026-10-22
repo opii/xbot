@@ -25,8 +25,16 @@ koliko poena). Podaci pokazuju:
 
 - **Ljudi u javnom sektoru, ne AI botovi:** 311 operatera radi pon–pet 08–16h;
   131 ima 100% aktivnosti u radno vreme (0% vikend/noć).
-- **Fizička farma mašina:** 191.390 akcija preko servera KANCELARIJASBB /
-  INDJIJA1 / INDJIJA2 (~1.938 operatera).
+- **Fizička farma mašina i razvojni centar u Inđiji:** 191.390 akcija preko servera
+  **KANCELARIJASBB / INDJIJA1 / INDJIJA2** (~1.938 operatera). Kontekst sa `ocisti.net`
+  otkriva da glavni developer platforme (koreni admin nalozi `k_id=1` `test.admin` i
+  `k_id=3313` `test6.admin.dfs`) vodi firmu **PHPDevs u Inđiji**, što direktno objašnjava
+  poreklo serverskih čvorova `INDJIJA1` i `INDJIJA2` ([`docs/istorijat_i_arhitektura_platforme.md`](docs/istorijat_i_arhitektura_platforme.md)).
+- **12-godišnja evolucija softvera (2012–2026):** sistem se razvijao kroz četiri generacije:
+  **Valter (2014, desktop voter)** → **Tvrđava (2015)** → **Castle / VotR2 (2017–2019,
+  mobilni voter na svakih 6s)** → **Progress.rs / Voter (2024–2026, PHP backend na
+  MTS-ovom MCloud-u + 32 verzije Voter klijenta `1.0.2.149`–`1.0.2.177` do 09.10.2026.)**
+  ([`docs/istorijat_i_arhitektura_platforme.md`](docs/istorijat_i_arhitektura_platforme.md)).
 - **Industrija lažnih identiteta:** jedan operater pod hiljadama pseudonima
   (#7418 → 2.378 imena na 17k komentara); do 96% duplikata, 100% šablonskog teksta.
 - **Vojnička sinhronija:** u 12% kampanja >85% operatera reaguje u prvih 10 min;

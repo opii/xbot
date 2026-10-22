@@ -1407,6 +1407,8 @@ DOCS_META = [
      "Sveobuhvatan publikabilni izveštaj: svi nalazi, pravni okvir i granice atribucije."),
     ("docs/ISTRAZIVACKI_DOSIJE_CACIX.md", "Istraživački dosije", "📑", "Sinteza",
      "Automatski generisan dosije iz žive baze (isti sadržaj kao dugme „Dosije“)."),
+    ("docs/istorijat_i_arhitektura_platforme.md", "Istorijat i arhitektura (2012–2026)", "🏛️", "Sinteza",
+     "Genealogija softvera (Valter → Tvrđava → Castle → VotR2 → Progress/Voter), PHPDevs/Inđija i MCloud."),
 
     ("docs/slojevi_koordinacije.md", "Slojevi koordinacije", "🧩", "Metodologija",
      "Šta znači prekidač Tviter/Komentari: CO_ACTED vs CO_COMMENTED, pragovi i tumačenje."),

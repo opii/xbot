@@ -14,9 +14,11 @@ Sistem je slao telemetriju centrali **čim operater otvori DevTools / F12 konzol
 Najpraćeniji: **Brankica Rašić (38×)**, Ivana Rajković (25×), Violeta Jakovljević (20×).
 
 **Nalaz:** postoji aktivan nadzor nad sopstvenim aktivistima (ko „zaviruje pod
-haubu"). Koncentracija baš u toj nedelji **korelira** sa poznatim internim događajima
-iz jula 2023 (npr. curenje spiska) — ali to je **vremenska korelacija**, ne dokaz
-uzroka.
+haubu"). Koncentracija baš u toj nedelji (**21.–27. jul 2023.**) direktno **korelira**
+sa velikim javnim curenjem spiska od **>14.000 naloga i >3.000 imena** iz jula 2023.
+(o kom je izveštavao RSE i koje je potvrđeno u Skupštini) — sve ukazuje da je nakon
+curenja spiska sprovedena interna kontraobaveštajna provera ko od operatera otvara
+inspektor u pretraživaču (vremenska korelacija; vidi i [`istorijat_i_arhitektura_platforme.md`](istorijat_i_arhitektura_platforme.md)).
 
 ## K6 — Digitalni otisak (korisnici_uredjaji)
 

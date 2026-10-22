@@ -15,6 +15,9 @@ Moduli: `src/analysis/voter_kurir_links.py` → `data/geo/voter_kurir_accounts.j
 `voter_kurir_nalozi`: **1.514 naloga** (svi `aktivan=1`, svi sa lozinkom — koja se
 ne izlaže), kreirani preko **jednokratnih (temp-mail) domena**: `undeep.xyz` (213),
 `smallntm.lol` (206), `dunkos.xyz` (170), `apwoghkn.site` (115), `nbmbb.com` (94)…
+Kolona `vreme_uzimanja` beleži početak masovnog preuzimanja/aktivacije **28.10.2024. u 09:14:01**
+(nakon čega u naredne dve godine klijent `voter_racunari` prolazi kroz **32 verzije**
+od `1.0.2.149` do `1.0.2.177`; vidi [`istorijat_i_arhitektura_platforme.md`](istorijat_i_arhitektura_platforme.md)).
 
 Preko `racunar_id → voter_racunari.vr_id`: nalozi su dodeljeni na **114 mašina**,
 od kojih **111 strano** (afričke lokacije: Bunker, Rue Mbochis, Nkongsamba…) i **3

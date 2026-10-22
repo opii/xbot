@@ -63,10 +63,11 @@ Među imenima mašina direktno se pojavljuju komercijalni nazivi uplatnih mesta:
 - **`Joker`**
 - **`Maxi 36`**, **`Maxi 79`**, **`Maxi 80`**
 
-### 2.5. Verzija klijentskog bot-softvera
+### 2.5. Verzija klijentskog bot-softvera i evolucija (Valter → VotR2 → Voter)
 Svi ovi računari imali su instaliran namenski klijent zabeležen u koloni `vr_verzija`:
-- Verzije u rasponu od `1.0.2.149` do `1.0.2.163`.
-- Aplikacija je radila tiho kao pozadinski servis (daemon) na terminalu uplatnog mesta.
+- U tabeli su zabeležene **32 različite verzije** u rasponu od `1.0.2.149` do `1.0.2.177` (uključujući specijalne `hardcode` bildove: `1.0.2.163 hardcode` … `1.0.2.176 hardcode`, kao i status `offline`), razvijane i ažurirane u periodu od oktobra 2024. do **9. oktobra 2026.**
+- Aplikacija radi potpuno autonomno („nijedan čovek ne sedi za tastaturom" — sama otvara komentar, klikće plus/minus i prelazi na sledeći) kao pozadinski servis na terminalu uplatnog mesta.
+- Istorijski, današnji **Voter** je četvrta iteracija istog alata za manipulaciju rangiranjem komentara: **Valter (2014, kućni računari)** → **Tvrđava (2015)** → **VotR2 (2019, mobilna aplikacija koja je glasala na svakih 6s na Kuriru, Espresu i Južnim vestima)** → **Voter (2024–2026)**. Vidi [`istorijat_i_arhitektura_platforme.md`](istorijat_i_arhitektura_platforme.md).
 
 ---
 

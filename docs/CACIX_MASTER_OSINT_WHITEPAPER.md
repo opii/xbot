@@ -63,9 +63,13 @@ institucionalizovana (komanda, kvote, nadzor, kontrola kvaliteta, krizno brisanj
 - **Rad u smenama / državna služba.** 311 operatera je „Kancelarijski" arhetip
   (pon–pet 08–16h), od toga **131 radi 100% u radno vreme sa 0% vikenda**. Uz to
   „noćna smena" i „vikend" arhetipi.
-- **Hardverske farme.** 1.938 operatera izvršava deo akcija preko namenskih serverskih
-  mašina: **KANCELARIJASBB** (1.241 op), **INDJIJA2** (411), **INDJIJA1** (286);
-  ukupno ~191.390 akcija.
+- **Hardverske farme i razvojni centar u Inđiji.** 1.938 operatera izvršava deo akcija
+  preko namenskih serverskih mašina: **KANCELARIJASBB** (1.241 op), **INDJIJA2** (411),
+  **INDJIJA1** (286); ukupno ~191.390 akcija. Prema podacima sa `ocisti.net` i korenskim
+  admin nalozima u bazi (`k_id=1` `test.admin`, `k_id=3313` `test6.admin.dfs`), tvorac
+  i glavni developer platforme još od 2012/2014. (program „Valter") vodi firmu
+  **PHPDevs u Inđiji**, što direktno objašnjava naziv i lokaciju serverskih čvorova
+  `INDJIJA1` i `INDJIJA2` (vidi [`docs/istorijat_i_arhitektura_platforme.md`](istorijat_i_arhitektura_platforme.md)).
 - **Ekonomija bodova (gamifikacija).** Sistem plaća po akciji (Σbodovi/Σcount):
   **quote 4,59 · reply 3,19 · komentar-prijava 3,17 · deljenje 1,85 · retvit 1,59 ·
   lajk 1,49**. Citat vredi ~3× lajk → ekonomija **podstiče aktivan napad/odgovor**,
@@ -107,10 +111,20 @@ institucionalizovana (komanda, kvote, nadzor, kontrola kvaliteta, krizno brisanj
   mesta (Borča, Požarevac Centar, Zrenjanin 3, Roma Novi Beograd 2, Krusevac Bronks 2)
   i afričke lokacije pod brendom **Scooorebet (59), Maxi (92), Joker (16), Casino** u
   Kongu (Brazavil, Nkayi, Dolisie) i Kamerunu (Bertoua, Nkongsamba).
-- **Instaliran softver (DOKAZ):** verzionisan klijent `vr_verzija` 1.0.2.172–177.
+- **Instaliran softver i 12-godišnja evolucija (DOKAZ + OSINT):** Voter je četvrta
+  generacija istog programa za automatsko glasanje bez čoveka za tastaturom:
+  **Valter (2014, desktop)** → **Tvrđava (2015)** → **Castle / VotR2 (2017–2019,
+  mobilna aplikacija)** → **Progress.rs / Voter (2024–2026)**. U koloni `vr_verzija`
+  zabeležene su **32 različite verzije** (`1.0.2.149`–`1.0.2.177`, uključujući specijalne
+  `hardcode` bildove) u periodu od oktobra 2024. do **9. oktobra 2026.** — dokaz
+  kontinuiranog razvoja i održavanja klijenta.
 - **GeoIP otisak:** **66% distinct IP** van Srbije; **Kamerun #1 (472 IP)** — ispred
-  Srbije (216). Vodeći strani ASN: CAMNET i MTN Kamerun, Orange Kamerun, Congo Telecom.
-- **Relay nalozi (`voter_kurir_nalozi`):** **1.514 naloga** preko jednokratnih
+  Srbije (216). Vodeći domaći ASN je **AS8400 TELEKOM-AS (MTS, 251)** (državna
+  infrastruktura na koju je sistem prebačen još 2016, a prema snimcima sa `ocisti.net`
+  backend se hostuje na MTS-ovom **MCloud.rs**), dok su vodeći strani ASN-ovi CAMNET i
+  MTN Kamerun, Orange Kamerun i Congo Telecom.
+- **Relay nalozi (`voter_kurir_nalozi`):** od **28. oktobra 2024.** (`vreme_uzimanja`)
+  kreće masovno vezivanje **1.514 naloga** (svi aktivni u bazi) preko jednokratnih
   (temp-mail) domena, dodeljenih (FK `racunar_id→vr_id`, DOKAZ) na **114 mašina
   (111 strano)** — infrastruktura za autorizaciju/upis, ne samo anonimno glasanje.
 - **Headless injekcija (`voter_glasanje_custom`):** sistem šalje **sirovi JavaScript
@@ -219,7 +233,7 @@ Interaktivni pregled: FastAPI (`:8000`) + React explorer (`:5173`) sa pogledima
 za svaki sloj; generator dosijea: `/api/export/investigation_dossier`.
 
 Detaljni moduli:
-`analiza_direktiva.md` · `analiza_koordinatora.md` · `analiza_kaskade.md` ·
+`istorijat_i_arhitektura_platforme.md` · `analiza_direktiva.md` · `analiza_koordinatora.md` · `analiza_kaskade.md` ·
 `dnevnik_smena_i_kontrola.md` · `gamifikacija_i_kvote.md` ·
 `komandna_odgovornost_i_pravni_osnov.md` · `voter_kladionice_infrastruktura.md` ·
 `vlasnicki_profil_kladionica.md` · `voter_mehanizam_kurir_custom.md` ·

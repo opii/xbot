@@ -157,9 +157,15 @@ ljudi koji rade u smenama — ali je koordinacija vrlo jaka i merljiva.** Dokazi
 - **Rad u smenama / državna služba.** 311 operatera je „Kancelarijski" arhetip
   (pon–pet 08–16h), od toga **131 radi 100% u radno vreme sa 0% vikenda**. Uz to
   21 „Noćna smena" i 251 „Vikend".
-- **Hardverska farma.** 1.938 operatera izvršava deo akcija preko namenskih
-  serverskih mašina: **KANCELARIJASBB** (1.241 op), **INDJIJA2** (411), **INDJIJA1**
-  (286). Ukupno 191.390 akcija (09/2024–06/2025).
+- **Hardverska farma i veza sa razvojnom firmom u Inđiji.** 1.938 operatera izvršava
+  deo akcija preko namenskih serverskih mašina: **KANCELARIJASBB** (1.241 op),
+  **INDJIJA2** (411), **INDJIJA1** (286). Ukupno 191.390 akcija (09/2024–06/2025).
+  Kontekst sa `ocisti.net` (i koreni admin nalozi `k_id=1` `test.admin`, `k_id=3313`
+  `test6.admin.dfs`) pokazuje da tvorac sistema još od 2012/2014. vodi firmu **PHPDevs
+  u Inđiji** — što direktno objašnjava naziv serverskih čvorova `INDJIJA1` i `INDJIJA2`.
+  Evolucija softvera: **Valter (2014) → Tvrđava (2015) → Castle / VotR2 (2017–2019) →
+  Progress.rs / Voter (2024–2026, 32 verzije `1.0.2.149`–`1.0.2.177` do 09.10.2026.,
+  PHP backend na MTS MCloud-u)**. Detalji: [`docs/istorijat_i_arhitektura_platforme.md`](docs/istorijat_i_arhitektura_platforme.md).
 - **Orkestracija je jaka (vojnička sinhronija).** U **12% kampanja (~4.800 od
   39.143)** preko **85% operatera reaguje u prvih 10 min** (medijana sinhronije je
   niža, ~0,18 — nisu sve kampanje jednako tesne). U najtešnjim lideri reaguju u
